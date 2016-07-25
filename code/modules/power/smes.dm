@@ -479,4 +479,4 @@
 
 //unit conversion helper
 /proc/smes_charge_to_kwh(var/charge)
-	return ((charge/SMESRATE)/((1 HOUR)/process_schedule_interval("machinery")))/1000 //((watt-ticks)/(ticks-per-hour))/(W-per-kW)
+	return ((charge/SMESRATE)/1000) //(watt-ticks)/(W-per-kW)

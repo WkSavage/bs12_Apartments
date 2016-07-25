@@ -169,7 +169,7 @@
 				usr << "<span class='notice'>Not enough points to add to cart. Adding to request list.</span>"
 				notenoughpoints = 1
 
-			var/timeout = world.time + 1 MINUTE
+			var/timeout = world.time + 1 MINUTES
 			var/reason = sanitize(input(usr,"Reason:","Why do you require this item?","") as null|text,,0)
 			if(world.time > timeout)	return TRUE
 			if(!reason)	return TRUE

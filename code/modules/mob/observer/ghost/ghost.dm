@@ -608,7 +608,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	if(invisibility == 0)
-		next_visibility_toggle = world.time + 1 MINUTE
+		next_visibility_toggle = world.time + 1 MINUTES
 		visible_message("<span class='emote'>It fades from sight...</span>", "<span class='info'>You are now invisible.</span>")
 		invisibility = INVISIBILITY_OBSERVER
 		show_hud_icon("cult", FALSE)

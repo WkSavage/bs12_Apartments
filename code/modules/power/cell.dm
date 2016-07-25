@@ -339,4 +339,4 @@ var/cell_uid = 1		// Unique ID of this power cell. Used to reduce bunch of uglie
 
 //unit conversion helper
 /proc/cell_charge_to_kwh(var/charge)
-	return ((charge/CELLRATE)/((1 HOUR)/process_schedule_interval("machinery")))/1000 //((watt-ticks)/(ticks-per-hour))/(W-per-kW)
+	return ((charge/CELLRATE)/1000) //((watt-ticks)/(ticks-per-hour))/(W-per-kW)
