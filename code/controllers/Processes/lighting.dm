@@ -59,8 +59,6 @@ var/global/datum/controller/process/lighting/lighting_controller
 
 		light_updates++
 
-		SCHECK
-
 	var/list/lighting_update_corners_old = lighting_update_corners //Same as above.
 	lighting_update_corners = list()
 	for(var/A in lighting_update_corners_old)
@@ -76,8 +74,6 @@ var/global/datum/controller/process/lighting/lighting_controller
 
 		corner_updates++
 
-		SCHECK
-
 	var/list/lighting_update_overlays_old = lighting_update_overlays //Same as above.
 	last_overlay_count = lighting_update_overlays.len
 	lighting_update_overlays = list()
@@ -90,5 +86,3 @@ var/global/datum/controller/process/lighting/lighting_controller
 		O.update_overlay()
 		O.needs_update = 0
 		overlay_updates++
-
-		SCHECK
