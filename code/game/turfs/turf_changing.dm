@@ -20,15 +20,23 @@
 		if(istype(below) && (air_master.has_valid_zone(below) || air_master.has_valid_zone(src)))
 			N = /turf/simulated/open
 
+	if(!lighting_corners_initialised)
+		for(var/i = 1 to 4)
+			if(corners[i]) // Already have a corner on this direction.
+				continue
+
+			corners[i] = new/datum/lighting_corner(src, LIGHTING_CORNER_DIAGONAL[i])
+
+
 	var/obj/fire/old_fire = fire
 	var/old_opacity = opacity
 	var/old_dynamic_lighting = dynamic_lighting
-	var/list/old_affecting_lights = affecting_lights
 	var/old_lighting_overlay = lighting_overlay
+	var/old_affecting_lights = affecting_lights
+	var/old_corners = corners
 
-	//world << "Replacing [src.type] with [N]"
-
-	if(connections) connections.erase_all()
+	if(connections)
+		connections.erase_all()
 
 	overlays.Cut()
 	underlays.Cut()
@@ -78,15 +86,20 @@
 		W.levelupdate()
 		. =  W
 
+	recalc_atom_opacity()
+
 	lighting_overlay = old_lighting_overlay
 	affecting_lights = old_affecting_lights
+
+	corners = old_corners
+
 	if((old_opacity != opacity) || (dynamic_lighting != old_dynamic_lighting) || force_lighting_update)
 		reconsider_lights()
 	if(dynamic_lighting != old_dynamic_lighting)
 		if(dynamic_lighting)
-			lighting_build_overlays()
+			lighting_build_overlay()
 		else
-			lighting_clear_overlays()
+			lighting_clear_overlay()
 
 /turf/proc/transport_properties_from(turf/other)
 	if(!istype(other, src.type))

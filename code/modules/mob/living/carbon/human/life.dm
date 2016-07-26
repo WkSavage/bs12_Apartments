@@ -566,6 +566,7 @@
 
 	if(status_flags & GODMODE)	return 0	//godmode
 
+/*
 	var/obj/item/organ/diona/node/light_organ = locate() in internal_organs
 	if(light_organ && !light_organ.is_broken())
 		var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
@@ -614,6 +615,7 @@
 			//traumatic_shock is updated every tick, incrementing that is pointless - shock_stage is the counter.
 			//Not that it matters much for diona, who have NO_PAIN.
 			shock_stage++
+*/
 
 	// TODO: stomach and bloodstream organ.
 	handle_trace_chems()
@@ -896,13 +898,14 @@
 		if (getToxLoss() >= 45 && nutrition > 20)
 			vomit()
 
+/*
 	//0.1% chance of playing a scary sound to someone who's in complete darkness
 	if(isturf(loc) && rand(1,1000) == 1)
 		var/turf/T = loc
 		var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
 		if(L && L.lum_r + L.lum_g + L.lum_b == 0)
 			playsound_local(src,pick(scarySounds),50, 1, -1)
-
+*/
 /mob/living/carbon/human/handle_stomach()
 	spawn(0)
 		for(var/mob/living/M in stomach_contents)
