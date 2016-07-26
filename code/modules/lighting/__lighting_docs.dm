@@ -48,7 +48,7 @@ turf: (lighting_turf.dm)
   - proc/reconsider_lights():
 	  - Force all light sources shining onto this turf to update
 
-  - proc/lighting_clear_overlays():
+  - proc/lighting_clear_overlay():
 	  - Delete (manual GC) all light overlays on this turf, used when changing turf to space
   - proc/lighting_build_overlays():
 	  - Create lighting overlays for this turf. Called by ChangeTurf in case the turf is being changed to use dynamic lighting.

@@ -133,16 +133,17 @@ var/global/list/light_type_cache = list()
 /obj/machinery/light
 	name = "light fixture"
 	icon = 'icons/obj/lighting.dmi'
-	var/base_state = "tube"		// base description and icon_state
 	icon_state = "tube1"
 	desc = "A lighting fixture."
-	anchored = 1
-	layer = 5  					// They were appearing under mobs which is a little weird - Ostaf
+	layer     = 5
+	anchored  = 1
 	use_power = 2
-	idle_power_usage = 2
-	active_power_usage = 20
-	power_channel = LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 
+	power_channel      = LIGHT  //Lights are calc'd via area so they dont need to be in the machine list
+	idle_power_usage   = 2
+	active_power_usage = 20
+
+	var/base_state = "tube" // base description and icon_state
 	var/on = 0					// 1 if on, 0 if off
 	var/status = LIGHT_OK		// LIGHT_OK, _EMPTY, _BURNED or _BROKEN
 	var/flickering = 0
@@ -391,7 +392,7 @@ var/global/list/light_type_cache = list()
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 75, 1)
 			user.visible_message("[user.name] opens [src]'s casing.", \
 				"You open [src]'s casing.", "You hear a noise.")
-			
+
 			new construct_type(src.loc, src)
 			qdel(src)
 			return
@@ -401,7 +402,6 @@ var/global/list/light_type_cache = list()
 			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()
-			//if(!user.mutations & COLD_RESISTANCE)
 			if (prob(75))
 				electrocute_mob(user, get_area(src), src, rand(0.7,1.0))
 
@@ -562,21 +562,23 @@ obj/machinery/light/proc/burn_out()
 // will fit into empty /obj/machinery/light of the corresponding type
 
 /obj/item/weapon/light
-	icon = 'icons/obj/lighting.dmi'
-	force = 2
+	icon       = 'icons/obj/lighting.dmi'
+	force      = 2
 	throwforce = 5
-	w_class = 1
-	var/status = 0		// LIGHT_OK, LIGHT_BURNED or LIGHT_BROKEN
-	var/base_state
-	var/switchcount = 0	// number of times switched
-	matter = list(DEFAULT_WALL_MATERIAL = 60)
-	var/rigged = 0		// true if rigged to explode
+	w_class    = 1
+	matter     = list(DEFAULT_WALL_MATERIAL = 60)
+
+	var/status        = 0  // LIGHT_OK, LIGHT_BURNED or LIGHT_BROKEN
+	var/rigged        = 0  // true if rigged to explode
+	var/switchcount   = 0  // number of times switched
 	var/broken_chance = 2
 
-	var/brightness_range = 2 //how much light it gives off
-	var/brightness_power = 1
-	var/brightness_color = "#FFFFFF"
+	var/brightness_range    = 2 //how much light it gives off
+	var/brightness_power    = 1
+	var/brightness_color    = "#FFFFFF"
 	var/list/lighting_modes = list()
+
+	var/base_state
 
 /obj/item/weapon/light/tube
 	name = "light tube"
@@ -584,20 +586,18 @@ obj/machinery/light/proc/burn_out()
 	icon_state = "ltube"
 	base_state = "ltube"
 	item_state = "c_tube"
-	matter = list("glass" = 100)
+	matter     = list("glass" = 100)
 
-	brightness_range = 8	// luminosity when on, also used in power calculation
-	brightness_power = 3
+	brightness_range = 5
+	brightness_power = 2
 	brightness_color = "#FFFFFF"
-	lighting_modes = list(
-		"emergency_lighting" = list(l_range = 5, l_power = 1, l_color = "#da0205"), 
-		)
+	lighting_modes   = list("emergency_lighting" = list(l_range = 5, l_power = 1, l_color = "#da0205"))
 
 /obj/item/weapon/light/tube/large
 	w_class = 2
 	name = "large light tube"
-	brightness_range = 12
-	brightness_power = 4
+	brightness_range = 8
+	brightness_power = 3
 
 /obj/item/weapon/light/bulb
 	name = "light bulb"
@@ -609,11 +609,9 @@ obj/machinery/light/proc/burn_out()
 	matter = list("glass" = 100)
 
 	brightness_range = 4
-	brightness_power = 2
+	brightness_power = 1
 	brightness_color = "#a0a080"
-	lighting_modes = list(
-		"emergency_lighting" = list(l_range = 4, l_power = 1, l_color = "#da0205"),
-		)
+	lighting_modes   = list("emergency_lighting" = list(l_range = 4, l_power = 1, l_color = "#da0205"))
 
 /obj/item/weapon/light/bulb/red
 	color = "#da0205"
@@ -621,6 +619,7 @@ obj/machinery/light/proc/burn_out()
 
 /obj/item/weapon/light/throw_impact(atom/hit_atom)
 	..()
+
 	shatter()
 
 /obj/item/weapon/light/bulb/fire
@@ -629,7 +628,9 @@ obj/machinery/light/proc/burn_out()
 	icon_state = "fbulb"
 	base_state = "fbulb"
 	item_state = "egg4"
-	matter = list("glass" = 100)
+	matter     = list("glass" = 100)
+
+
 	brightness_range = 5
 	brightness_power = 2
 
@@ -649,6 +650,7 @@ obj/machinery/light/proc/burn_out()
 
 /obj/item/weapon/light/New(atom/newloc, obj/machinery/light/fixture = null)
 	..()
+
 	if(fixture)
 		status = fixture.status
 		rigged = fixture.rigged
@@ -660,6 +662,7 @@ obj/machinery/light/proc/burn_out()
 		brightness_power = fixture.brightness_power
 		brightness_color = fixture.brightness_color
 		lighting_modes = fixture.lighting_modes.Copy()
+
 	update_icon()
 
 
@@ -667,6 +670,7 @@ obj/machinery/light/proc/burn_out()
 // if a syringe, can inject phoron to make it explode
 /obj/item/weapon/light/attackby(var/obj/item/I, var/mob/user)
 	..()
+
 	if(istype(I, /obj/item/weapon/reagent_containers/syringe))
 		var/obj/item/weapon/reagent_containers/syringe/S = I
 

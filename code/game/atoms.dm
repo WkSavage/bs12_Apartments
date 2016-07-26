@@ -14,6 +14,7 @@
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = 1 //filter for actions - used by lighting overlays
 	var/fluorescent // Shows up under a UV light.
+	var/ignoreinvert = 0
 
 	///Chemistry.
 	var/datum/reagents/reagents = null
@@ -519,3 +520,6 @@ its easier to just keep the beam vertical.
 
 /atom/proc/InsertedContents()
 	return contents
+
+/atom/proc/shuttle_act(var/datum/shuttle/S)
+	return

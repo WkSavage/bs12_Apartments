@@ -258,6 +258,10 @@
 		return src.master.attack_hand(a, b, c)
 	return
 
+
+/atom/movable/proc/can_shuttle_move(var/datum/shuttle/S)
+	return 1
+
 /atom/movable/proc/touch_map_edge()
 	if(z in using_map.sealed_levels)
 		return

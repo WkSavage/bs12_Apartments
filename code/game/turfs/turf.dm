@@ -1,6 +1,9 @@
 /turf
 	icon = 'icons/turf/floors.dmi'
 	level = 1
+
+	luminosity = 0
+
 	var/holy = 0
 
 	// Initial air contents (in moles)
@@ -27,7 +30,7 @@
 /turf/New()
 	..()
 	for(var/atom/movable/AM as mob|obj in src)
-		spawn( 0 )
+		spawn(0)
 			src.Entered(AM)
 			return
 	turfs |= src
@@ -106,8 +109,8 @@
 	return 1 //Nothing found to block so return success!
 
 var/const/enterloopsanity = 100
-/turf/Entered(atom/atom as mob|obj)
 
+/turf/Entered(atom/atom as mob|obj)
 	..()
 
 	if(!istype(atom, /atom/movable))

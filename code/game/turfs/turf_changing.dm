@@ -14,13 +14,6 @@
 	if(!N)
 		return
 
-	if(!lighting_corners_initialised)
-		for(var/i = 1 to 4)
-			if(corners[i]) // Already have a corner on this direction.
-				continue
-
-			corners[i] = new/datum/lighting_corner(src, LIGHTING_CORNER_DIAGONAL[i])
-
 	// This makes sure that turfs are not changed to space when one side is part of a zone
 	if(N == /turf/space)
 		var/turf/below = GetBelow(src)
@@ -34,13 +27,12 @@
 	var/old_lighting_overlay = lighting_overlay
 	var/old_corners = corners
 
-	if(!lighting_corners_initialised && global.lighting_corners_initialised)
+	if(!lighting_corners_initialised)
 		for(var/i = 1 to 4)
 			if(corners[i]) // Already have a corner on this direction.
 				continue
 
 			corners[i] = new/datum/lighting_corner(src, LIGHTING_CORNER_DIAGONAL[i])
-
 
 	if(connections)
 		connections.erase_all()
@@ -93,6 +85,7 @@
 		W.levelupdate()
 		. =  W
 
+	lighting_corners_initialised = TRUE
 	recalc_atom_opacity()
 	lighting_overlay = old_lighting_overlay
 	affecting_lights = old_affecting_lights
