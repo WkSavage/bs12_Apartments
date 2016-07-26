@@ -17,11 +17,9 @@ In short:
 
 /datum/universal_state/hell/OnShuttleCall(var/mob/user)
 	return 1
-	/*
 	if(user)
 		user << "<span class='sinister'>All you hear on the frequency is static and panicked screaming. There will be no shuttle call today.</span>"
 	return 0
-	*/
 
 /datum/universal_state/hell/DecayTurf(var/turf/T)
 	if(!T.holy)
@@ -64,9 +62,8 @@ In short:
 		A.updateicon()
 
 /datum/universal_state/hell/OverlayAndAmbientSet()
-	spawn(0)
-		for(var/atom/movable/lighting_overlay/L in world)
-			L.update_lumcount(1, 0, 0)
+	for(var/datum/lighting_corner/C in global.all_lighting_corners)
+		C.update_lumcount(0.5, 0, 0)
 
 		for(var/turf/space/T in turfs)
 			OnTurfChange(T)

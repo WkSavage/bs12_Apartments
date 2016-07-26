@@ -181,3 +181,6 @@
 
 /turf/space/ChangeTurf(var/turf/N, var/tell_universe=1, var/force_lighting_update = 0)
 	return ..(N, tell_universe, 1)
+
+/turf/space/lighting_build_overlay()
+  	return
