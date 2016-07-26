@@ -2,7 +2,7 @@
 var/datum/map/using_map = new USING_MAP_DATUM
 var/list/all_maps = list()
 
-/hook/startup/proc/initialise_map_list()
+/proc/initialise_map_list()
 	for(var/type in typesof(/datum/map) - /datum/map)
 		var/datum/map/M
 		if(type == using_map.type)

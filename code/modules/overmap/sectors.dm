@@ -4,7 +4,7 @@
 //===================================================================================
 var/global/list/map_sectors = list()
 
-/hook/startup/proc/build_map()
+/proc/build_map()
 	if(!config.use_overmap)
 		return 1
 	testing("Building overmap...")

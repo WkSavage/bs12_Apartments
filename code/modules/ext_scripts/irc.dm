@@ -29,7 +29,7 @@
 	return
 
 
-/hook/startup/proc/ircNotify()
+/hook/database/proc/ircNotify()
 	send2mainirc("Server starting up on byond://[config.serverurl ? config.serverurl : (config.server ? config.server : "[world.address]:[world.port]")]")
 	return 1
 

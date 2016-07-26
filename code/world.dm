@@ -27,7 +27,7 @@
 	cache_lifespan = 0	//stops player uploaded stuff from being kept in the rsc past the current session
 
 
-#define RECOMMENDED_VERSION 509
+#define RECOMMENDED_VERSION 510
 /world/New()
 	//logs
 	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
@@ -50,14 +50,21 @@
 		runtime_log << "Game [game_id] starting up at [time2text(world.timeofday, "hh:mm.ss")]"
 		log = runtime_log
 
-	callHook("startup")
-	//Emergency Fix
+	load_admins()
 	load_mods()
-	//end-emergency fix
+
+	callHook("database")
 
 	src.update_status()
 
 	. = ..()
+
+	processScheduler = new
+	master_controller = new/datum/controller/game_controller()
+	spawn(1)
+		processScheduler.deferSetupFor(/datum/controller/process/ticker)
+		processScheduler.setup()
+		master_controller.setup()
 
 #ifndef UNIT_TEST
 
@@ -94,18 +101,6 @@
 
 	// Create robolimbs for chargen.
 	populate_robolimb_list()
-
-	processScheduler = new
-	master_controller = new /datum/controller/game_controller()
-	spawn(1)
-		processScheduler.deferSetupFor(/datum/controller/process/ticker)
-		processScheduler.setup()
-		master_controller.setup()
-#ifdef UNIT_TEST
-		initialize_unit_tests()
-#endif
-
-
 
 	spawn(3000)		//so we aren't adding to the round-start lag
 		if(config.ToRban)
@@ -205,14 +200,14 @@ var/world_topic_spam_protect_time = world.timeofday
 		L["gameid"] = game_id
 		L["dm_version"] = DM_VERSION // DreamMaker version compiled in
 		L["dd_version"] = world.byond_version // DreamDaemon version running on
-		
+
 		if(revdata.revision)
 			L["revision"] = revdata.revision
 			L["branch"] = revdata.branch
 			L["date"] = revdata.date
 		else
 			L["revision"] = "unknown"
-		
+
 		return list2params(L)
 
 	else if(copytext(T,1,5) == "info")
@@ -417,10 +412,6 @@ var/world_topic_spam_protect_time = world.timeofday
 
 	..(reason)
 
-/hook/startup/proc/loadMode()
-	world.load_mode()
-	return 1
-
 /world/proc/load_mode()
 	if(!fexists("data/mode.txt"))
 		return
@@ -436,14 +427,8 @@ var/world_topic_spam_protect_time = world.timeofday
 	fdel(F)
 	F << the_mode
 
-
-/hook/startup/proc/loadMOTD()
-	world.load_motd()
-	return 1
-
 /world/proc/load_motd()
 	join_motd = file2text("config/motd.txt")
-
 
 /proc/load_configuration()
 	config = new /datum/configuration()
@@ -451,11 +436,6 @@ var/world_topic_spam_protect_time = world.timeofday
 	config.load("config/game_options.txt","game_options")
 	config.loadsql("config/dbconfig.txt")
 	config.loadforumsql("config/forumdbconfig.txt")
-
-/hook/startup/proc/loadMods()
-	world.load_mods()
-	world.load_mentors() // no need to write another hook.
-	return 1
 
 /world/proc/load_mods()
 	if(config.admin_legacy_system)
@@ -556,7 +536,7 @@ var/world_topic_spam_protect_time = world.timeofday
 var/failed_db_connections = 0
 var/failed_old_db_connections = 0
 
-/hook/startup/proc/connectDB()
+/hook/database/proc/connectDB()
 	if(!setup_database_connection())
 		world.log << "Your server failed to establish a connection with the feedback database."
 	else
@@ -597,8 +577,7 @@ proc/establish_db_connection()
 	else
 		return 1
 
-
-/hook/startup/proc/connectOldDB()
+/hook/database/proc/connectOldDB()
 	if(!setup_old_database_connection())
 		world.log << "Your server failed to establish a connection with the SQL database."
 	else

@@ -1,5 +1,5 @@
-/hook/startup/proc/createDatacore()
-	data_core = new /datum/datacore()
+/proc/createDatacore()
+	data_core = new/datum/datacore()
 	return 1
 
 /datum/datacore
