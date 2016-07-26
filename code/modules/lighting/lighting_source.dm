@@ -1,6 +1,3 @@
-// This is where the fun begins.
-// These are the main datums that emit light.
-
 /datum/light_source
 	var/atom/top_atom       // The atom we're emitting light from (for example a mob if we're from a flashlight that's being held).
 	var/atom/source_atom    // The atom that we belong to.
@@ -86,7 +83,7 @@
 // This is here so there's no performance loss on non-instant updates from the fact that the engine can also do instant updates.
 // If you're wondering what's with the "BYOND" argument: BYOND won't let me have a () macro that has no arguments :|.
 #define effect_update(BYOND)            \
-	if(!needs_update)                   \
+	if(!needs_update)                  \
 	{                                   \
 		lighting_update_lights += src;  \
 		needs_update            = TRUE; \
@@ -156,6 +153,15 @@
 		parse_light_color()
 		. = 1
 
+/datum/light_source/proc/get_clamped_lum(var/minlum = 0, var/maxlum = 1)
+	var/lum = max(lum_r, lum_g, lum_b)
+	if(lum <= minlum)
+		return 0
+	else if(lum >= maxlum)
+		return 1
+	else
+		return (lum - minlum) / (maxlum - minlum)
+
 // Decompile the hexadecimal colour into lumcounts of each perspective.
 /datum/light_source/proc/parse_light_color()
 	if(light_color)
@@ -209,7 +215,7 @@
 	applied_lum_b = lum_b
 
 	FOR_DVIEW(var/turf/T, light_range, source_turf, INVISIBILITY_LIGHTING)
-		for(var/datum/lighting_corner/C in T.get_corners(get_dir(source_turf, T)))
+		for(var/datum/lighting_corner/C in T.get_corners())
 			if(effect_str.Find(C))
 				continue
 
@@ -230,7 +236,10 @@
 	applied = FALSE
 
 	for(var/turf/T in affecting_turfs)
-		T.affecting_lights -= src
+		if(!T.affecting_lights)
+			T.affecting_lights = list()
+		else
+			T.affecting_lights -= src
 
 	affecting_turfs.Cut()
 
@@ -251,13 +260,20 @@
 	var/list/datum/lighting_corner/corners = list()
 	var/list/turf/turfs                    = list()
 	FOR_DVIEW(var/turf/T, light_range, source_turf, 0)
-		corners |= T.get_corners(get_dir(source_turf, T))
+		corners |= T.get_corners()
 		turfs   += T
 
-	for(var/turf/T in turfs - affecting_turfs) // New turfs, add us to the affecting lights of them.
-		T.affecting_lights += src
+	var/list/L = turfs - affecting_turfs // New turfs, add us to the affecting lights of them.
+	affecting_turfs += L
+	for(var/turf/T in L)
+		if(!T.affecting_lights)
+			T.affecting_lights = list(src)
+		else
+			T.affecting_lights += src
 
-	for(var/turf/T in affecting_turfs - turfs) // Now-gone turfs, remove us from the affecting lights.
+	L = affecting_turfs - turfs // Now-gone turfs, remove us from the affecting lights.
+	affecting_turfs -= L
+	for(var/turf/T in L)
 		T.affecting_lights -= src
 
 	for(var/datum/lighting_corner/C in corners - effect_str) // New corners
@@ -269,6 +285,7 @@
 
 	for(var/datum/lighting_corner/C in effect_str - corners) // Old, now gone, corners.
 		REMOVE_CORNER(C)
+		C.affecting -= src
 		effect_str -= C
 
 #undef effect_update
