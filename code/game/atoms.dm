@@ -246,6 +246,12 @@ its easier to just keep the beam vertical.
 		AM.throwing = 0
 	return
 
+/atom/proc/change_area(var/area/oldarea, var/area/newarea)
+	if(istype(oldarea))
+		oldarea = "[oldarea.name]"
+	if(istype(newarea))
+		newarea = "[newarea.name]"
+
 /atom/proc/add_hiddenprint(mob/living/M as mob)
 	if(isnull(M)) return
 	if(isnull(M.key)) return

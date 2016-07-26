@@ -31,7 +31,6 @@ In short:
 			qdel(L)
 	return
 
-
 /datum/universal_state/hell/OnTurfChange(var/turf/T)
 	var/turf/space/S = T
 	if(istype(S))
@@ -55,7 +54,6 @@ In short:
 
 	runedec += 9000	//basically removing the rune cap
 
-
 /datum/universal_state/hell/proc/AreaSet()
 	for(var/area/A in all_areas)
 		if(!istype(A,/area) || istype(A, /area/space))
@@ -65,8 +63,10 @@ In short:
 
 /datum/universal_state/hell/OverlayAndAmbientSet()
 	spawn(0)
-		for(var/atom/movable/lighting_overlay/L in world)
-			L.update_lumcount(1, 0, 0)
+	for(var/datum/lighting_corner/C in global.all_lighting_corners)
+		if(!C.active)
+			return
+		C.update_lumcount(0.5, 0, 0)
 
 		for(var/turf/space/T in turfs)
 			OnTurfChange(T)

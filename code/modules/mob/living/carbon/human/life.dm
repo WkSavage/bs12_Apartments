@@ -567,6 +567,8 @@
 	if(status_flags & GODMODE)	return 0	//godmode
 
 	var/obj/item/organ/diona/node/light_organ = locate() in internal_organs
+
+/*
 	if(light_organ && !light_organ.is_broken())
 		var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 		if(isturf(loc)) //else, there's considered to be no light
@@ -587,7 +589,6 @@
 				adjustFireLoss(-(round(light_amount/2)))
 				adjustToxLoss(-(light_amount))
 				adjustOxyLoss(-(light_amount))
-				//TODO: heal wounds, heal broken limbs.
 
 	if(species.light_dam)
 		var/light_amount = 0
@@ -602,6 +603,7 @@
 			take_overall_damage(1,1)
 		else //heal in the dark
 			heal_overall_damage(1,1)
+*/
 
 	// nutrition decrease
 	if (nutrition > 0 && stat != 2)
@@ -896,12 +898,14 @@
 		if (getToxLoss() >= 45 && nutrition > 20)
 			vomit()
 
+/*
 	//0.1% chance of playing a scary sound to someone who's in complete darkness
 	if(isturf(loc) && rand(1,1000) == 1)
 		var/turf/T = loc
 		var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
 		if(L && L.lum_r + L.lum_g + L.lum_b == 0)
 			playsound_local(src,pick(scarySounds),50, 1, -1)
+*/
 
 /mob/living/carbon/human/handle_stomach()
 	spawn(0)

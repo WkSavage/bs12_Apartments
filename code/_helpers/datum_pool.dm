@@ -1,14 +1,13 @@
 
-/*
-/tg/station13 /atom/movable Pool:
----------------------------------
-By RemieRichards
+//
+//  /tg/station13 /atom/movable Pool:
+//  By RemieRichards
+//
+//  Creation/Deletion is laggy, so let's reduce reuse and recycle!
+//
 
-Creation/Deletion is laggy, so let's reduce reuse and recycle!
-
-*/
 #define ATOM_POOL_COUNT 100
-// "define DEBUG_ATOM_POOL 1
+
 var/global/list/GlobalPool = list()
 
 //You'll be using this proc 90% of the time.
