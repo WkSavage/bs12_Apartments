@@ -2,7 +2,7 @@
 	var/dynamic_lighting = 1
 	luminosity           = 1
 
-	var/tmp/lighting_corners_initialised = TRUE
+	var/tmp/lighting_corners_initialised = FALSE
 
 	var/tmp/list/datum/light_source/affecting_lights       // List of light sources affecting this turf.
 	var/tmp/atom/movable/lighting_overlay/lighting_overlay // Our lighting overlay.
@@ -14,7 +14,6 @@
 
 	if(opacity)
 		has_opaque_atom = TRUE
-
 /turf/proc/reconsider_lights()
 	for(var/datum/light_source/L in affecting_lights)
 		L.vis_update()
@@ -22,9 +21,6 @@
 /turf/proc/lighting_clear_overlay()
 	if(lighting_overlay)
 		qdel(lighting_overlay)
-
-	for(var/datum/lighting_corner/C in corners)
-		C.update_active()
 
 /turf/proc/lighting_build_overlay()
 	if(lighting_overlay)
@@ -43,19 +39,6 @@
 
 				C.active = TRUE
 
-// Used to get a scaled lumcount.
-/turf/proc/get_lumcount(var/minlum = 0, var/maxlum = 1)
-	if(!lighting_overlay)
-		return 0.5
-
-	var/totallums = 0
-	for(var/datum/lighting_corner/L in corners)
-		totallums += L.lum_r + L.lum_b + L.lum_g
-
-	totallums /= 12 // 4 corners, each with 3 channels, get the average.
-	totallums = (totallums - minlum) / (maxlum - minlum)
-	return CLAMP01(totallums)
-
 // Can't think of a good name, this proc will recalculate the has_opaque_atom variable.
 /turf/proc/recalc_atom_opacity()
 	has_opaque_atom = FALSE
@@ -64,17 +47,17 @@
 			has_opaque_atom = TRUE
 
 // If an opaque movable atom moves around we need to potentially update visibility.
-/turf/Entered(atom/movable/obj)
+/turf/Entered(var/atom/movable/Obj, var/atom/OldLoc)
 	. = ..()
 
-	if(obj && obj.opacity)
+	if(Obj && Obj.opacity)
 		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
 		reconsider_lights()
 
-/turf/Exited(atom/movable/obj)
+/turf/Exited(var/atom/movable/Obj, var/atom/newloc)
 	. = ..()
 
-	if(obj && obj.opacity)
+	if(Obj && Obj.opacity)
 		recalc_atom_opacity() // Make sure to do this before reconsider_lights(), incase we're on instant updates.
 		reconsider_lights()
 

@@ -1,12 +1,13 @@
-#define LIGHTING_INTERVAL 5 // frequency, in 1/10ths of a second, of the lighting process
+#define LIGHTING_INTERVAL 1 // frequency, in 1/10ths of a second, of the lighting process
 
 #ifndef LIGHTING_INSTANT_UPDATES
-#define LIGHTING_INTERVAL 5    // Frequency, in 1/10ths of a second, of the lighting process.
+#define LIGHTING_INTERVAL 1 // Frequency, in 1/10ths of a second, of the lighting process.
+#include "..\controllers\Processes\lighting.dm"
 #endif
 
-#define LIGHTING_FALLOFF 1 // type of falloff to use for lighting; 1 for circular, 2 for square
+#define LIGHTING_FALLOFF    1 // type of falloff to use for lighting; 1 for circular, 2 for square
 #define LIGHTING_LAMBERTIAN 0 // use lambertian shading for light sources
-#define LIGHTING_HEIGHT 1 // height off the ground of light sources on the pseudo-z-axis, you should probably leave this alone
+#define LIGHTING_HEIGHT     1 // height off the ground of light sources on the pseudo-z-axis, you should probably leave this alone
 
 #define LIGHTING_LAYER 10 // drawing layer for lighting overlays
 #define LIGHTING_ICON 'icons/effects/lighting_overlay.png' // icon used for lighting shading effects
