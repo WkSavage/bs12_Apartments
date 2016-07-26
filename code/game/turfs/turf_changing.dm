@@ -34,7 +34,16 @@
 	var/old_lighting_overlay = lighting_overlay
 	var/old_corners = corners
 
-	if(connections) connections.erase_all()
+	if(!lighting_corners_initialised && global.lighting_corners_initialised)
+		for(var/i = 1 to 4)
+			if(corners[i]) // Already have a corner on this direction.
+				continue
+
+			corners[i] = new/datum/lighting_corner(src, LIGHTING_CORNER_DIAGONAL[i])
+
+
+	if(connections)
+		connections.erase_all()
 
 	overlays.Cut()
 	underlays.Cut()
@@ -87,6 +96,7 @@
 	recalc_atom_opacity()
 	lighting_overlay = old_lighting_overlay
 	affecting_lights = old_affecting_lights
+
 	corners = old_corners
 	if((old_opacity != opacity) || (dynamic_lighting != old_dynamic_lighting) || force_lighting_update)
 		reconsider_lights()
