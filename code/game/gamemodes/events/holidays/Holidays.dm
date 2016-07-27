@@ -12,7 +12,7 @@ var/global/Holiday = null
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //																							~Carn
 
-/hook/database/proc/updateHoliday()
+/proc/updateHoliday()
 	Get_Holiday()
 	return 1
 

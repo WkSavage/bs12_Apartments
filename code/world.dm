@@ -53,7 +53,7 @@
 	load_admins()
 	load_mods()
 
-	callHook("database")
+	generateGasData()
 
 	src.update_status()
 
@@ -536,7 +536,7 @@ var/world_topic_spam_protect_time = world.timeofday
 var/failed_db_connections = 0
 var/failed_old_db_connections = 0
 
-/hook/database/proc/connectDB()
+/proc/connectDB()
 	if(!setup_database_connection())
 		world.log << "Your server failed to establish a connection with the feedback database."
 	else
@@ -577,7 +577,7 @@ proc/establish_db_connection()
 	else
 		return 1
 
-/hook/database/proc/connectOldDB()
+/proc/connectOldDB()
 	if(!setup_old_database_connection())
 		world.log << "Your server failed to establish a connection with the SQL database."
 	else

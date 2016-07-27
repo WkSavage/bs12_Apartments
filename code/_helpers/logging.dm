@@ -92,20 +92,6 @@
 	world.log << "## UNIT_TEST ##: [text]"
 	log_debug(text)
 
-// Standardized method for tracking startup times.
-/proc/log_startup_progress(var/message)
-	admin_notice("<span class='danger'>[message]</span>")
-	log_to_dd(message)
-
-// Stamdardized medthod for tracking controller setups
-/proc/log_controller(var/message)
-	admin_notice("<span class='danger'>[message]</span>")
-	log_to_dd(message)
-
-/proc/log_controller_debug(var/message)
-	admin_notice("<span class='danger'>[message]</span>")
-	log_to_dd(message)
-
 //pretty print a direction bitflag, can be useful for debugging.
 /proc/dir_text(var/dir)
 	var/list/comps = list()
