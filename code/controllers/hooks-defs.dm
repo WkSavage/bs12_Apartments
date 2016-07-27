@@ -1,10 +1,4 @@
 /**
- * Startup hook.
- * Called in world.dm when the server starts.
- */
-/hook/database
-
-/**
  * Roundstart hook.
  * Called in gameticker.dm when a round starts.
  */
