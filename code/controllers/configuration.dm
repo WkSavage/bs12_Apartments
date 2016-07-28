@@ -1,101 +1,104 @@
 var/list/gamemode_cache = list()
 
 /datum/configuration
-	var/server_name = null				// server name (for world name / status)
-	var/server_suffix = 0				// generate numeric suffix based on server port
+	var/server_name        = null          // server name (for world name / status)
+	var/server_suffix      = 0             // generate numeric suffix based on server port
+	var/nudge_script_path  = "nudge.py"    // where the nudge.py script is located
 
-	var/nudge_script_path = "nudge.py"  // where the nudge.py script is located
-
-	var/list/lobby_screens = list("title") // Which lobby screens are available
-
-	var/log_ooc = 0						// log OOC channel
-	var/log_access = 0					// log login/logout
-	var/log_say = 0						// log client say
-	var/log_admin = 0					// log admin actions
-	var/log_debug = 1					// log debug output
-	var/log_game = 0					// log game events
-	var/log_vote = 0					// log voting
-	var/log_whisper = 0					// log client whisper
-	var/log_emote = 0					// log emotes
-	var/log_attack = 0					// log attack messages
-	var/log_adminchat = 0				// log admin chat messages
-	var/log_adminwarn = 0				// log warnings admins get about bomb construction and such
-	var/log_pda = 0						// log pda messages
-	var/log_hrefs = 0					// logs all links clicked in-game. Could be used for debugging and tracking down exploits
-	var/log_runtime = 0					// logs world.log to a file
-	var/log_world_output = 0			// log world.log << messages
-	var/sql_enabled = 1					// for sql switching
-	var/allow_admin_ooccolor = 0		// Allows admins with relevant permissions to have their own ooc colour
-	var/allow_vote_restart = 0 			// allow votes to restart
-	var/ert_admin_call_only = 0
-	var/allow_vote_mode = 0				// allow votes to change mode
-	var/allow_admin_jump = 1			// allows admin jumping
-	var/allow_admin_spawning = 1		// allows admin item spawning
-	var/allow_admin_rev = 1				// allows admin revives
-	var/vote_delay = 6000				// minimum time between voting sessions (deciseconds, 10 minute default)
-	var/vote_period = 600				// length of voting period (deciseconds, default 1 minute)
-	var/vote_autotransfer_initial = 108000 // Length of time before the first autotransfer vote is called
-	var/vote_autotransfer_interval = 36000 // length of time before next sequential autotransfer vote
-	var/vote_autogamemode_timeleft = 100 //Length of time before round start when autogamemode vote is called (in seconds, default 100).
-	var/vote_no_default = 0				// vote does not default to nochange/norestart (tbi)
-	var/vote_no_dead = 0				// dead people can't vote (tbi)
-//	var/enable_authentication = 0		// goon authentication
-	var/del_new_on_log = 1				// del's new players if they log before they spawn in
-	var/feature_object_spell_system = 0 //spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
-	var/traitor_scaling = 0 			//if amount of traitors scales based on amount of players
-	var/objectives_disabled = 0 			//if objectives are disabled or not
-	var/protect_roles_from_antagonist = 0// If security and such can be traitor/cult/other
-	var/continous_rounds = 0			// Gamemodes which end instantly will instead keep on going until the round ends by escape shuttle or nuke.
-	var/allow_Metadata = 0				// Metadata is supported.
-	var/popup_admin_pm = 0				//adminPMs to non-admins show in a pop-up 'reply' window when set to 1.
-	var/Ticklag = 0.9
-	var/Tickcomp = 0
-	var/socket_talk	= 0					// use socket_talk to communicate with other processes
+	var/list/modes         = list()        // allowed modes
+	var/list/lobby_screens = list("title") // which lobby screens are available
 	var/list/resource_urls = null
-	var/antag_hud_allowed = 0			// Ghosts can turn on Antagovision to see a HUD of who is the bad guys this round.
-	var/antag_hud_restricted = 0                    // Ghosts that turn on Antagovision cannot rejoin the round.
-	var/list/mode_names = list()
-	var/list/modes = list()				// allowed modes
-	var/list/votable_modes = list()		// votable modes
-	var/list/probabilities = list()		// relative probability of each mode
-	var/humans_need_surnames = 0
-	var/allow_random_events = 0			// enables random events mid-round when set to 1
-	var/allow_ai = 1					// allow ai job
-	var/hostedby = null
-	var/respawn_delay = 30
-	var/guest_jobban = 1
-	var/usewhitelist = 0
-	var/kick_inactive = 0				//force disconnect for inactive players after this many minutes, if non-0
-	var/show_mods = 0
-	var/show_mentors = 0
-	var/mods_can_tempban = 0
-	var/mods_can_job_tempban = 0
-	var/mod_tempban_max = 1440
-	var/mod_job_tempban_max = 1440
-	var/load_jobs_from_txt = 0
-	var/ToRban = 0
-	var/jobs_have_minimal_access = 0	//determines whether jobs use minimal access or expanded access.
-	var/use_cortical_stacks = 0
+	var/list/votable_modes = list()        // votable modes
+	var/list/probabilities = list()        // relative probability of each mode
 
-	var/cult_ghostwriter = 1               //Allows ghosts to write in blood in cult rounds...
-	var/cult_ghostwriter_req_cultists = 10 //...so long as this many cultists are active.
+	var/log_ooc          = 0 // log OOC channel
+	var/log_say          = 0 // log client say
+	var/log_pda          = 0 // log pda messages
+	var/log_game         = 0 // log game events
+	var/log_vote         = 0 // log voting
+	var/log_admin        = 0 // log admin actions
+	var/log_debug        = 1 // log debug output
+	var/log_emote        = 0 // log emotes
+	var/log_hrefs        = 0 // logs all links clicked in-game. Could be used for debugging and tracking down exploits
+	var/log_access       = 0 // log login/logout
+	var/log_attack       = 0 // log attack messages
+	var/log_whisper      = 0 // log client whisper
+	var/log_runtime      = 0 // logs world.log to a file
+	var/log_adminchat    = 0 // log admin chat messages
+	var/log_adminwarn    = 0 // log warnings admins get about bomb construction and such
+	var/log_world_output = 0 // log world.log << messages
 
-	var/character_slots = 10				// The number of available character slots
+	var/sql_enabled = 1 // for sql switching
 
-	var/max_maint_drones = 5				//This many drones can spawn,
-	var/allow_drone_spawn = 1				//assuming the admin allow them to.
-	var/drone_build_time = 1200				//A drone will become available every X ticks since last drone spawn. Default is 2 minutes.
+	var/allow_ai             = 1 // allow ai job
+	var/allow_vote_mode      = 0 // allow votes to change mode
+	var/allow_admin_rev      = 1 // allows admin revives
+	var/allow_admin_jump     = 1 // allows admin jumping
+	var/allow_vote_restart   = 0 // allow votes to restart
+	var/allow_random_events  = 0 // enables random events mid-round when set to 1
+	var/allow_admin_ooccolor = 0 // allows admins with relevant permissions to have their own ooc colour
+	var/allow_admin_spawning = 1 // allows admin item spawning
+
+	var/ert_admin_call_only = 0
+
+	var/vote_delay                 = 6000   // minimum time between voting sessions (deciseconds, 10 minute default)
+	var/vote_period                = 600    // length of voting period (deciseconds, default 1 minute)
+	var/vote_no_dead               = 0      // dead people can't vote (tbi)
+	var/vote_no_default            = 0      // vote does not default to nochange/norestart (tbi)
+	var/vote_autotransfer_initial  = 108000 // length of time before the first autotransfer vote is called
+	var/vote_autotransfer_interval = 36000  // length of time before next sequential autotransfer vote
+	var/vote_autogamemode_timeleft = 120    // length of time before round start when autogamemode vote is called (in seconds, default 100).
+
+	var/Ticklag              = 0.9
+	var/Tickcomp             = 0
+	var/socket_talk          = 0 // use socket_talk to communicate with other processes
+	var/del_new_on_log       = 1 // del's new players if they log before they spawn in
+	var/allow_Metadata       = 0 // metadata is supported.
+	var/popup_admin_pm       = 0 // adminPMs to non-admins show in a pop-up 'reply' window when set to 1.
+	var/traitor_scaling      = 0 // if amount of traitors scales based on amount of players
+	var/continous_rounds     = 0 // gamemodes which end instantly will instead keep on going until the round ends by escape shuttle or nuke.
+	var/antag_hud_allowed    = 0 // ghosts can turn on Antagovision to see a HUD of who is the bad guys this round.
+	var/objectives_disabled  = 0 // if objectives are disabled or not
+	var/antag_hud_restricted = 0 // ghosts that turn on Antagovision cannot rejoin the round.
+
+	var/feature_object_spell_system   = 0 // spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
+	var/protect_roles_from_antagonist = 0 // if security and such can be traitor/cult/other
+
+	var/ToRban                   = 0
+	var/hostedby                 = null
+	var/respawn_delay            = 30
+	var/guest_jobban             = 1
+	var/usewhitelist             = 0
+	var/kick_inactive            = 0 // force disconnect for inactive players after this many minutes, if non-0
+	var/show_mods                = 0
+	var/show_mentors             = 0
+	var/mods_can_tempban         = 0
+	var/mods_can_job_tempban     = 0
+	var/mod_tempban_max          = 1440
+	var/mod_job_tempban_max      = 1440
+	var/load_jobs_from_txt       = 0
+	var/use_cortical_stacks      = 0
+	var/humans_need_surnames     = 0
+	var/jobs_have_minimal_access = 0 // determines whether jobs use minimal access or expanded access.
+
+	var/cult_ghostwriter              = 1  // allows ghosts to write in blood in cult rounds...
+	var/cult_ghostwriter_req_cultists = 10 // ...so long as this many cultists are active.
+
+	var/character_slots   = 10   // the number of available character slots
+	var/max_maint_drones  = 5    // this many drones can spawn,
+	var/allow_drone_spawn = 1    // assuming the admin allow them to.
+	var/drone_build_time  = 1200 // a drone will become available every X ticks since last drone spawn. Default is 2 minutes.
 
 	var/disable_player_mice = 0
-	var/uneducated_mice = 0 //Set to 1 to prevent newly-spawned mice from understanding human speech
+	var/uneducated_mice     = 0 // set to 1 to prevent newly-spawned mice from understanding human speech
 
-	var/usealienwhitelist = 0
-	var/usealienwhitelistSQL = 0;
-	var/limitalienplayers = 0
+	var/debugparanoid        = 0
+	var/guests_allowed       = 1
+	var/limitalienplayers    = 0
+	var/usealienwhitelist    = 0
+	var/allow_extra_antags   = 0
+	var/usealienwhitelistSQL = 0
 	var/alien_to_human_ratio = 0.5
-	var/allow_extra_antags = 0
-	var/guests_allowed = 1
-	var/debugparanoid = 0
 
 	var/serverurl
 	var/server
@@ -105,25 +108,25 @@ var/list/gamemode_cache = list()
 	var/githuburl
 
 	//Alert level description
-	var/alert_desc_green = "All threats to the station have passed. Security may not have weapons visible, privacy laws are once again fully enforced."
-	var/alert_desc_blue_upto = "The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible, random searches are permitted."
+	var/alert_desc_green       = "All threats to the station have passed. Security may not have weapons visible, privacy laws are once again fully enforced."
+	var/alert_desc_blue_upto   = "The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible, random searches are permitted."
 	var/alert_desc_blue_downto = "The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed."
-	var/alert_desc_red_upto = "There is an immediate serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised."
-	var/alert_desc_red_downto = "The self-destruct mechanism has been deactivated, there is still however an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised."
-	var/alert_desc_delta = "The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill."
+	var/alert_desc_red_upto    = "There is an immediate serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised."
+	var/alert_desc_red_downto  = "The self-destruct mechanism has been deactivated, there is still however an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised."
+	var/alert_desc_delta       = "The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill."
 
 	var/forbid_singulo_possession = 0
 
 	//game_options.txt configs
 
 	var/health_threshold_softcrit = 0
-	var/health_threshold_crit = 0
-	var/health_threshold_dead = -100
+	var/health_threshold_crit     = 0
+	var/health_threshold_dead     = -100
 
-	var/organ_health_multiplier = 1
-	var/organ_regeneration_multiplier = 1
 	var/organs_decay
-	var/default_brain_health = 400
+	var/organ_health_multiplier       = 1
+	var/organ_regeneration_multiplier = 1
+	var/default_brain_health          = 400
 
 	//Paincrit knocks someone down once they hit 60 shock_stage, so by default make it so that close to 100 additional damage needs to be dealt,
 	//so that it's similar to HALLOSS. Lowered it a bit since hitting paincrit takes much longer to wear off than a halloss stun.
@@ -132,56 +135,56 @@ var/list/gamemode_cache = list()
 	var/bones_can_break = 0
 	var/limbs_can_break = 0
 
-	var/revival_pod_plants = 1
-	var/revival_cloning = 1
+	var/revival_cloning    = 1
 	var/revival_brain_life = -1
+	var/revival_pod_plants = 1
 
 	var/use_loyalty_implants = 0
 
-	var/welder_vision = 1
+	var/welder_vision     = 1
 	var/generate_asteroid = 0
 	var/no_click_cooldown = 0
 
 	//Used for modifying movement speed for mobs.
 	//Unversal modifiers
-	var/run_speed = 0
+	var/run_speed  = 0
 	var/walk_speed = 0
 
 	//Mob specific modifiers. NOTE: These will affect different mob types in different ways
-	var/human_delay = 0
-	var/robot_delay = 0
+	var/human_delay  = 0
+	var/robot_delay  = 0
 	var/monkey_delay = 0
-	var/alien_delay = 0
-	var/slime_delay = 0
+	var/alien_delay  = 0
+	var/slime_delay  = 0
 	var/animal_delay = 0
 
-
-	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
-	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
-	var/use_age_restriction_for_jobs = 0   //Do jobs use account age restrictions?   --requires database
-	var/use_age_restriction_for_antags = 0 //Do antags use account age restrictions? --requires database
+	var/ban_legacy_system   = 0 // defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
+	var/admin_legacy_system = 0 // defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
+	var/use_age_restriction_for_jobs   = 0 // do jobs use account age restrictions?   --requires database
+	var/use_age_restriction_for_antags = 0 // do antags use account age restrictions? --requires database
 
 	var/simultaneous_pm_warning_timeout = 100
 
 	var/use_recursive_explosions //Defines whether the server uses recursive or circular explosions.
 
-	var/assistant_maint = 0 //Do assistants get maint access?
-	var/gateway_delay = 18000 //How long the gateway takes before it activates. Default is half an hour.
+	var/assistant_maint   = 0     // do assistants get maint access?
+	var/gateway_delay     = 18000 // how long the gateway takes before it activates. Default is half an hour.
 	var/ghost_interaction = 0
 
 	var/comms_password = ""
 
 	var/enter_allowed = 1
 
-	var/use_irc_bot = 0
+	var/main_irc     = ""
+	var/admin_irc    = ""
+	var/python_path  = "" // path to the python executable.  Defaults to "python" on windows and "/usr/bin/env python2" on unix
 	var/irc_bot_host = ""
+	var/use_overmap    = 0
+	var/use_irc_bot    = 0
+	var/use_lib_nudge  = 0 // use the C library nudge instead of the python nudge.
 	var/irc_bot_export = 0 // whether the IRC bot in use is a Bot32 (or similar) instance; Bot32 uses world.Export() instead of nudge.py/libnudge
-	var/main_irc = ""
-	var/admin_irc = ""
+
 	var/announce_shuttle_dock_to_irc = FALSE
-	var/python_path = "" //Path to the python executable.  Defaults to "python" on windows and "/usr/bin/env python2" on unix
-	var/use_lib_nudge = 0 //Use the C library nudge instead of the python nudge.
-	var/use_overmap = 0
 
 	// Event settings
 	var/expected_round_length = 3 * 60 * 60 * 10 // 3 hours
@@ -195,16 +198,17 @@ var/list/gamemode_cache = list()
 	// 15, 45, 70 minutes respectively
 	var/list/event_delay_upper = list(EVENT_LEVEL_MUNDANE = 9000,	EVENT_LEVEL_MODERATE = 27000,	EVENT_LEVEL_MAJOR = 42000)
 
-	var/aliens_allowed = 0
+	var/aliens_allowed     = 0
 	var/alien_eggs_allowed = 0
-	var/ninjas_allowed = 0
-	var/abandon_allowed = 1
-	var/ooc_allowed = 1
+	var/ninjas_allowed     = 0
+	var/abandon_allowed    = 1
+
+	var/ooc_allowed  = 1
 	var/looc_allowed = 1
 	var/dooc_allowed = 1
 	var/dsay_allowed = 1
 
-	var/starlight = 0	// Whether space turfs have ambient light or not
+	var/starlight = 0 // whether space turfs have ambient light or not
 
 	var/list/ert_species = list("Human")
 
@@ -217,9 +221,9 @@ var/list/gamemode_cache = list()
 	var/ghosts_can_possess_animals = 0
 	var/delist_when_no_admins = FALSE
 
-	var/allow_map_switching = 0 // Whether map switching is allowed
-	var/auto_map_vote = 0 // Automatically call a map vote at end of round and switch to the selected map
-	var/wait_for_sigusr1_reboot = 0 // Don't allow reboot unless it was caused by SIGUSR1
+	var/allow_map_switching     = 0 // whether map switching is allowed
+	var/auto_map_vote           = 0 // automatically call a map vote at end of round and switch to the selected map
+	var/wait_for_sigusr1_reboot = 0 // don't allow reboot unless it was caused by SIGUSR1
 
 /datum/configuration/New()
 	var/list/L = typesof(/datum/game_mode) - /datum/game_mode
