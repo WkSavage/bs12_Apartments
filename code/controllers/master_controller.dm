@@ -4,16 +4,19 @@
 
 var/global/datum/controller/game_controller/master_controller //Set in world.New()
 
-var/global/controller_iteration = 0
-var/global/last_tick_duration = 0
-
-var/global/air_processing_killed = 0
+var/global/controller_iteration   = 0
+var/global/last_tick_duration     = 0
+var/global/air_processing_killed  = 0
 var/global/pipe_processing_killed = 0
+var/global/initialization_stage   = 0
 
-var/global/initialization_stage = 0
+/datum/controller
+	var/processing = 0
+	var/iteration = 0
+	var/processing_interval = 0
 
 datum/controller/game_controller
-	var/list/shuttle_list	                    // For debugging and VV
+	var/list/shuttle_list
 	var/init_immediately = FALSE
 
 datum/controller/game_controller/New()
@@ -28,16 +31,19 @@ datum/controller/game_controller/New()
 		job_master = new /datum/controller/occupations()
 		job_master.SetupOccupations(setup_titles=1)
 		job_master.LoadJobs("config/jobs.txt")
-		admin_notice("<span class='danger'>Job setup complete</span>", R_DEBUG)
+		log_startup_debug("job setup complete!")
 
-	if(!syndicate_code_phrase)		syndicate_code_phrase	= generate_code_phrase()
-	if(!syndicate_code_response)	syndicate_code_response	= generate_code_phrase()
+	if(!syndicate_code_phrase)
+		syndicate_code_phrase = generate_code_phrase()
+	if(!syndicate_code_response)
+		syndicate_code_response = generate_code_phrase()
 
 datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
 
-	spawn(20)
-		createRandomZlevel()
+	log_startup(" * Setting Up Master Controller *")
+
+	createRandomZlevel()
 
 	setup_objects()
 	setupgenetics()

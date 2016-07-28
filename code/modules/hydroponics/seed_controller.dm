@@ -32,7 +32,6 @@ var/global/datum/controller/plants/plant_controller // Set in New().
 	var/list/plant_icon_cache = list()      // Stores images of growth, fruits and seeds.
 	var/list/plant_sprites = list()         // List of all harvested product sprites.
 	var/list/plant_product_sprites = list() // List of all growth sprites plus number of growth stages.
-	var/processing = 0                      // Off/on.
 
 /datum/controller/plants/New()
 	if(plant_controller && plant_controller != src)

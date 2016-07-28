@@ -2,22 +2,6 @@
 var/datum/map/using_map = new USING_MAP_DATUM
 var/list/all_maps = list()
 
-/hook/startup/proc/initialise_map_list()
-	for(var/type in typesof(/datum/map) - /datum/map)
-		var/datum/map/M
-		if(type == using_map.type)
-			M = using_map
-			M.setup_map()
-		else
-			M = new type
-		if(!M.path)
-			world << "<span class=danger>Map '[M]' does not have a defined path, not adding to map list!</span>"
-			world.log << "Map '[M]' does not have a defined path, not adding to map list!"
-		else
-			all_maps[M.path] = M
-	return 1
-
-
 /datum/map
 	var/name = "Unnamed Map"
 	var/full_name = "Unnamed Map"

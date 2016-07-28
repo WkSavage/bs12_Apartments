@@ -26,15 +26,22 @@
 	view = "15x15"
 	cache_lifespan = 0	//stops player uploaded stuff from being kept in the rsc past the current session
 
+#define RECOMMENDED_VERSION 510
 
-#define RECOMMENDED_VERSION 509
 /world/New()
-	//logs
+	var/watch = 0
+	var/overwatch = 0
+	overwatch = start_watch()
+
 	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
+
+	log_startup_debug("game_id = [game_id]")
+
 	href_logfile = file("data/logs/[date_string] hrefs.htm")
 	diary = file("data/logs/[date_string].log")
 	diary << "[log_end]\n[log_end]\nStarting up. (ID: [game_id]) [time2text(world.timeofday, "hh:mm.ss")][log_end]\n---------------------[log_end]"
-	changelog_hash = md5('html/changelog.html')					//used for telling if the changelog has changed recently
+
+	changelog_hash = md5('html/changelog.html')
 
 	if(byond_version < RECOMMENDED_VERSION)
 		world.log << "Your server's byond version does not meet the recommended requirements for this server. Please update BYOND"
@@ -42,7 +49,6 @@
 	config.post_load()
 
 	if(config && config.server_name != null && config.server_suffix && world.port > 0)
-		// dumb and hardcoded but I don't care~
 		config.server_name += " #[(world.port % 1000) / 100]"
 
 	if(config && config.log_runtime)
@@ -50,7 +56,11 @@
 		runtime_log << "Game [game_id] starting up at [time2text(world.timeofday, "hh:mm.ss")]"
 		log = runtime_log
 
+	watch = start_watch()
+	log_startup_debug("Calling startup hooks...	")
 	callHook("startup")
+	log_startup_debug("	 Startup hooks completed in [stop_watch(watch)]s.")
+
 	//Emergency Fix
 	load_mods()
 	//end-emergency fix
@@ -105,7 +115,7 @@
 		initialize_unit_tests()
 #endif
 
-
+	log_startup_debug("	 /world/New() completed in [stop_watch(overwatch)]s.")
 
 	spawn(3000)		//so we aren't adding to the round-start lag
 		if(config.ToRban)
@@ -205,14 +215,14 @@ var/world_topic_spam_protect_time = world.timeofday
 		L["gameid"] = game_id
 		L["dm_version"] = DM_VERSION // DreamMaker version compiled in
 		L["dd_version"] = world.byond_version // DreamDaemon version running on
-		
+
 		if(revdata.revision)
 			L["revision"] = revdata.revision
 			L["branch"] = revdata.branch
 			L["date"] = revdata.date
 		else
 			L["revision"] = "unknown"
-		
+
 		return list2params(L)
 
 	else if(copytext(T,1,5) == "info")
@@ -417,10 +427,6 @@ var/world_topic_spam_protect_time = world.timeofday
 
 	..(reason)
 
-/hook/startup/proc/loadMode()
-	world.load_mode()
-	return 1
-
 /world/proc/load_mode()
 	if(!fexists("data/mode.txt"))
 		return
@@ -436,11 +442,6 @@ var/world_topic_spam_protect_time = world.timeofday
 	fdel(F)
 	F << the_mode
 
-
-/hook/startup/proc/loadMOTD()
-	world.load_motd()
-	return 1
-
 /world/proc/load_motd()
 	join_motd = file2text("config/motd.txt")
 
@@ -451,11 +452,6 @@ var/world_topic_spam_protect_time = world.timeofday
 	config.load("config/game_options.txt","game_options")
 	config.loadsql("config/dbconfig.txt")
 	config.loadforumsql("config/forumdbconfig.txt")
-
-/hook/startup/proc/loadMods()
-	world.load_mods()
-	world.load_mentors() // no need to write another hook.
-	return 1
 
 /world/proc/load_mods()
 	if(config.admin_legacy_system)
@@ -556,13 +552,6 @@ var/world_topic_spam_protect_time = world.timeofday
 var/failed_db_connections = 0
 var/failed_old_db_connections = 0
 
-/hook/startup/proc/connectDB()
-	if(!setup_database_connection())
-		world.log << "Your server failed to establish a connection with the feedback database."
-	else
-		world.log << "Feedback database connection established."
-	return 1
-
 proc/setup_database_connection()
 
 	if(failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)	//If it failed to establish a connection more than 5 times in a row, don't bother attempting to conenct anymore.
@@ -596,14 +585,6 @@ proc/establish_db_connection()
 		return setup_database_connection()
 	else
 		return 1
-
-
-/hook/startup/proc/connectOldDB()
-	if(!setup_old_database_connection())
-		world.log << "Your server failed to establish a connection with the SQL database."
-	else
-		world.log << "SQL database connection established."
-	return 1
 
 //These two procs are for the old database, while it's being phased out. See the tgstation.sql file in the SQL folder for more information.
 proc/setup_old_database_connection()

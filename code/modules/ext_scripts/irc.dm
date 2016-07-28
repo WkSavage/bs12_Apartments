@@ -27,9 +27,3 @@
 	if(config.admin_irc)
 		send2irc(config.admin_irc, msg)
 	return
-
-
-/hook/startup/proc/ircNotify()
-	send2mainirc("Server starting up on byond://[config.serverurl ? config.serverurl : (config.server ? config.server : "[world.address]:[world.port]")]")
-	return 1
-

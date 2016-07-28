@@ -12,9 +12,6 @@ var/global/Holiday = null
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //																							~Carn
 
-/hook/startup/proc/updateHoliday()
-	Get_Holiday()
-	return 1
 
 //sets up the Holiday global variable. Shouldbe called on game configuration or something.
 /proc/Get_Holiday()
