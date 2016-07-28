@@ -29,7 +29,7 @@
 	log_to_dd(message)
 
 /proc/log_startup_orange(var/message)
-	admin_notice("<B><FONT color='orange'>[message]</FONT></B>")
+	admin_notice("<B><font color='orange'>[message]</FONT></B>")
 	log_to_dd(message)
 
 /proc/log_startup_debug(var/message)

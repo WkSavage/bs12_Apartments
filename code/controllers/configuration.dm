@@ -209,7 +209,7 @@ var/list/gamemode_cache = list()
 	var/abandon_allowed    = 1
 	var/alien_eggs_allowed = 0
 
-	var/starlight = 1 // whether space turfs have ambient light or not
+	var/starlight = 0 // whether space turfs have ambient light or not
 
 	var/list/ert_species = list("Human")
 

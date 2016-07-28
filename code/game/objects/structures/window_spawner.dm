@@ -27,7 +27,6 @@
 	activate()
 
 /obj/effect/wingrille_spawn/initialize()
-	spawn(5)
 	..()
 
 	if(!win_path)

@@ -1,3 +1,11 @@
+
+// Startup hook.
+ // Called in world.dm when the server starts.
+  // Procs kept in code/controllers/hooks/startup_hooks.dm
+/hook/startup
+
+
+
 /**
  * Roundstart hook.
  * Called in gameticker.dm when a round starts.
