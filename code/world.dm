@@ -1,50 +1,40 @@
+var/global/datum/global_init/init = new ()
 
-/var/game_id = null
-/proc/generate_gameid()
-	if(game_id != null)
-		return
-	game_id = ""
+//  Pre-map initialization stuff should go here.
 
-	var/list/c = list("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
-	var/l = c.len
+/datum/global_init/New()
+	generate_gameid()
 
-	var/t = world.timeofday
-	for(var/_ = 1 to 4)
-		game_id = "[c[(t % l) + 1]][game_id]"
-		t = round(t / l)
-	game_id = "-[game_id]"
-	t = round(world.realtime / (10 * 60 * 60 * 24))
-	for(var/_ = 1 to 3)
-		game_id = "[c[(t % l) + 1]][game_id]"
-		t = round(t / l)
+	makeDatumRefLists()
+	load_configuration()
 
+	initialize_chemical_reagents()
+	initialize_chemical_reactions()
+
+	qdel(src)
 
 /world
 	mob = /mob/new_player
 	turf = /turf/space
 	area = /area/space
 	view = "15x15"
-	cache_lifespan = 0	//stops player uploaded stuff from being kept in the rsc past the current session
-
-#define RECOMMENDED_VERSION 510
+	cache_lifespan = 0 // stops player uploaded stuff from being kept in the rsc past the current session
 
 /world/New()
 	var/watch = 0
 	var/overwatch = 0
 	overwatch = start_watch()
 
+#define RECOMMENDED_VERSION 510
+
 	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
-
-	log_startup_debug("game_id = [game_id]")
-
-	href_logfile = file("data/logs/[date_string] hrefs.htm")
-	diary = file("data/logs/[date_string].log")
-	diary << "[log_end]\n[log_end]\nStarting up. (ID: [game_id]) [time2text(world.timeofday, "hh:mm.ss")][log_end]\n---------------------[log_end]"
-
-	changelog_hash = md5('html/changelog.html')
+	href_logfile    = file("data/logs/[date_string]-hrefs.htm")
+	diary           = file("data/logs/[date_string].log")
+	diary << "\n\nStarting up. [time2text(world.timeofday, "hh:mm.ss")]\n---------------------"
+	changelog_hash  = md5('html/changelog.html')
 
 	if(byond_version < RECOMMENDED_VERSION)
-		world.log << "Your server's byond version does not meet the recommended requirements for this server. Please update BYOND"
+		log_startup_debug("Your server's byond version does not meet the recommended requirements for this server. Please update BYOND")
 
 	config.post_load()
 
@@ -52,48 +42,24 @@
 		config.server_name += " #[(world.port % 1000) / 100]"
 
 	if(config && config.log_runtime)
-		var/runtime_log = file("data/logs/runtime/[date_string]-[game_id].log")
-		runtime_log << "Game [game_id] starting up at [time2text(world.timeofday, "hh:mm.ss")]"
-		log = runtime_log
+		log = file("data/logs/runtime/[time2text(world.realtime,"YYYY-MM-DD-(hh-mm-ss)")]-runtime.log")
 
 	watch = start_watch()
-	log_startup_debug("Calling startup hooks...	")
+	log_startup_debug("Calling startup hooks...")
 	callHook("startup")
 	log_startup_debug("	 Startup hooks completed in [stop_watch(watch)]s.")
-
-	//Emergency Fix
-	load_mods()
-	//end-emergency fix
 
 	src.update_status()
 
 	. = ..()
 
-#ifndef UNIT_TEST
-
-	sleep_offline = 1
-
-#else
-	log_unit_test("Unit Tests Enabled.  This will destroy the world when testing is complete.")
-	load_unit_test_changes()
-#endif
-
-	// Set up roundstart seed list.
 	plant_controller = new()
 
-	// This is kinda important. Set up details of what the hell things are made of.
 	populate_material_list()
 
 	if(config.generate_asteroid)
-		// These values determine the specific area that the map is applied to.
-		// If you do not use the official Baycode moonbase map, you will need to change them.
-		//Create the mining Z-level.
-		new /datum/random_map/automata/cave_system(null,1,1,5,255,255)
-		//new /datum/random_map/noise/volcanism(null,1,1,5,255,255) // Not done yet! Pretty, though.
-		// Create the mining ore distribution map.
-		new /datum/random_map/noise/ore(null, 1, 1, 5, 64, 64)
-		// Update all turfs to ensure everything looks good post-generation. Yes,
-		// it's brute-forcey, but frankly the alternative is a mine turf rewrite.
+		new/datum/random_map/automata/cave_system(null,1,1,5,255,255)
+		new/datum/random_map/noise/ore(null, 1, 1, 5, 64, 64)
 		for(var/turf/simulated/mineral/M in world) // Ugh.
 			M.updateMineralOverlays()
 		for(var/turf/simulated/floor/asteroid/M in world) // Uuuuuugh.
@@ -105,24 +71,21 @@
 	// Create robolimbs for chargen.
 	populate_robolimb_list()
 
-	processScheduler = new
-	master_controller = new /datum/controller/game_controller()
+	processScheduler  = new
+	master_controller = new/datum/controller/game_controller()
 	spawn(1)
 		processScheduler.deferSetupFor(/datum/controller/process/ticker)
 		processScheduler.setup()
+
 		master_controller.setup()
-#ifdef UNIT_TEST
-		initialize_unit_tests()
-#endif
+		sleep_offline = 1
 
 	log_startup_debug("	 /world/New() completed in [stop_watch(overwatch)]s.")
 
-	spawn(3000)		//so we aren't adding to the round-start lag
+	spawn(3000)  // so we aren't adding to the round-start lag
 		if(config.ToRban)
 			ToRban_autoupdate()
-
 #undef RECOMMENDED_VERSION
-
 	return
 
 var/world_topic_spam_protect_ip = "0.0.0.0"
