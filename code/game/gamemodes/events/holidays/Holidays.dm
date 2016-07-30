@@ -14,14 +14,14 @@ var/global/Holiday = null
 
 
 //sets up the Holiday global variable. Shouldbe called on game configuration or something.
-/proc/Get_Holiday()
+/proc/get_holiday()
 	if(!Holiday)	return		// Holiday stuff was not enabled in the config!
 
 	Holiday = null				// reset our switch now so we can recycle it as our Holiday name
 
-	var/YY	=	text2num(time2text(world.timeofday, "YY")) 	// get the current year
-	var/MM	=	text2num(time2text(world.timeofday, "MM")) 	// get the current month
-	var/DD	=	text2num(time2text(world.timeofday, "DD")) 	// get the current day
+	var/YY = text2num(time2text(world.timeofday, "YY")) // get the current year
+	var/MM = text2num(time2text(world.timeofday, "MM")) // get the current month
+	var/DD = text2num(time2text(world.timeofday, "DD")) // get the current day
 
 	//Main switch. If any of these are too dumb/inappropriate, or you have better ones, feel free to change whatever
 	switch(MM)

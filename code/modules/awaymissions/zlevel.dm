@@ -1,11 +1,12 @@
-proc/createRandomZlevel()
-	if(awaydestinations.len)	//crude, but it saves another var!
+proc/create_random_zlevel()
+	if(awaydestinations.len) //crude, but it saves another var!
 		return
 
 	var/list/potentialRandomZlevels = list()
-	admin_notice("\red \b Searching for away missions...", R_DEBUG)
+	log_startup_yellow("Searching for away missions...")
 	var/list/Lines = file2list("maps/RandomZLevels/fileList.txt")
-	if(!Lines.len)	return
+	if(!Lines.len)
+		return
 	for (var/t in Lines)
 		if (!t)
 			continue
@@ -18,7 +19,6 @@ proc/createRandomZlevel()
 
 		var/pos = findtext(t, " ")
 		var/name = null
-	//	var/value = null
 
 		if (pos)
             // No, don't do lowertext here, that breaks paths on linux
@@ -35,21 +35,21 @@ proc/createRandomZlevel()
 
 
 	if(potentialRandomZlevels.len)
-		admin_notice("\red \b Loading away mission...", R_DEBUG)
+		log_startup_purple("Loading away mission...")
 
 		var/map = pick(potentialRandomZlevels)
 		var/file = file(map)
 		if(isfile(file))
 			maploader.load_map(file)
-			world.log << "away mission loaded: [map]"
+			log_startup_green("Away mission loaded: [map]")
 
 		for(var/obj/effect/landmark/L in landmarks_list)
 			if (L.name != "awaystart")
 				continue
 			awaydestinations.Add(L)
 
-		admin_notice("\red \b Away mission loaded.", R_DEBUG)
+		log_startup("Away mission loaded.")
 
 	else
-		admin_notice("\red \b No away missions found.", R_DEBUG)
+		log_startup("No away missions found.")
 		return

@@ -21,10 +21,6 @@ var/global/datum/global_init/init = new ()
 	cache_lifespan = 0 // stops player uploaded stuff from being kept in the rsc past the current session
 
 /world/New()
-	var/watch = 0
-	var/overwatch = 0
-	overwatch = start_watch()
-
 #define RECOMMENDED_VERSION 510
 
 	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
@@ -36,6 +32,10 @@ var/global/datum/global_init/init = new ()
 	if(byond_version < RECOMMENDED_VERSION)
 		log_startup_debug("Your server's byond version does not meet the recommended requirements for this server. Please update BYOND")
 
+	load_admins()
+
+	generateGasData()
+
 	config.post_load()
 
 	if(config && config.server_name != null && config.server_suffix && world.port > 0)
@@ -44,14 +44,11 @@ var/global/datum/global_init/init = new ()
 	if(config && config.log_runtime)
 		log = file("data/logs/runtime/[time2text(world.realtime,"YYYY-MM-DD-(hh-mm-ss)")]-runtime.log")
 
-	watch = start_watch()
-	log_startup_debug("Calling startup hooks...")
-	callHook("startup")
-	log_startup_debug("	 Startup hooks completed in [stop_watch(watch)]s.")
-
 	src.update_status()
 
 	. = ..()
+
+	sleep_offline = 1
 
 	plant_controller = new()
 
@@ -78,9 +75,6 @@ var/global/datum/global_init/init = new ()
 		processScheduler.setup()
 
 		master_controller.setup()
-		sleep_offline = 1
-
-	log_startup_debug("	 /world/New() completed in [stop_watch(overwatch)]s.")
 
 	spawn(3000)  // so we aren't adding to the round-start lag
 		if(config.ToRban)
