@@ -42,7 +42,6 @@ var/global/initialization_stage   = 0
 	gen_syndicate_codes()
 
 	create_random_zlevel()
-
 	setup_objects()
 	setup_genetics()
 	setup_xenoarch()

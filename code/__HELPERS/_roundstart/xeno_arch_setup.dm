@@ -6,7 +6,9 @@
 #define ARTIFACTSPAWNNUM_UPPER 12
 
 datum/controller/game_controller/proc/setup_xenoarch()
-	//create digsites
+	log_startup("Initializating xenoarch...")
+	var/watch = 0
+	watch = start_watch()
 	for(var/turf/simulated/mineral/M in block(locate(1,1,1), locate(world.maxx, world.maxy, world.maxz)))
 		if(isnull(M.geologic_data))
 			M.geologic_data = new/datum/geosample(M)
@@ -70,6 +72,8 @@ datum/controller/game_controller/proc/setup_xenoarch()
 	while(artifacts_spawnturf_temp.len > 0)
 		var/turf/simulated/mineral/artifact_turf = pop(artifacts_spawnturf_temp)
 		artifact_turf.artifact_find = new()
+
+	log_startup_green("	 Initialized xenoarch in [stop_watch(watch)]s.")
 
 #undef XENOARCH_SPAWN_CHANCE
 #undef DIGSITESIZE_LOWER

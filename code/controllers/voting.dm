@@ -235,7 +235,7 @@ datum/controller/vote
 								else if(auto_add_antag)
 									auto_add_antag = 0
 									// the buffer will already have an hour added to it, so we'll give it one more
-									transfer_controller.timerbuffer = transfer_controller.timerbuffer + config.vote_autotransfer_interval
+									transfer_controller.timer_buffer = transfer_controller.timer_buffer + config.vote_autotransfer_interval
 						else
 							additional_antag_types |= antag_type
 				if("map")
