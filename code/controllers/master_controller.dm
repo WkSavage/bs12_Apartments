@@ -17,7 +17,8 @@ var/global/initialization_stage   = 0
 
 /datum/controller/game_controller
 	var/list/shuttle_list
-	var/init_immediately = FALSE
+	var/list/digsite_spawning_turfs  = list()
+	var/list/artifact_spawning_turfs = list()
 
 /datum/controller/game_controller/New()
 	//There can be only one master_controller. Out with the old and in with the new.
@@ -37,16 +38,14 @@ var/global/initialization_stage   = 0
 	world.tick_lag = config.Ticklag
 
 	log_startup("Initializating master controller...")
-
 	setup_pregame()
-
 	gen_syndicate_codes()
 
 	create_random_zlevel()
 
 	setup_objects()
-	setupgenetics()
-	SetupXenoarch()
+	setup_genetics()
+	setup_xenoarch()
 
 	transfer_controller = new
 
