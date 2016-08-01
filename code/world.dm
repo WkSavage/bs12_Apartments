@@ -30,7 +30,7 @@ var/global/datum/global_init/init = new ()
 	changelog_hash  = md5('html/changelog.html')
 
 	if(byond_version < RECOMMENDED_VERSION)
-		log_startup_debug("Your server's byond version does not meet the recommended requirements for this server. Please update BYOND")
+		log_to_debug("Your server's byond version does not meet the recommended requirements for this server. Please update BYOND")
 
 	load_admins()
 
@@ -70,10 +70,11 @@ var/global/datum/global_init/init = new ()
 
 	processScheduler  = new
 	master_controller = new/datum/controller/game_controller()
-	spawn(1)
-		processScheduler.deferSetupFor(/datum/controller/process/ticker)
-		processScheduler.setup()
 
+	processScheduler.deferSetupFor(/datum/controller/process/ticker)
+
+	spawn(1)
+		processScheduler.setup()
 		master_controller.setup()
 
 	spawn(3000)  // so we aren't adding to the round-start lag

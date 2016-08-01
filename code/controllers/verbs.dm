@@ -1,17 +1,22 @@
-//TODO: rewrite and standardise all controller datums to the datum/controller type
-//TODO: allow all controllers to be deleted for clean restarts (see WIP master controller stuff) - MC done - lighting done
-/client/proc/restart_controller(controller in list("Supply"))
+/client/proc/complete_controller_reset(controller in list("Process Scheduler","Failsafe"))
 	set category = "Debug"
-	set name = "Restart Controller"
+	set name = "Complete Controller Reset"
 	set desc = "Restart one of the various periodic loop controllers for the game (be careful!)"
 
-	if(!holder)	return
+	if(!holder)
+		return
+
 	usr = null
 	src = null
+
 	switch(controller)
-		if("Supply")
-			supply_controller.process()
-			feedback_add_details("admin_verb","RSupply")
+		if("Process Scheduler")
+			qdel(processScheduler)
+			processScheduler = new
+			processScheduler.start()
+		if("Failsafe")
+			qdel(/datum/controller/failsafe())
+			new/datum/controller/failsafe()
 	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
 	return
 
@@ -30,7 +35,8 @@
 	set name = "Debug Controller"
 	set desc = "Debug the various periodic loop controllers for the game (be careful!)"
 
-	if(!holder)	return
+	if(!holder)
+		return
 	switch(controller)
 		if("Master")
 			debug_variables(master_controller)

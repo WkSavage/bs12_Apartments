@@ -2,11 +2,10 @@ var/datum/controller/failsafe/failsafe
 
 // This thing pretty much just keeps poking the master controller
 /datum/controller/failsafe
-	var/processing_interval = 100 // poke the MC every 10 seconds
+	processing_interval = 50 // poke the MC every 5 seconds
 
-// ALERT LEVEL. For every poke that fails this is raised by 1. When it reaches 5 the MC is replaced with a new one.
-	var/mc_defcon = 0
-	var/mc_iteration = 0
+// For every poke that fails this is lowered by 1. When it reaches 0 the MC is replaced with a new one.
+	var/ps_defcon = 6
 
 /datum/controller/failsafe/New()
 	. = ..()
@@ -14,7 +13,6 @@ var/datum/controller/failsafe/failsafe
 	// There can be only one failsafe. Out with the old in with the new (that way we can restart the Failsafe by spawning a new one).
 	if(failsafe != src)
 		if(istype(failsafe))
-			recover()
 			qdel(failsafe)
 
 		failsafe = src
@@ -28,26 +26,31 @@ var/datum/controller/failsafe/failsafe
 		set background = 1
 
 		while(1) // more efficient than recursivly calling ourself over and over. background = 1 ensures we do not trigger an infinite loop
-			iteration++
-
 			if(processing)
-				if(master_controller.processing)
-					if(masterControllerIteration == master_controller.iteration)
-						switch(mc_defcon)
-							if(0 to 3)
-								mc_defcon++
-							if(4)
-								admins << "<font color='red' size='2'><b>Warning. The Lighting Controller has not fired in the last [lighting_defcon*processing_interval] ticks. Automatic restart in [processing_interval] ticks.</b></font>"
-								mc_defcon = 5
-							if(5)
-								admins << "<font color='red' size='2'><b>Warning. The Lighting Controller has still not fired within the last [lighting_defcon*processing_interval] ticks. Killing and restarting...</b></font>"
-								new /datum/controller/lighting()	//replace the old lighting_controller (hence killing the old one's process)
-								master_controller.process()		//Start it rolling again
-								mc_defcon = 0
-					else
-						mc_defcon = 0
-						master_controller = master_controller.iteration
+				if(processScheduler.processing)
+					switch(ps_defcon)
+						if(6 to 4)
+							ps_defcon--
+							log_to_debug("processScheduler did not fire. DEFCON = [ps_defcon].")
+						if(3)
+							log_blue("processScheduler has not fired in the last [ps_defcon * processing_interval]. DEFCON = [ps_defcon].")
+							ps_defcon--
+						if(2)
+							log_yellow("processScheduler has still not fired in the last [ps_defcon * processing_interval] ticks. DEFCON = [ps_defcon].")
+							ps_defcon = 1
+						if(1)
+							log_red("DEFCON 1. processScheduler has STILL not fired in the last [ps_defcon * processing_interval] ticks. Killing and restarting")
+							recover_ps()
+				else
+					ps_defcon = 6
 			else
-				mc_defcon = 0
+				ps_defcon = 6
 
 			sleep(processing_interval)
+
+/datum/controller/failsafe/proc/recover_ps()
+	qdel(processScheduler)
+	processScheduler = new
+	spawn(1)
+		processScheduler.start()
+	ps_defcon = 6

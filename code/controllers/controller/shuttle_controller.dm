@@ -1,6 +1,4 @@
-
 var/global/datum/shuttle_controller/shuttle_controller
-
 
 /datum/shuttle_controller
 	var/list/shuttles	//maps shuttle tags to shuttle datums, so that they can be looked up.
@@ -8,8 +6,8 @@ var/global/datum/shuttle_controller/shuttle_controller
 
 /datum/shuttle_controller/proc/process()
 	//process ferry shuttles
-	for (var/datum/shuttle/ferry/shuttle in process_shuttles)
-		if (shuttle.process_state)
+	for(var/datum/shuttle/ferry/shuttle in process_shuttles)
+		if(shuttle.process_state)
 			shuttle.process()
 
 //This is called by gameticker after all the machines and radio frequencies have been properly initialized

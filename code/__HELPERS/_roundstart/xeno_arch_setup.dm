@@ -6,7 +6,7 @@
 #define ARTIFACTSPAWNNUM_UPPER 12
 
 datum/controller/game_controller/proc/setup_xenoarch()
-	log_startup("Initializating xenoarch...")
+	log_red("Initializating xenoarch...")
 	var/watch = 0
 	watch = start_watch()
 	for(var/turf/simulated/mineral/M in block(locate(1,1,1), locate(world.maxx, world.maxy, world.maxz)))
@@ -73,7 +73,7 @@ datum/controller/game_controller/proc/setup_xenoarch()
 		var/turf/simulated/mineral/artifact_turf = pop(artifacts_spawnturf_temp)
 		artifact_turf.artifact_find = new()
 
-	log_startup_green("	 Initialized xenoarch in [stop_watch(watch)]s.")
+	log_green("	 Initialized xenoarch in [stop_watch(watch)]s.")
 
 #undef XENOARCH_SPAWN_CHANCE
 #undef DIGSITESIZE_LOWER

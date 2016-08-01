@@ -3,7 +3,7 @@ proc/create_random_zlevel()
 		return
 
 	var/list/potentialRandomZlevels = list()
-	log_startup_yellow("Searching for away missions...")
+	log_orange("Searching for away missions...")
 	var/list/Lines = file2list("maps/RandomZLevels/fileList.txt")
 	if(!Lines.len)
 		return
@@ -35,21 +35,21 @@ proc/create_random_zlevel()
 
 
 	if(potentialRandomZlevels.len)
-		log_startup_purple("Loading away mission...")
+		log_purple("Loading away mission...")
 
 		var/map = pick(potentialRandomZlevels)
 		var/file = file(map)
 		if(isfile(file))
 			maploader.load_map(file)
-			log_startup_green("Away mission loaded: [map]")
+			log_green("Away mission loaded: [map]")
 
 		for(var/obj/effect/landmark/L in landmarks_list)
 			if (L.name != "awaystart")
 				continue
 			awaydestinations.Add(L)
 
-		log_startup("Away mission loaded.")
+		log_red("Away mission loaded.")
 
 	else
-		log_startup("No away missions found.")
+		log_red("No away missions found.")
 		return

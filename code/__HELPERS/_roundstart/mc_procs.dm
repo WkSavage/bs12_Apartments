@@ -2,9 +2,9 @@
 	var/watch = 0
 	watch = start_watch()
 
-	log_startup_black(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
-	log_startup("Starting game setup initializations...")
-	log_startup_black(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
+	log_black(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
+	log_red("Starting game setup initializations...")
+	log_black(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
 
 	LoadBans()
 	build_map()
@@ -25,80 +25,80 @@
 	populate_gender_datum_list()
 	populate_pai_software_list()
 
-	log_startup_green("	 Finished game setup initializations in [stop_watch(watch)]s.")
-	log_startup_black(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
+	log_green("Finished game setup initializations in [stop_watch(watch)]s.")
+	log_black(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
 
 /datum/controller/game_controller/proc/setup_objects()
 	var/watch = 0
 	var/count = 0
 	var/overwatch = 0
 
-	log_startup_black(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
-	log_startup("Starting object initializations...")
-	log_startup_black(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
+	log_black(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
+	log_red("Starting object initializations...")
+	log_black(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
 
 	watch = start_watch()
 	overwatch = start_watch()
 
-	log_startup_orange("Populating asset cache...")
+	log_black("Populating asset cache...")
 	populate_asset_cache()
-	log_startup_green("	 Populated assets in [stop_watch(watch)]s.")
-
+	log_green("	 Populated assets in [stop_watch(watch)]s.")
 
 	watch = start_watch()
-	log_startup_orange("Populating antag type list...")
+	log_black("Populating antag type list...")
 	populate_antag_type_list()
-	log_startup_green("	 Populated antag type list in [stop_watch(watch)]s.")
-
+	log_green("	 Populated antag type list in [stop_watch(watch)]s.")
 
 	watch = start_watch()
-	log_startup_orange("Populating spawn points...")
+	log_black("Populating spawn points...")
 	populate_spawn_points()
-	log_startup_green("	 Populated spawn points in [stop_watch(watch)]s.")
-
+	log_green("	 Populated spawn points in [stop_watch(watch)]s.")
 
 	watch = start_watch()
-	log_startup_orange("Initializing areas...")
+	log_black("Initializing areas...")
 	for(var/area/area in all_areas)
 		area.initialize()
-	log_startup_green("	 Initialized areas in [stop_watch(watch)]s.")
-
+	log_green("	 Initialized areas in [stop_watch(watch)]s.")
 
 	watch = start_watch()
-	log_startup_yellow("Initializing objects...")
+	log_black("Initializing objects...")
 	for(var/atom/movable/object in world)
 		if(!deleted(object))
+			CHECK_TICK_MC_INIT // Counting objects is laggy!!
 			object.initialize()
+			CHECK_TICK_MC_INIT
 			count++
-	log_startup_green("	 Initialized [count] objects in [stop_watch(watch)]s.")
-
+	log_green("	 Initialized [count] objects in [stop_watch(watch)]s.")
 
 	watch = start_watch()
 	count = 0
-	log_startup_yellow("Initializing pipe networks...")
+	log_black("Initializing pipe networks...")
 	for(var/obj/machinery/atmospherics/machine in machines)
 		machine.build_network()
 		count++
-	log_startup_green("	 Initialized [count] pipes in [stop_watch(watch)]s.")
-
+	log_green("	 Initialized [count] pipes in [stop_watch(watch)]s.")
 
 	watch = start_watch()
 	count = 0
-	log_startup_yellow("Initializing atmospherics machinery...")
+	log_black("Initializing atmospherics machinery...")
 	for(var/obj/machinery/atmospherics/unary/U in machines)
 		if(istype(U, /obj/machinery/atmospherics/unary/vent_pump))
 			var/obj/machinery/atmospherics/unary/vent_pump/T = U
 			T.broadcast_status()
+			CHECK_TICK_MC_INIT
 			count++
 		else if(istype(U, /obj/machinery/atmospherics/unary/vent_scrubber))
 			var/obj/machinery/atmospherics/unary/vent_scrubber/T = U
 			T.broadcast_status()
+			CHECK_TICK_MC_INIT
 			count++
-	log_startup_green("	 Initialized [count] atmospherics machines in [stop_watch(watch)]s.")
+	log_green("	 Initialized [count] atmospherics machines in [stop_watch(watch)]s.")
 
-	log_startup_black(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
-	log_startup_green("	 Initializated all objects in [stop_watch(overwatch)]s.")
-	log_startup_black(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
+	CHECK_TICK_MC_INIT
+
+	log_black(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
+	log_green("Initializated all objects in [stop_watch(overwatch)]s!")
+	log_black(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
 
 
 /datum/controller/game_controller/proc/gen_syndicate_codes()
