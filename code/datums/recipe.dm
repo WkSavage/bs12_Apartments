@@ -41,12 +41,12 @@
 	. = 1
 	for(var/r_r in reagents)
 		var/aval_r_amnt = avail_reagents.get_reagent_amount(r_r)
-		if (!(abs(aval_r_amnt - reagents[r_r])<0.5)) //if NOT equals
-			if (aval_r_amnt>reagents[r_r])
+		if(!(abs(aval_r_amnt - reagents[r_r])<0.5)) //if NOT equals
+			if(aval_r_amnt>reagents[r_r])
 				. = 0
 			else
 				return -1
-	if ((reagents?(reagents.len):(0)) < avail_reagents.reagent_list.len)
+	if((reagents?(reagents.len):(0)) < avail_reagents.reagent_list.len)
 		return 0
 	return .
 
@@ -71,7 +71,7 @@
 
 /datum/recipe/proc/check_items(var/obj/container as obj)
 	. = 1
-	if (items && items.len)
+	if(items && items.len)
 		var/list/checklist = list()
 		checklist = items.Copy() // You should really trust Copy
 		for(var/obj/O in container.InsertedContents())
@@ -80,13 +80,13 @@
 			var/found = 0
 			for(var/i = 1; i < checklist.len+1; i++)
 				var/item_type = checklist[i]
-				if (istype(O,item_type))
+				if(istype(O,item_type))
 					checklist.Cut(i, i+1)
 					found = 1
 					break
-			if (!found)
+			if(!found)
 				. = 0
-		if (checklist.len)
+		if(checklist.len)
 			. = -1
 	return .
 
@@ -106,7 +106,7 @@
 		return
 	var/obj/result_obj = new result(container)
 	for(var/obj/O in (container.InsertedContents()-result_obj))
-		if (O.reagents)
+		if(O.reagents)
 			O.reagents.del_reagent("nutriment")
 			O.reagents.update_total()
 			O.reagents.trans_to_obj(result_obj, O.reagents.total_volume)
@@ -121,16 +121,16 @@
 		if((recipe.check_reagents(obj.reagents) < target) || (recipe.check_items(obj) < target) || (recipe.check_fruit(obj) < target))
 			continue
 		possible_recipes |= recipe
-	if (possible_recipes.len==0)
+	if(possible_recipes.len==0)
 		return null
-	else if (possible_recipes.len==1)
+	else if(possible_recipes.len==1)
 		return possible_recipes[1]
 	else //okay, let's select the most complicated recipe
 		var/highest_count = 0
 		. = possible_recipes[1]
 		for(var/datum/recipe/recipe in possible_recipes)
 			var/count = ((recipe.items)?(recipe.items.len):0) + ((recipe.reagents)?(recipe.reagents.len):0) + ((recipe.fruit)?(recipe.fruit.len):0)
-			if (count >= highest_count)
+			if(count >= highest_count)
 				highest_count = count
 				. = recipe
 		return .

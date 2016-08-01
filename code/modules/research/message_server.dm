@@ -105,7 +105,7 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 /obj/machinery/message_server/proc/send_pda_message(var/recipient = "",var/sender = "",var/message = "")
 	var/result
 	for(var/token in spamfilter)
-		if (findtextEx(message,token))
+		if(findtextEx(message,token))
 			message = "<font color=\"red\">[message]</font>"	//Rejected messages will be indicated by red color.
 			result = token										//Token caused rejection (if there are multiple, last will be chosen>.
 	pda_msgs += new/datum/data_pda_msg(recipient,sender,message)
@@ -114,12 +114,12 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 /obj/machinery/message_server/proc/send_rc_message(var/recipient = "",var/sender = "",var/message = "",var/stamp = "", var/id_auth = "", var/priority = 1)
 	rc_msgs += new/datum/data_rc_msg(recipient,sender,message,stamp,id_auth)
 	var/authmsg = "[message]<br>"
-	if (id_auth)
+	if(id_auth)
 		authmsg += "[id_auth]<br>"
-	if (stamp)
+	if(stamp)
 		authmsg += "[stamp]<br>"
 	for(var/obj/machinery/requests_console/Console in allConsoles)
-		if (ckey(Console.department) == ckey(recipient))
+		if(ckey(Console.department) == ckey(recipient))
 			if(Console.inoperable())
 				Console.message_log += "<B>Message lost due to console failure.</B><BR>Please contact [station_name()] system administrator or AI for technical assistance.<BR>"
 				continue
@@ -150,7 +150,7 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 	return
 
 /obj/machinery/message_server/attackby(obj/item/weapon/O as obj, mob/living/user as mob)
-	if (active && !(stat & (BROKEN|NOPOWER)) && (spamfilter_limit < MESSAGE_SERVER_DEFAULT_SPAM_LIMIT*2) && \
+	if(active && !(stat & (BROKEN|NOPOWER)) && (spamfilter_limit < MESSAGE_SERVER_DEFAULT_SPAM_LIMIT*2) && \
 		istype(O,/obj/item/weapon/circuitboard/message_monitor))
 		spamfilter_limit += round(MESSAGE_SERVER_DEFAULT_SPAM_LIMIT / 2)
 		user.drop_item()
@@ -162,7 +162,7 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 /obj/machinery/message_server/update_icon()
 	if((stat & (BROKEN|NOPOWER)))
 		icon_state = "server-nopower"
-	else if (!active)
+	else if(!active)
 		icon_state = "server-off"
 	else
 		icon_state = "server-on"

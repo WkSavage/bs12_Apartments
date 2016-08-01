@@ -42,9 +42,9 @@
 	return
 
 /obj/machinery/igniter/process()	//ugh why is this even in process()?
-	if (on && powered() )
+	if(on && powered() )
 		var/turf/location = src.loc
-		if (isturf(location))
+		if(isturf(location))
 			location.hotspot_expose(1000,500,1)
 	return 1
 
@@ -94,7 +94,7 @@
 //		src.sd_SetLuminosity(0)
 
 /obj/machinery/sparker/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/weapon/screwdriver))
 		add_fingerprint(user)
 		disable = !disable
 		if(disable)
@@ -104,16 +104,16 @@
 		update_icon()
 
 /obj/machinery/sparker/attack_ai()
-	if (anchored)
+	if(anchored)
 		return ignite()
 	else
 		return
 
 /obj/machinery/sparker/proc/ignite()
-	if (!powered())
+	if(!powered())
 		return
 
-	if (disable || (last_spark && world.time < last_spark + 50))
+	if(disable || (last_spark && world.time < last_spark + 50))
 		return
 
 
@@ -124,7 +124,7 @@
 	src.last_spark = world.time
 	use_power(1000)
 	var/turf/location = src.loc
-	if (isturf(location))
+	if(isturf(location))
 		location.hotspot_expose(1000,500,1)
 	return 1
 
@@ -150,7 +150,7 @@
 	icon_state = "launcheract"
 
 	for(var/obj/machinery/sparker/M in machines)
-		if (M.id == id)
+		if(M.id == id)
 			spawn( 0 )
 				M.ignite()
 

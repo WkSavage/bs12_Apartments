@@ -83,7 +83,7 @@ var/datum/antagonist/cultist/cult
 
 /datum/antagonist/cultist/proc/grant_runeword(mob/living/carbon/human/cult_mob, var/word)
 
-	if (!word)
+	if(!word)
 		if(startwords.len > 0)
 			word=pick(startwords)
 			startwords -= word

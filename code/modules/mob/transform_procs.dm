@@ -1,8 +1,8 @@
 /mob/living/carbon/human/proc/monkeyize()
-	if (transforming)
+	if(transforming)
 		return
 	for(var/obj/item/W in src)
-		if (W==w_uniform) // will be torn
+		if(W==w_uniform) // will be torn
 			continue
 		drop_from_inventory(W)
 	regenerate_icons()
@@ -46,7 +46,7 @@
 	return ..()
 
 /mob/living/carbon/human/AIize(move=1) // 'move' argument needs defining here too because BYOND is dumb
-	if (transforming)
+	if(transforming)
 		return
 	for(var/t in organs)
 		qdel(t)
@@ -54,7 +54,7 @@
 	return ..(move)
 
 /mob/living/carbon/AIize()
-	if (transforming)
+	if(transforming)
 		return
 	for(var/obj/item/W in src)
 		drop_from_inventory(W)
@@ -80,21 +80,21 @@
 	if(move)
 		var/obj/loc_landmark
 		for(var/obj/effect/landmark/start/sloc in landmarks_list)
-			if (sloc.name != "AI")
+			if(sloc.name != "AI")
 				continue
-			if ((locate(/mob/living) in sloc.loc) || (locate(/obj/structure/AIcore) in sloc.loc))
+			if((locate(/mob/living) in sloc.loc) || (locate(/obj/structure/AIcore) in sloc.loc))
 				continue
 			loc_landmark = sloc
-		if (!loc_landmark)
+		if(!loc_landmark)
 			for(var/obj/effect/landmark/tripai in landmarks_list)
-				if (tripai.name == "tripai")
+				if(tripai.name == "tripai")
 					if((locate(/mob/living) in tripai.loc) || (locate(/obj/structure/AIcore) in tripai.loc))
 						continue
 					loc_landmark = tripai
-		if (!loc_landmark)
+		if(!loc_landmark)
 			O << "Oh god sorry we can't find an unoccupied AI spawn location, so we're spawning you on top of someone."
 			for(var/obj/effect/landmark/start/sloc in landmarks_list)
-				if (sloc.name == "AI")
+				if(sloc.name == "AI")
 					loc_landmark = sloc
 
 		O.loc = loc_landmark.loc
@@ -110,7 +110,7 @@
 
 //human -> robot
 /mob/living/carbon/human/proc/Robotize()
-	if (transforming)
+	if(transforming)
 		return
 	for(var/obj/item/W in src)
 		drop_from_inventory(W)
@@ -162,7 +162,7 @@
 	return O
 
 /mob/living/carbon/human/proc/slimeize(adult as num, reproduce as num)
-	if (transforming)
+	if(transforming)
 		return
 	for(var/obj/item/W in src)
 		drop_from_inventory(W)
@@ -196,7 +196,7 @@
 	return
 
 /mob/living/carbon/human/proc/corgize()
-	if (transforming)
+	if(transforming)
 		return
 	for(var/obj/item/W in src)
 		drop_from_inventory(W)

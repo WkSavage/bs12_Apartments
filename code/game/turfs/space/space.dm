@@ -32,22 +32,22 @@
 
 /turf/space/attackby(obj/item/C as obj, mob/user as mob)
 
-	if (istype(C, /obj/item/stack/rods))
+	if(istype(C, /obj/item/stack/rods))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
 			return
 		var/obj/item/stack/rods/R = C
-		if (R.use(1))
+		if(R.use(1))
 			user << "<span class='notice'>Constructing support lattice ...</span>"
 			playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 			ReplaceWithLattice()
 		return
 
-	if (istype(C, /obj/item/stack/tile/floor))
+	if(istype(C, /obj/item/stack/tile/floor))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
 			var/obj/item/stack/tile/floor/S = C
-			if (S.get_amount() < 1)
+			if(S.get_amount() < 1)
 				return
 			qdel(L)
 			playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
@@ -67,7 +67,7 @@
 
 		// Okay, so let's make it so that people can travel z levels but not nuke disks!
 		// if(ticker.mode.name == "mercenary")	return
-		if (A.x <= TRANSITIONEDGE || A.x >= (world.maxx - TRANSITIONEDGE + 1) || A.y <= TRANSITIONEDGE || A.y >= (world.maxy - TRANSITIONEDGE + 1))
+		if(A.x <= TRANSITIONEDGE || A.x >= (world.maxx - TRANSITIONEDGE + 1) || A.y <= TRANSITIONEDGE || A.y >= (world.maxy - TRANSITIONEDGE + 1))
 			A.touch_map_edge()
 
 /turf/space/proc/Sandbox_Spacemove(atom/movable/A as mob|obj)
@@ -101,9 +101,9 @@
 			A.z = target_z
 			A.x = world.maxx - 2
 			spawn (0)
-				if ((A && A.loc))
+				if((A && A.loc))
 					A.loc.Entered(A)
-	else if (src.x >= world.maxx)
+	else if(src.x >= world.maxx)
 		if(istype(A, /obj/effect/meteor))
 			qdel(A)
 			return
@@ -126,9 +126,9 @@
 			A.z = target_z
 			A.x = 3
 			spawn (0)
-				if ((A && A.loc))
+				if((A && A.loc))
 					A.loc.Entered(A)
-	else if (src.y <= 1)
+	else if(src.y <= 1)
 		if(istype(A, /obj/effect/meteor))
 			qdel(A)
 			return
@@ -150,10 +150,10 @@
 			A.z = target_z
 			A.y = world.maxy - 2
 			spawn (0)
-				if ((A && A.loc))
+				if((A && A.loc))
 					A.loc.Entered(A)
 
-	else if (src.y >= world.maxy)
+	else if(src.y >= world.maxy)
 		if(istype(A, /obj/effect/meteor))
 			qdel(A)
 			return
@@ -175,7 +175,7 @@
 			A.z = target_z
 			A.y = 3
 			spawn (0)
-				if ((A && A.loc))
+				if((A && A.loc))
 					A.loc.Entered(A)
 	return
 

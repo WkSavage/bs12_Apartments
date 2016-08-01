@@ -12,18 +12,18 @@
 
 /obj/structure/displaycase/ex_act(severity)
 	switch(severity)
-		if (1)
+		if(1)
 			new /obj/item/weapon/material/shard( src.loc )
-			if (occupied)
+			if(occupied)
 				new /obj/item/weapon/gun/energy/captain( src.loc )
 				occupied = 0
 			qdel(src)
-		if (2)
-			if (prob(50))
+		if(2)
+			if(prob(50))
 				src.health -= 15
 				src.healthcheck()
-		if (3)
-			if (prob(50))
+		if(3)
+			if(prob(50))
 				src.health -= 5
 				src.healthcheck()
 
@@ -35,8 +35,8 @@
 	return
 
 /obj/structure/displaycase/proc/healthcheck()
-	if (src.health <= 0)
-		if (!( src.destroyed ))
+	if(src.health <= 0)
+		if(!( src.destroyed ))
 			src.density = 0
 			src.destroyed = 1
 			new /obj/item/weapon/material/shard( src.loc )
@@ -62,7 +62,7 @@
 	return
 
 /obj/structure/displaycase/attack_hand(mob/user as mob)
-	if (src.destroyed && src.occupied)
+	if(src.destroyed && src.occupied)
 		new /obj/item/weapon/gun/energy/captain( src.loc )
 		user << "<span class='notice'>You deactivate the hover field built into the case.</span>"
 		src.occupied = 0
@@ -72,7 +72,7 @@
 	else
 		usr << text("<span class='warning'>You kick the display case.</span>")
 		for(var/mob/O in oviewers())
-			if ((O.client && !( O.blinded )))
+			if((O.client && !( O.blinded )))
 				O << "<span class='warning'>[usr] kicks the display case.</span>"
 		src.health -= 2
 		healthcheck()

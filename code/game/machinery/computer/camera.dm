@@ -25,12 +25,12 @@
 		return attack_hand(user)
 
 	check_eye(var/mob/user as mob)
-		if (user.stat || ((get_dist(user, src) > 1 || !( user.canmove ) || user.blinded) && !istype(user, /mob/living/silicon))) //user can't see - not sure why canmove is here.
+		if(user.stat || ((get_dist(user, src) > 1 || !( user.canmove ) || user.blinded) && !istype(user, /mob/living/silicon))) //user can't see - not sure why canmove is here.
 			return -1
 		if(!current_camera)
 			return 0
 		var/viewflag = current_camera.check_eye(user)
-		if ( viewflag < 0 ) //camera doesn't work
+		if( viewflag < 0 ) //camera doesn't work
 			reset_current()
 		return viewflag
 
@@ -48,7 +48,7 @@
 			data["cameras"] = camera_repository.cameras_in_network(current_network)
 
 		ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-		if (!ui)
+		if(!ui)
 			ui = new(user, src, ui_key, "sec_camera.tmpl", "Camera Console", 900, 800)
 
 			// adding a template with the key "mapContent" enables the map ui functionality
@@ -89,7 +89,7 @@
 			. = ..()
 
 	attack_hand(var/mob/user as mob)
-		if (src.z > 6)
+		if(src.z > 6)
 			user << "<span class='danger'>Unable to establish a connection:</span> You're too far away from the station!"
 			return
 		if(stat & (NOPOWER|BROKEN))	return
@@ -110,7 +110,7 @@
 			A.client.eye = A.eyeobj
 			return 1
 
-		if (!C.can_use() || user.stat || (get_dist(user, src) > 1 || user.machine != src || user.blinded || !( user.canmove ) && !istype(user, /mob/living/silicon)))
+		if(!C.can_use() || user.stat || (get_dist(user, src) > 1 || user.machine != src || user.blinded || !( user.canmove ) && !istype(user, /mob/living/silicon)))
 			return 0
 		set_current(C)
 		user.reset_view(current_camera)

@@ -120,7 +120,7 @@
 			var/mob/living/carbon/human/H = M
 			if((H.species.flags & IS_PLANT) && (H.nutrition < 500))
 				H.nutrition += 30
-		else if (istype(target, /mob/living/carbon/))
+		else if(istype(target, /mob/living/carbon/))
 			M.show_message("\blue The radiation beam dissipates harmlessly through your body.")
 		else
 			return 1

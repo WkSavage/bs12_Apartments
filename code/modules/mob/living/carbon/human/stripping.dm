@@ -120,7 +120,7 @@
 	if(!suit)
 		user << "<span class='warning'>\The [src] is not wearing a suit with sensors.</span>"
 		return
-	if (suit.has_sensor >= 2)
+	if(suit.has_sensor >= 2)
 		user << "<span class='warning'>\The [src]'s suit sensor controls are locked.</span>"
 		return
 	attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their sensors toggled by [user.name] ([user.ckey])</font>")
@@ -132,7 +132,7 @@
 	var/removed_splint = 0
 	for(var/organ in list("l_leg","r_leg","l_arm","r_arm"))
 		var/obj/item/organ/external/o = get_organ(organ)
-		if (o && o.splinted)
+		if(o && o.splinted)
 			var/obj/item/S = o.splinted
 			if(!istype(S) || S.loc != o) //can only remove splints that are actually worn on the organ (deals with hardsuit splints)
 				user << "<span class='warning'>You cannot remove any splints on [src]'s [o.name] - [o.splinted] is supporting some of the breaks.</span>"
@@ -168,7 +168,7 @@
 	if(internal)
 		visible_message("<span class='warning'>\The [src] is now running on internals!</span>")
 		internal.add_fingerprint(user)
-		if (internals)
+		if(internals)
 			internals.icon_state = "internal1"
 	else
 		visible_message("<span class='danger'>\The [user] disables \the [src]'s internals!</span>")

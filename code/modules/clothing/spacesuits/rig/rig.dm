@@ -274,7 +274,7 @@
 								helmet.update_light(wearer)
 
 					//sealed pieces become airtight, protecting against diseases
-					if (!seal_target)
+					if(!seal_target)
 						piece.armor["bio"] = 100
 					else
 						piece.armor["bio"] = src.armor["bio"]
@@ -318,13 +318,13 @@
 			piece.item_flags &= ~(STOPPRESSUREDAMAGE|AIRTIGHT)
 		else
 			piece.item_flags |=  (STOPPRESSUREDAMAGE|AIRTIGHT)
-	if (hides_uniform && chest)
+	if(hides_uniform && chest)
 		if(canremove)
 			chest.flags_inv &= ~(HIDEJUMPSUIT)
 		else
 			chest.flags_inv |= HIDEJUMPSUIT
-	if (helmet)
-		if (canremove)
+	if(helmet)
+		if(canremove)
 			helmet.flags_inv &= ~(HIDEMASK)
 		else
 			helmet.flags_inv |= HIDEMASK
@@ -346,7 +346,7 @@
 		if(offline)
 			//notify the wearer
 			if(!canremove)
-				if (offline_slowdown < 3)
+				if(offline_slowdown < 3)
 					wearer << "<span class='danger'>Your suit beeps stridently, and suddenly goes dead.</span>"
 				else
 					wearer << "<span class='danger'>Your suit beeps stridently, and suddenly you're wearing a leaden mass of metal and plastic composites instead of a powered suit.</span>"
@@ -492,7 +492,7 @@
 		data["modules"] = module_list
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, ((src.loc != user) ? ai_interface_path : interface_path), interface_title, 480, 550, state = nano_state)
 		ui.set_initial_data(data)
 		ui.open()
@@ -658,7 +658,7 @@
 						use_obj.canremove = 0
 						use_obj.forceMove(src)
 
-		else if (deploy_mode != ONLY_RETRACT)
+		else if(deploy_mode != ONLY_RETRACT)
 			if(check_slot && check_slot == use_obj)
 				return
 			use_obj.forceMove(wearer)
@@ -736,7 +736,7 @@
 	take_hit((100/severity_class), "electrical pulse", 1)
 
 /obj/item/weapon/rig/proc/shock(mob/user)
-	if (electrocute_mob(user, cell, src)) //electrocute_mob() handles removing charge from the cell, no need to do that here.
+	if(electrocute_mob(user, cell, src)) //electrocute_mob() handles removing charge from the cell, no need to do that here.
 		spark_system.start()
 		if(user.stunned)
 			return 1

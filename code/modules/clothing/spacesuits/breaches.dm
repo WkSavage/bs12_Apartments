@@ -109,7 +109,7 @@ var/global/list/breach_burn_descriptors = list(
 
 		//keep in mind that 10 breach damage == full pressure loss.
 		//a breach can have at most 5 breach damage
-		if (existing.class < 5)
+		if(existing.class < 5)
 			var/needs = 5 - existing.class
 			if(amount < needs)
 				existing.class += amount
@@ -123,7 +123,7 @@ var/global/list/breach_burn_descriptors = list(
 			else if(existing.damtype == BURN)
 				T.visible_message("<span class = 'warning'>\The [existing.descriptor] on [src] widens!</span>")
 
-	if (amount)
+	if(amount)
 		//Spawn a new breach.
 		var/datum/breach/B = new()
 		breaches += B
@@ -185,10 +185,10 @@ var/global/list/breach_burn_descriptors = list(
 				repair_power = 2
 			if("plastic")
 				repair_power = 1
-		
+
 		if(!repair_power)
 			return
-		
+
 		if(istype(src.loc,/mob/living))
 			user << "<span class='warning'>How do you intend to patch a hardsuit while someone is wearing it?</span>"
 			return
@@ -209,7 +209,7 @@ var/global/list/breach_burn_descriptors = list(
 			user << "\red How do you intend to patch a hardsuit while someone is wearing it?"
 			return
 
-		if (!damage || ! brute_damage)
+		if(!damage || ! brute_damage)
 			user << "There is no structural damage on \the [src] to repair."
 			return
 

@@ -509,7 +509,7 @@ var/global/datum/controller/occupations/job_master
 			continue
 
 		job = trim(job)
-		if (!length(job))
+		if(!length(job))
 			continue
 
 		var/pos = findtext(job, "=")

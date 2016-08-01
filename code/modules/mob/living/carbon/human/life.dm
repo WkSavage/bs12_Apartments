@@ -44,7 +44,7 @@
 	set invisibility = 0
 	set background = BACKGROUND_ENABLED
 
-	if (transforming)
+	if(transforming)
 		return
 
 	fire_alert = 0 //Reset this here, because both breathe() and handle_environment() have a chance to set it.
@@ -170,8 +170,8 @@
 /mob/living/carbon/human/handle_disabilities()
 	..()
 
-	if (disabilities & EPILEPSY)
-		if ((prob(1) && paralysis < 1))
+	if(disabilities & EPILEPSY)
+		if((prob(1) && paralysis < 1))
 			src << "\red You have a seizure!"
 			for(var/mob/O in viewers(src, null))
 				if(O == src)
@@ -179,14 +179,14 @@
 				O.show_message(text("<span class='danger'>[src] starts having a seizure!</span>"), 1)
 			Paralyse(10)
 			make_jittery(1000)
-	if (disabilities & COUGHING)
-		if ((prob(5) && paralysis <= 1))
+	if(disabilities & COUGHING)
+		if((prob(5) && paralysis <= 1))
 			drop_item()
 			spawn( 0 )
 				emote("cough")
 				return
-	if (disabilities & TOURETTES)
-		if ((prob(10) && paralysis <= 1))
+	if(disabilities & TOURETTES)
+		if((prob(10) && paralysis <= 1))
 			Stun(10)
 			spawn( 0 )
 				switch(rand(1, 3))
@@ -196,8 +196,8 @@
 						say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]")
 				make_jittery(100)
 				return
-	if (disabilities & NERVOUS)
-		if (prob(10))
+	if(disabilities & NERVOUS)
+		if(prob(10))
 			stuttering = max(10, stuttering)
 
 	if(stat != DEAD)
@@ -242,7 +242,7 @@
 
 	radiation = Clamp(radiation,0,100)
 
-	if (radiation)
+	if(radiation)
 		var/obj/item/organ/diona/nutrients/rad_organ = locate() in internal_organs
 		if(rad_organ && !rad_organ.is_broken())
 			var/rads = radiation/25
@@ -260,7 +260,7 @@
 		if(prob(25))
 			damage = 1
 
-		if (radiation > 50)
+		if(radiation > 50)
 			damage = 1
 			radiation -= 1 * RADIATION_SPEED_COEFFICIENT
 			if(prob(5) && prob(100 * RADIATION_SPEED_COEFFICIENT))
@@ -276,7 +276,7 @@
 					f_style = "Shaved"
 					update_hair()
 
-		if (radiation > 75)
+		if(radiation > 75)
 			radiation -= 1 * RADIATION_SPEED_COEFFICIENT
 			damage = 3
 			if(prob(5))
@@ -322,7 +322,7 @@
 			if(!rig.offline && (rig.air_supply && internal == rig.air_supply))
 				rig_supply = rig.air_supply
 
-		if (!rig_supply && (!contents.Find(internal) || !((wear_mask && (wear_mask.item_flags & AIRTIGHT)) || (head && (head.item_flags & AIRTIGHT)))))
+		if(!rig_supply && (!contents.Find(internal) || !((wear_mask && (wear_mask.item_flags & AIRTIGHT)) || (head && (head.item_flags & AIRTIGHT)))))
 			internal = null
 
 		if(internal)
@@ -394,7 +394,7 @@
 			var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(thermal_protection < 1)
 				temp_adj = (1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR)	//this will be negative
-		else if (loc_temp > bodytemperature)			//Place is hotter than we are
+		else if(loc_temp > bodytemperature)			//Place is hotter than we are
 			var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(thermal_protection < 1)
 				temp_adj = (1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR)
@@ -455,16 +455,16 @@
 	return
 
 /mob/living/carbon/human/proc/stabilize_body_temperature()
-	if (species.passive_temp_gain) // We produce heat naturally.
+	if(species.passive_temp_gain) // We produce heat naturally.
 		bodytemperature += species.passive_temp_gain
-	if (species.body_temperature == null)
+	if(species.body_temperature == null)
 		return //this species doesn't have metabolic thermoregulation
 
 	var/body_temperature_difference = species.body_temperature - bodytemperature
 
-	if (abs(body_temperature_difference) < 0.5)
+	if(abs(body_temperature_difference) < 0.5)
 		return //fuck this precision
-	if (on_fire)
+	if(on_fire)
 		return //too busy for pesky metabolic regulation
 
 	if(bodytemperature < species.cold_level_1) //260.15 is 310.15 - 50, the temperature where you start to feel effects.
@@ -605,7 +605,7 @@
 			heal_overall_damage(1,1)
 
 	// nutrition decrease
-	if (nutrition > 0 && stat != 2)
+	if(nutrition > 0 && stat != 2)
 		nutrition = max (0, nutrition - species.hunger_factor)
 
 	if(species.flags & IS_PLANT && (!light_organ || light_organ.is_broken()))
@@ -680,7 +680,7 @@
 
 			if(sleeping)
 				handle_dreams()
-				if (mind)
+				if(mind)
 					//Are they SSD? If so we'll keep them asleep but work off some of that sleep var in case of stoxin or similar.
 					if(client || sleeping > 3)
 						AdjustSleeping(-1)
@@ -708,10 +708,10 @@
 			jitteriness = max(0, jitteriness - 3)
 			adjustHalLoss(-1)
 
-		if (drowsyness > 0)
+		if(drowsyness > 0)
 			drowsyness = max(0, drowsyness-1)
 			eye_blurry = max(2, eye_blurry)
-			if (prob(5))
+			if(prob(5))
 				sleeping += 1
 				Paralyse(5)
 
@@ -782,7 +782,7 @@
 			clear_fullscreen("brute")
 
 		if(healths)
-			if (analgesic > 100)
+			if(analgesic > 100)
 				healths.icon_state = "health_numb"
 			else
 				switch(hal_screwyhud)
@@ -842,7 +842,7 @@
 			else									fire.icon_state = "fire0"
 
 		if(bodytemp)
-			if (!species)
+			if(!species)
 				switch(bodytemperature) //310.055 optimal body temp
 					if(370 to INFINITY)		bodytemp.icon_state = "temp4"
 					if(350 to 370)			bodytemp.icon_state = "temp3"
@@ -860,30 +860,30 @@
 					base_temperature = (species.heat_level_1 + species.cold_level_1)/2
 
 				var/temp_step
-				if (bodytemperature >= base_temperature)
+				if(bodytemperature >= base_temperature)
 					temp_step = (species.heat_level_1 - base_temperature)/4
 
-					if (bodytemperature >= species.heat_level_1)
+					if(bodytemperature >= species.heat_level_1)
 						bodytemp.icon_state = "temp4"
-					else if (bodytemperature >= base_temperature + temp_step*3)
+					else if(bodytemperature >= base_temperature + temp_step*3)
 						bodytemp.icon_state = "temp3"
-					else if (bodytemperature >= base_temperature + temp_step*2)
+					else if(bodytemperature >= base_temperature + temp_step*2)
 						bodytemp.icon_state = "temp2"
-					else if (bodytemperature >= base_temperature + temp_step*1)
+					else if(bodytemperature >= base_temperature + temp_step*1)
 						bodytemp.icon_state = "temp1"
 					else
 						bodytemp.icon_state = "temp0"
 
-				else if (bodytemperature < base_temperature)
+				else if(bodytemperature < base_temperature)
 					temp_step = (base_temperature - species.cold_level_1)/4
 
-					if (bodytemperature <= species.cold_level_1)
+					if(bodytemperature <= species.cold_level_1)
 						bodytemp.icon_state = "temp-4"
-					else if (bodytemperature <= base_temperature - temp_step*3)
+					else if(bodytemperature <= base_temperature - temp_step*3)
 						bodytemp.icon_state = "temp-3"
-					else if (bodytemperature <= base_temperature - temp_step*2)
+					else if(bodytemperature <= base_temperature - temp_step*2)
 						bodytemp.icon_state = "temp-2"
-					else if (bodytemperature <= base_temperature - temp_step*1)
+					else if(bodytemperature <= base_temperature - temp_step*1)
 						bodytemp.icon_state = "temp-1"
 					else
 						bodytemp.icon_state = "temp0"
@@ -895,7 +895,7 @@
 
 	// Puke if toxloss is too high
 	if(!stat)
-		if (getToxLoss() >= 45 && nutrition > 20)
+		if(getToxLoss() >= 45 && nutrition > 20)
 			vomit()
 
 /*
@@ -957,19 +957,19 @@
 	if(shock_stage == 40)
 		src << "<span class='danger'>[pick("The pain is excruciating", "Please, just end the pain", "Your whole body is going numb")]!</span>"
 
-	if (shock_stage >= 60)
+	if(shock_stage >= 60)
 		if(shock_stage == 60) emote("me",1,"'s body becomes limp.")
-		if (prob(2))
+		if(prob(2))
 			src << "<span class='danger'>[pick("The pain is excruciating", "Please, just end the pain", "Your whole body is going numb")]!</span>"
 			Weaken(20)
 
 	if(shock_stage >= 80)
-		if (prob(5))
+		if(prob(5))
 			src << "<span class='danger'>[pick("The pain is excruciating", "Please, just end the pain", "Your whole body is going numb")]!</span>"
 			Weaken(20)
 
 	if(shock_stage >= 120)
-		if (prob(2))
+		if(prob(2))
 			src << "<span class='danger'>[pick("You black out", "You feel like you could die any moment now", "You're about to lose consciousness")]!</span>"
 			Paralyse(5)
 
@@ -988,7 +988,7 @@
 
 
 /mob/living/carbon/human/proc/handle_hud_list()
-	if (BITTEST(hud_updateflag, HEALTH_HUD))
+	if(BITTEST(hud_updateflag, HEALTH_HUD))
 		var/image/holder = hud_list[HEALTH_HUD]
 		if(stat == DEAD)
 			holder.icon_state = "-100" 	// X_X
@@ -996,7 +996,7 @@
 			holder.icon_state = RoundHealth((health-config.health_threshold_crit)/(maxHealth-config.health_threshold_crit)*100)
 		hud_list[HEALTH_HUD] = holder
 
-	if (BITTEST(hud_updateflag, LIFE_HUD))
+	if(BITTEST(hud_updateflag, LIFE_HUD))
 		var/image/holder = hud_list[LIFE_HUD]
 		if(stat == DEAD)
 			holder.icon_state = "huddead"
@@ -1004,10 +1004,10 @@
 			holder.icon_state = "hudhealthy"
 		hud_list[LIFE_HUD] = holder
 
-	if (BITTEST(hud_updateflag, STATUS_HUD))
+	if(BITTEST(hud_updateflag, STATUS_HUD))
 		var/foundVirus = 0
 		for(var/ID in virus2)
-			if (ID in virusDB)
+			if(ID in virusDB)
 				foundVirus = 1
 				break
 
@@ -1042,7 +1042,7 @@
 		hud_list[STATUS_HUD] = holder
 		hud_list[STATUS_HUD_OOC] = holder2
 
-	if (BITTEST(hud_updateflag, ID_HUD))
+	if(BITTEST(hud_updateflag, ID_HUD))
 		var/image/holder = hud_list[ID_HUD]
 		if(wear_id)
 			var/obj/item/weapon/card/id/I = wear_id.GetID()
@@ -1056,7 +1056,7 @@
 
 		hud_list[ID_HUD] = holder
 
-	if (BITTEST(hud_updateflag, WANTED_HUD))
+	if(BITTEST(hud_updateflag, WANTED_HUD))
 		var/image/holder = hud_list[WANTED_HUD]
 		holder.icon_state = "hudblank"
 		var/perpname = name
@@ -1082,7 +1082,7 @@
 						break
 		hud_list[WANTED_HUD] = holder
 
-	if (  BITTEST(hud_updateflag, IMPLOYAL_HUD) \
+	if(  BITTEST(hud_updateflag, IMPLOYAL_HUD) \
 	   || BITTEST(hud_updateflag,  IMPCHEM_HUD) \
 	   || BITTEST(hud_updateflag, IMPTRACK_HUD))
 
@@ -1107,7 +1107,7 @@
 		hud_list[IMPLOYAL_HUD] = holder2
 		hud_list[IMPCHEM_HUD]  = holder3
 
-	if (BITTEST(hud_updateflag, SPECIALROLE_HUD))
+	if(BITTEST(hud_updateflag, SPECIALROLE_HUD))
 		var/image/holder = hud_list[SPECIALROLE_HUD]
 		holder.icon_state = "hudblank"
 		if(mind && mind.special_role)
@@ -1131,7 +1131,7 @@
 	var/burn_temperature = fire_burn_temperature()
 	var/thermal_protection = get_heat_protection(burn_temperature)
 
-	if (thermal_protection < 1 && bodytemperature < burn_temperature)
+	if(thermal_protection < 1 && bodytemperature < burn_temperature)
 		bodytemperature += round(BODYTEMP_HEATING_MAX*(1-thermal_protection), 1)
 
 /mob/living/carbon/human/rejuvenate()

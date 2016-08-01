@@ -35,7 +35,7 @@ var/prison_shuttle_timeleft = 0
 				A.circuit = M
 				A.anchored = 1
 
-				if (src.stat & BROKEN)
+				if(src.stat & BROKEN)
 					user << "<span class='notice'>The broken glass falls out.</span>"
 					new /obj/item/weapon/material/shard( src.loc )
 					A.state = 3
@@ -62,7 +62,7 @@ var/prison_shuttle_timeleft = 0
 		user.set_machine(src)
 		post_signal("prison")
 		var/dat
-		if (src.temp)
+		if(src.temp)
 			dat = src.temp
 		else
 			dat += {"<BR><B>Prison Shuttle</B><HR>
@@ -79,11 +79,11 @@ var/prison_shuttle_timeleft = 0
 		if(..())
 			return
 
-		if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
+		if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
 			usr.set_machine(src)
 
-		if (href_list["sendtodock"])
-			if (!prison_can_move())
+		if(href_list["sendtodock"])
+			if(!prison_can_move())
 				usr << "<span class='warning'>The prison shuttle is unable to leave.</span>"
 				return
 			if(!prison_shuttle_at_station|| prison_shuttle_moving_to_station || prison_shuttle_moving_to_prison) return
@@ -96,8 +96,8 @@ var/prison_shuttle_timeleft = 0
 			spawn(0)
 				prison_process()
 
-		else if (href_list["sendtostation"])
-			if (!prison_can_move())
+		else if(href_list["sendtostation"])
+			if(!prison_can_move())
 				usr << "<span class='warning'>The prison shuttle is unable to leave.</span>"
 				return
 			if(prison_shuttle_at_station || prison_shuttle_moving_to_station || prison_shuttle_moving_to_prison) return
@@ -110,7 +110,7 @@ var/prison_shuttle_timeleft = 0
 			spawn(0)
 				prison_process()
 
-		else if (href_list["mainmenu"])
+		else if(href_list["mainmenu"])
 			src.temp = null
 
 		src.add_fingerprint(usr)
@@ -125,13 +125,13 @@ var/prison_shuttle_timeleft = 0
 
 	proc/prison_break()
 		switch(prison_break)
-			if (0)
+			if(0)
 				if(!prison_shuttle_at_station || prison_shuttle_moving_to_prison) return
 
 				prison_shuttle_moving_to_prison = 1
 				prison_shuttle_at_station = prison_shuttle_at_station
 
-				if (!prison_shuttle_moving_to_prison || !prison_shuttle_moving_to_station)
+				if(!prison_shuttle_moving_to_prison || !prison_shuttle_moving_to_station)
 					prison_shuttle_time = world.timeofday + PRISON_MOVETIME
 				spawn(0)
 					prison_process()
@@ -167,9 +167,9 @@ var/prison_shuttle_timeleft = 0
 
 			if(0)
 				prison_shuttle_at_station = 1
-				if (prison_shuttle_moving_to_station || prison_shuttle_moving_to_prison) return
+				if(prison_shuttle_moving_to_station || prison_shuttle_moving_to_prison) return
 
-				if (!prison_can_move())
+				if(!prison_can_move())
 					usr << "<span class='warning'>The prison shuttle is unable to leave.</span>"
 					return
 
@@ -196,9 +196,9 @@ var/prison_shuttle_timeleft = 0
 
 			if(1)
 				prison_shuttle_at_station = 0
-				if (prison_shuttle_moving_to_station || prison_shuttle_moving_to_prison) return
+				if(prison_shuttle_moving_to_station || prison_shuttle_moving_to_prison) return
 
-				if (!prison_can_move())
+				if(!prison_can_move())
 					usr << "<span class='warning'>The prison shuttle is unable to leave.</span>"
 					return
 

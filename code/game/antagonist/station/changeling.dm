@@ -44,12 +44,12 @@
 
 	switch(rand(1,100))
 		if(1 to 80)
-			if (!(locate(/datum/objective/escape) in changeling.objectives))
+			if(!(locate(/datum/objective/escape) in changeling.objectives))
 				var/datum/objective/escape/escape_objective = new
 				escape_objective.owner = changeling
 				changeling.objectives += escape_objective
 		else
-			if (!(locate(/datum/objective/survive) in changeling.objectives))
+			if(!(locate(/datum/objective/survive) in changeling.objectives))
 				var/datum/objective/survive/survive_objective = new
 				survive_objective.owner = changeling
 				changeling.objectives += survive_objective

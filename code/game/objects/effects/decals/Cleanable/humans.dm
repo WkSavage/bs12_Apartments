@@ -49,7 +49,7 @@ var/global/list/image/splatter_cache=list()
 		if(src.loc && isturf(src.loc))
 			for(var/obj/effect/decal/cleanable/blood/B in src.loc)
 				if(B != src)
-					if (B.blood_DNA)
+					if(B.blood_DNA)
 						blood_DNA |= B.blood_DNA.Copy()
 					qdel(B)
 	drytime = world.time + DRYING_TIME * (amount+1)
@@ -64,7 +64,7 @@ var/global/list/image/splatter_cache=list()
 	color = basecolor
 
 /obj/effect/decal/cleanable/blood/Crossed(mob/living/carbon/human/perp)
-	if (!istype(perp))
+	if(!istype(perp))
 		return
 	if(amount < 1)
 		return
@@ -91,13 +91,13 @@ var/global/list/image/splatter_cache=list()
 				S.overlays += S.blood_overlay
 			S.blood_DNA |= blood_DNA.Copy()
 
-	else if (hasfeet)//Or feet
+	else if(hasfeet)//Or feet
 		perp.feet_blood_color = basecolor
 		perp.track_blood = max(amount,perp.track_blood)
 		if(!perp.feet_blood_DNA)
 			perp.feet_blood_DNA = list()
 		perp.feet_blood_DNA |= blood_DNA.Copy()
-	else if (perp.buckled && istype(perp.buckled, /obj/structure/bed/chair/wheelchair))
+	else if(perp.buckled && istype(perp.buckled, /obj/structure/bed/chair/wheelchair))
 		var/obj/structure/bed/chair/wheelchair/W = perp.buckled
 		W.bloodiness = 4
 
@@ -113,14 +113,14 @@ var/global/list/image/splatter_cache=list()
 
 /obj/effect/decal/cleanable/blood/attack_hand(mob/living/carbon/human/user)
 	..()
-	if (amount && istype(user))
+	if(amount && istype(user))
 		add_fingerprint(user)
-		if (user.gloves)
+		if(user.gloves)
 			return
 		var/taken = rand(1,amount)
 		amount -= taken
 		user << "<span class='notice'>You get some of \the [src] on your hands.</span>"
-		if (!user.blood_DNA)
+		if(!user.blood_DNA)
 			user.blood_DNA = list()
 		user.blood_DNA |= blood_DNA.Copy()
 		user.bloody_hands += taken
@@ -215,12 +215,12 @@ var/global/list/image/splatter_cache=list()
                 var/direction = pick(directions)
                 for(var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)
                         sleep(3)
-                        if (i > 0)
+                        if(i > 0)
                                 var/obj/effect/decal/cleanable/blood/b = PoolOrNew(/obj/effect/decal/cleanable/blood/splatter, src.loc)
                                 b.basecolor = src.basecolor
                                 b.update_icon()
 
-                        if (step_to(src, get_step(src, direction), 0))
+                        if(step_to(src, get_step(src, direction), 0))
                                 break
 
 

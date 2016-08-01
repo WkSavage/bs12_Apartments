@@ -48,10 +48,10 @@ var/hadevent    = 0
 			continue
 		if(istype(H,/mob/living/carbon/human))
 			H.apply_effect((rand(15,75)),IRRADIATE, blocked = H.getarmor(null, "rad"))
-			if (prob(5))
+			if(prob(5))
 				H.apply_effect((rand(90,150)),IRRADIATE, blocked = H.getarmor(null, "rad"))
-			if (prob(25))
-				if (prob(75))
+			if(prob(25))
+				if(prob(75))
 					randmutb(H)
 					domutcheck(H,null,MUTCHK_FORCED)
 				else

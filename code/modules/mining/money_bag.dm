@@ -18,42 +18,42 @@
 	var/amt_uranium = 0
 
 	for(var/obj/item/weapon/coin/C in contents)
-		if (istype(C,/obj/item/weapon/coin/diamond))
+		if(istype(C,/obj/item/weapon/coin/diamond))
 			amt_diamond++;
-		if (istype(C,/obj/item/weapon/coin/phoron))
+		if(istype(C,/obj/item/weapon/coin/phoron))
 			amt_phoron++;
-		if (istype(C,/obj/item/weapon/coin/iron))
+		if(istype(C,/obj/item/weapon/coin/iron))
 			amt_iron++;
-		if (istype(C,/obj/item/weapon/coin/silver))
+		if(istype(C,/obj/item/weapon/coin/silver))
 			amt_silver++;
-		if (istype(C,/obj/item/weapon/coin/gold))
+		if(istype(C,/obj/item/weapon/coin/gold))
 			amt_gold++;
-		if (istype(C,/obj/item/weapon/coin/uranium))
+		if(istype(C,/obj/item/weapon/coin/uranium))
 			amt_uranium++;
 
 	var/dat = text("<b>The contents of the moneybag reveal...</b><br>")
-	if (amt_gold)
+	if(amt_gold)
 		dat += text("Gold coins: [amt_gold] <A href='?src=\ref[src];remove=gold'>Remove one</A><br>")
-	if (amt_silver)
+	if(amt_silver)
 		dat += text("Silver coins: [amt_silver] <A href='?src=\ref[src];remove=silver'>Remove one</A><br>")
-	if (amt_iron)
+	if(amt_iron)
 		dat += text("Metal coins: [amt_iron] <A href='?src=\ref[src];remove=iron'>Remove one</A><br>")
-	if (amt_diamond)
+	if(amt_diamond)
 		dat += text("Diamond coins: [amt_diamond] <A href='?src=\ref[src];remove=diamond'>Remove one</A><br>")
-	if (amt_phoron)
+	if(amt_phoron)
 		dat += text("Phoron coins: [amt_phoron] <A href='?src=\ref[src];remove=phoron'>Remove one</A><br>")
-	if (amt_uranium)
+	if(amt_uranium)
 		dat += text("Uranium coins: [amt_uranium] <A href='?src=\ref[src];remove=uranium'>Remove one</A><br>")
 	user << browse("[dat]", "window=moneybag")
 
 /obj/item/weapon/moneybag/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
-	if (istype(W, /obj/item/weapon/coin))
+	if(istype(W, /obj/item/weapon/coin))
 		var/obj/item/weapon/coin/C = W
 		user << "\blue You add the [C.name] into the bag."
 		usr.drop_item()
 		contents += C
-	if (istype(W, /obj/item/weapon/moneybag))
+	if(istype(W, /obj/item/weapon/moneybag))
 		var/obj/item/weapon/moneybag/C = W
 		for(var/obj/O in C.contents)
 			contents += O;

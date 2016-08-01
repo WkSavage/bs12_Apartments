@@ -83,7 +83,7 @@
 			if(authenticated_account && held_card.associated_account_number != authenticated_account.account_number)
 				authenticated_account = null
 			attack_hand(user)
-			
+
 	else if(authenticated_account)
 		if(istype(I,/obj/item/weapon/spacecash))
 			//consume the money
@@ -122,12 +122,12 @@
 	if(get_dist(src,user) <= 1)
 		//make the window the user interacts with, divided out into welcome message, card 'slot', then login/data screen
 		var/list/t = list()
-		
+
 		if(authenticated_account)
 			t += "<span class='highlight'>Welcome <b>[authenticated_account.owner_name]</b>.</span><BR>"
 		else
-			t += "<span class='highlight'>Welcome. Please login below.</span><BR>"		
-			
+			t += "<span class='highlight'>Welcome. Please login below.</span><BR>"
+
 		t += "<div class='statusDisplay'><span class='highlight'><b>Card: </b></span>"
 		if(emagged > 0)
 			t += "<span class='bad'><b>LOCKED</b><br>Unauthorized terminal access detected!<br>This ATM has been locked down.</span></div><BR>"
@@ -210,9 +210,9 @@
 
 			else
 				//change our display depending on account security levels
-				if(!account_security_level) 
+				if(!account_security_level)
 					t += "To log in to your savings account, press 'submit' with ID clearly displayed. If you wish to log into another account, please enter the account number into the field below or insert a registered ID card into the slot above and then press 'submit'.<BR>"
-				else if (account_security_level == 1)
+				else if(account_security_level == 1)
 					t += "This account requires a PIN to access. For security reasons the account # will need re-entered or ID bound to this account re-scanned."
 				else
 					t += "<span class='bad'><b>Due to the security settings on this account, all information needs to be re-entered and the ID bound to this account placed in the slot above.</b></span><BR>"
@@ -226,7 +226,7 @@
 				t += "<input type='submit' value='Submit'><br>"
 				t += "</div></form>"
 
-					
+
 		var/datum/browser/popup = new(user, "ATM", machine_id)
 		popup.set_content(jointext(t,null))
 		popup.open()
@@ -270,28 +270,28 @@
 					var/new_sec_level = max( min(text2num(href_list["new_security_level"]), 2), 0)
 					authenticated_account.security_level = new_sec_level
 			if("attempt_auth")
-			
+
 				//Look to see if we're holding an ID, if so scan the data from that and use it, if not scan the user for the data
 				var/obj/item/weapon/card/id/login_card
 				if(held_card)
 					login_card = held_card
 				else
 					login_card = scan_user(usr)
-					
+
 				if(!ticks_left_locked_down)
 					var/tried_account_num = text2num(href_list["account_num"])
 					//We WILL need an account number entered manually if security is high enough, do not automagic account number
 					if(!tried_account_num && login_card && (account_security_level != 2))
 						tried_account_num = login_card.associated_account_number
 					var/tried_pin = text2num(href_list["account_pin"])
-					
+
 					//We'll need more information if an account's security is greater than zero so let's find out what the security setting is
 					var/datum/money_account/D
 					//Below is to avoid a runtime
 					if(tried_account_num)
 						D = get_account(tried_account_num)
 						account_security_level = D.security_level
-						
+
 					authenticated_account = attempt_account_access(tried_account_num, tried_pin, held_card && login_card.associated_account_number == tried_account_num ? 2 : 1)
 
 					if(!authenticated_account)
@@ -412,7 +412,7 @@
 					playsound(loc, 'sound/items/polaroid1.ogg', 50, 1)
 				else
 					playsound(loc, 'sound/items/polaroid2.ogg', 50, 1)
-			if ("print_transaction")
+			if("print_transaction")
 				if(authenticated_account)
 					var/obj/item/weapon/paper/R = new(src.loc)
 					R.name = "Transaction logs: [authenticated_account.owner_name]"
@@ -462,7 +462,7 @@
 						usr << "\icon[src] <span class='warning'>The ATM card reader rejected your ID because this machine has been sabotaged!</span>"
 					else
 						var/obj/item/I = usr.get_active_hand()
-						if (istype(I, /obj/item/weapon/card/id))
+						if(istype(I, /obj/item/weapon/card/id))
 							usr.drop_item()
 							I.loc = src
 							held_card = I

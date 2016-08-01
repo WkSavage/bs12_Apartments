@@ -38,8 +38,8 @@
 	for(var/atom/movable/AM in src)
 		qdel(AM)
 	forceMove(null)
-	if (pulledby)
-		if (pulledby.pulling == src)
+	if(pulledby)
+		if(pulledby.pulling == src)
 			pulledby.pulling = null
 		pulledby = null
 
@@ -53,7 +53,7 @@
 		src.throwing = 0
 
 	spawn(0)
-		if (A && yes)
+		if(A && yes)
 			A.last_bumped = world.time
 			A.Bumped(src)
 		return
@@ -143,13 +143,13 @@
 	var/dist_y = abs(target.y - src.y)
 
 	var/dx
-	if (target.x > src.x)
+	if(target.x > src.x)
 		dx = EAST
 	else
 		dx = WEST
 
 	var/dy
-	if (target.y > src.y)
+	if(target.y > src.y)
 		dy = NORTH
 	else
 		dy = SOUTH
@@ -241,12 +241,12 @@
 	. = ..()
 
 /atom/movable/overlay/attackby(a, b)
-	if (src.master)
+	if(src.master)
 		return src.master.attackby(a, b)
 	return
 
 /atom/movable/overlay/attack_hand(a, b, c)
-	if (src.master)
+	if(src.master)
 		return src.master.attack_hand(a, b, c)
 	return
 
@@ -266,15 +266,15 @@
 			new_x = world.maxx - TRANSITIONEDGE - 2
 			new_y = rand(TRANSITIONEDGE + 2, world.maxy - TRANSITIONEDGE - 2)
 
-		else if (x >= (world.maxx - TRANSITIONEDGE + 1))
+		else if(x >= (world.maxx - TRANSITIONEDGE + 1))
 			new_x = TRANSITIONEDGE + 1
 			new_y = rand(TRANSITIONEDGE + 2, world.maxy - TRANSITIONEDGE - 2)
 
-		else if (y <= TRANSITIONEDGE)
+		else if(y <= TRANSITIONEDGE)
 			new_y = world.maxy - TRANSITIONEDGE -2
 			new_x = rand(TRANSITIONEDGE + 2, world.maxx - TRANSITIONEDGE - 2)
 
-		else if (y >= (world.maxy - TRANSITIONEDGE + 1))
+		else if(y >= (world.maxy - TRANSITIONEDGE + 1))
 			new_y = TRANSITIONEDGE + 1
 			new_x = rand(TRANSITIONEDGE + 2, world.maxx - TRANSITIONEDGE - 2)
 

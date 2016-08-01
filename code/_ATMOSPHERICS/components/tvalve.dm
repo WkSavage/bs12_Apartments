@@ -176,7 +176,7 @@
 	src.add_fingerprint(usr)
 	update_icon(1)
 	sleep(10)
-	if (src.state)
+	if(src.state)
 		src.go_straight()
 	else
 		src.go_to_side()
@@ -199,17 +199,17 @@
 
 	for(var/obj/machinery/atmospherics/target in get_step(src,node1_dir))
 		if(target.initialize_directions & get_dir(target,src))
-			if (check_connect_types(target,src))
+			if(check_connect_types(target,src))
 				node1 = target
 				break
 	for(var/obj/machinery/atmospherics/target in get_step(src,node2_dir))
 		if(target.initialize_directions & get_dir(target,src))
-			if (check_connect_types(target,src))
+			if(check_connect_types(target,src))
 				node2 = target
 				break
 	for(var/obj/machinery/atmospherics/target in get_step(src,node3_dir))
 		if(target.initialize_directions & get_dir(target,src))
-			if (check_connect_types(target,src))
+			if(check_connect_types(target,src))
 				node3 = target
 				break
 
@@ -341,20 +341,20 @@
 				go_to_side()
 
 /obj/machinery/atmospherics/tvalve/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
-	if (!istype(W, /obj/item/weapon/wrench))
+	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
-	if (istype(src, /obj/machinery/atmospherics/tvalve/digital))
+	if(istype(src, /obj/machinery/atmospherics/tvalve/digital))
 		user << "<span class='warning'>You cannot unwrench \the [src], it's too complicated.</span>"
 		return 1
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
-	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
+	if((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
 		user << "<span class='warnng'>You cannot unwrench \the [src], it too exerted due to internal pressure.</span>"
 		add_fingerprint(user)
 		return 1
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
-	if (do_after(user, 40, src))
+	if(do_after(user, 40, src))
 		user.visible_message( \
 			"<span class='notice'>\The [user] unfastens \the [src].</span>", \
 			"<span class='notice'>You have unfastened \the [src].</span>", \

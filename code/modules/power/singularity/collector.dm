@@ -86,7 +86,7 @@ var/global/list/rad_collectors = list()
 			disconnect_from_network()
 		return 1
 	else if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
-		if (src.allowed(user))
+		if(src.allowed(user))
 			if(active)
 				src.locked = !src.locked
 				user << "The controls are now [src.locked ? "locked." : "unlocked."]"
@@ -99,7 +99,7 @@ var/global/list/rad_collectors = list()
 	return ..()
 
 /obj/machinery/power/rad_collector/examine(mob/user)
-	if (..(user, 3))
+	if(..(user, 3))
 		user << "The meter indicates that \the [src] is collecting [last_power] W."
 		return 1
 
@@ -113,7 +113,7 @@ var/global/list/rad_collectors = list()
 /obj/machinery/power/rad_collector/proc/eject()
 	locked = 0
 	var/obj/item/weapon/tank/phoron/Z = src.P
-	if (!Z)
+	if(!Z)
 		return
 	Z.loc = get_turf(src)
 	Z.layer = initial(Z.layer)

@@ -37,7 +37,7 @@
 
 	proc/meltdown()	//breaks it down, making implant unrecongizible
 		imp_in << "<span class='warning'>You feel something melting inside [part ? "your [part.name]" : "you"]!</span>"
-		if (part)
+		if(part)
 			part.take_damage(burn = 15, used_weapon = "Electronics meltdown")
 		else
 			var/mob/living/M = imp_in
@@ -76,7 +76,7 @@ Implant Specifics:<BR>"}
 		return dat
 
 	emp_act(severity)
-		if (malfunction)	//no, dawg, you can't malfunction while you are malfunctioning
+		if(malfunction)	//no, dawg, you can't malfunction while you are malfunctioning
 			return
 		malfunction = MALFUNCTION_TEMPORARY
 
@@ -159,7 +159,7 @@ Implant Specifics:<BR>"}
 			qdel(src)
 
 	activate()
-		if (malfunction == MALFUNCTION_PERMANENT)
+		if(malfunction == MALFUNCTION_PERMANENT)
 			return
 
 
@@ -171,12 +171,12 @@ Implant Specifics:<BR>"}
 			need_gib = 1
 
 			if(ishuman(imp_in))
-				if (elevel == "Localized Limb")
+				if(elevel == "Localized Limb")
 					if(part) //For some reason, small_boom() didn't work. So have this bit of working copypaste.
 						imp_in.visible_message("<span class='warning'>Something beeps inside [imp_in][part ? "'s [part.name]" : ""]!</span>")
 						playsound(loc, 'sound/items/countdown.ogg', 75, 1, -3)
 						sleep(25)
-						if (istype(part,/obj/item/organ/external/chest) ||	\
+						if(istype(part,/obj/item/organ/external/chest) ||	\
 							istype(part,/obj/item/organ/external/groin) ||	\
 							istype(part,/obj/item/organ/external/head))
 							part.createwound(BRUISE, 60)	//mangle them instead
@@ -186,10 +186,10 @@ Implant Specifics:<BR>"}
 							explosion(get_turf(imp_in), -1, -1, 2, 3)
 							part.droplimb(0,DROPLIMB_BLUNT)
 							qdel(src)
-				if (elevel == "Destroy Body")
+				if(elevel == "Destroy Body")
 					explosion(get_turf(T), -1, 0, 1, 6)
 					T.gib()
-				if (elevel == "Full Explosion")
+				if(elevel == "Full Explosion")
 					explosion(get_turf(T), 0, 1, 3, 6)
 					T.gib()
 
@@ -214,19 +214,19 @@ Implant Specifics:<BR>"}
 		return 1
 
 	emp_act(severity)
-		if (malfunction)
+		if(malfunction)
 			return
 		malfunction = MALFUNCTION_TEMPORARY
 		switch (severity)
-			if (2.0)	//Weak EMP will make implant tear limbs off.
-				if (prob(50))
+			if(2.0)	//Weak EMP will make implant tear limbs off.
+				if(prob(50))
 					small_boom()
-			if (1.0)	//strong EMP will melt implant either making it go off, or disarming it
-				if (prob(70))
-					if (prob(50))
+			if(1.0)	//strong EMP will melt implant either making it go off, or disarming it
+				if(prob(70))
+					if(prob(50))
 						small_boom()
 					else
-						if (prob(50))
+						if(prob(50))
 							activate()		//50% chance of bye bye
 						else
 							meltdown()		//50% chance of implant disarming
@@ -237,14 +237,14 @@ Implant Specifics:<BR>"}
 		return 0
 
 	proc/small_boom()
-		if (ishuman(imp_in) && part)
+		if(ishuman(imp_in) && part)
 			imp_in.visible_message("<span class='warning'>Something beeps inside [imp_in][part ? "'s [part.name]" : ""]!</span>")
 			playsound(loc, 'sound/items/countdown.ogg', 75, 1, -3)
 			spawn(25)
-				if (ishuman(imp_in) && part)
+				if(ishuman(imp_in) && part)
 					//No tearing off these parts since it's pretty much killing
 					//and you can't replace groins
-					if (istype(part,/obj/item/organ/external/chest) ||	\
+					if(istype(part,/obj/item/organ/external/chest) ||	\
 						istype(part,/obj/item/organ/external/groin) ||	\
 						istype(part,/obj/item/organ/external/head))
 						part.createwound(BRUISE, 60)	//mangle them instead
@@ -311,7 +311,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 		return
 
 	emp_act(severity)
-		if (malfunction)
+		if(malfunction)
 			return
 		malfunction = MALFUNCTION_TEMPORARY
 
@@ -377,8 +377,8 @@ the implant may become unstable and either pre-maturely inject the subject or si
 
 
 	trigger(emote, mob/source as mob)
-		if (src.uses < 1)	return 0
-		if (emote == "pale")
+		if(src.uses < 1)	return 0
+		if(emote == "pale")
 			src.uses--
 			source << "<span class='notice'>You feel a sudden surge of energy!</span>"
 			source.SetStunned(0)
@@ -413,7 +413,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 		return dat
 
 	process()
-		if (!implanted) return
+		if(!implanted) return
 		var/mob/M = imp_in
 
 		if(isnull(M)) // If the mob got gibbed
@@ -433,7 +433,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 				else
 					death_message = "[mobname] has died in [t.name]!"
 				processing_objects.Remove(src)
-			if ("emp")
+			if("emp")
 				var/name = prob(50) ? t : pick(teleportlocs)
 				death_message = "[mobname] has died in [name]!"
 			else
@@ -445,7 +445,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 		qdel(a)
 
 	emp_act(severity)			//for some reason alarms stop going off in case they are emp'd, even without this
-		if (malfunction)		//so I'm just going to add a meltdown chance here
+		if(malfunction)		//so I'm just going to add a meltdown chance here
 			return
 		malfunction = MALFUNCTION_TEMPORARY
 
@@ -453,7 +453,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 		if(severity == 1)
 			if(prob(40))	//small chance of obvious meltdown
 				meltdown()
-			else if (prob(60))	//but more likely it will just quietly die
+			else if(prob(60))	//but more likely it will just quietly die
 				malfunction = MALFUNCTION_PERMANENT
 			processing_objects.Remove(src)
 
@@ -486,16 +486,16 @@ the implant may become unstable and either pre-maturely inject the subject or si
 		return dat
 
 	trigger(emote, mob/source as mob)
-		if (src.scanned == null)
+		if(src.scanned == null)
 			return 0
 
-		if (emote == src.activation_emote)
+		if(emote == src.activation_emote)
 			source << "The air glows as \the [src.scanned.name] uncompresses."
 			activate()
 
 	activate()
 		var/turf/t = get_turf(src)
-		if (imp_in)
+		if(imp_in)
 			imp_in.put_in_hands(scanned)
 		else
 			scanned.loc = t
@@ -503,7 +503,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 
 	implanted(mob/source as mob)
 		src.activation_emote = input("Choose activation emote:") in list("blink", "blink_r", "eyebrow", "chuckle", "twitch_s", "frown", "nod", "blush", "giggle", "grin", "groan", "shrug", "smile", "pale", "sniff", "whimper", "wink")
-		if (source.mind)
+		if(source.mind)
 			source.mind.store_memory("Compressed matter implant can be activated by using the [src.activation_emote] emote, <B>say *[src.activation_emote]</B> to attempt to activate.", 0, 0)
 		source << "The implanted compressed matter implant can be activated by using the [src.activation_emote] emote, <B>say *[src.activation_emote]</B> to attempt to activate."
 		return 1

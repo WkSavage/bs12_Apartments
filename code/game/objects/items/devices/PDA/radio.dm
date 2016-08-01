@@ -10,7 +10,7 @@
 
 	New()
 		..()
-		if (istype(loc.loc, /obj/item/device/pda))
+		if(istype(loc.loc, /obj/item/device/pda))
 			hostpda = loc.loc
 
 	proc/post_signal(var/freq, var/key, var/value, var/key2, var/value2, var/key3, var/value3, s_filter)
@@ -61,7 +61,7 @@
 		for(var/d in signal.data)
 			world << "- [d] = [signal.data[d]]"
 		*/
-		if (signal.data["type"] == "secbot")
+		if(signal.data["type"] == "secbot")
 			if(!botlist)
 				botlist = new()
 
@@ -72,7 +72,7 @@
 				var/list/b = signal.data
 				botstatus = b.Copy()
 
-//		if (istype(P)) P.updateSelfDialog()
+//		if(istype(P)) P.updateSelfDialog()
 
 	Topic(href, href_list)
 		..()
@@ -221,7 +221,7 @@
 		if(!radio_controller)
 			return
 
-		if (src.frequency < PUBLIC_LOW_FREQ || src.frequency > PUBLIC_HIGH_FREQ)
+		if(src.frequency < PUBLIC_LOW_FREQ || src.frequency > PUBLIC_HIGH_FREQ)
 			src.frequency = sanitize_frequency(src.frequency)
 
 		set_frequency(frequency)

@@ -386,7 +386,7 @@ var/global/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","E
 		C.drop_from_inventory(W)
 
 	var/mob/living/carbon/human/O = new /mob/living/carbon/human( src )
-	if (C.dna.GetUIState(DNA_UI_GENDER))
+	if(C.dna.GetUIState(DNA_UI_GENDER))
 		O.gender = FEMALE
 	else
 		O.gender = MALE

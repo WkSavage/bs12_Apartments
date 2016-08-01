@@ -14,7 +14,7 @@
 	if(!speaker.binarycheck())
 		return
 
-	if (!message)
+	if(!message)
 		return
 
 	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
@@ -29,7 +29,7 @@
 			continue
 		else if(istype(S , /mob/living/silicon/ai))
 			message_start = "<i><span class='game say'>[name], <a href='byond://?src=\ref[S];track2=\ref[S];track=\ref[speaker];trackname=[html_encode(speaker.name)]'><span class='name'>[speaker.name]</span></a></span></i>"
-		else if (!S.binarycheck())
+		else if(!S.binarycheck())
 			continue
 
 		S.show_message("[message_start] [message_body]", 2)
@@ -43,7 +43,7 @@
 		M.show_message("<i><span class='game say'><span class='name'>synthesised voice</span> <span class='message'>beeps, \"beep beep beep\"</span></span></i>",2)
 
 	//robot binary xmitter component power usage
-	if (isrobot(speaker))
+	if(isrobot(speaker))
 		var/mob/living/silicon/robot/R = speaker
 		var/datum/robot_component/C = R.components["comms"]
 		R.cell_use_power(C.active_usage)

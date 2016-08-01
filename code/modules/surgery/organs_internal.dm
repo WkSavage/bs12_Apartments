@@ -6,7 +6,7 @@
 
 /datum/surgery_step/internal/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-	if (!hasorgans(target))
+	if(!hasorgans(target))
 		return 0
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -26,7 +26,7 @@
 
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(!affected)
@@ -40,12 +40,12 @@
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/tool_name = "\the [tool]"
-		if (istype(tool, /obj/item/stack/medical/advanced/bruise_pack))
+		if(istype(tool, /obj/item/stack/medical/advanced/bruise_pack))
 			tool_name = "regenerative membrane"
-		else if (istype(tool, /obj/item/stack/medical/bruise_pack))
+		else if(istype(tool, /obj/item/stack/medical/bruise_pack))
 			tool_name = "the bandaid"
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -60,12 +60,12 @@
 
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/tool_name = "\the [tool]"
-		if (istype(tool, /obj/item/stack/medical/advanced/bruise_pack))
+		if(istype(tool, /obj/item/stack/medical/advanced/bruise_pack))
 			tool_name = "regenerative membrane"
-		if (istype(tool, /obj/item/stack/medical/bruise_pack))
+		if(istype(tool, /obj/item/stack/medical/bruise_pack))
 			tool_name = "the bandaid"
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -78,7 +78,7 @@
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -86,10 +86,10 @@
 		"<span class='warning'>Your hand slips, getting mess and tearing the inside of [target]'s [affected.name] with \the [tool]!</span>")
 		var/dam_amt = 2
 
-		if (istype(tool, /obj/item/stack/medical/advanced/bruise_pack))
+		if(istype(tool, /obj/item/stack/medical/advanced/bruise_pack))
 			target.adjustToxLoss(5)
 
-		else if (istype(tool, /obj/item/stack/medical/bruise_pack))
+		else if(istype(tool, /obj/item/stack/medical/bruise_pack))
 			dam_amt = 5
 			target.adjustToxLoss(10)
 			affected.createwound(CUT, 5)
@@ -111,7 +111,7 @@
 
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!..())
+		if(!..())
 			return 0
 
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -168,7 +168,7 @@
 
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!..())
+		if(!..())
 			return 0
 
 		target.op_stage.current_organ = null
@@ -321,7 +321,7 @@
 
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!..())
+		if(!..())
 			return 0
 
 		target.op_stage.current_organ = null

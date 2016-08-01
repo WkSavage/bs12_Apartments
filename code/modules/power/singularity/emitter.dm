@@ -26,7 +26,7 @@
 
 	var/_wifi_id
 	var/datum/wifi/receiver/button/emitter/wifi_receiver
-	
+
 /obj/machinery/power/emitter/anchored
 	anchored = 1
 	state = 2
@@ -36,7 +36,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if (src.anchored || usr:stat)
+	if(src.anchored || usr:stat)
 		usr << "It is fastened to the floor!"
 		return 0
 	src.set_dir(turn(src.dir, 90))
@@ -58,7 +58,7 @@
 	return ..()
 
 /obj/machinery/power/emitter/update_icon()
-	if (active && powernet && avail(active_power_usage))
+	if(active && powernet && avail(active_power_usage))
 		icon_state = "emitter_+a"
 	else
 		icon_state = "emitter"
@@ -181,12 +181,12 @@
 			if(0)
 				user << "<span class='warning'>\The [src] needs to be wrenched to the floor.</span>"
 			if(1)
-				if (WT.remove_fuel(0,user))
+				if(WT.remove_fuel(0,user))
 					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
 					user.visible_message("[user.name] starts to weld [src] to the floor.", \
 						"You start to weld [src] to the floor.", \
 						"You hear welding")
-					if (do_after(user,20,src))
+					if(do_after(user,20,src))
 						if(!src || !WT.isOn()) return
 						state = 2
 						user << "You weld [src] to the floor."
@@ -194,12 +194,12 @@
 				else
 					user << "<span class='warning'>You need more welding fuel to complete this task.</span>"
 			if(2)
-				if (WT.remove_fuel(0,user))
+				if(WT.remove_fuel(0,user))
 					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
 					user.visible_message("[user.name] starts to cut [src] free from the floor.", \
 						"You start to cut [src] free from the floor.", \
 						"You hear welding")
-					if (do_after(user,20,src))
+					if(do_after(user,20,src))
 						if(!src || !WT.isOn()) return
 						state = 1
 						user << "You cut [src] free from the floor."

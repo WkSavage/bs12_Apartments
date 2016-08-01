@@ -83,17 +83,17 @@ for reference:
 	return material
 
 /obj/structure/barricade/attackby(obj/item/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/stack))
+	if(istype(W, /obj/item/stack))
 		var/obj/item/stack/D = W
 		if(D.get_material_name() != material.name)
 			return //hitting things with the wrong type of stack usually doesn't produce messages, and probably doesn't need to.
-		if (health < maxhealth)
-			if (D.get_amount() < 1)
+		if(health < maxhealth)
+			if(D.get_amount() < 1)
 				user << "<span class='warning'>You need one sheet of [material.display_name] to repair \the [src].</span>"
 				return
 			visible_message("<span class='notice'>[user] begins to repair \the [src].</span>")
 			if(do_after(user,20,src) && health < maxhealth)
-				if (D.use(1))
+				if(D.use(1))
 					health = maxhealth
 					visible_message("<span class='notice'>[user] repairs \the [src].</span>")
 				return
@@ -106,7 +106,7 @@ for reference:
 			if("brute")
 				src.health -= W.force * 0.75
 			else
-		if (src.health <= 0)
+		if(src.health <= 0)
 			visible_message("<span class='danger'>The barricade is smashed apart!</span>")
 			dismantle()
 			qdel(src)
@@ -126,7 +126,7 @@ for reference:
 			return
 		if(2.0)
 			src.health -= 25
-			if (src.health <= 0)
+			if(src.health <= 0)
 				visible_message("<span class='danger'>\The [src] is blown apart!</span>")
 				dismantle()
 			return
@@ -164,16 +164,16 @@ for reference:
 		src.icon_state = "barrier[src.locked]"
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
-		if (istype(W, /obj/item/weapon/card/id/))
-			if (src.allowed(user))
+		if(istype(W, /obj/item/weapon/card/id/))
+			if(src.allowed(user))
 				if	(src.emagged < 2.0)
 					src.locked = !src.locked
 					src.anchored = !src.anchored
 					src.icon_state = "barrier[src.locked]"
-					if ((src.locked == 1.0) && (src.emagged < 2.0))
+					if((src.locked == 1.0) && (src.emagged < 2.0))
 						user << "Barrier lock toggled on."
 						return
-					else if ((src.locked == 0.0) && (src.emagged < 2.0))
+					else if((src.locked == 0.0) && (src.emagged < 2.0))
 						user << "Barrier lock toggled off."
 						return
 				else
@@ -183,14 +183,14 @@ for reference:
 					visible_message("<span class='warning'>BZZzZZzZZzZT</span>")
 					return
 			return
-		else if (istype(W, /obj/item/weapon/wrench))
-			if (src.health < src.maxhealth)
+		else if(istype(W, /obj/item/weapon/wrench))
+			if(src.health < src.maxhealth)
 				src.health = src.maxhealth
 				src.emagged = 0
 				src.req_access = list(access_security)
 				visible_message("<span class='warning'>[user] repairs \the [src]!</span>")
 				return
-			else if (src.emagged > 0)
+			else if(src.emagged > 0)
 				src.emagged = 0
 				src.req_access = list(access_security)
 				visible_message("<span class='warning'>[user] repairs \the [src]!</span>")
@@ -203,7 +203,7 @@ for reference:
 				if("brute")
 					src.health -= W.force * 0.5
 				else
-			if (src.health <= 0)
+			if(src.health <= 0)
 				src.explode()
 			..()
 
@@ -214,7 +214,7 @@ for reference:
 				return
 			if(2.0)
 				src.health -= 25
-				if (src.health <= 0)
+				if(src.health <= 0)
 					src.explode()
 				return
 	emp_act(severity)
@@ -251,7 +251,7 @@ for reference:
 
 
 /obj/machinery/deployable/barrier/emag_act(var/remaining_charges, var/mob/user)
-	if (src.emagged == 0)
+	if(src.emagged == 0)
 		src.emagged = 1
 		src.req_access.Cut()
 		src.req_one_access.Cut()
@@ -261,7 +261,7 @@ for reference:
 		s.start()
 		visible_message("<span class='warning'>BZZzZZzZZzZT</span>")
 		return 1
-	else if (src.emagged == 1)
+	else if(src.emagged == 1)
 		src.emagged = 2
 		user << "You short out the anchoring mechanism on \the [src]."
 		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread

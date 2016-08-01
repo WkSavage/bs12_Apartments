@@ -49,7 +49,7 @@
 //return flags that should be added to the viewer's sight var.
 //Otherwise return a negative number to indicate that the view should be cancelled.
 /atom/proc/check_eye(user as mob)
-	if (istype(user, /mob/living/silicon/ai)) // WHYYYY
+	if(istype(user, /mob/living/silicon/ai)) // WHYYYY
 		return 0
 	return -1
 
@@ -242,23 +242,23 @@ its easier to just keep the beam vertical.
 	return
 
 /atom/proc/hitby(atom/movable/AM as mob|obj)
-	if (density)
+	if(density)
 		AM.throwing = 0
 	return
 
 /atom/proc/add_hiddenprint(mob/living/M as mob)
 	if(isnull(M)) return
 	if(isnull(M.key)) return
-	if (ishuman(M))
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if (!istype(H.dna, /datum/dna))
+		if(!istype(H.dna, /datum/dna))
 			return 0
-		if (H.gloves)
+		if(H.gloves)
 			if(src.fingerprintslast != H.key)
 				src.fingerprintshidden += text("\[[time_stamp()]\] (Wearing gloves). Real name: [], Key: []",H.real_name, H.key)
 				src.fingerprintslast = H.key
 			return 0
-		if (!( src.fingerprints ))
+		if(!( src.fingerprints ))
 			if(src.fingerprintslast != H.key)
 				src.fingerprintshidden += text("\[[time_stamp()]\] Real name: [], Key: []",H.real_name, H.key)
 				src.fingerprintslast = H.key
@@ -273,7 +273,7 @@ its easier to just keep the beam vertical.
 	if(isnull(M)) return
 	if(isAI(M)) return
 	if(isnull(M.key)) return
-	if (ishuman(M))
+	if(ishuman(M))
 		//Add the list if it does not exist.
 		if(!fingerprintshidden)
 			fingerprintshidden = list()
@@ -282,21 +282,21 @@ its easier to just keep the beam vertical.
 		add_fibers(M)
 
 		//He has no prints!
-		if (mFingerprints in M.mutations)
+		if(mFingerprints in M.mutations)
 			if(fingerprintslast != M.key)
 				fingerprintshidden += "(Has no fingerprints) Real name: [M.real_name], Key: [M.key]"
 				fingerprintslast = M.key
 			return 0		//Now, lets get to the dirty work.
 		//First, make sure their DNA makes sense.
 		var/mob/living/carbon/human/H = M
-		if (!istype(H.dna, /datum/dna) || !H.dna.uni_identity || (length(H.dna.uni_identity) != 32))
+		if(!istype(H.dna, /datum/dna) || !H.dna.uni_identity || (length(H.dna.uni_identity) != 32))
 			if(!istype(H.dna, /datum/dna))
 				H.dna = new /datum/dna(null)
 				H.dna.real_name = H.real_name
 		H.check_dna()
 
 		//Now, deal with gloves.
-		if (H.gloves && H.gloves != src)
+		if(H.gloves && H.gloves != src)
 			if(fingerprintslast != H.key)
 				fingerprintshidden += text("\[[]\](Wearing gloves). Real name: [], Key: []",time_stamp(), H.real_name, H.key)
 				fingerprintslast = H.key
@@ -403,11 +403,11 @@ its easier to just keep the beam vertical.
 	was_bloodied = 1
 	blood_color = "#A10808"
 	if(istype(M))
-		if (!istype(M.dna, /datum/dna))
+		if(!istype(M.dna, /datum/dna))
 			M.dna = new /datum/dna(null)
 			M.dna.real_name = M.real_name
 		M.check_dna()
-		if (M.species)
+		if(M.species)
 			blood_color = M.species.blood_color
 	. = 1
 	return 1

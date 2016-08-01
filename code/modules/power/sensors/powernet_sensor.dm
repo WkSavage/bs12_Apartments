@@ -64,7 +64,7 @@
 	else
 		units = "MW"
 		amount = (round(amount/10000) / 100)
-	if (units == "W")
+	if(units == "W")
 		return "[amount] W"
 	else
 		return "~[amount] [units]" //kW and MW are only approximate readings, therefore add "~"

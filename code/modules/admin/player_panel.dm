@@ -1,6 +1,6 @@
 
 /datum/admins/proc/player_panel_new()//The new one
-	if (!usr.client.holder)
+	if(!usr.client.holder)
 		return
 	var/dat = "<html><head><title>Admin Player Panel</title></head>"
 
@@ -42,7 +42,7 @@
 								var search = lsearch\[0\];
 								//var inner_span = li.getElementsByTagName("span")\[1\] //Should only ever contain one element.
 								//document.write("<p>"+search.innerText+"<br>"+filter+"<br>"+search.innerText.indexOf(filter))
-								if ( search.innerText.toLowerCase().indexOf(filter) == -1 )
+								if( search.innerText.toLowerCase().indexOf(filter) == -1 )
 								{
 									//document.write("a");
 									//ltr.removeChild(tr);
@@ -323,7 +323,7 @@
 
 //The old one
 /datum/admins/proc/player_panel_old()
-	if (!usr.client.holder)
+	if(!usr.client.holder)
 		return
 
 	var/dat = "<html><head><title>Player Menu</title></head>"
@@ -395,24 +395,24 @@
 
 
 /datum/admins/proc/check_antagonists()
-	if (ticker && ticker.current_state >= GAME_STATE_PLAYING)
+	if(ticker && ticker.current_state >= GAME_STATE_PLAYING)
 		var/dat = "<html><head><title>Round Status</title></head><body><h1><B>Round Status</B></h1>"
 		dat += "Current Game Mode: <B>[ticker.mode.name]</B><BR>"
 		dat += "Round Duration: <B>[roundduration2text()]</B><BR>"
 		dat += "<B>Emergency shuttle</B><BR>"
-		if (!emergency_shuttle.online())
+		if(!emergency_shuttle.online())
 			dat += "<a href='?src=\ref[src];call_shuttle=1'>Call Shuttle</a><br>"
 		else
-			if (emergency_shuttle.wait_for_launch)
+			if(emergency_shuttle.wait_for_launch)
 				var/timeleft = emergency_shuttle.estimate_launch_time()
 				dat += "ETL: <a href='?src=\ref[src];edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
 
-			else if (emergency_shuttle.shuttle.has_arrive_time())
+			else if(emergency_shuttle.shuttle.has_arrive_time())
 				var/timeleft = emergency_shuttle.estimate_arrival_time()
 				dat += "ETA: <a href='?src=\ref[src];edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
 				dat += "<a href='?src=\ref[src];call_shuttle=2'>Send Back</a><br>"
 
-			if (emergency_shuttle.shuttle.moving_status == SHUTTLE_WARMUP)
+			if(emergency_shuttle.shuttle.moving_status == SHUTTLE_WARMUP)
 				dat += "Launching now..."
 
 		dat += "<a href='?src=\ref[src];delay_round_end=1'>[ticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"

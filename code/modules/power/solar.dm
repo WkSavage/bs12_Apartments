@@ -73,7 +73,7 @@ var/list/solars_list = list()
 			user.visible_message("<span class='notice'>[user] takes the glass off the solar panel.</span>")
 			qdel(src)
 		return
-	else if (W)
+	else if(W)
 		src.add_fingerprint(user)
 		src.health -= W.force
 		src.healthcheck()
@@ -81,7 +81,7 @@ var/list/solars_list = list()
 
 
 /obj/machinery/power/solar/proc/healthcheck()
-	if (src.health <= 0)
+	if(src.health <= 0)
 		if(!(stat & BROKEN))
 			broken()
 		else
@@ -152,16 +152,16 @@ var/list/solars_list = list()
 			return
 
 		if(2.0)
-			if (prob(25))
+			if(prob(25))
 				new /obj/item/weapon/material/shard( src.loc )
 				qdel(src)
 				return
 
-			if (prob(50))
+			if(prob(50))
 				broken()
 
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				broken()
 	return
 
@@ -404,7 +404,7 @@ var/list/solars_list = list()
 	if(istype(I, /obj/item/weapon/screwdriver))
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		if(do_after(user, 20,src))
-			if (src.stat & BROKEN)
+			if(src.stat & BROKEN)
 				user << "\blue The broken glass falls out."
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 				new /obj/item/weapon/material/shard( src.loc )
@@ -477,7 +477,7 @@ var/list/solars_list = list()
 			if(connected_tracker)
 				connected_tracker.set_angle(sun.angle)
 				set_panels(cdir)
-		else if (track == 1) //begin manual tracking
+		else if(track == 1) //begin manual tracking
 			src.targetdir = src.cdir
 			if(src.trackrate) nexttime = world.time + 36000/abs(trackrate)
 			set_panels(targetdir)
@@ -514,10 +514,10 @@ var/list/solars_list = list()
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				broken()
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				broken()
 	return
 

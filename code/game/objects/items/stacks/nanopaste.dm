@@ -9,11 +9,11 @@
 
 
 /obj/item/stack/nanopaste/attack(mob/living/M as mob, mob/user as mob)
-	if (!istype(M) || !istype(user))
+	if(!istype(M) || !istype(user))
 		return 0
-	if (istype(M,/mob/living/silicon/robot))	//Repairing cyborgs
+	if(istype(M,/mob/living/silicon/robot))	//Repairing cyborgs
 		var/mob/living/silicon/robot/R = M
-		if (R.getBruteLoss() || R.getFireLoss() )
+		if(R.getBruteLoss() || R.getFireLoss() )
 			user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
 			R.adjustBruteLoss(-15)
 			R.adjustFireLoss(-15)
@@ -24,12 +24,12 @@
 		else
 			user << "<span class='notice'>All [R]'s systems are nominal.</span>"
 
-	if (istype(M,/mob/living/carbon/human))		//Repairing robolimbs
+	if(istype(M,/mob/living/carbon/human))		//Repairing robolimbs
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/S = H.get_organ(user.zone_sel.selecting)
 
 		if(S.open >= 2)
-			if (S && (S.robotic >= ORGAN_ROBOT))
+			if(S && (S.robotic >= ORGAN_ROBOT))
 				if(!S.get_damage())
 					user << "<span class='notice'>Nothing to fix here.</span>"
 				else if(can_use(1))

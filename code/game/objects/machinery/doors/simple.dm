@@ -148,7 +148,7 @@
 		var/obj/item/stack/stack = I
 		var/amount_needed = ceil((maxhealth - health)/DOOR_REPAIR_AMOUNT)
 		var/used = min(amount_needed,stack.amount)
-		if (used)
+		if(used)
 			user << "<span class='notice'>You fit [used] [stack.singular_name]\s to damaged and broken parts on \the [src].</span>"
 			stack.use(used)
 			health = between(health, health + used*DOOR_REPAIR_AMOUNT, maxhealth)

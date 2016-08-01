@@ -167,7 +167,7 @@
 
 	//HasFuel() should guarantee us that there is enough fuel left, so no need to check that
 	//the only thing we need to worry about is if we are going to rollover to the next sheet
-	if (needed_sheets > sheet_left)
+	if(needed_sheets > sheet_left)
 		sheets--
 		sheet_left = (1 + sheet_left) - needed_sheets
 	else
@@ -185,7 +185,7 @@
 		cooling in order to get more power out.
 	*/
 	var/datum/gas_mixture/environment = loc.return_air()
-	if (environment)
+	if(environment)
 		var/ratio = min(environment.return_pressure()/ONE_ATMOSPHERE, 1)
 		var/ambient = environment.temperature - T20C
 		lower_limit += ambient*ratio
@@ -197,20 +197,20 @@
 	var/bias = Clamp(round((average - temperature)/TEMPERATURE_DIVISOR, 1),  -TEMPERATURE_CHANGE_MAX, TEMPERATURE_CHANGE_MAX)
 	temperature += bias + rand(-7, 7)
 
-	if (temperature > max_temperature)
+	if(temperature > max_temperature)
 		overheat()
-	else if (overheating > 0)
+	else if(overheating > 0)
 		overheating--
 
 /obj/machinery/power/port_gen/pacman/handleInactive()
 	var/cooling_temperature = 20
 	var/datum/gas_mixture/environment = loc.return_air()
-	if (environment)
+	if(environment)
 		var/ratio = min(environment.return_pressure()/ONE_ATMOSPHERE, 1)
 		var/ambient = environment.temperature - T20C
 		cooling_temperature += ambient*ratio
 
-	if (temperature > cooling_temperature)
+	if(temperature > cooling_temperature)
 		var/temp_loss = (temperature - cooling_temperature)/TEMPERATURE_DIVISOR
 		temp_loss = between(2, round(temp_loss, 1), TEMPERATURE_CHANGE_MAX)
 		temperature = max(temperature - temp_loss, cooling_temperature)
@@ -221,7 +221,7 @@
 
 /obj/machinery/power/port_gen/pacman/proc/overheat()
 	overheating++
-	if (overheating > 150)
+	if(overheating > 150)
 		explode()
 
 /obj/machinery/power/port_gen/pacman/explode()
@@ -230,7 +230,7 @@
 	//1 mol = 10 u? I dunno. 1 mol of carbon is definitely bigger than a pill
 	var/phoron = (sheets+sheet_left)*20
 	var/datum/gas_mixture/environment = loc.return_air()
-	if (environment)
+	if(environment)
 		environment.adjust_gas_temp("phoron", phoron/10, temperature + T0C)
 
 	sheets = 0
@@ -238,10 +238,10 @@
 	..()
 
 /obj/machinery/power/port_gen/pacman/emag_act(var/remaining_charges, var/mob/user)
-	if (active && prob(25))
+	if(active && prob(25))
 		explode() //if they're foolish enough to emag while it's running
 
-	if (!emagged)
+	if(!emagged)
 		emagged = 1
 		return 1
 
@@ -290,7 +290,7 @@
 
 /obj/machinery/power/port_gen/pacman/attack_hand(mob/user as mob)
 	..()
-	if (!anchored)
+	if(!anchored)
 		return
 	ui_interact(user)
 
@@ -325,7 +325,7 @@
 
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "pacman.tmpl", src.name, 500, 560)
 		ui.set_initial_data(data)
 		ui.open()
@@ -334,8 +334,8 @@
 
 /*
 /obj/machinery/power/port_gen/pacman/interact(mob/user)
-	if (get_dist(src, user) > 1 )
-		if (!istype(user, /mob/living/silicon/ai))
+	if(get_dist(src, user) > 1 )
+		if(!istype(user, /mob/living/silicon/ai))
 			user.unset_machine()
 			user << browse(null, "window=port_gen")
 			return
@@ -343,7 +343,7 @@
 	user.set_machine(src)
 
 	var/dat = text("<b>[name]</b><br>")
-	if (active)
+	if(active)
 		dat += text("Generator: <A href='?src=\ref[src];action=disable'>On</A><br>")
 	else
 		dat += text("Generator: <A href='?src=\ref[src];action=enable'>Off</A><br>")
@@ -371,17 +371,17 @@
 				active = 1
 				icon_state = "portgen1"
 		if(href_list["action"] == "disable")
-			if (active)
+			if(active)
 				active = 0
 				icon_state = "portgen0"
 		if(href_list["action"] == "eject")
 			if(!active)
 				DropFuel()
 		if(href_list["action"] == "lower_power")
-			if (power_output > 1)
+			if(power_output > 1)
 				power_output--
-		if (href_list["action"] == "higher_power")
-			if (power_output < max_power_output || (emagged && power_output < round(max_power_output*2.5)))
+		if(href_list["action"] == "higher_power")
+			if(power_output < max_power_output || (emagged && power_output < round(max_power_output*2.5)))
 				power_output++
 
 /obj/machinery/power/port_gen/pacman/super
@@ -395,7 +395,7 @@
 
 /obj/machinery/power/port_gen/pacman/super/UseFuel()
 	//produces a tiny amount of radiation when in use
-	if (prob(2*power_output))
+	if(prob(2*power_output))
 		for(var/mob/living/L in range(src, 5))
 			L.apply_effect(1, IRRADIATE, blocked = L.getarmor(null, "rad")) //should amount to ~5 rads per minute at max safe power
 	..()

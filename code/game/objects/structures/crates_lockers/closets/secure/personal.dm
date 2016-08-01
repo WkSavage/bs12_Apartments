@@ -61,11 +61,11 @@
 	return
 
 /obj/structure/closet/secure_closet/personal/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (src.opened)
-		if (istype(W, /obj/item/weapon/grab))
+	if(src.opened)
+		if(istype(W, /obj/item/weapon/grab))
 			src.MouseDrop_T(W:affecting, user)      //act like they were dragged onto the closet
 		user.drop_item()
-		if (W) W.forceMove(src.loc)
+		if(W) W.forceMove(src.loc)
 	else if(W.GetID())
 		var/obj/item/weapon/card/id/I = W.GetID()
 
@@ -94,7 +94,7 @@
 	else
 		user << "<span class='warning'>Access Denied</span>"
 	return
-	
+
 /obj/structure/closet/secure_closet/personal/emag_act(var/remaining_charges, var/mob/user, var/visual_feedback, var/audible_feedback)
 	if(!broken)
 		broken = 1
@@ -102,7 +102,7 @@
 		desc = "It appears to be broken."
 		icon_state = src.icon_broken
 		if(visual_feedback)
-			visible_message("<span class='warning'>[visual_feedback]</span>", "<span class='warning'>[audible_feedback]</span>")	
+			visible_message("<span class='warning'>[visual_feedback]</span>", "<span class='warning'>[audible_feedback]</span>")
 		return 1
 
 /obj/structure/closet/secure_closet/personal/verb/reset()
@@ -113,12 +113,12 @@
 		return
 	if(ishuman(usr))
 		src.add_fingerprint(usr)
-		if (src.locked || !src.registered_name)
+		if(src.locked || !src.registered_name)
 			usr << "<span class='warning'>You need to unlock it first.</span>"
-		else if (src.broken)
+		else if(src.broken)
 			usr << "<span class='warning'>It appears to be broken.</span>"
 		else
-			if (src.opened)
+			if(src.opened)
 				if(!src.close())
 					return
 			src.locked = 1

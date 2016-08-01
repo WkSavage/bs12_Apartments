@@ -74,8 +74,8 @@
 /turf/simulated/proc/update_dirt()
 	dirt = min(dirt+1, 101)
 	var/obj/effect/decal/cleanable/dirt/dirtoverlay = locate(/obj/effect/decal/cleanable/dirt, src)
-	if (dirt > 50)
-		if (!dirtoverlay)
+	if(dirt > 50)
+		if(!dirtoverlay)
 			dirtoverlay = new/obj/effect/decal/cleanable/dirt(src)
 		dirtoverlay.alpha = min((dirt - 50) * 5, 255)
 
@@ -84,7 +84,7 @@
 	. = ..()
 
 /turf/simulated/Entered(atom/A, atom/OL)
-	if (istype(A,/mob/living))
+	if(istype(A,/mob/living))
 		var/mob/living/M = A
 		if(M.lying)
 			return ..()
@@ -111,7 +111,7 @@
 					bloodcolor = H.feet_blood_color
 					H.track_blood--
 
-			if (bloodDNA)
+			if(bloodDNA)
 				src.AddTracks(/obj/effect/decal/cleanable/blood/tracks/footprints,bloodDNA,H.dir,0,bloodcolor) // Coming
 				var/turf/simulated/from = get_step(H,reverse_direction(H.dir))
 				if(istype(from) && from)
@@ -150,7 +150,7 @@
 
 //returns 1 if made bloody, returns 0 otherwise
 /turf/simulated/add_blood(mob/living/carbon/human/M as mob)
-	if (!..())
+	if(!..())
 		return 0
 
 	if(istype(M))

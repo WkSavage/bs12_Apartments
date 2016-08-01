@@ -2,7 +2,7 @@
 	set invisibility = 0
 	set background = 1
 
-	if (src.transforming)
+	if(src.transforming)
 		return
 
 	src.blinded = null
@@ -15,7 +15,7 @@
 	if(client)
 		handle_regular_hud_updates()
 		update_items()
-	if (src.stat != DEAD) //still using power
+	if(src.stat != DEAD) //still using power
 		use_power()
 		process_killswitch()
 		process_locks()
@@ -41,7 +41,7 @@
 		var/datum/robot_component/C = components[V]
 		C.update_power_state()
 
-	if ( cell && is_component_functioning("power cell") && src.cell.charge > 0 )
+	if( cell && is_component_functioning("power cell") && src.cell.charge > 0 )
 		if(src.module_state_1)
 			cell_use_power(50) // 50W load for every enabled tool TODO: tool-specific loads
 		if(src.module_state_2)
@@ -57,7 +57,7 @@
 
 		src.has_power = 1
 	else
-		if (src.has_power)
+		if(src.has_power)
 			src << "<span class='warning'>You are now running on emergency backup power.</span>"
 		src.has_power = 0
 		if(lights_on) // Light is on but there is no power!
@@ -84,14 +84,14 @@
 	if(health < config.health_threshold_dead && src.stat != 2) //die only once
 		death()
 
-	if (src.stat != 2) //Alive.
-		if (src.paralysis || src.stunned || src.weakened || !src.has_power) //Stunned etc.
+	if(src.stat != 2) //Alive.
+		if(src.paralysis || src.stunned || src.weakened || !src.has_power) //Stunned etc.
 			src.stat = 1
-			if (src.stunned > 0)
+			if(src.stunned > 0)
 				AdjustStunned(-1)
-			if (src.weakened > 0)
+			if(src.weakened > 0)
 				AdjustWeakened(-1)
-			if (src.paralysis > 0)
+			if(src.paralysis > 0)
 				AdjustParalysis(-1)
 				src.blinded = 1
 			else
@@ -106,34 +106,34 @@
 		src.blinded = 1
 		src.stat = 2
 
-	if (src.stuttering) src.stuttering--
+	if(src.stuttering) src.stuttering--
 
-	if (src.eye_blind)
+	if(src.eye_blind)
 		src.eye_blind--
 		src.blinded = 1
 
-	if (src.ear_deaf > 0) src.ear_deaf--
-	if (src.ear_damage < 25)
+	if(src.ear_deaf > 0) src.ear_deaf--
+	if(src.ear_damage < 25)
 		src.ear_damage -= 0.05
 		src.ear_damage = max(src.ear_damage, 0)
 
 	src.density = !( src.lying )
 
-	if ((src.sdisabilities & BLIND))
+	if((src.sdisabilities & BLIND))
 		src.blinded = 1
-	if ((src.sdisabilities & DEAF))
+	if((src.sdisabilities & DEAF))
 		src.ear_deaf = 1
 
-	if (src.eye_blurry > 0)
+	if(src.eye_blurry > 0)
 		src.eye_blurry--
 		src.eye_blurry = max(0, src.eye_blurry)
 
-	if (src.druggy > 0)
+	if(src.druggy > 0)
 		src.druggy--
 		src.druggy = max(0, src.druggy)
 
 	//update the state of modules and components here
-	if (src.stat != 0)
+	if(src.stat != 0)
 		uneq_all()
 
 	if(radio)
@@ -157,13 +157,13 @@
 		hud.hud.process_hud(src)
 	else
 		switch(src.sensor_mode)
-			if (SEC_HUD)
+			if(SEC_HUD)
 				process_sec_hud(src,0)
-			if (MED_HUD)
+			if(MED_HUD)
 				process_med_hud(src,0)
 
-	if (src.healths)
-		if (src.stat != 2)
+	if(src.healths)
+		if(src.stat != 2)
 			if(istype(src,/mob/living/silicon/robot/drone))
 				switch(health)
 					if(35 to INFINITY)
@@ -199,7 +199,7 @@
 		else
 			src.healths.icon_state = "health7"
 
-	if (src.syndicate && src.client)
+	if(src.syndicate && src.client)
 		for(var/datum/mind/tra in traitors.current_antagonists)
 			if(tra.current)
 				// TODO: Update to new antagonist system.
@@ -212,8 +212,8 @@
 				src.mind.special_role = "traitor"
 				traitors.current_antagonists |= src.mind
 
-	if (src.cells)
-		if (src.cell)
+	if(src.cells)
+		if(src.cell)
 			var/cellcharge = src.cell.charge/src.cell.maxcharge
 			switch(cellcharge)
 				if(0.75 to INFINITY)
@@ -243,8 +243,8 @@
 				src.bodytemp.icon_state = "temp-2"
 
 //Oxygen and fire does nothing yet!!
-//	if (src.oxygen) src.oxygen.icon_state = "oxy[src.oxygen_alert ? 1 : 0]"
-//	if (src.fire) src.fire.icon_state = "fire[src.fire_alert ? 1 : 0]"
+//	if(src.oxygen) src.oxygen.icon_state = "oxy[src.oxygen_alert ? 1 : 0]"
+//	if(src.fire) src.fire.icon_state = "fire[src.fire_alert ? 1 : 0]"
 
 	if(stat != DEAD)
 		if(blinded)
@@ -255,8 +255,8 @@
 			set_fullscreen(eye_blurry, "blurry", /obj/screen/fullscreen/blurry)
 			set_fullscreen(druggy, "high", /obj/screen/fullscreen/high)
 
-		if (machine)
-			if (machine.check_eye(src) < 0)
+		if(machine)
+			if(machine.check_eye(src) < 0)
 				reset_view(null)
 		else
 			if(client && !client.adminobs)
@@ -267,29 +267,29 @@
 /mob/living/silicon/robot/handle_vision()
 	..()
 
-	if (src.stat == 2 || (XRAY in mutations) || (src.sight_mode & BORGXRAY))
+	if(src.stat == 2 || (XRAY in mutations) || (src.sight_mode & BORGXRAY))
 		src.sight |= SEE_TURFS
 		src.sight |= SEE_MOBS
 		src.sight |= SEE_OBJS
 		src.see_in_dark = 8
 		src.see_invisible = SEE_INVISIBLE_LEVEL_TWO
-	else if ((src.sight_mode & BORGMESON) && (src.sight_mode & BORGTHERM))
+	else if((src.sight_mode & BORGMESON) && (src.sight_mode & BORGTHERM))
 		src.sight |= SEE_TURFS
 		src.sight |= SEE_MOBS
 		src.see_in_dark = 8
 		src.see_invisible = SEE_INVISIBLE_NOLIGHTING
-	else if (src.sight_mode & BORGMESON)
+	else if(src.sight_mode & BORGMESON)
 		src.sight |= SEE_TURFS
 		src.see_in_dark = 8
 		src.see_invisible = SEE_INVISIBLE_NOLIGHTING
-	else if (src.sight_mode & BORGMATERIAL)
+	else if(src.sight_mode & BORGMATERIAL)
 		src.sight |= SEE_OBJS
 		src.see_in_dark = 8
-	else if (src.sight_mode & BORGTHERM)
+	else if(src.sight_mode & BORGTHERM)
 		src.sight |= SEE_MOBS
 		src.see_in_dark = 8
 		src.see_invisible = SEE_INVISIBLE_LEVEL_TWO
-	else if (src.stat != 2)
+	else if(src.stat != 2)
 		src.sight &= ~SEE_MOBS
 		src.sight &= ~SEE_TURFS
 		src.sight &= ~SEE_OBJS
@@ -299,7 +299,7 @@
 
 
 /mob/living/silicon/robot/proc/update_items()
-	if (src.client)
+	if(src.client)
 		src.client.screen -= src.contents
 		for(var/obj/I in src.contents)
 			if(I && !(istype(I,/obj/item/weapon/cell) || istype(I,/obj/item/device/radio)  || istype(I,/obj/machinery/camera) || istype(I,/obj/item/device/mmi)))

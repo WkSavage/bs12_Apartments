@@ -38,7 +38,7 @@
 ///////////////////Options for using captured souls///////////////////////////////////////
 
 /obj/item/device/soulstone/attack_self(mob/user)
-	if (!in_range(src, user))
+	if(!in_range(src, user))
 		return
 	user.set_machine(src)
 	var/dat = "<TT><B>Soul Stone</B><BR>"
@@ -56,7 +56,7 @@
 
 /obj/item/device/soulstone/Topic(href, href_list)
 	var/mob/U = usr
-	if (!in_range(src, U)||U.machine!=src)
+	if(!in_range(src, U)||U.machine!=src)
 		U << browse(null, "window=aicard")
 		U.unset_machine()
 		return
@@ -65,12 +65,12 @@
 	U.set_machine(src)
 
 	switch(href_list["choice"])//Now we switch based on choice.
-		if ("Close")
+		if("Close")
 			U << browse(null, "window=aicard")
 			U.unset_machine()
 			return
 
-		if ("Summon")
+		if("Summon")
 			for(var/mob/living/simple_animal/shade/A in src)
 				A.status_flags &= ~GODMODE
 				A.canmove = 1
@@ -107,7 +107,7 @@
 	if(src.imprinted != "empty")
 		U << "<span class='danger'>Capture failed!</span>: The soul stone has already been imprinted with [src.imprinted]'s mind!"
 		return
-	if ((T.health + T.halloss) > config.health_threshold_crit && T.stat != DEAD)
+	if((T.health + T.halloss) > config.health_threshold_crit && T.stat != DEAD)
 		U << "<span class='danger'>Capture failed!</span>: Kill or maim the victim first!"
 		return
 	if(T.client == null)
@@ -141,7 +141,7 @@
 	S.overlays = T.overlays
 	S.color = rgb(254,0,0)
 	S.alpha = 127
-	if (T.client)
+	if(T.client)
 		T.client.mob = S
 	S.cancel_camera()
 
@@ -157,7 +157,7 @@
 /obj/item/device/soulstone/proc/transfer_shade(var/mob/living/simple_animal/shade/T,var/mob/U)
 	if(!istype(T))
 		return;
-	if (T.stat == DEAD)
+	if(T.stat == DEAD)
 		U << "<span class='danger'>Capture failed!</span>: The shade has already been banished!"
 		return
 	if(src.contents.len)

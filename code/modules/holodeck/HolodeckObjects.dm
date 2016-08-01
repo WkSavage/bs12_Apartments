@@ -127,7 +127,7 @@
 
 /obj/structure/window/reinforced/holowindow/attackby(obj/item/W as obj, mob/user as mob)
 	if(!istype(W)) return//I really wish I did not need this
-	if (istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
+	if(istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
 		var/obj/item/weapon/grab/G = W
 		if(istype(G.affecting,/mob/living))
 			grab_smash_attack(G, HALLOSS)
@@ -168,7 +168,7 @@
 
 /obj/machinery/door/window/holowindoor/attackby(obj/item/weapon/I as obj, mob/user as mob)
 
-	if (src.operating == 1)
+	if(src.operating == 1)
 		return
 
 	if(src.density && istype(I, /obj/item/weapon) && !istype(I, /obj/item/weapon/card))
@@ -180,16 +180,16 @@
 		return
 
 	src.add_fingerprint(user)
-	if (!src.requiresID())
+	if(!src.requiresID())
 		user = null
 
-	if (src.allowed(user))
-		if (src.density)
+	if(src.allowed(user))
+		if(src.density)
 			open()
 		else
 			close()
 
-	else if (src.density)
+	else if(src.density)
 		flick(text("[]deny", src.base_state), src)
 
 	return
@@ -237,7 +237,7 @@
 /obj/item/weapon/holo/esword/handle_shield(mob/user, var/damage, atom/damage_source = null, mob/attacker = null, var/def_zone = null, var/attack_text = "the attack")
 	if(active && default_parry_check(user, attacker, damage_source) && prob(50))
 		user.visible_message("<span class='danger'>\The [user] parries [attack_text] with \the [src]!</span>")
-		
+
 		var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
 		spark_system.set_up(5, 0, user.loc)
 		spark_system.start()
@@ -250,7 +250,7 @@
 
 /obj/item/weapon/holo/esword/attack_self(mob/living/user as mob)
 	active = !active
-	if (active)
+	if(active)
 		force = 30
 		icon_state = "sword[item_color]"
 		w_class = 5
@@ -288,7 +288,7 @@
 	throwpass = 1
 
 /obj/structure/holohoop/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
+	if(istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
 		var/obj/item/weapon/grab/G = W
 		if(G.state<2)
 			user << "<span class='warning'>You need a better grip to do that!</span>"
@@ -298,13 +298,13 @@
 		visible_message("<span class='warning'>[G.assailant] dunks [G.affecting] into the [src]!</span>", 3)
 		qdel(W)
 		return
-	else if (istype(W, /obj/item) && get_dist(src,user)<2)
+	else if(istype(W, /obj/item) && get_dist(src,user)<2)
 		user.drop_item(src.loc)
 		visible_message("<span class='notice'>[user] dunks [W] into the [src]!</span>", 3)
 		return
 
 /obj/structure/holohoop/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if (istype(mover,/obj/item) && mover.throwing)
+	if(istype(mover,/obj/item) && mover.throwing)
 		var/obj/item/I = mover
 		if(istype(I, /obj/item/projectile))
 			return
@@ -369,7 +369,7 @@
 	var/numready = 0
 	for(var/obj/machinery/readybutton/button in currentarea)
 		numbuttons++
-		if (button.ready)
+		if(button.ready)
 			numready++
 
 	if(numbuttons == numready)
@@ -408,7 +408,7 @@
 	set_light(2) //hologram lighting
 
 /mob/living/simple_animal/hostile/carp/holodeck/proc/set_safety(var/safe)
-	if (safe)
+	if(safe)
 		faction = "neutral"
 		melee_damage_lower = 0
 		melee_damage_upper = 0

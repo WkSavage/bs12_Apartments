@@ -111,7 +111,7 @@
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)	// No auto-refresh
+	if(!ui)	// No auto-refresh
 		ui = new(user, src, ui_key, "uplink.tmpl", title, 450, 600, state = inventory_state)
 		ui.set_initial_data(data)
 		ui.open()

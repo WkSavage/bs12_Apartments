@@ -57,27 +57,27 @@ var/global/list/light_type_cache = list()
 
 /obj/machinery/light_construct/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	src.add_fingerprint(user)
-	if (istype(W, /obj/item/weapon/wrench))
-		if (src.stage == 1)
+	if(istype(W, /obj/item/weapon/wrench))
+		if(src.stage == 1)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
 			usr << "You begin deconstructing \a [src]."
-			if (!do_after(usr, 30,src))
+			if(!do_after(usr, 30,src))
 				return
 			new /obj/item/stack/material/steel( get_turf(src.loc), sheets_refunded )
 			user.visible_message("[user.name] deconstructs [src].", \
 				"You deconstruct [src].", "You hear a noise.")
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 75, 1)
 			qdel(src)
-		if (src.stage == 2)
+		if(src.stage == 2)
 			usr << "You have to remove the wires first."
 			return
 
-		if (src.stage == 3)
+		if(src.stage == 3)
 			usr << "You have to unscrew the case first."
 			return
 
 	if(istype(W, /obj/item/weapon/wirecutters))
-		if (src.stage != 2) return
+		if(src.stage != 2) return
 		src.stage = 1
 		src.update_icon()
 		new /obj/item/stack/cable_coil(get_turf(src.loc), 1, "red")
@@ -87,9 +87,9 @@ var/global/list/light_type_cache = list()
 		return
 
 	if(istype(W, /obj/item/stack/cable_coil))
-		if (src.stage != 1) return
+		if(src.stage != 1) return
 		var/obj/item/stack/cable_coil/coil = W
-		if (coil.use(1))
+		if(coil.use(1))
 			src.stage = 2
 			src.update_icon()
 			user.visible_message("[user.name] adds wires to [src].", \
@@ -97,7 +97,7 @@ var/global/list/light_type_cache = list()
 		return
 
 	if(istype(W, /obj/item/weapon/screwdriver))
-		if (src.stage == 2)
+		if(src.stage == 2)
 			src.stage = 3
 			src.update_icon()
 			user.visible_message("[user.name] closes [src]'s casing.", \
@@ -378,7 +378,7 @@ var/global/list/light_type_cache = list()
 					continue
 				M.show_message("[user.name] smashed the light!", 3, "You hear a tinkle of breaking glass", 2)
 			if(on && (W.flags & CONDUCT))
-				if (prob(12))
+				if(prob(12))
 					electrocute_mob(user, get_area(src), src, 0.3)
 			broken()
 
@@ -391,7 +391,7 @@ var/global/list/light_type_cache = list()
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 75, 1)
 			user.visible_message("[user.name] opens [src]'s casing.", \
 				"You open [src]'s casing.", "You hear a noise.")
-			
+
 			new construct_type(src.loc, src)
 			qdel(src)
 			return
@@ -402,7 +402,7 @@ var/global/list/light_type_cache = list()
 			s.set_up(3, 1, src)
 			s.start()
 			//if(!user.mutations & COLD_RESISTANCE)
-			if (prob(75))
+			if(prob(75))
 				electrocute_mob(user, get_area(src), src, rand(0.7,1.0))
 
 
@@ -517,10 +517,10 @@ var/global/list/light_type_cache = list()
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(75))
+			if(prob(75))
 				broken()
 		if(3.0)
-			if (prob(50))
+			if(prob(50))
 				broken()
 	return
 
@@ -590,7 +590,7 @@ obj/machinery/light/proc/burn_out()
 	brightness_power = 3
 	brightness_color = "#FFFFFF"
 	lighting_modes = list(
-		"emergency_lighting" = list(l_range = 5, l_power = 1, l_color = "#da0205"), 
+		"emergency_lighting" = list(l_range = 5, l_power = 1, l_color = "#da0205"),
 		)
 
 /obj/item/weapon/light/tube/large

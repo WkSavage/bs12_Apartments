@@ -81,7 +81,7 @@
 
 	for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
 		if(target.initialize_directions & get_dir(target,src))
-			if (check_connect_types(target,src))
+			if(check_connect_types(target,src))
 				node = target
 				break
 
@@ -131,22 +131,22 @@
 
 
 /obj/machinery/atmospherics/portables_connector/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
-	if (!istype(W, /obj/item/weapon/wrench))
+	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
-	if (connected_device)
+	if(connected_device)
 		user << "<span class='warning'>You cannot unwrench \the [src], dettach \the [connected_device] first.</span>"
 		return 1
-	if (locate(/obj/machinery/portable_atmospherics, src.loc))
+	if(locate(/obj/machinery/portable_atmospherics, src.loc))
 		return 1
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
-	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
+	if((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
 		user << "<span class='warning'>You cannot unwrench \the [src], it too exerted due to internal pressure.</span>"
 		add_fingerprint(user)
 		return 1
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
-	if (do_after(user, 40, src))
+	if(do_after(user, 40, src))
 		user.visible_message( \
 			"<span class='notice'>\The [user] unfastens \the [src].</span>", \
 			"<span class='notice'>You have unfastened \the [src].</span>", \

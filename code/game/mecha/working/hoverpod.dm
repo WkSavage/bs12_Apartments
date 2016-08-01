@@ -24,7 +24,7 @@
 //Modified phazon code
 /obj/mecha/working/hoverpod/Topic(href, href_list)
 	..()
-	if (href_list["toggle_stabilization"])
+	if(href_list["toggle_stabilization"])
 		stabilization_enabled = !stabilization_enabled
 		send_byjax(src.occupant,"exosuit.browser","stabilization_command","[stabilization_enabled?"Dis":"En"]able thruster stabilization")
 		src.occupant_message("<span class='notice'>Thruster stabilization [stabilization_enabled? "enabled" : "disabled"].</span>")
@@ -44,12 +44,12 @@
 //No space drifting
 /obj/mecha/working/hoverpod/check_for_support()
 	//does the hoverpod have enough charge left to stabilize itself?
-	if (!has_charge(step_energy_drain))
+	if(!has_charge(step_energy_drain))
 		ion_trail.stop()
 	else
-		if (!ion_trail.on)
+		if(!ion_trail.on)
 			ion_trail.start()
-		if (stabilization_enabled)
+		if(stabilization_enabled)
 			return 1
 
 	return ..()

@@ -136,7 +136,7 @@ update_flag
 32 = tank_pressure go boom.
 */
 
-	if (src.destroyed)
+	if(src.destroyed)
 		src.overlays = 0
 		src.icon_state = text("[]-1", src.canister_color)
 		return
@@ -172,7 +172,7 @@ update_flag
 	if(destroyed)
 		return 1
 
-	if (src.health <= 10)
+	if(src.health <= 10)
 		var/atom/location = src.loc
 		location.assume_air(air_contents)
 
@@ -181,7 +181,7 @@ update_flag
 		src.density = 0
 		update_icon()
 
-		if (src.holding)
+		if(src.holding)
 			src.holding.loc = src.loc
 			src.holding = null
 
@@ -190,7 +190,7 @@ update_flag
 		return 1
 
 /obj/machinery/portable_atmospherics/canister/process()
-	if (destroyed)
+	if(destroyed)
 		return
 
 	..()
@@ -288,14 +288,14 @@ update_flag
 	data["valveOpen"] = valve_open ? 1 : 0
 
 	data["hasHoldingTank"] = holding ? 1 : 0
-	if (holding)
+	if(holding)
 		data["holdingTank"] = list("name" = holding.name, "tankPressure" = round(holding.air_contents.return_pressure()))
 
 	return data
 
 
 /obj/machinery/portable_atmospherics/canister/tg_ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = tg_physical_state)
-	if (src.destroyed)
+	if(src.destroyed)
 		return
 	ui = tgui_process.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
@@ -313,7 +313,7 @@ update_flag
 /obj/machinery/portable_atmospherics/canister/ui_act(action, params)
 	switch(action)
 		if("relabel")
-			if (can_label)
+			if(can_label)
 				var/list/colors = list(\
 					"\[N2O\]" = "redws", \
 					"\[N2\]" = "red", \
@@ -324,7 +324,7 @@ update_flag
 					"\[CAUTION\]" = "yellow", \
 				)
 				var/label = input("Choose canister label", "Gas canister") as null|anything in colors
-				if (label)
+				if(label)
 					src.canister_color = colors[label]
 					src.icon_state = colors[label]
 					src.name = "\improper Canister: [label]"
@@ -336,13 +336,13 @@ update_flag
 				release_pressure = max(ONE_ATMOSPHERE/10, release_pressure+diff)
 
 		if("valve")
-			if (valve_open)
-				if (holding)
+			if(valve_open)
+				if(holding)
 					release_log += "Valve was <b>closed</b> by [usr] ([usr.ckey]), stopping the transfer into the [holding]<br>"
 				else
 					release_log += "Valve was <b>closed</b> by [usr] ([usr.ckey]), stopping the transfer into the <font color='red'><b>air</b></font><br>"
 			else
-				if (holding)
+				if(holding)
 					release_log += "Valve was <b>opened</b> by [usr] ([usr.ckey]), starting the transfer into the [holding]<br>"
 				else
 					release_log += "Valve was <b>opened</b> by [usr] ([usr.ckey]), starting the transfer into the <font color='red'><b>air</b></font><br>"
@@ -351,7 +351,7 @@ update_flag
 
 		if("eject")
 			if(holding)
-				if (valve_open)
+				if(valve_open)
 					valve_open = 0
 					release_log += "Valve was <b>closed</b> by [usr] ([usr.ckey]), stopping the transfer into the [holding]<br>"
 				if(istype(holding, /obj/item/weapon/tank))
@@ -393,7 +393,7 @@ update_flag
 	air_contents.gas["sleeping_agent"] = 9*4000
 	spawn(10)
 		var/turf/simulated/location = src.loc
-		if (istype(src.loc))
+		if(istype(src.loc))
 			while (!location.air)
 				sleep(10)
 			location.assume_air(air_contents)

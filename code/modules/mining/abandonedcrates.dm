@@ -163,21 +163,21 @@
 	else
 		visible_message("<span class='warning'>A red light on \the [src]'s control panel flashes briefly.</span>")
 		attempts--
-		if (attempts == 0)
+		if(attempts == 0)
 			user << "<span class='danger'>The crate's anti-tamper system activates!</span>"
 			var/turf/T = get_turf(src.loc)
 			explosion(T, 0, 0, 1, 2)
 			qdel(src)
-	
-/obj/structure/closet/crate/secure/loot/emag_act(var/remaining_charges, var/mob/user)	
-	if (locked)
+
+/obj/structure/closet/crate/secure/loot/emag_act(var/remaining_charges, var/mob/user)
+	if(locked)
 		user << "<span class='notice'>The crate unlocks!</span>"
 		locked = 0
 
 /obj/structure/closet/crate/secure/loot/proc/check_input(var/input)
 	if(length(input) != codelen)
 		return 0
-	
+
 	. = 1
 	lastattempt.Cut()
 	for(var/i in 1 to codelen)
@@ -188,16 +188,16 @@
 
 /obj/structure/closet/crate/secure/loot/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(locked)
-		if (istype(W, /obj/item/device/multitool)) // Greetings Urist McProfessor, how about a nice game of cows and bulls?
+		if(istype(W, /obj/item/device/multitool)) // Greetings Urist McProfessor, how about a nice game of cows and bulls?
 			user << "<span class='notice'>DECA-CODE LOCK ANALYSIS:</span>"
-			if (attempts == 1)
+			if(attempts == 1)
 				user << "<span class='warning'>* Anti-Tamper system will activate on the next failed access attempt.</span>"
 			else
 				user << "<span class='notice'>* Anti-Tamper system will activate after [src.attempts] failed access attempts.</span>"
 			if(lastattempt.len)
 				var/bulls = 0
 				var/cows = 0
-				
+
 				var/list/code_contents = code.Copy()
 				for(var/i in 1 to codelen)
 					if(lastattempt[i] == code[i])

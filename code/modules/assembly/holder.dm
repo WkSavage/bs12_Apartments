@@ -86,8 +86,8 @@
 
 	examine(mob/user)
 		..(user)
-		if ((in_range(src, user) || src.loc == user))
-			if (src.secured)
+		if((in_range(src, user) || src.loc == user))
+			if(src.secured)
 				user << "\The [src] is ready!"
 			else
 				user << "\The [src] can be attached!"
@@ -218,7 +218,7 @@
 /obj/item/device/assembly_holder/Destroy()
 	listening_objects -= src
 	return ..()
-	
+
 
 /obj/item/device/assembly_holder/hear_talk(mob/living/M as mob, msg, verb, datum/language/speaking)
 	if(a_right)
@@ -260,7 +260,7 @@
 		set category = "Object"
 		set src in usr
 
-		if ( !(usr.stat || usr.restrained()) )
+		if( !(usr.stat || usr.restrained()) )
 			var/obj/item/device/assembly_holder/holder
 			if(istype(src,/obj/item/weapon/grenade/chem_grenade))
 				var/obj/item/weapon/grenade/chem_grenade/gren = src
@@ -276,7 +276,7 @@
 				usr << "<span class='notice'>Clock is ticking already.</span>"
 			else
 				var/ntime = input("Enter desired time in seconds", "Time", "5") as num
-				if (ntime>0 && ntime<1000)
+				if(ntime>0 && ntime<1000)
 					tmr.time = ntime
 					name = initial(name) + "([tmr.time] secs)"
 					usr << "<span class='notice'>Timer set to [tmr.time] seconds.</span>"

@@ -19,7 +19,7 @@
 
 
 /obj/item/weapon/airlock_electronics/attack_self(mob/user as mob)
-	if (!ishuman(user) && !istype(user,/mob/living/silicon/robot))
+	if(!ishuman(user) && !istype(user,/mob/living/silicon/robot))
 		return ..(user)
 
 	tg_ui_interact(user)
@@ -70,7 +70,7 @@
 			return TRUE
 		if("set")
 			var/access = text2num(params["access"])
-			if (!(access in conf_access))
+			if(!(access in conf_access))
 				conf_access += access
 			else
 				conf_access -= access
@@ -82,13 +82,13 @@
 				return TRUE
 			else
 				var/obj/item/I = usr.get_active_hand()
-				if (istype(I, /obj/item/device/pda))
+				if(istype(I, /obj/item/device/pda))
 					var/obj/item/device/pda/pda = I
 					I = pda.id
 				if(!istype(I, /obj/item/weapon/card/id))
 					usr << "<span class='warning'>[\src] flashes a yellow LED near the ID scanner. Did you remember to scan your ID or PDA?</span>"
 					return TRUE
-				if (I && src.check_access(I))
+				if(I && src.check_access(I))
 					locked = 0
 					last_configurator = I:registered_name
 				else

@@ -43,7 +43,7 @@ var/global/list/image/ghost_sightless_images = list() //this is a list of images
 		T = get_turf(body)				//Where is the body located?
 		attack_log = body.attack_log	//preserve our attack logs by copying them to our ghost
 
-		if (ishuman(body))
+		if(ishuman(body))
 			var/mob/living/carbon/human/H = body
 			icon = H.stand_icon
 			overlays = H.overlays_standing
@@ -92,7 +92,7 @@ var/global/list/image/ghost_sightless_images = list() //this is a list of images
 	return ..()
 
 /mob/observer/ghost/Topic(href, href_list)
-	if (href_list["track"])
+	if(href_list["track"])
 		if(istype(href_list["track"],/mob))
 			var/mob/target = locate(href_list["track"]) in mob_list
 			if(target)
@@ -358,7 +358,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(isghost(usr)) //Make sure they're an observer!
 
-		if (!target)//Make sure we actually have a target
+		if(!target)//Make sure we actually have a target
 			return
 		else
 			var/mob/M = getmobs()[target] //Destination mob
@@ -403,7 +403,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!isghost(usr)) return
 
 	// Shamelessly copied from the Gas Analyzers
-	if (!( istype(usr.loc, /turf) ))
+	if(!( istype(usr.loc, /turf) ))
 		return
 
 	var/datum/gas_mixture/environment = usr.loc.return_air()
@@ -509,10 +509,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		src << "\red That verb is not currently permitted."
 		return
 
-	if (!src.stat)
+	if(!src.stat)
 		return
 
-	if (usr != src)
+	if(usr != src)
 		return 0 //something is terribly wrong
 
 	if(!round_is_spooky())
@@ -532,10 +532,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/direction = input(src,"Which way?","Tile selection") as anything in list("Here","North","South","East","West")
 	var/turf/simulated/T = src.loc
-	if (direction != "Here")
+	if(direction != "Here")
 		T = get_step(T,text2dir(direction))
 
-	if (!istype(T))
+	if(!istype(T))
 		src << "<span class='warning'>You cannot doodle there.</span>"
 		return
 
@@ -547,7 +547,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/num_doodles = 0
 	for(var/obj/effect/decal/cleanable/blood/writing/W in T)
 		num_doodles++
-	if (num_doodles > 4)
+	if(num_doodles > 4)
 		src << "<span class='warning'>There is no space to write on!</span>"
 		return
 
@@ -555,9 +555,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/message = sanitize(input("Write a message. It cannot be longer than [max_length] characters.","Blood writing", ""))
 
-	if (message)
+	if(message)
 
-		if (length(message) > max_length)
+		if(length(message) > max_length)
 			message += "-"
 			src << "<span class='warning'>You ran out of blood to write with!</span>"
 
@@ -652,14 +652,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	updateghostsight()
 
 /mob/observer/ghost/proc/updateghostsight()
-	if (!seedarkness)
+	if(!seedarkness)
 		see_invisible = SEE_INVISIBLE_NOLIGHTING
 	else
 		see_invisible = ghostvision ? SEE_INVISIBLE_OBSERVER : SEE_INVISIBLE_LIVING
 	updateghostimages()
 
 /mob/observer/ghost/proc/updateghostimages()
-	if (!client)
+	if(!client)
 		return
 	client.images -= ghost_sightless_images
 	client.images -= ghost_darkness_images

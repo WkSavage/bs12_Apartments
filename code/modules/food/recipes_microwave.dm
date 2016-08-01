@@ -430,9 +430,9 @@ I said no!
 		return being_cooked
 	check_items(var/obj/container as obj)
 		. = ..()
-		if (.)
+		if(.)
 			var/obj/item/weapon/paper/paper = locate() in container
-			if (!paper.info)
+			if(!paper.info)
 				return 0
 		return .
 

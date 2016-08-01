@@ -24,13 +24,13 @@
 	if(!user.IsAdvancedToolUser())
 		return
 
-	if ((CLUMSY in user.mutations) && prob(50))
+	if((CLUMSY in user.mutations) && prob(50))
 		user << "<span class='warning'>Uh ... how do those things work?!</span>"
 		place_handcuffs(user, user)
 		return
 
 	if(!C.handcuffed)
-		if (C == user)
+		if(C == user)
 			place_handcuffs(user, user)
 			return
 
@@ -40,7 +40,7 @@
 			can_place = 1
 		else
 			for(var/obj/item/weapon/grab/G in C.grabbed_by)
-				if (G.loc == user && G.state >= GRAB_AGGRESSIVE)
+				if(G.loc == user && G.state >= GRAB_AGGRESSIVE)
 					can_place = 1
 					break
 
@@ -56,7 +56,7 @@
 	if(!istype(H))
 		return 0
 
-	if (!H.has_organ_for_slot(slot_handcuffed))
+	if(!H.has_organ_for_slot(slot_handcuffed))
 		user << "<span class='danger'>\The [H] needs at least two wrists before you can cuff them together!</span>"
 		return 0
 
@@ -92,18 +92,18 @@
 
 var/last_chew = 0
 /mob/living/carbon/human/RestrainedClickOn(var/atom/A)
-	if (A != src) return ..()
-	if (last_chew + 26 > world.time) return
+	if(A != src) return ..()
+	if(last_chew + 26 > world.time) return
 
 	var/mob/living/carbon/human/H = A
-	if (!H.handcuffed) return
-	if (H.a_intent != I_HURT) return
-	if (H.zone_sel.selecting != "mouth") return
-	if (H.wear_mask) return
-	if (istype(H.wear_suit, /obj/item/clothing/suit/straight_jacket)) return
+	if(!H.handcuffed) return
+	if(H.a_intent != I_HURT) return
+	if(H.zone_sel.selecting != "mouth") return
+	if(H.wear_mask) return
+	if(istype(H.wear_suit, /obj/item/clothing/suit/straight_jacket)) return
 
 	var/obj/item/organ/external/O = H.organs_by_name[H.hand?"l_hand":"r_hand"]
-	if (!O) return
+	if(!O) return
 
 	var/s = "<span class='warning'>[H.name] chews on \his [O.name]!</span>"
 	H.visible_message(s, "<span class='warning'>You chew on your [O.name]!</span>")
@@ -152,7 +152,7 @@ var/last_chew = 0
 	..()
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
-		if (R.use(1))
+		if(R.use(1))
 			var/obj/item/weapon/material/wirerod/W = new(get_turf(user))
 			user.put_in_hands(W)
 			user << "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>"

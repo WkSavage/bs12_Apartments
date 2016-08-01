@@ -59,7 +59,7 @@
 	return ..()
 
 /obj/item/clothing/accessory/badge/holo/emag_act(var/remaining_charges, var/mob/user)
-	if (emagged)
+	if(emagged)
 		user << "<span class='danger'>\The [src] is already cracked.</span>"
 		return
 	else

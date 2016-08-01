@@ -214,45 +214,45 @@
 /obj/machinery/suit_storage_unit/Topic(href, href_list) //I fucking HATE this proc
 	if(..())
 		return
-	if ((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon/ai)))
+	if((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon/ai)))
 		usr.set_machine(src)
-		if (href_list["toggleUV"])
+		if(href_list["toggleUV"])
 			src.toggleUV(usr)
 			src.updateUsrDialog()
 			src.update_icon()
-		if (href_list["togglesafeties"])
+		if(href_list["togglesafeties"])
 			src.togglesafeties(usr)
 			src.updateUsrDialog()
 			src.update_icon()
-		if (href_list["dispense_helmet"])
+		if(href_list["dispense_helmet"])
 			src.dispense_helmet(usr)
 			src.updateUsrDialog()
 			src.update_icon()
-		if (href_list["dispense_suit"])
+		if(href_list["dispense_suit"])
 			src.dispense_suit(usr)
 			src.updateUsrDialog()
 			src.update_icon()
-		if (href_list["dispense_mask"])
+		if(href_list["dispense_mask"])
 			src.dispense_mask(usr)
 			src.updateUsrDialog()
 			src.update_icon()
-		if (href_list["toggle_open"])
+		if(href_list["toggle_open"])
 			src.toggle_open(usr)
 			src.updateUsrDialog()
 			src.update_icon()
-		if (href_list["toggle_lock"])
+		if(href_list["toggle_lock"])
 			src.toggle_lock(usr)
 			src.updateUsrDialog()
 			src.update_icon()
-		if (href_list["start_UV"])
+		if(href_list["start_UV"])
 			src.start_UV(usr)
 			src.updateUsrDialog()
 			src.update_icon()
-		if (href_list["eject_guy"])
+		if(href_list["eject_guy"])
 			src.eject_occupant(usr)
 			src.updateUsrDialog()
 			src.update_icon()
-	/*if (href_list["refresh"])
+	/*if(href_list["refresh"])
 		src.updateUsrDialog()*/
 	src.add_fingerprint(usr)
 	return
@@ -392,16 +392,16 @@
 		if(src.OCCUPANT)
 			OCCUPANT.apply_effect(50, IRRADIATE, blocked = OCCUPANT.getarmor(null, "rad"))
 			var/obj/item/organ/diona/nutrients/rad_organ = locate() in OCCUPANT.internal_organs
-			if (!rad_organ)
+			if(!rad_organ)
 				if(src.issuperUV)
 					var/burndamage = rand(28,35)
 					OCCUPANT.take_organ_damage(0,burndamage)
-					if (!(OCCUPANT.species && (OCCUPANT.species.flags & NO_PAIN)))
+					if(!(OCCUPANT.species && (OCCUPANT.species.flags & NO_PAIN)))
 						OCCUPANT.emote("scream")
 				else
 					var/burndamage = rand(6,10)
 					OCCUPANT.take_organ_damage(0,burndamage)
-					if (!(OCCUPANT.species && (OCCUPANT.species.flags & NO_PAIN)))
+					if(!(OCCUPANT.species && (OCCUPANT.species.flags & NO_PAIN)))
 						OCCUPANT.emote("scream")
 		if(i==3) //End of the cycle
 			if(!src.issuperUV)
@@ -459,15 +459,15 @@
 
 
 /obj/machinery/suit_storage_unit/proc/eject_occupant(mob/user as mob)
-	if (src.islocked)
+	if(src.islocked)
 		return
 
-	if (!src.OCCUPANT)
+	if(!src.OCCUPANT)
 		return
 //	for(var/obj/O in src)
 //		O.loc = src.loc
 
-	if (src.OCCUPANT.client)
+	if(src.OCCUPANT.client)
 		if(user != OCCUPANT)
 			OCCUPANT << "<font color='blue'>The machine kicks you out!</font>"
 		if(user.loc != src.loc)
@@ -488,7 +488,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if (usr.stat != 0)
+	if(usr.stat != 0)
 		return
 	src.eject_occupant(usr)
 	add_fingerprint(usr)
@@ -502,15 +502,15 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if (usr.stat != 0)
+	if(usr.stat != 0)
 		return
-	if (!src.isopen)
+	if(!src.isopen)
 		usr << "<font color='red'>The unit's doors are shut.</font>"
 		return
-	if (!src.ispowered || src.isbroken)
+	if(!src.ispowered || src.isbroken)
 		usr << "<font color='red'>The unit is not operational.</font>"
 		return
-	if ( (src.OCCUPANT) || (src.HELMET) || (src.SUIT) )
+	if( (src.OCCUPANT) || (src.HELMET) || (src.SUIT) )
 		usr << "<font color='red'>It's too cluttered inside for you to fit in!</font>"
 		return
 	visible_message("\The [usr] starts squeezing into the suit storage unit!", 3)
@@ -544,24 +544,24 @@
 		user << text("<font color='blue'>You [] the unit's maintenance panel.</font>",(src.panelopen ? "open up" : "close") )
 		src.updateUsrDialog()
 		return
-	if ( istype(I, /obj/item/weapon/grab) )
+	if( istype(I, /obj/item/weapon/grab) )
 		var/obj/item/weapon/grab/G = I
 		if( !(ismob(G.affecting)) )
 			return
-		if (!src.isopen)
+		if(!src.isopen)
 			usr << "<font color='red'>The unit's doors are shut.</font>"
 			return
-		if (!src.ispowered || src.isbroken)
+		if(!src.ispowered || src.isbroken)
 			usr << "<font color='red'>The unit is not operational.</font>"
 			return
-		if ( (src.OCCUPANT) || (src.HELMET) || (src.SUIT) ) //Unit needs to be absolutely empty
+		if( (src.OCCUPANT) || (src.HELMET) || (src.SUIT) ) //Unit needs to be absolutely empty
 			user << "<font color='red'>The unit's storage area is too cluttered.</font>"
 			return
 		visible_message("[user] starts putting [G.affecting.name] into the Suit Storage Unit.", 3)
 		if(do_after(user, 20, src))
 			if(!G || !G.affecting) return //derpcheck
 			var/mob/M = G.affecting
-			if (M.client)
+			if(M.client)
 				M.client.perspective = EYE_PERSPECTIVE
 				M.client.eye = src
 			M.loc = src
@@ -756,7 +756,7 @@
 		if(do_after(user, 20, src))
 			if(!G || !G.affecting) return
 			var/mob/M = G.affecting
-			if (M.client)
+			if(M.client)
 				M.client.perspective = EYE_PERSPECTIVE
 				M.client.eye = src
 			M.loc = src
@@ -1012,7 +1012,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if (usr.stat != 0)
+	if(usr.stat != 0)
 		return
 
 	eject_occupant(usr)
@@ -1023,10 +1023,10 @@
 		user << "<span class='warning'>The cycler is locked.</span>"
 		return
 
-	if (!occupant)
+	if(!occupant)
 		return
 
-	if (occupant.client)
+	if(occupant.client)
 		occupant.client.eye = occupant.client.mob
 		occupant.client.perspective = MOB_PERSPECTIVE
 

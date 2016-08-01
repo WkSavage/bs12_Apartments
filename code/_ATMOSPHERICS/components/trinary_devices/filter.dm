@@ -100,7 +100,7 @@
 	var/transfer_moles = (set_flow_rate/air1.volume)*air1.total_moles
 
 	var/power_draw = -1
-	if (transfer_moles > MINIMUM_MOLES_TO_FILTER)
+	if(transfer_moles > MINIMUM_MOLES_TO_FILTER)
 		power_draw = filter_gas(src, filtered_out, air1, air2, air3, transfer_moles, power_rating)
 
 		if(network2)
@@ -112,7 +112,7 @@
 		if(network1)
 			network1.update = 1
 
-	if (power_draw >= 0)
+	if(power_draw >= 0)
 		last_power_draw = power_draw
 		use_power(power_draw)
 
@@ -123,17 +123,17 @@
 	..()
 
 /obj/machinery/atmospherics/trinary/filter/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
-	if (!istype(W, /obj/item/weapon/wrench))
+	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
-	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
+	if((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
 		user << "<span class='warning'>You cannot unwrench \the [src], it too exerted due to internal pressure.</span>"
 		add_fingerprint(user)
 		return 1
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
-	if (do_after(user, 40, src))
+	if(do_after(user, 40, src))
 		user.visible_message( \
 			"<span class='notice'>\The [user] unfastens \the [src].</span>", \
 			"<span class='notice'>You have unfastened \the [src].</span>", \
@@ -209,7 +209,7 @@
 			if(4)//removing N2O
 				filtered_out += "sleeping_agent"
 
-	if (href_list["temp"])
+	if(href_list["temp"])
 		src.temp = null
 	if(href_list["set_flow_rate"])
 		var/new_flow_rate = input(usr,"Enter new flow rate (0-[air1.volume]L/s)","Flow Rate Control",src.set_flow_rate) as num
@@ -220,7 +220,7 @@
 	src.updateUsrDialog()
 /*
 	for(var/mob/M in viewers(1, src))
-		if ((M.client && M.machine == src))
+		if((M.client && M.machine == src))
 			src.attack_hand(M)
 */
 	return

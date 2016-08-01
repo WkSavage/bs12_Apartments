@@ -36,7 +36,7 @@
 
 
 /obj/machinery/mineral/mint/process()
-	if ( src.input)
+	if( src.input)
 		var/obj/item/stack/O
 		O = locate(/obj/item/stack, input.loc)
 		if(O)
@@ -63,40 +63,40 @@
 
 	var/dat = "<b>Coin Press</b><br>"
 
-	if (!input)
+	if(!input)
 		dat += text("input connection status: ")
 		dat += text("<b><font color='red'>NOT CONNECTED</font></b><br>")
-	if (!output)
+	if(!output)
 		dat += text("<br>output connection status: ")
 		dat += text("<b><font color='red'>NOT CONNECTED</font></b><br>")
 
 	dat += text("<br><font color='#ffcc00'><b>Gold inserted: </b>[amt_gold]</font> ")
-	if (chosen == "gold")
+	if(chosen == "gold")
 		dat += text("chosen")
 	else
 		dat += text("<A href='?src=\ref[src];choose=gold'>Choose</A>")
 	dat += text("<br><font color='#888888'><b>Silver inserted: </b>[amt_silver]</font> ")
-	if (chosen == "silver")
+	if(chosen == "silver")
 		dat += text("chosen")
 	else
 		dat += text("<A href='?src=\ref[src];choose=silver'>Choose</A>")
 	dat += text("<br><font color='#555555'><b>Iron inserted: </b>[amt_iron]</font> ")
-	if (chosen == DEFAULT_WALL_MATERIAL)
+	if(chosen == DEFAULT_WALL_MATERIAL)
 		dat += text("chosen")
 	else
 		dat += text("<A href='?src=\ref[src];choose=metal'>Choose</A>")
 	dat += text("<br><font color='#8888FF'><b>Diamond inserted: </b>[amt_diamond]</font> ")
-	if (chosen == "diamond")
+	if(chosen == "diamond")
 		dat += text("chosen")
 	else
 		dat += text("<A href='?src=\ref[src];choose=diamond'>Choose</A>")
 	dat += text("<br><font color='#FF8800'><b>Phoron inserted: </b>[amt_phoron]</font> ")
-	if (chosen == "phoron")
+	if(chosen == "phoron")
 		dat += text("chosen")
 	else
 		dat += text("<A href='?src=\ref[src];choose=phoron'>Choose</A>")
 	dat += text("<br><font color='#008800'><b>Uranium inserted: </b>[amt_uranium]</font> ")
-	if (chosen == "uranium")
+	if(chosen == "uranium")
 		dat += text("chosen")
 	else
 		dat += text("<A href='?src=\ref[src];choose=uranium'>Choose</A>")
@@ -128,14 +128,14 @@
 		coinsToProduce = between(0, coinsToProduce + text2num(href_list["chooseAmt"]), 1000)
 	if(href_list["makeCoins"])
 		var/temp_coins = coinsToProduce
-		if (src.output)
+		if(src.output)
 			processing = 1;
 			icon_state = "coinpress1"
 			var/obj/item/weapon/moneybag/M
 			switch(chosen)
 				if(DEFAULT_WALL_MATERIAL)
 					while(amt_iron > 0 && coinsToProduce > 0)
-						if (locate(/obj/item/weapon/moneybag,output.loc))
+						if(locate(/obj/item/weapon/moneybag,output.loc))
 							M = locate(/obj/item/weapon/moneybag,output.loc)
 						else
 							M = new/obj/item/weapon/moneybag(output.loc)
@@ -147,7 +147,7 @@
 						sleep(5);
 				if("gold")
 					while(amt_gold > 0 && coinsToProduce > 0)
-						if (locate(/obj/item/weapon/moneybag,output.loc))
+						if(locate(/obj/item/weapon/moneybag,output.loc))
 							M = locate(/obj/item/weapon/moneybag,output.loc)
 						else
 							M = new/obj/item/weapon/moneybag(output.loc)
@@ -159,7 +159,7 @@
 						sleep(5);
 				if("silver")
 					while(amt_silver > 0 && coinsToProduce > 0)
-						if (locate(/obj/item/weapon/moneybag,output.loc))
+						if(locate(/obj/item/weapon/moneybag,output.loc))
 							M = locate(/obj/item/weapon/moneybag,output.loc)
 						else
 							M = new/obj/item/weapon/moneybag(output.loc)
@@ -171,7 +171,7 @@
 						sleep(5);
 				if("diamond")
 					while(amt_diamond > 0 && coinsToProduce > 0)
-						if (locate(/obj/item/weapon/moneybag,output.loc))
+						if(locate(/obj/item/weapon/moneybag,output.loc))
 							M = locate(/obj/item/weapon/moneybag,output.loc)
 						else
 							M = new/obj/item/weapon/moneybag(output.loc)
@@ -183,7 +183,7 @@
 						sleep(5);
 				if("phoron")
 					while(amt_phoron > 0 && coinsToProduce > 0)
-						if (locate(/obj/item/weapon/moneybag,output.loc))
+						if(locate(/obj/item/weapon/moneybag,output.loc))
 							M = locate(/obj/item/weapon/moneybag,output.loc)
 						else
 							M = new/obj/item/weapon/moneybag(output.loc)
@@ -195,7 +195,7 @@
 						sleep(5);
 				if("uranium")
 					while(amt_uranium > 0 && coinsToProduce > 0)
-						if (locate(/obj/item/weapon/moneybag,output.loc))
+						if(locate(/obj/item/weapon/moneybag,output.loc))
 							M = locate(/obj/item/weapon/moneybag,output.loc)
 						else
 							M = new/obj/item/weapon/moneybag(output.loc)

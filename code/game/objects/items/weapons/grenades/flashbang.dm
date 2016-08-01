@@ -60,7 +60,7 @@
 			else
 				M.Stun(10)
 				M.Weaken(3)
-				if ((prob(14) || (M == src.loc && prob(70))))
+				if((prob(14) || (M == src.loc && prob(70))))
 					M.ear_damage += rand(1, 10)
 				else
 					M.ear_damage += rand(0, 5)
@@ -81,19 +81,19 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
-			if (E && E.damage >= E.min_bruised_damage)
+			if(E && E.damage >= E.min_bruised_damage)
 				M << "<span class='danger'>Your eyes start to burn badly!</span>"
 				if(!banglet && !(istype(src , /obj/item/weapon/grenade/flashbang/clusterbang)))
-					if (E.damage >= E.min_broken_damage)
+					if(E.damage >= E.min_broken_damage)
 						M << "<span class='danger'>You can't see anything!</span>"
-		if (M.ear_damage >= 15)
+		if(M.ear_damage >= 15)
 			M << "<span class='danger'>Your ears start to ring badly!</span>"
 			if(!banglet && !(istype(src , /obj/item/weapon/grenade/flashbang/clusterbang)))
-				if (prob(M.ear_damage - 10 + 5))
+				if(prob(M.ear_damage - 10 + 5))
 					M << "<span class='danger'>You can't hear anything!</span>"
 					M.sdisabilities |= DEAF
 		else
-			if (M.ear_damage >= 5)
+			if(M.ear_damage >= 5)
 				M << "<span class='danger'>Your ears start to ring!</span>"
 		M.update_icons()
 

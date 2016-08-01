@@ -62,7 +62,7 @@
 	controller.die()
 
 /obj/machinery/atmospherics/unary/engine/proc/burn()
-	if (!on)
+	if(!on)
 		return
 	if(air_contents.temperature > 0)
 		var/transfer_moles = 100  * air_contents.volume/max(air_contents.temperature * R_IDEAL_GAS_EQUATION, 0,01)

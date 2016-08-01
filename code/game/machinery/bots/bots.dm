@@ -29,7 +29,7 @@
 	qdel(src)
 
 /obj/machinery/bot/proc/healthcheck()
-	if (src.health <= 0)
+	if(src.health <= 0)
 		src.explode()
 
 /obj/machinery/bot/emag_act(var/remaining_charges, var/user)
@@ -47,8 +47,8 @@
 
 /obj/machinery/bot/examine(mob/user)
 	..(user)
-	if (src.health < maxhealth)
-		if (src.health > maxhealth/3)
+	if(src.health < maxhealth)
+		if(src.health > maxhealth/3)
 			user << "<span class='warning'>[src]'s parts look loose.</span>"
 		else
 			user << "<span class='danger'>[src]'s parts look very loose!</span>"
@@ -100,7 +100,7 @@
 			healthcheck()
 			return
 		if(3.0)
-			if (prob(50))
+			if(prob(50))
 				src.health -= rand(1,5)*fire_dam_coeff
 				src.health -= rand(1,5)*brute_dam_coeff
 				healthcheck()
@@ -119,11 +119,11 @@
 
 	spawn(10)
 		qdel(pulse2)
-	if (on)
+	if(on)
 		turn_off()
 	spawn(severity*300)
 		stat &= ~EMPED
-		if (was_on)
+		if(was_on)
 			turn_on()
 
 

@@ -193,7 +193,7 @@
 	var/distance = get_dist(usr,src)
 	if(isghost(usr) || usr.stat == DEAD) // ghosts can see anything
 		distance = 1
-	if (src.stat)
+	if(src.stat)
 		msg += "<span class='warning'>[T.He] [T.is]n't responding to anything around [T.him] and seems to be asleep.</span>\n"
 		if((stat == DEAD || src.losebreath) && distance <= 3)
 			msg += "<span class='warning'>[T.He] [T.does] not appear to be breathing.</span>\n"
@@ -393,9 +393,9 @@
 			perpname = src.name
 
 		for(var/datum/data/record/E in data_core.general)
-			if (E.fields["name"] == perpname)
+			if(E.fields["name"] == perpname)
 				for(var/datum/data/record/R in data_core.general)
-					if (R.fields["id"] == E.fields["id"])
+					if(R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
 
 		msg += "<span class = 'deptradio'>Physical status:</span> <a href='?src=\ref[src];medical=1'>\[[medical]\]</a>\n"
@@ -407,7 +407,7 @@
 	msg += "*---------*</span><br>"
 	msg += applying_pressure
 
-	if (pose)
+	if(pose)
 		if( findtext(pose,".",lentext(pose)) == 0 && findtext(pose,"!",lentext(pose)) == 0 && findtext(pose,"?",lentext(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "[T.He] [T.is] [pose]"

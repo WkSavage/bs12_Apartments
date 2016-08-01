@@ -111,7 +111,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(reagents && reagents.total_volume) // check if it has any reagents at all
 		if(ishuman(loc))
 			var/mob/living/carbon/human/C = loc
-			if (src == C.wear_mask && C.check_has_mouth()) // if it's in the human/monkey mouth, transfer reagents to the mob
+			if(src == C.wear_mask && C.check_has_mouth()) // if it's in the human/monkey mouth, transfer reagents to the mob
 				reagents.trans_to_mob(C, REM, CHEM_INGEST, 0.2) // Most of it is not inhaled... balance reasons.
 		else // else just remove some of the reagents
 			reagents.remove_any(REM)
@@ -149,12 +149,12 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 /obj/item/clothing/mask/smokable/proc/die(var/nomessage = 0)
 	var/turf/T = get_turf(src)
 	set_light(0)
-	if (type_butt)
+	if(type_butt)
 		var/obj/item/butt = new type_butt(T)
 		transfer_fingerprints_to(butt)
 		if(ismob(loc))
 			var/mob/living/M = loc
-			if (!nomessage)
+			if(!nomessage)
 				M << "<span class='notice'>Your [name] goes out.</span>"
 			M.remove_from_mob(src) //un-equip it so the overlays can update
 			M.update_inv_wear_mask(0)
@@ -166,7 +166,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		new /obj/effect/decal/cleanable/ash(T)
 		if(ismob(loc))
 			var/mob/living/M = loc
-			if (!nomessage)
+			if(!nomessage)
 				M << "<span class='notice'>Your [name] goes out, and you empty the ash.</span>"
 			lit = 0
 			icon_state = icon_off
@@ -222,7 +222,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	zippomes = "<span class='rose'>With a flick of their wrist, USER lights their NAME with their FLAME.</span>"
 	weldermes = "<span class='notice'>USER casually lights the NAME with FLAME.</span>"
 	ignitermes = "<span class='notice'>USER fiddles with FLAME, and manages to light their NAME.</span>"
-	
+
 	New()
 		..()
 		reagents.add_reagent("nicotine", 1)
@@ -276,7 +276,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	zippomes = "<span class='rose'>With a flick of their wrist, USER lights their NAME with their FLAME.</span>"
 	weldermes = "<span class='notice'>USER insults NAME by lighting it with FLAME.</span>"
 	ignitermes = "<span class='notice'>USER fiddles with FLAME, and manages to light their NAME with the power of science.</span>"
-	
+
 	New()
 		..()
 		reagents.add_reagent("nicotine", 5)
@@ -296,7 +296,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_off = "cigar2off"
 	smoketime = 3000
 	chem_volume = 20
-	
+
 	New()
 		..()
 		reagents.add_reagent("nicotine", 10)
@@ -372,7 +372,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		icon_state = icon_off
 		item_state = icon_off
 		processing_objects.Remove(src)
-	else if (smoketime)
+	else if(smoketime)
 		var/turf/location = get_turf(user)
 		user.visible_message("<span class='notice'>[user] empties out [src].</span>", "<span class='notice'>You empty out [src].</span>")
 		new /obj/effect/decal/cleanable/ash(location)
@@ -386,12 +386,12 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 	..()
 
-	if (istype(W, /obj/item/weapon/reagent_containers/food/snacks))
+	if(istype(W, /obj/item/weapon/reagent_containers/food/snacks))
 		var/obj/item/weapon/reagent_containers/food/snacks/grown/G = W
-		if (!G.dry)
+		if(!G.dry)
 			user << "<span class='notice'>[G] must be dried before you stuff it into [src].</span>"
 			return
-		if (smoketime)
+		if(smoketime)
 			user << "<span class='notice'>[src] is already packed.</span>"
 			return
 		smoketime = 1000
@@ -469,7 +469,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src].</span>")
 				else
 					user << "<span class='warning'>You burn yourself while lighting the lighter.</span>"
-					if (user.l_hand == src)
+					if(user.l_hand == src)
 						user.apply_damage(2,BURN,"l_hand")
 					else
 						user.apply_damage(2,BURN,"r_hand")

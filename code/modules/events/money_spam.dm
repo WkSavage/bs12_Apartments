@@ -30,7 +30,7 @@
 			var/obj/item/device/pda/P
 			var/list/viables = list()
 			for(var/obj/item/device/pda/check_pda in sortAtom(PDAs))
-				if (!check_pda.owner||check_pda.toff||check_pda == src||check_pda.hidden)
+				if(!check_pda.owner||check_pda.toff||check_pda == src||check_pda.hidden)
 					continue
 				viables.Add(check_pda)
 
@@ -90,12 +90,12 @@
 					"You have won tickets to the newest romantic comedy 16 RULES OF LOVE!",\
 					"You have won tickets to the newest thriller THE CULT OF THE SLEEPING ONE!")
 
-			if (useMS.send_pda_message("[P.owner]", sender, message))	//Message been filtered by spam filter.
+			if(useMS.send_pda_message("[P.owner]", sender, message))	//Message been filtered by spam filter.
 				return
 
 			last_spam_time = world.time
 
-			if (prob(50)) //Give the AI an increased chance to intercept the message
+			if(prob(50)) //Give the AI an increased chance to intercept the message
 				for(var/mob/living/silicon/ai/ai in mob_list)
 					// Allows other AIs to intercept the message but the AI won't intercept their own message.
 					if(ai.aiPDA != P && ai.aiPDA != src)
@@ -104,7 +104,7 @@
 			//Commented out because we don't send messages like this anymore.  Instead it will just popup in their chat window.
 			//P.tnote += "<i><b>&larr; From [sender] (Unknown / spam?):</b></i><br>[message]<br>"
 
-			if (!P.message_silent)
+			if(!P.message_silent)
 				playsound(P.loc, 'sound/machines/twobeep.ogg', 50, 1)
 			for(var/mob/O in hearers(3, P.loc))
 				if(!P.message_silent) O.show_message(text("\icon[P] *[P.ttone]*"))

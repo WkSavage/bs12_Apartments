@@ -188,7 +188,7 @@ var/global/list/engineering_networks = list(
 
 /obj/machinery/camera/proc/isXRay()
 	var/obj/item/weapon/stock_parts/scanning_module/O = locate(/obj/item/weapon/stock_parts/scanning_module) in assembly.upgrades
-	if (O && O.rating >= 2)
+	if(O && O.rating >= 2)
 		return O
 	return null
 
@@ -221,8 +221,8 @@ var/global/list/engineering_networks = list(
 
 /obj/machinery/camera/proc/setPowerUsage()
 	var/mult = 1
-	if (isXRay())
+	if(isXRay())
 		mult++
-	if (isMotion())
+	if(isMotion())
 		mult++
 	active_power_usage = mult*initial(active_power_usage)

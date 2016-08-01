@@ -38,7 +38,7 @@
 	icon = null
 	initial_loc = get_area(loc)
 	area_uid = initial_loc.uid
-	if (!id_tag)
+	if(!id_tag)
 		assign_uid()
 		id_tag = num2text(uid)
 
@@ -120,17 +120,17 @@
 	..()
 	radio_filter_in = frequency==initial(frequency)?(RADIO_FROM_AIRALARM):null
 	radio_filter_out = frequency==initial(frequency)?(RADIO_TO_AIRALARM):null
-	if (frequency)
+	if(frequency)
 		set_frequency(frequency)
 		src.broadcast_status()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/process()
 	..()
 
-	if (hibernate > world.time)
+	if(hibernate > world.time)
 		return 1
 
-	if (!node)
+	if(!node)
 		use_power = 0
 	//broadcast_status()
 	if(!use_power || (stat & (NOPOWER|BROKEN)))
@@ -154,7 +154,7 @@
 		//Fucking hibernate because you ain't doing shit.
 		hibernate = world.time + (rand(100,200))
 
-	if (power_draw >= 0)
+	if(power_draw >= 0)
 		last_power_draw = power_draw
 		use_power(power_draw)
 
@@ -247,24 +247,24 @@
 	return
 
 /obj/machinery/atmospherics/unary/vent_scrubber/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
-	if (!istype(W, /obj/item/weapon/wrench))
+	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
-	if (!(stat & NOPOWER) && use_power)
+	if(!(stat & NOPOWER) && use_power)
 		user << "<span class='warning'>You cannot unwrench \the [src], turn it off first.</span>"
 		return 1
 	var/turf/T = src.loc
-	if (node && node.level==1 && isturf(T) && !T.is_plating())
+	if(node && node.level==1 && isturf(T) && !T.is_plating())
 		user << "<span class='warning'>You must remove the plating first.</span>"
 		return 1
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
-	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
+	if((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
 		user << "<span class='warning'>You cannot unwrench \the [src], it is too exerted due to internal pressure.</span>"
 		add_fingerprint(user)
 		return 1
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
-	if (do_after(user, 40, src))
+	if(do_after(user, 40, src))
 		user.visible_message( \
 			"<span class='notice'>\The [user] unfastens \the [src].</span>", \
 			"<span class='notice'>You have unfastened \the [src].</span>", \

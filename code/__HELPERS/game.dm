@@ -40,7 +40,7 @@
 
 /proc/get_area_master(const/O)
 	var/area/A = get_area(O)
-	if (isarea(A))
+	if(isarea(A))
 		return A
 
 /proc/in_range(source, user)
@@ -469,7 +469,7 @@ datum/projectile_data
 	return rgb(r,g,b)
 
 /proc/mixOneColor(var/list/weight, var/list/color)
-	if (!weight || !color || length(weight)!=length(color))
+	if(!weight || !color || length(weight)!=length(color))
 		return 0
 
 	var/contents = length(weight)

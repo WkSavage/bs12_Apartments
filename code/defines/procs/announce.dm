@@ -51,7 +51,7 @@ datum/announcement/proc/Message(message as text, message_title as text)
 		if(!istype(M,/mob/new_player) && !isdeaf(M))
 			M << "<h2 class='alert'>[title]</h2>"
 			M << "<span class='alert'>[message]</span>"
-			if (announcer)
+			if(announcer)
 				M << "<span class='alert'> -[html_encode(announcer)]</span>"
 
 datum/announcement/minor/Message(message as text, message_title as text)
@@ -67,7 +67,7 @@ datum/announcement/priority/Message(message as text, message_title as text)
 datum/announcement/priority/command/Message(message as text, message_title as text)
 	var/command
 	command += "<h1 class='alert'>[command_name()] Update</h1>"
-	if (message_title)
+	if(message_title)
 		command += "<br><h2 class='alert'>[message_title]</h2>"
 
 	command += "<br><span class='alert'>[message]</span><br>"
@@ -125,7 +125,7 @@ datum/announcement/proc/Log(message as text, message_title as text)
 	command_announcement.Announce("It has come to our attention that the station passed through an ion storm.  Please monitor all electronic equipment for malfunctions.", "Anomaly Alert")
 
 /proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank, var/join_message)
-	if (ticker.current_state == GAME_STATE_PLAYING)
+	if(ticker.current_state == GAME_STATE_PLAYING)
 		if(character.mind.role_alt_title)
 			rank = character.mind.role_alt_title
 		AnnounceArrivalSimple(character.real_name, rank, join_message)

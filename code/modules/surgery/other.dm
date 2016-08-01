@@ -44,7 +44,7 @@
 		for(var/datum/wound/W in affected.wounds) if(W.internal)
 			affected.wounds -= W
 			affected.update_damages()
-		if (ishuman(user) && prob(40)) user:bloody_hands(target, 0)
+		if(ishuman(user) && prob(40)) user:bloody_hands(target, 0)
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -70,7 +70,7 @@
 		if(!hasorgans(target))
 			return 0
 
-		if (target_zone == "mouth" || target_zone == "eyes")
+		if(target_zone == "mouth" || target_zone == "eyes")
 			return 0
 
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -121,7 +121,7 @@
 		if(!hasorgans(target))
 			return 0
 
-		if (target_zone == "mouth" || target_zone == "eyes")
+		if(target_zone == "mouth" || target_zone == "eyes")
 			return 0
 
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -137,7 +137,7 @@
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-		if (!istype(tool, /obj/item/weapon/reagent_containers))
+		if(!istype(tool, /obj/item/weapon/reagent_containers))
 			return
 
 		var/obj/item/weapon/reagent_containers/container = tool
@@ -149,7 +149,7 @@
 		var/rejuvenate = temp.has_reagent("peridaxon")
 
 		var/trans = temp.trans_to_mob(target, temp.total_volume, CHEM_BLOOD) //technically it's contact, but the reagents are being applied to internal tissue
-		if (trans > 0)
+		if(trans > 0)
 
 			if(rejuvenate)
 				affected.status &= ~ORGAN_DEAD
@@ -161,7 +161,7 @@
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-		if (!istype(tool, /obj/item/weapon/reagent_containers))
+		if(!istype(tool, /obj/item/weapon/reagent_containers))
 			return
 
 		var/obj/item/weapon/reagent_containers/container = tool

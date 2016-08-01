@@ -128,24 +128,24 @@ field_generator power level display
 				user << "\red The [src.name] needs to be wrenched to the floor."
 				return
 			if(1)
-				if (WT.remove_fuel(0,user))
+				if(WT.remove_fuel(0,user))
 					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
 					user.visible_message("[user.name] starts to weld the [src.name] to the floor.", \
 						"You start to weld the [src] to the floor.", \
 						"You hear welding")
-					if (do_after(user,20,src))
+					if(do_after(user,20,src))
 						if(!src || !WT.isOn()) return
 						state = 2
 						user << "You weld the field generator to the floor."
 				else
 					return
 			if(2)
-				if (WT.remove_fuel(0,user))
+				if(WT.remove_fuel(0,user))
 					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
 					user.visible_message("[user.name] starts to cut the [src.name] free from the floor.", \
 						"You start to cut the [src] free from the floor.", \
 						"You hear welding")
-					if (do_after(user,20,src))
+					if(do_after(user,20,src))
 						if(!src || !WT.isOn()) return
 						state = 1
 						user << "You cut the [src] free from the floor."
@@ -201,10 +201,10 @@ field_generator power level display
 
 	var/power_draw = gen_power_draw
 	for(var/obj/machinery/field_generator/FG in connected_gens)
-		if (!isnull(FG))
+		if(!isnull(FG))
 			power_draw += gen_power_draw
 	for(var/obj/machinery/containment_field/F in fields)
-		if (!isnull(F))
+		if(!isnull(F))
 			power_draw += field_power_draw
 	power_draw /= 2	//because this will be mirrored for both generators
 	if(draw_power(round(power_draw)) >= power_draw)
@@ -230,10 +230,10 @@ field_generator power level display
 	src.power = 0
 
 	for(var/obj/machinery/field_generator/FG in connected_gens)
-		if (FG in flood_list)
+		if(FG in flood_list)
 			continue
 		actual_draw += FG.draw_power(draw - actual_draw, flood_list) //since the flood list reference is shared this actually works.
-		if (actual_draw >= draw)
+		if(actual_draw >= draw)
 			return actual_draw
 
 	return actual_draw
@@ -291,7 +291,7 @@ field_generator power level display
 			CF.set_dir(field_dir)
 	var/listcheck = 0
 	for(var/obj/machinery/field_generator/FG in connected_gens)
-		if (isnull(FG))
+		if(isnull(FG))
 			continue
 		if(FG == G)
 			listcheck = 1
@@ -300,7 +300,7 @@ field_generator power level display
 		connected_gens.Add(G)
 	listcheck = 0
 	for(var/obj/machinery/field_generator/FG2 in G.connected_gens)
-		if (isnull(FG2))
+		if(isnull(FG2))
 			continue
 		if(FG2 == src)
 			listcheck = 1
@@ -312,12 +312,12 @@ field_generator power level display
 /obj/machinery/field_generator/proc/cleanup()
 	clean_up = 1
 	for(var/obj/machinery/containment_field/F in fields)
-		if (isnull(F))
+		if(isnull(F))
 			continue
 		qdel(F)
 	fields = list()
 	for(var/obj/machinery/field_generator/FG in connected_gens)
-		if (isnull(FG))
+		if(isnull(FG))
 			continue
 		FG.connected_gens.Remove(src)
 		if(!FG.clean_up)//Makes the other gens clean up as well

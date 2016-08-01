@@ -76,7 +76,7 @@
 	icon = null
 	initial_loc = get_area(loc)
 	area_uid = initial_loc.uid
-	if (!id_tag)
+	if(!id_tag)
 		assign_uid()
 		id_tag = num2text(uid)
 
@@ -105,7 +105,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/update_icon(var/safety = 0)
 	if(!check_icon_cache())
 		return
-	if (!node)
+	if(!node)
 		use_power = 0
 
 	overlays.Cut()
@@ -158,10 +158,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/process()
 	..()
 
-	if (hibernate > world.time)
+	if(hibernate > world.time)
 		return 1
 
-	if (!node)
+	if(!node)
 		use_power = 0
 	if(!can_pump())
 		return 0
@@ -192,7 +192,7 @@
 			hibernate = world.time + (rand(100,200))
 
 
-	if (power_draw >= 0)
+	if(power_draw >= 0)
 		last_power_draw = power_draw
 		use_power(power_draw)
 		if(network)
@@ -286,7 +286,7 @@
 		use_power = !use_power
 
 	if(signal.data["checks"] != null)
-		if (signal.data["checks"] == "default")
+		if(signal.data["checks"] == "default")
 			pressure_checks = pressure_checks_default
 		else
 			pressure_checks = text2num(signal.data["checks"])
@@ -298,7 +298,7 @@
 		pump_direction = text2num(signal.data["direction"])
 
 	if(signal.data["set_internal_pressure"] != null)
-		if (signal.data["set_internal_pressure"] == "default")
+		if(signal.data["set_internal_pressure"] == "default")
 			internal_pressure_bound = internal_pressure_bound_default
 		else
 			internal_pressure_bound = between(
@@ -308,7 +308,7 @@
 			)
 
 	if(signal.data["set_external_pressure"] != null)
-		if (signal.data["set_external_pressure"] == "default")
+		if(signal.data["set_external_pressure"] == "default")
 			external_pressure_bound = external_pressure_bound_default
 		else
 			external_pressure_bound = between(
@@ -351,7 +351,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
-		if (WT.remove_fuel(0,user))
+		if(WT.remove_fuel(0,user))
 			user << "<span class='notice'>Now welding the vent.</span>"
 			if(do_after(user, 20, src))
 				if(!src || !WT.isOn()) return
@@ -381,24 +381,24 @@
 		user << "It seems welded shut."
 
 /obj/machinery/atmospherics/unary/vent_pump/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
-	if (!istype(W, /obj/item/weapon/wrench))
+	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
-	if (!(stat & NOPOWER) && use_power)
+	if(!(stat & NOPOWER) && use_power)
 		user << "<span class='warning'>You cannot unwrench \the [src], turn it off first.</span>"
 		return 1
 	var/turf/T = src.loc
-	if (node && node.level==1 && isturf(T) && !T.is_plating())
+	if(node && node.level==1 && isturf(T) && !T.is_plating())
 		user << "<span class='warning'>You must remove the plating first.</span>"
 		return 1
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
-	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
+	if((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
 		user << "<span class='warning'>You cannot unwrench \the [src], it is too exerted due to internal pressure.</span>"
 		add_fingerprint(user)
 		return 1
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
-	if (do_after(user, 40, src))
+	if(do_after(user, 40, src))
 		user.visible_message( \
 			"<span class='notice'>\The [user] unfastens \the [src].</span>", \
 			"<span class='notice'>You have unfastened \the [src].</span>", \

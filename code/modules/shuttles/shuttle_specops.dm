@@ -24,14 +24,14 @@
 		docking_controller_offsite = locate(docking_controller_tag_offsite)
 		if(!istype(docking_controller_offsite))
 			warning("Shuttle with docking tag [docking_controller_offsite] could not find it's controller!")
-	if (!location)
+	if(!location)
 		docking_controller = docking_controller_station
 	else
 		docking_controller = docking_controller_offsite
 
 /datum/shuttle/ferry/multidock/move(var/area/origin,var/area/destination)
 	..(origin, destination)
-	if (!location)
+	if(!location)
 		docking_controller = docking_controller_station
 	else
 		docking_controller = docking_controller_offsite
@@ -57,15 +57,15 @@
 
 
 /datum/shuttle/ferry/multidock/specops/launch(var/user)
-	if (!can_launch())
+	if(!can_launch())
 		return
 
-	if (istype(user, /obj/machinery/computer))
+	if(istype(user, /obj/machinery/computer))
 		var/obj/machinery/computer/C = user
 
 		if(world.time <= reset_time)
 			C.visible_message("\blue [boss_name] will not allow the Special Operations shuttle to launch yet.")
-			if (((world.time - reset_time)/10) > 60)
+			if(((world.time - reset_time)/10) > 60)
 				C.visible_message("\blue [-((world.time - reset_time)/10)/60] minutes remain!")
 			else
 				C.visible_message("\blue [-(world.time - reset_time)/10] seconds remain!")
@@ -73,14 +73,14 @@
 
 		C.visible_message("\blue The Special Operations shuttle will depart in [(specops_countdown_time/10)] seconds.")
 
-	if (location)	//returning
+	if(location)	//returning
 		radio_announce("THE SPECIAL OPERATIONS SHUTTLE IS PREPARING TO RETURN")
 	else
 		radio_announce("THE SPECIAL OPERATIONS SHUTTLE IS PREPARING FOR LAUNCH")
 
 	sleep_until_launch()
 
-	if (location)
+	if(location)
 		var/obj/machinery/light/small/readylight/light = locate() in get_location_area()
 		if(light) light.set_state(0)
 
@@ -92,7 +92,7 @@
 	..(origin, destination)
 
 	spawn(20)
-		if (!location)	//just arrived home
+		if(!location)	//just arrived home
 			for(var/turf/T in get_area_turfs(destination))
 				var/mob/M = locate(/mob) in T
 				M << "<span class='danger'>You have arrived at [boss_name]. Operation has ended!</span>"
@@ -106,12 +106,12 @@
 				if(light) light.set_state(1)
 
 /datum/shuttle/ferry/multidock/specops/cancel_launch()
-	if (!can_cancel())
+	if(!can_cancel())
 		return
 
 	cancel_countdown = 1
 	radio_announce("ALERT: LAUNCH SEQUENCE ABORTED")
-	if (istype(in_use, /obj/machinery/computer))
+	if(istype(in_use, /obj/machinery/computer))
 		var/obj/machinery/computer/C = in_use
 		C.visible_message("\red Launch sequence aborted.")
 

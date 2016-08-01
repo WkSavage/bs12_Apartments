@@ -207,7 +207,7 @@
 
 	if(!env || !removed || !removed.total_moles)
 		damage += max((power - 15*POWER_FACTOR)/10, 0)
-	else if (grav_pulling) //If supermatter is detonating, remove all air from the zone
+	else if(grav_pulling) //If supermatter is detonating, remove all air from the zone
 		env.remove(env.total_moles)
 	else
 		damage_archived = damage
@@ -221,7 +221,7 @@
 		//calculate power gain for oxygen reaction
 		var/temp_factor
 		var/equilibrium_power
-		if (oxygen > 0.8)
+		if(oxygen > 0.8)
 			//If chain reacting at oxygen == 1, we want the power at 800 K to stabilize at a power level of 400
 			equilibrium_power = 400
 			icon_state = "[base_icon_state]_glow"
@@ -244,7 +244,7 @@
 		                     "oxygen", max((device_energy + removed.temperature - T0C) / OXYGEN_RELEASE_MODIFIER, 0))
 
 		var/thermal_power = THERMAL_RELEASE_MODIFIER * device_energy
-		if (debug)
+		if(debug)
 			var/heat_capacity_new = removed.heat_capacity()
 			visible_message("[src]: Releasing [round(thermal_power)] W.")
 			visible_message("[src]: Releasing additional [round((heat_capacity_new - heat_capacity)*removed.temperature)] W with exhaust gasses.")
@@ -320,7 +320,7 @@
 	data["energy"] = power
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "supermatter_crystal.tmpl", "Supermatter Crystal", 500, 300)
 		ui.set_initial_data(data)
 		ui.open()

@@ -58,20 +58,20 @@ default behaviour is:
 
 /mob/living/Bump(atom/movable/AM, yes)
 	spawn(0)
-		if ((!( yes ) || now_pushing) || !loc)
+		if((!( yes ) || now_pushing) || !loc)
 			return
 		now_pushing = 1
-		if (istype(AM, /mob/living))
+		if(istype(AM, /mob/living))
 			var/mob/living/tmob = AM
 
 			for(var/mob/living/M in range(tmob, 1))
 				if(tmob.pinned.len ||  ((M.pulling == tmob && ( tmob.restrained() && !( M.restrained() ) && M.stat == 0)) || locate(/obj/item/weapon/grab, tmob.grabbed_by.len)) )
-					if ( !(world.time % 5) )
+					if( !(world.time % 5) )
 						src << "<span class='warning'>[tmob] is restrained, you cannot push past</span>"
 					now_pushing = 0
 					return
 				if( tmob.pulling == M && ( M.restrained() && !( tmob.restrained() ) && tmob.stat == 0) )
-					if ( !(world.time % 5) )
+					if( !(world.time % 5) )
 						src << "<span class='warning'>[tmob] is restraining [M], you cannot push past</span>"
 					now_pushing = 0
 					return
@@ -121,18 +121,18 @@ default behaviour is:
 		now_pushing = 0
 		spawn(0)
 			..()
-			if (!istype(AM, /atom/movable) || AM.anchored)
+			if(!istype(AM, /atom/movable) || AM.anchored)
 				if(confused && prob(50) && m_intent=="run")
 					Weaken(2)
 					playsound(loc, "punch", 25, 1, -1)
 					visible_message("<span class='warning'>[src] [pick("ran", "slammed")] into \the [AM]!</span>")
 					src.apply_damage(5, BRUTE)
 				return
-			if (!now_pushing)
+			if(!now_pushing)
 				now_pushing = 1
 
 				var/t = get_dir(src, AM)
-				if (istype(AM, /obj/structure/window))
+				if(istype(AM, /obj/structure/window))
 					for(var/obj/structure/window/win in get_step(AM,t))
 						now_pushing = 0
 						return
@@ -174,7 +174,7 @@ default behaviour is:
 
 /mob/living/verb/succumb()
 	set hidden = 1
-	if ((src.health < 0 && src.health > (5-src.maxHealth))) // Health below Zero but above 5-away-from-death, as before, but variable
+	if((src.health < 0 && src.health > (5-src.maxHealth))) // Health below Zero but above 5-away-from-death, as before, but variable
 		src.adjustOxyLoss(src.health + src.maxHealth * 2) // Deal 2x health in OxyLoss damage, as before but variable.
 		src.health = src.maxHealth - src.getOxyLoss() - src.getToxLoss() - src.getFireLoss() - src.getBruteLoss()
 		src << "\blue You have given up life and succumbed to death."
@@ -200,7 +200,7 @@ default behaviour is:
 		//world << "DEBUG: burn_skin(), mutations=[mutations]"
 		if(mShock in src.mutations) //shockproof
 			return 0
-		if (COLD_RESISTANCE in src.mutations) //fireproof
+		if(COLD_RESISTANCE in src.mutations) //fireproof
 			return 0
 		var/mob/living/carbon/human/H = src	//make this damage method divide the damage to be done among all the body parts, then burn each body part for that much damage. will have better effect then just randomly picking a body part
 		var/divided_damage = (burn_amount)/(H.organs.len)
@@ -373,7 +373,7 @@ default behaviour is:
 /mob/living/proc/get_organ_target()
 	var/mob/shooter = src
 	var/t = shooter:zone_sel.selecting
-	if ((t in list( "eyes", "mouth" )))
+	if((t in list( "eyes", "mouth" )))
 		t = "head"
 	var/obj/item/organ/external/def_zone = ran_zone(t)
 	return def_zone
@@ -417,11 +417,11 @@ default behaviour is:
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 
-		if (C.handcuffed && !initial(C.handcuffed))
+		if(C.handcuffed && !initial(C.handcuffed))
 			C.drop_from_inventory(C.handcuffed)
 		C.handcuffed = initial(C.handcuffed)
 
-		if (C.legcuffed && !initial(C.legcuffed))
+		if(C.legcuffed && !initial(C.legcuffed))
 			C.drop_from_inventory(C.legcuffed)
 		C.legcuffed = initial(C.legcuffed)
 	BITSET(hud_updateflag, HEALTH_HUD)
@@ -500,23 +500,23 @@ default behaviour is:
 	return
 
 /mob/living/Move(a, b, flag)
-	if (buckled)
+	if(buckled)
 		return
 
-	if (restrained())
+	if(restrained())
 		stop_pulling()
 
 
 	var/t7 = 1
-	if (restrained())
+	if(restrained())
 		for(var/mob/living/M in range(src, 1))
-			if ((M.pulling == src && M.stat == 0 && !( M.restrained() )))
+			if((M.pulling == src && M.stat == 0 && !( M.restrained() )))
 				t7 = null
-	if ((t7 && (pulling && ((get_dist(src, pulling) <= 1 || pulling.loc == loc) && (client && client.moving)))))
+	if((t7 && (pulling && ((get_dist(src, pulling) <= 1 || pulling.loc == loc) && (client && client.moving)))))
 		var/turf/T = loc
 		. = ..()
 
-		if (pulling && pulling.loc)
+		if(pulling && pulling.loc)
 			if(!( isturf(pulling.loc) ))
 				stop_pulling()
 				return
@@ -526,28 +526,28 @@ default behaviour is:
 			stop_pulling()
 			return
 
-		if (!restrained())
+		if(!restrained())
 			var/diag = get_dir(src, pulling)
-			if ((diag - 1) & diag)
+			if((diag - 1) & diag)
 			else
 				diag = null
-			if ((get_dist(src, pulling) > 1 || diag))
-				if (isliving(pulling))
+			if((get_dist(src, pulling) > 1 || diag))
+				if(isliving(pulling))
 					var/mob/living/M = pulling
 					var/ok = 1
-					if (locate(/obj/item/weapon/grab, M.grabbed_by))
-						if (prob(75))
+					if(locate(/obj/item/weapon/grab, M.grabbed_by))
+						if(prob(75))
 							var/obj/item/weapon/grab/G = pick(M.grabbed_by)
-							if (istype(G, /obj/item/weapon/grab))
+							if(istype(G, /obj/item/weapon/grab))
 								for(var/mob/O in viewers(M, null))
 									O.show_message(text("\red [] has been pulled from []'s grip by []", G.affecting, G.assailant, src), 1)
 								//G = null
 								qdel(G)
 						else
 							ok = 0
-						if (locate(/obj/item/weapon/grab, M.grabbed_by.len))
+						if(locate(/obj/item/weapon/grab, M.grabbed_by.len))
 							ok = 0
-					if (ok)
+					if(ok)
 						var/atom/movable/t = M.pulling
 						M.stop_pulling()
 
@@ -555,9 +555,9 @@ default behaviour is:
 							var/area/A = get_area(M)
 							if(A.has_gravity)
 								//this is the gay blood on floor shit -- Added back -- Skie
-								if (M.lying && (prob(M.getBruteLoss() / 6)))
+								if(M.lying && (prob(M.getBruteLoss() / 6)))
 									var/turf/location = M.loc
-									if (istype(location, /turf/simulated))
+									if(istype(location, /turf/simulated))
 										location.add_blood(M)
 								//pull damage with injured people
 									if(prob(25))
@@ -568,7 +568,7 @@ default behaviour is:
 										M.adjustBruteLoss(2)
 										visible_message("<span class='danger'>\The [M]'s [M.isSynthetic() ? "state" : "wounds"] worsen terribly from being dragged!</span>")
 										var/turf/location = M.loc
-										if (istype(location, /turf/simulated))
+										if(istype(location, /turf/simulated))
 											location.add_blood(M)
 											if(ishuman(M))
 												var/mob/living/carbon/human/H = M
@@ -581,19 +581,19 @@ default behaviour is:
 						if(t)
 							M.start_pulling(t)
 				else
-					if (pulling)
-						if (istype(pulling, /obj/structure/window))
+					if(pulling)
+						if(istype(pulling, /obj/structure/window))
 							var/obj/structure/window/W = pulling
 							if(W.is_full_window())
 								for(var/obj/structure/window/win in get_step(pulling,get_dir(pulling.loc, T)))
 									stop_pulling()
-					if (pulling)
+					if(pulling)
 						step(pulling, get_dir(pulling.loc, T))
 	else
 		stop_pulling()
 		. = ..()
 
-	if (s_active && !( s_active in contents ) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
+	if(s_active && !( s_active in contents ) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
 
 	if(update_slimes)

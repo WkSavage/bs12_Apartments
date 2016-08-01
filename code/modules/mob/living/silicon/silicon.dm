@@ -73,7 +73,7 @@
 
 /mob/living/silicon/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0)
 
-	if (istype(source, /obj/machinery/containment_field))
+	if(istype(source, /obj/machinery/containment_field))
 		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 		s.set_up(5, 1, loc)
 		s.start()
@@ -131,7 +131,7 @@
 /proc/islinked(var/mob/living/silicon/robot/bot, var/mob/living/silicon/ai/ai)
 	if(!istype(bot) || !istype(ai))
 		return 0
-	if (bot.connected_ai == ai)
+	if(bot.connected_ai == ai)
 		return 1
 	return 0
 
@@ -191,7 +191,7 @@
 		return
 
 	. = ..(language)
-	if (can_speak && (added_language in languages) && !(added_language in speech_synthesizer_langs))
+	if(can_speak && (added_language in languages) && !(added_language in speech_synthesizer_langs))
 		speech_synthesizer_langs += added_language
 		return 1
 
@@ -230,13 +230,13 @@
 /mob/living/silicon/proc/toggle_sensor_mode()
 	var/sensor_type = input("Please select sensor type.", "Sensor Integration", null) in list("Security", "Medical","Disable")
 	switch(sensor_type)
-		if ("Security")
+		if("Security")
 			sensor_mode = SEC_HUD
 			src << "<span class='notice'>Security records overlay enabled.</span>"
-		if ("Medical")
+		if("Medical")
 			sensor_mode = MED_HUD
 			src << "<span class='notice'>Life signs monitor overlay enabled.</span>"
-		if ("Disable")
+		if("Disable")
 			sensor_mode = 0
 			src << "Sensor augmentations disabled."
 
@@ -369,7 +369,7 @@
 
 	job_master.FreeRole(job)
 	data_core.ResetPDAManifest()
-	
+
 	if(mind.objectives.len)
 		qdel(mind.objectives)
 		mind.special_role = null

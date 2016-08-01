@@ -10,13 +10,13 @@
 	var/emagged = 0
 
 /obj/item/weapon/circuitboard/supplycomp/construct(var/obj/machinery/computer/supply/SC)
-	if (..(SC))
+	if(..(SC))
 		SC.can_order_contraband = contraband_enabled
 		SC.emagged = emagged
 		SC.generateSupplyList()
 
 /obj/item/weapon/circuitboard/supplycomp/deconstruct(var/obj/machinery/computer/supply/SC)
-	if (..(SC))
+	if(..(SC))
 		contraband_enabled = SC.can_order_contraband
 		emagged = SC.emagged
 

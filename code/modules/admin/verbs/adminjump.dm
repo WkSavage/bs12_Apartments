@@ -65,7 +65,7 @@
 	if(!check_rights(R_ADMIN|R_MOD|R_DEBUG))
 		return
 
-	if (config.allow_admin_jump)
+	if(config.allow_admin_jump)
 		if(src.mob)
 			var/mob/A = src.mob
 			A.on_mob_jump()

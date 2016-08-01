@@ -100,12 +100,12 @@
 		return
 
 	var/datum/pipe_network/network = connected_port.return_network(src)
-	if (network)
+	if(network)
 		network.update = 1
 
 /obj/machinery/portable_atmospherics/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
-	if ((istype(W, /obj/item/weapon/tank) && !( src.destroyed )))
-		if (src.holding)
+	if((istype(W, /obj/item/weapon/tank) && !( src.destroyed )))
+		if(src.holding)
 			return
 		var/obj/item/weapon/tank/T = W
 		user.drop_item()
@@ -114,7 +114,7 @@
 		update_icon()
 		return
 
-	else if (istype(W, /obj/item/weapon/wrench))
+	else if(istype(W, /obj/item/weapon/wrench))
 		if(connected_port)
 			disconnect()
 			user << "<span class='notice'>You disconnect \the [src] from the port.</span>"
@@ -134,7 +134,7 @@
 				user << "<span class='notice'>Nothing happens.</span>"
 				return
 
-	else if ((istype(W, /obj/item/device/analyzer)) && Adjacent(user))
+	else if((istype(W, /obj/item/device/analyzer)) && Adjacent(user))
 		var/obj/item/device/analyzer/A = W
 		A.analyze_gases(src, user)
 		return

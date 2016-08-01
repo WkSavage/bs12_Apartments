@@ -2,7 +2,7 @@
 /mob/proc/attack_ui(slot)
 	var/obj/item/W = get_active_hand()
 	var/obj/item/E = get_equipped_item(slot)
-	if (istype(E))
+	if(istype(E))
 		if(istype(W))
 			E.attackby(W,src)
 		else
@@ -172,16 +172,16 @@ var/list/slot_equipment_priority = list( \
 	the search through all the slots, without having to duplicate the rest of the item dropping.
 */
 /mob/proc/u_equip(obj/W as obj)
-	if (W == r_hand)
+	if(W == r_hand)
 		r_hand = null
 		update_inv_r_hand(0)
-	else if (W == l_hand)
+	else if(W == l_hand)
 		l_hand = null
 		update_inv_l_hand(0)
-	else if (W == back)
+	else if(W == back)
 		back = null
 		update_inv_back(0)
-	else if (W == wear_mask)
+	else if(W == wear_mask)
 		wear_mask = null
 		update_inv_wear_mask(0)
 	return
@@ -219,7 +219,7 @@ var/list/slot_equipment_priority = list( \
 	if(!O) // Nothing to remove, so we succeed.
 		return 1
 	src.u_equip(O)
-	if (src.client)
+	if(src.client)
 		src.client.screen -= O
 	O.layer = initial(O.layer)
 	O.screen_loc = null

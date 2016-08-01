@@ -184,7 +184,7 @@
 				else
 					trans = reagents.trans_to(target, amount_per_transfer_from_this)
 				user << "<span class='notice'>You inject [trans] units of the solution. The syringe now contains [src.reagents.total_volume] units.</span>"
-				if (reagents.total_volume <= 0 && mode == SYRINGE_INJECT)
+				if(reagents.total_volume <= 0 && mode == SYRINGE_INJECT)
 					mode = SYRINGE_DRAW
 					update_icon()
 
@@ -201,9 +201,9 @@
 		if(ismob(loc))
 			var/injoverlay
 			switch(mode)
-				if (SYRINGE_DRAW)
+				if(SYRINGE_DRAW)
 					injoverlay = "draw"
-				if (SYRINGE_INJECT)
+				if(SYRINGE_INJECT)
 					injoverlay = "inject"
 			overlays += injoverlay
 		icon_state = "[rounded_vol]"
@@ -226,7 +226,7 @@
 			var/target_zone = ran_zone(check_zone(user.zone_sel.selecting, target))
 			var/obj/item/organ/external/affecting = H.get_organ(target_zone)
 
-			if (!affecting || affecting.is_stump())
+			if(!affecting || affecting.is_stump())
 				user << "<span class='danger'>They are missing that limb!</span>"
 				return
 
@@ -235,7 +235,7 @@
 			if((user != target) && H.check_shields(7, src, user, "\the [src]"))
 				return
 
-			if (target != user && H.getarmor(target_zone, "melee") > 5 && prob(50))
+			if(target != user && H.getarmor(target_zone, "melee") > 5 && prob(50))
 				for(var/mob/O in viewers(world.view, user))
 					O.show_message(text("\red <B>[user] tries to stab [target] in \the [hit_area] with [src.name], but the attack is deflected by armor!</B>"), 1)
 				user.remove_from_mob(src)
@@ -285,7 +285,7 @@
 		else
 			B = T.take_blood(src,amount)
 
-		if (B)
+		if(B)
 			reagents.reagent_list += B
 			reagents.update_total()
 			on_reagent_change()

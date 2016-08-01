@@ -59,7 +59,7 @@
 
 	//The job before the current job. I only use this to get the previous jobs color when I'm filling in blank rows.
 	var/datum/job/lastJob
-	if (!job_master)		return
+	if(!job_master)		return
 	for(var/datum/job/job in job_master.occupations)
 
 		index += 1
@@ -147,7 +147,7 @@
 
 	else if(href_list["select_alt_title"])
 		var/datum/job/job = locate(href_list["select_alt_title"])
-		if (job)
+		if(job)
 			var/choices = list(job.title) + job.alt_titles
 			var/choice = input("Choose an title for [job.title].", "Choose Title", pref.GetPlayerAltTitle(job)) as anything in choices|null
 			if(choice && CanUseTopic(user))

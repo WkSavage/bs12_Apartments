@@ -313,10 +313,10 @@ var/datum/controller/vote/vote = new()
 			if(check_rights(R_ADMIN|R_MOD, 0))
 				question = "End the shift?"
 				choices.Add("Initiate Crew Transfer", "Continue The Round")
-				if (config.allow_extra_antags && !antag_add_finished)
+				if(config.allow_extra_antags && !antag_add_finished)
 					choices.Add("Add Antagonist")
 			else
-				if (get_security_level() == "red" || get_security_level() == "delta")
+				if(get_security_level() == "red" || get_security_level() == "delta")
 					initiator_key << "The current alert status is too high to call for a crew transfer!"
 					return 0
 				if(ticker.current_state <= 2)
@@ -324,7 +324,7 @@ var/datum/controller/vote/vote = new()
 					initiator_key << "The crew transfer button has been disabled!"
 				question = "End the shift?"
 				choices.Add("Initiate Crew Transfer", "Continue The Round")
-				if (config.allow_extra_antags && is_addantag_allowed(1))
+				if(config.allow_extra_antags && is_addantag_allowed(1))
 					choices.Add("Add Antagonist")
 		if("add_antagonist")
 			if(!is_addantag_allowed(automatic))
@@ -427,7 +427,7 @@ var/datum/controller/vote/vote = new()
 			else
 				. += "<a href='?src=\ref[src];low_vote=[i]'>Third</a>"
 			. += "</td><td align = 'center'>[votepercent]%</td>"
-			if (additional_text.len >= i)
+			if(additional_text.len >= i)
 				. += additional_text[i]
 			. += "</tr>"
 

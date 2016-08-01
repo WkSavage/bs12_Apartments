@@ -70,10 +70,10 @@
 		return ..()
 
 /obj/structure/proc/can_climb(var/mob/living/user, post_climb_check=0)
-	if (!climbable || !can_touch(user) || (!post_climb_check && (user in climbers)))
+	if(!climbable || !can_touch(user) || (!post_climb_check && (user in climbers)))
 		return 0
 
-	if (!user.Adjacent(src))
+	if(!user.Adjacent(src))
 		user << "<span class='danger'>You can't climb there, the way is blocked.</span>"
 		return 0
 
@@ -96,7 +96,7 @@
 	return 0
 
 /obj/structure/proc/do_climb(var/mob/living/user)
-	if (!can_climb(user))
+	if(!can_climb(user))
 		return
 
 	usr.visible_message("<span class='warning'>\The [user] starts climbing onto \the [src]!</span>")
@@ -106,13 +106,13 @@
 		climbers -= user
 		return
 
-	if (!can_climb(user, post_climb_check=1))
+	if(!can_climb(user, post_climb_check=1))
 		climbers -= user
 		return
 
 	usr.forceMove(get_turf(src))
 
-	if (get_turf(user) == get_turf(src))
+	if(get_turf(user) == get_turf(src))
 		usr.visible_message("<span class='warning'>\The [user] climbs onto \the [src]!</span>")
 	climbers -= user
 
@@ -165,16 +165,16 @@
 	return
 
 /obj/structure/proc/can_touch(var/mob/user)
-	if (!user)
+	if(!user)
 		return 0
 	if(!Adjacent(user))
 		return 0
-	if (user.restrained() || user.buckled)
+	if(user.restrained() || user.buckled)
 		user << "<span class='notice'>You need your hands and legs free for this.</span>"
 		return 0
-	if (user.stat || user.paralysis || user.sleeping || user.lying || user.weakened)
+	if(user.stat || user.paralysis || user.sleeping || user.lying || user.weakened)
 		return 0
-	if (issilicon(user))
+	if(issilicon(user))
 		user << "<span class='notice'>You need hands for this.</span>"
 		return 0
 	return 1

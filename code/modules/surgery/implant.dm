@@ -14,21 +14,21 @@
 
 	proc/get_max_wclass(var/obj/item/organ/external/affected)
 		switch (affected.name)
-			if ("head")
+			if("head")
 				return 1
-			if ("upper body")
+			if("upper body")
 				return 3
-			if ("lower body")
+			if("lower body")
 				return 2
 		return 0
 
 	proc/get_cavity(var/obj/item/organ/external/affected)
 		switch (affected.name)
-			if ("head")
+			if("head")
 				return "cranial"
-			if ("upper body")
+			if("upper body")
 				return "thoracic"
-			if ("lower body")
+			if("lower body")
 				return "abdominal"
 		return ""
 
@@ -129,7 +129,7 @@
 
 		user.visible_message("\blue [user] puts \the [tool] inside [target]'s [get_cavity(affected)] cavity.", \
 		"\blue You put \the [tool] inside [target]'s [get_cavity(affected)] cavity." )
-		if (tool.w_class > get_max_wclass(affected)/2 && prob(50) && !(affected.robotic >= ORGAN_ROBOT))
+		if(tool.w_class > get_max_wclass(affected)/2 && prob(50) && !(affected.robotic >= ORGAN_ROBOT))
 			user << "\red You tear some blood vessels trying to fit such a big object in this cavity."
 			var/datum/wound/internal_bleeding/I = new (10)
 			affected.wounds += I
@@ -172,20 +172,20 @@
 
 		var/find_prob = 0
 
-		if (affected.implants.len)
+		if(affected.implants.len)
 
 			var/obj/item/obj = pick(affected.implants)
 
 			if(istype(obj,/obj/item/weapon/implant))
 				var/obj/item/weapon/implant/imp = obj
-				if (imp.islegal())
+				if(imp.islegal())
 					find_prob +=60
 				else
 					find_prob +=40
 			else
 				find_prob +=50
 
-			if (prob(find_prob))
+			if(prob(find_prob))
 				user.visible_message("\blue [user] takes something out of incision on [target]'s [affected.name] with \the [tool].", \
 				"\blue You take [obj] out of incision on [target]'s [affected.name]s with \the [tool]." )
 				affected.implants -= obj
@@ -218,10 +218,10 @@
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		..()
 		var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
-		if (affected.implants.len)
+		if(affected.implants.len)
 			var/fail_prob = 10
 			fail_prob += 100 - tool_quality(tool)
-			if (prob(fail_prob))
+			if(prob(fail_prob))
 				var/obj/item/weapon/implant/imp = affected.implants[1]
 				user.visible_message("\red Something beeps inside [target]'s [affected.name]!")
 				playsound(imp.loc, 'sound/items/countdown.ogg', 75, 1, -3)

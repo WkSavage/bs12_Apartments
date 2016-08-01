@@ -7,7 +7,7 @@
 	var/weakness = GetAnomalySusceptibility(user)
 	if(prob(100 * weakness))
 		user << "\red You are suddenly zapped away elsewhere!"
-		if (user.buckled)
+		if(user.buckled)
 			user.buckled.unbuckle_mob()
 
 		var/datum/effect/effect/system/spark_spread/sparks = new /datum/effect/effect/system/spark_spread()

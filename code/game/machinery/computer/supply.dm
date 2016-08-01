@@ -83,17 +83,17 @@
 	var/shuttlestatus = ""
 	var/canlaunch = 0
 
-	if (shuttle.has_arrive_time())
+	if(shuttle.has_arrive_time())
 		shuttlestatus = "In transit ([shuttle.eta_minutes()] Mins.)"
 	else
-		if (shuttle.at_station())
-			if (shuttle.docking_controller)
+		if(shuttle.at_station())
+			if(shuttle.docking_controller)
 				switch(shuttle.docking_controller.get_docking_status())
-					if ("docked")
+					if("docked")
 						shuttlestatus = "Docked at station"
-					if ("undocked") shuttlestatus = "Undocked from station"
-					if ("docking") shuttlestatus = "Docking with station"
-					if ("undocking") shuttlestatus = "Undocking from station"
+					if("undocked") shuttlestatus = "Undocked from station"
+					if("docking") shuttlestatus = "Docking with station"
+					if("undocking") shuttlestatus = "Undocking from station"
 		else
 			shuttlestatus = "Docked at remote location"
 
@@ -149,7 +149,7 @@
 	switch(action)
 		if("send")
 			if(shuttle.at_station())
-				if (shuttle.forbidden_atoms_check())
+				if(shuttle.forbidden_atoms_check())
 					usr << "<span class='warning'>For safety reasons the automated supply shuttle cannot transport live organisms, classified nuclear weaponry or homing beacons.</span>"
 				else
 					shuttle.launch(src)

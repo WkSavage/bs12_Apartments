@@ -49,7 +49,7 @@ datum/preferences
 	var/datum/species/S = all_species[pref.species]
 	if(href_list["rename"])
 		var/raw_name = input(user, "Choose your character's name:", "Character Name")  as text|null
-		if (!isnull(raw_name) && CanUseTopic(user))
+		if(!isnull(raw_name) && CanUseTopic(user))
 			var/new_name = sanitize_name(raw_name, pref.species)
 			if(new_name)
 				pref.real_name = new_name

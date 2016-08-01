@@ -88,7 +88,7 @@
 	return speech_verb
 
 /datum/language/human/get_random_name(var/gender)
-	if (prob(80))
+	if(prob(80))
 		if(gender==FEMALE)
 			return capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
 		else

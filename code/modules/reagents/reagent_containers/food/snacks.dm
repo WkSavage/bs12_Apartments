@@ -61,22 +61,22 @@
 					return
 
 			user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN) //puts a limit on how fast people can eat/drink things
-			if (fullness <= 50)
+			if(fullness <= 50)
 				C << "<span class='danger'>You hungrily chew out a piece of [src] and gobble it!</span>"
-			if (fullness > 50 && fullness <= 150)
+			if(fullness > 50 && fullness <= 150)
 				C << "<span class='notice'>You hungrily begin to eat [src].</span>"
-			if (fullness > 150 && fullness <= 350)
+			if(fullness > 150 && fullness <= 350)
 				C << "<span class='notice'>You take a bite of [src].</span>"
-			if (fullness > 350 && fullness <= 550)
+			if(fullness > 350 && fullness <= 550)
 				C << "<span class='notice'>You unwillingly chew a bit of [src].</span>"
-			if (fullness > 550)
+			if(fullness > 550)
 				C << "<span class='danger'>You cannot force any more of [src] to go down your throat.</span>"
 				return 0
 		else
 			if(!M.can_force_feed(user, src))
 				return
 
-			if (fullness <= 550)
+			if(fullness <= 550)
 				user.visible_message("<span class='danger'>[user] attempts to feed [M] [src].</span>")
 			else
 				user.visible_message("<span class='danger'>[user] cannot force anymore of [src] down [M]'s throat.</span>")
@@ -107,11 +107,11 @@
 /obj/item/weapon/reagent_containers/food/snacks/examine(mob/user)
 	if(!..(user, 1))
 		return
-	if (bitecount==0)
+	if(bitecount==0)
 		return
-	else if (bitecount==1)
+	else if(bitecount==1)
 		user << "<span class='notice'>\The [src] was bitten by someone!</span>"
-	else if (bitecount<=3)
+	else if(bitecount<=3)
 		user << "<span class='notice'>\The [src] was bitten [bitecount] time\s!</span>"
 	else
 		user << "<span class='notice'>\The [src] was bitten multiple times!</span>"
@@ -128,7 +128,7 @@
 			if(!U.reagents)
 				U.create_reagents(5)
 
-			if (U.reagents.total_volume > 0)
+			if(U.reagents.total_volume > 0)
 				user << "<span class='warning'>You already have something on your [U].</span>"
 				return
 
@@ -146,17 +146,17 @@
 
 			reagents.trans_to_obj(U, min(reagents.total_volume,5))
 
-			if (reagents.total_volume <= 0)
+			if(reagents.total_volume <= 0)
 				qdel(src)
 			return
 
-	if (is_sliceable())
+	if(is_sliceable())
 		//these are used to allow hiding edge items in food that is not on a table/tray
 		var/can_slice_here = isturf(src.loc) && ((locate(/obj/structure/table) in src.loc) || (locate(/obj/machinery/optable) in src.loc) || (locate(/obj/item/weapon/tray) in src.loc))
 		var/hide_item = !has_edge(W) || !can_slice_here
 
-		if (hide_item)
-			if (W.w_class >= src.w_class || is_robot_module(W))
+		if(hide_item)
+			if(W.w_class >= src.w_class || is_robot_module(W))
 				return
 
 			user << "<span class='warning'>You slip \the [W] inside \the [src].</span>"
@@ -165,13 +165,13 @@
 			contents += W
 			return
 
-		if (has_edge(W))
-			if (!can_slice_here)
+		if(has_edge(W))
+			if(!can_slice_here)
 				user << "<span class='warning'>You cannot slice \the [src] here! You need a table or at least a tray to do it.</span>"
 				return
 
 			var/slices_lost = 0
-			if (W.w_class > 3)
+			if(W.w_class > 3)
 				user.visible_message("<span class='notice'>\The [user] crudely slices \the [src] with [W]!</span>", "<span class='notice'>You crudely slice \the [src] with your [W]!</span>")
 				slices_lost = rand(1,min(1,round(slices_num/2)))
 			else
@@ -761,7 +761,7 @@
 		cooltime()
 
 	proc/cooltime()
-		if (src.warm)
+		if(src.warm)
 			spawn(4200)
 				src.warm = 0
 				for(var/reagent in heated_reagents)

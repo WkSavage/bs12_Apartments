@@ -89,20 +89,20 @@
 		return
 
 	if(boots)
-		if (H.equip_to_slot_if_possible(boots, slot_shoes))
+		if(H.equip_to_slot_if_possible(boots, slot_shoes))
 			boots.canremove = 0
 
 	if(helmet)
 		if(H.head)
 			M << "You are unable to deploy your suit's helmet as \the [H.head] is in the way."
-		else if (H.equip_to_slot_if_possible(helmet, slot_head))
+		else if(H.equip_to_slot_if_possible(helmet, slot_head))
 			M << "Your suit's helmet deploys with a hiss."
 			helmet.canremove = 0
 
 	if(tank)
 		if(H.s_store) //In case someone finds a way.
 			M << "Alarmingly, the valve on your suit's installed tank fails to engage."
-		else if (H.equip_to_slot_if_possible(tank, slot_s_store))
+		else if(H.equip_to_slot_if_possible(tank, slot_s_store))
 			M << "The valve on your suit's installed tank safely engages."
 			tank.canremove = 0
 

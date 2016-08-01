@@ -17,7 +17,7 @@
 			new /obj/item/weapon/storage/backpack/satchel_eng(src)
 		if(prob(50))
 			new /obj/item/weapon/storage/backpack/dufflebag/eng(src)
-		if (prob(70))
+		if(prob(70))
 			new /obj/item/clothing/accessory/storage/brown_vest(src)
 		else
 			new /obj/item/clothing/accessory/storage/webbing(src)
@@ -112,7 +112,7 @@
 			new /obj/item/weapon/storage/backpack/satchel_eng(src)
 		if(prob(50))
 			new /obj/item/weapon/storage/backpack/dufflebag/eng(src)
-		if (prob(70))
+		if(prob(70))
 			new /obj/item/clothing/accessory/storage/brown_vest(src)
 		else
 			new /obj/item/clothing/accessory/storage/webbing(src)
@@ -143,7 +143,7 @@
 			new /obj/item/weapon/storage/backpack/satchel_eng(src)
 		if(prob(50))
 			new /obj/item/weapon/storage/backpack/dufflebag/eng(src)
-		if (prob(70))
+		if(prob(70))
 			new /obj/item/clothing/accessory/storage/brown_vest(src)
 		else
 			new /obj/item/clothing/accessory/storage/webbing(src)

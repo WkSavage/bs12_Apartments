@@ -48,7 +48,7 @@ var/list/mechtoys = list(
 		return prob(60)
 
 	var/obj/structure/bed/B = A
-	if (istype(A, /obj/structure/bed) && B.buckled_mob)//if it's a bed/chair and someone is buckled, it will not pass
+	if(istype(A, /obj/structure/bed) && B.buckled_mob)//if it's a bed/chair and someone is buckled, it will not pass
 		return 0
 
 	if(istype(A, /obj/vehicle))	//no vehicles
@@ -67,13 +67,13 @@ var/list/mechtoys = list(
 
 /obj/structure/plasticflaps/ex_act(severity)
 	switch(severity)
-		if (1)
+		if(1)
 			qdel(src)
-		if (2)
-			if (prob(50))
+		if(2)
+			if(prob(50))
 				qdel(src)
-		if (3)
-			if (prob(5))
+		if(3)
+			if(prob(5))
 				qdel(src)
 
 /obj/structure/plasticflaps/mining //A specific type for mining that doesn't allow airflow because of them damn crates

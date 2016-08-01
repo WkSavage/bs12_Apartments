@@ -134,7 +134,7 @@
 /obj/machinery/smartfridge/drying_rack/accept_check(var/obj/item/O as obj)
 	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/))
 		var/obj/item/weapon/reagent_containers/food/snacks/S = O
-		if (S.dried_type)
+		if(S.dried_type)
 			return 1
 	return 0
 
@@ -329,7 +329,7 @@
 
 	for(var/datum/stored_items/I in src.item_records)
 		throw_item = I.get_product(loc)
-		if (!throw_item)
+		if(!throw_item)
 			continue
 		break
 

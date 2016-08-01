@@ -63,8 +63,8 @@
 			if(eta_status)
 				stat(null, eta_status)
 
-		if (istype(internal))
-			if (!internal.air_contents)
+		if(istype(internal))
+			if(!internal.air_contents)
 				qdel(internal)
 			else
 				stat("Internal Atmosphere Info", internal.name)
@@ -93,10 +93,10 @@
 	var/b_loss = null
 	var/f_loss = null
 	switch (severity)
-		if (1.0)
+		if(1.0)
 			b_loss = 400
 			f_loss = 100
-			if (!prob(getarmor(null, "bomb")))
+			if(!prob(getarmor(null, "bomb")))
 				gib()
 				return
 			else
@@ -106,22 +106,22 @@
 //				var/atom/target = get_edge_target_turf(user, get_dir(src, get_step_away(user, src)))
 				//user.throw_at(target, 200, 4)
 
-		if (2.0)
+		if(2.0)
 			b_loss = 60
 			f_loss = 60
 
-			if (!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
+			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
 				ear_damage += 30
 				ear_deaf += 120
-			if (prob(70))
+			if(prob(70))
 				Paralyse(10)
 
 		if(3.0)
 			b_loss = 30
-			if (!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
+			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
 				ear_damage += 15
 				ear_deaf += 60
-			if (prob(50))
+			if(prob(50))
 				Paralyse(10)
 
 	// factor in armour
@@ -185,9 +185,9 @@
 	return 0
 
 /mob/living/carbon/human/restrained()
-	if (handcuffed)
+	if(handcuffed)
 		return 1
-	if (istype(wear_suit, /obj/item/clothing/suit/straight_jacket))
+	if(istype(wear_suit, /obj/item/clothing/suit/straight_jacket))
 		return 1
 	return 0
 
@@ -200,7 +200,7 @@
 		return
 
 	var/obj/item/clothing/under/suit = null
-	if (istype(w_uniform, /obj/item/clothing/under))
+	if(istype(w_uniform, /obj/item/clothing/under))
 		suit = w_uniform
 
 	user.set_machine(src)
@@ -259,8 +259,8 @@
 // Get rank from ID, ID inside PDA, PDA, ID in wallet, etc.
 /mob/living/carbon/human/proc/get_authentification_rank(var/if_no_id = "No id", var/if_no_job = "No job")
 	var/obj/item/device/pda/pda = wear_id
-	if (istype(pda))
-		if (pda.id)
+	if(istype(pda))
+		if(pda.id)
 			return pda.id.rank
 		else
 			return pda.ownrank
@@ -275,8 +275,8 @@
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_assignment(var/if_no_id = "No id", var/if_no_job = "No job")
 	var/obj/item/device/pda/pda = wear_id
-	if (istype(pda))
-		if (pda.id)
+	if(istype(pda))
+		if(pda.id)
 			return pda.id.assignment
 		else
 			return pda.ownjob
@@ -291,8 +291,8 @@
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_authentification_name(var/if_no_id = "Unknown")
 	var/obj/item/device/pda/pda = wear_id
-	if (istype(pda))
-		if (pda.id)
+	if(istype(pda))
+		if(pda.id)
 			return pda.id.registered_name
 		else
 			return pda.owner
@@ -345,7 +345,7 @@
 /mob/living/carbon/human/electrocute_act(var/shock_damage, var/obj/source, var/base_siemens_coeff = 1.0, var/def_zone = null)
 	if(status_flags & GODMODE)	return 0	//godmode
 
-	if (!def_zone)
+	if(!def_zone)
 		def_zone = pick("l_hand", "r_hand")
 
 	var/obj/item/organ/external/affected_organ = get_organ(check_zone(def_zone))
@@ -356,11 +356,11 @@
 
 /mob/living/carbon/human/Topic(href, href_list)
 
-	if (href_list["refresh"])
+	if(href_list["refresh"])
 		if(Adjacent(src, usr))
 			show_inv(usr)
 
-	if (href_list["mach_close"])
+	if(href_list["mach_close"])
 		var/t1 = text("window=[]", href_list["mach_close"])
 		unset_machine()
 		src << browse(null, t1)
@@ -368,7 +368,7 @@
 	if(href_list["item"])
 		handle_strip(href_list["item"],usr)
 
-	if (href_list["criminal"])
+	if(href_list["criminal"])
 		if(hasHUD(usr,"security"))
 
 			var/modified = 0
@@ -384,9 +384,9 @@
 
 			if(perpname)
 				for(var/datum/data/record/E in data_core.general)
-					if (E.fields["name"] == perpname)
+					if(E.fields["name"] == perpname)
 						for(var/datum/data/record/R in data_core.security)
-							if (R.fields["id"] == E.fields["id"])
+							if(R.fields["id"] == E.fields["id"])
 
 								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Parolled", "Released", "Cancel")
 
@@ -407,7 +407,7 @@
 			if(!modified)
 				usr << "\red Unable to locate a data core entry for this person."
 
-	if (href_list["secrecord"])
+	if(href_list["secrecord"])
 		if(hasHUD(usr,"security"))
 			var/perpname = "wot"
 			var/read = 0
@@ -421,9 +421,9 @@
 			else
 				perpname = src.name
 			for(var/datum/data/record/E in data_core.general)
-				if (E.fields["name"] == perpname)
+				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in data_core.security)
-						if (R.fields["id"] == E.fields["id"])
+						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"security"))
 								usr << "<b>Name:</b> [R.fields["name"]]	<b>Criminal Status:</b> [R.fields["criminal"]]"
 								usr << "<b>Minor Crimes:</b> [R.fields["mi_crim"]]"
@@ -437,7 +437,7 @@
 			if(!read)
 				usr << "\red Unable to locate a data core entry for this person."
 
-	if (href_list["secrecordComment"])
+	if(href_list["secrecordComment"])
 		if(hasHUD(usr,"security"))
 			var/perpname = "wot"
 			var/read = 0
@@ -451,23 +451,23 @@
 			else
 				perpname = src.name
 			for(var/datum/data/record/E in data_core.general)
-				if (E.fields["name"] == perpname)
+				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in data_core.security)
-						if (R.fields["id"] == E.fields["id"])
+						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"security"))
 								read = 1
 								var/counter = 1
 								while(R.fields[text("com_[]", counter)])
 									usr << text("[]", R.fields[text("com_[]", counter)])
 									counter++
-								if (counter == 1)
+								if(counter == 1)
 									usr << "No comment found"
 								usr << "<a href='?src=\ref[src];secrecordadd=`'>\[Add comment\]</a>"
 
 			if(!read)
 				usr << "\red Unable to locate a data core entry for this person."
 
-	if (href_list["secrecordadd"])
+	if(href_list["secrecordadd"])
 		if(hasHUD(usr,"security"))
 			var/perpname = "wot"
 			if(wear_id)
@@ -479,12 +479,12 @@
 			else
 				perpname = src.name
 			for(var/datum/data/record/E in data_core.general)
-				if (E.fields["name"] == perpname)
+				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in data_core.security)
-						if (R.fields["id"] == E.fields["id"])
+						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"security"))
 								var/t1 = sanitize(input("Add Comment:", "Sec. records", null, null)  as message)
-								if ( !(t1) || usr.stat || usr.restrained() || !(hasHUD(usr,"security")) )
+								if( !(t1) || usr.stat || usr.restrained() || !(hasHUD(usr,"security")) )
 									return
 								var/counter = 1
 								while(R.fields[text("com_[]", counter)])
@@ -496,7 +496,7 @@
 									var/mob/living/silicon/robot/U = usr
 									R.fields[text("com_[counter]")] = text("Made by [U.name] ([U.modtype] [U.braintype]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
 
-	if (href_list["medical"])
+	if(href_list["medical"])
 		if(hasHUD(usr,"medical"))
 			var/perpname = "wot"
 			var/modified = 0
@@ -511,9 +511,9 @@
 				perpname = src.name
 
 			for(var/datum/data/record/E in data_core.general)
-				if (E.fields["name"] == perpname)
+				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in data_core.general)
-						if (R.fields["id"] == E.fields["id"])
+						if(R.fields["id"] == E.fields["id"])
 
 							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel")
 
@@ -535,7 +535,7 @@
 			if(!modified)
 				usr << "\red Unable to locate a data core entry for this person."
 
-	if (href_list["medrecord"])
+	if(href_list["medrecord"])
 		if(hasHUD(usr,"medical"))
 			var/perpname = "wot"
 			var/read = 0
@@ -549,9 +549,9 @@
 			else
 				perpname = src.name
 			for(var/datum/data/record/E in data_core.general)
-				if (E.fields["name"] == perpname)
+				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in data_core.medical)
-						if (R.fields["id"] == E.fields["id"])
+						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"medical"))
 								usr << "<b>Name:</b> [R.fields["name"]]	<b>Blood Type:</b> [R.fields["b_type"]]"
 								usr << "<b>DNA:</b> [R.fields["b_dna"]]"
@@ -566,7 +566,7 @@
 			if(!read)
 				usr << "\red Unable to locate a data core entry for this person."
 
-	if (href_list["medrecordComment"])
+	if(href_list["medrecordComment"])
 		if(hasHUD(usr,"medical"))
 			var/perpname = "wot"
 			var/read = 0
@@ -580,23 +580,23 @@
 			else
 				perpname = src.name
 			for(var/datum/data/record/E in data_core.general)
-				if (E.fields["name"] == perpname)
+				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in data_core.medical)
-						if (R.fields["id"] == E.fields["id"])
+						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"medical"))
 								read = 1
 								var/counter = 1
 								while(R.fields[text("com_[]", counter)])
 									usr << text("[]", R.fields[text("com_[]", counter)])
 									counter++
-								if (counter == 1)
+								if(counter == 1)
 									usr << "No comment found"
 								usr << "<a href='?src=\ref[src];medrecordadd=`'>\[Add comment\]</a>"
 
 			if(!read)
 				usr << "\red Unable to locate a data core entry for this person."
 
-	if (href_list["medrecordadd"])
+	if(href_list["medrecordadd"])
 		if(hasHUD(usr,"medical"))
 			var/perpname = "wot"
 			if(wear_id)
@@ -608,12 +608,12 @@
 			else
 				perpname = src.name
 			for(var/datum/data/record/E in data_core.general)
-				if (E.fields["name"] == perpname)
+				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in data_core.medical)
-						if (R.fields["id"] == E.fields["id"])
+						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"medical"))
 								var/t1 = sanitize(input("Add Comment:", "Med. records", null, null)  as message)
-								if ( !(t1) || usr.stat || usr.restrained() || !(hasHUD(usr,"medical")) )
+								if( !(t1) || usr.stat || usr.restrained() || !(hasHUD(usr,"medical")) )
 									return
 								var/counter = 1
 								while(R.fields[text("com_[]", counter)])
@@ -625,15 +625,15 @@
 									var/mob/living/silicon/robot/U = usr
 									R.fields[text("com_[counter]")] = text("Made by [U.name] ([U.modtype] [U.braintype]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
 
-	if (href_list["lookitem"])
+	if(href_list["lookitem"])
 		var/obj/item/I = locate(href_list["lookitem"])
 		src.examinate(I)
 
-	if (href_list["lookmob"])
+	if(href_list["lookmob"])
 		var/mob/M = locate(href_list["lookmob"])
 		src.examinate(M)
 
-	if (href_list["flavor_change"])
+	if(href_list["flavor_change"])
 		switch(href_list["flavor_change"])
 			if("done")
 				src << browse(null, "window=flavor_changes")
@@ -748,7 +748,7 @@
 					playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 
 					var/turf/location = loc
-					if (istype(location, /turf/simulated))
+					if(istype(location, /turf/simulated))
 						location.add_vomit_floor(src, 1)
 
 					nutrition -= 40
@@ -790,7 +790,7 @@
 
 	var/new_tone = input("Please select skin tone level: 1-220 (1=albino, 35=caucasian, 150=black, 220='very' black)", "Character Generation", "[35-s_tone]")  as text
 
-	if (!new_tone)
+	if(!new_tone)
 		new_tone = 35
 	s_tone = max(min(round(text2num(new_tone)), 220), 1)
 	s_tone =  -s_tone + 35
@@ -808,7 +808,7 @@
 	var/new_style = input("Please select hair style", "Character Generation",h_style)  as null|anything in hairs
 
 	// if new style selected (not cancel)
-	if (new_style)
+	if(new_style)
 		h_style = new_style
 
 	// facial hair
@@ -826,7 +826,7 @@
 		f_style = new_style
 
 	var/new_gender = alert(usr, "Please select gender.", "Character Generation", "Male", "Female")
-	if (new_gender)
+	if(new_gender)
 		if(new_gender == "Male")
 			gender = MALE
 		else
@@ -852,7 +852,7 @@
 	for(var/mob/living/carbon/h in world)
 		creatures += h
 	var/mob/target = input("Who do you want to project your mind to ?") as null|anything in creatures
-	if (isnull(target))
+	if(isnull(target))
 		return
 
 	var/say = sanitize(input("What do you wish to say"))
@@ -895,7 +895,7 @@
 
 	var/mob/target = input ("Who do you want to project your mind to ?") as mob in creatures
 
-	if (target)
+	if(target)
 		remoteview_target = target
 		reset_view(target)
 	else
@@ -962,27 +962,27 @@
 	while (germs < 2501 && ticks < 100000 && round(damage/10)*20)
 		log_misc("VIRUS TESTING: [ticks] : germs [germs] tdamage [tdamage] prob [round(damage/10)*20]")
 		ticks++
-		if (prob(round(damage/10)*20))
+		if(prob(round(damage/10)*20))
 			germs++
-		if (germs == 100)
+		if(germs == 100)
 			world << "Reached stage 1 in [ticks] ticks"
-		if (germs > 100)
-			if (prob(10))
+		if(germs > 100)
+			if(prob(10))
 				damage++
 				germs++
-		if (germs == 1000)
+		if(germs == 1000)
 			world << "Reached stage 2 in [ticks] ticks"
-		if (germs > 1000)
+		if(germs > 1000)
 			damage++
 			germs++
-		if (germs == 2500)
+		if(germs == 2500)
 			world << "Reached stage 3 in [ticks] ticks"
 	world << "Mob took [tdamage] tox damage"
 */
 //returns 1 if made bloody, returns 0 otherwise
 
 /mob/living/carbon/human/add_blood(mob/living/carbon/human/M as mob)
-	if (!..())
+	if(!..())
 		return 0
 	//if this blood isn't already in the list, add it
 	if(istype(M))
@@ -1166,35 +1166,35 @@
 	set name = "Write in blood"
 	set desc = "Use blood on your hands to write a short message on the floor or a wall, murder mystery style."
 
-	if (src.stat)
+	if(src.stat)
 		return
 
-	if (usr != src)
+	if(usr != src)
 		return 0 //something is terribly wrong
 
-	if (!bloody_hands)
+	if(!bloody_hands)
 		verbs -= /mob/living/carbon/human/proc/bloody_doodle
 
-	if (src.gloves)
+	if(src.gloves)
 		src << "<span class='warning'>Your [src.gloves] are getting in the way.</span>"
 		return
 
 	var/turf/simulated/T = src.loc
-	if (!istype(T)) //to prevent doodling out of mechs and lockers
+	if(!istype(T)) //to prevent doodling out of mechs and lockers
 		src << "<span class='warning'>You cannot reach the floor.</span>"
 		return
 
 	var/direction = input(src,"Which way?","Tile selection") as anything in list("Here","North","South","East","West")
-	if (direction != "Here")
+	if(direction != "Here")
 		T = get_step(T,text2dir(direction))
-	if (!istype(T))
+	if(!istype(T))
 		src << "<span class='warning'>You cannot doodle there.</span>"
 		return
 
 	var/num_doodles = 0
 	for(var/obj/effect/decal/cleanable/blood/writing/W in T)
 		num_doodles++
-	if (num_doodles > 4)
+	if(num_doodles > 4)
 		src << "<span class='warning'>There is no space to write on!</span>"
 		return
 
@@ -1202,11 +1202,11 @@
 
 	var/message = sanitize(input("Write a message. It cannot be longer than [max_length] characters.","Blood writing", ""))
 
-	if (message)
+	if(message)
 		var/used_blood_amount = round(length(message) / 30, 1)
 		bloody_hands = max(0, bloody_hands - used_blood_amount) //use up some blood
 
-		if (length(message) > max_length)
+		if(length(message) > max_length)
 			message += "-"
 			src << "<span class='warning'>You ran out of blood to write with!</span>"
 

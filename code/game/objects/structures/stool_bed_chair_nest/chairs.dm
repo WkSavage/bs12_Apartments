@@ -139,10 +139,10 @@
 		occupant.buckled = null
 		occupant.Move(src.loc)
 		occupant.buckled = src
-		if (occupant && (src.loc != occupant.loc))
-			if (propelled)
+		if(occupant && (src.loc != occupant.loc))
+			if(propelled)
 				for(var/mob/O in src.loc)
-					if (O != occupant)
+					if(O != occupant)
 						Bump(O)
 			else
 				unbuckle_mob()

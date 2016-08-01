@@ -57,7 +57,7 @@
 				if(istype(src, /mob/living/carbon/human))
 					var/mob/living/carbon/human/H = src
 					var/obj/item/organ/external/organ = H.get_organ("chest")
-					if (istype(organ))
+					if(istype(organ))
 						if(organ.take_damage(d, 0))
 							H.UpdateDamageIcon()
 					H.updatehealth()
@@ -84,10 +84,10 @@
 
 /mob/living/carbon/attack_hand(mob/M as mob)
 	if(!istype(M, /mob/living/carbon)) return
-	if (ishuman(M))
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
-		if (H.hand)
+		if(H.hand)
 			temp = H.organs_by_name["l_hand"]
 		if(temp && !temp.is_usable())
 			H << "\red You can't use your [temp.name]"
@@ -98,12 +98,12 @@
 /mob/living/carbon/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0, var/def_zone = null)
 	if(status_flags & GODMODE)	return 0	//godmode
 	shock_damage *= siemens_coeff
-	if (shock_damage<1)
+	if(shock_damage<1)
 		return 0
 
 	src.apply_damage(shock_damage, BURN, def_zone, used_weapon="Electrocution")
 	playsound(loc, "sparks", 50, 1, -1)
-	if (shock_damage > 15)
+	if(shock_damage > 15)
 		src.visible_message(
 			"\red [src] was shocked by the [source]!", \
 			"\red <B>You feel a powerful shock course through your body!</B>", \
@@ -152,7 +152,7 @@
 		swap_hand()
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
-	if (src.health >= config.health_threshold_crit)
+	if(src.health >= config.health_threshold_crit)
 		if(src == M && istype(src, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = src
 			src.visible_message( \
@@ -204,9 +204,9 @@
 
 			if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
 				H.play_xylophone()
-		else if (on_fire)
+		else if(on_fire)
 			playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			if (M.on_fire)
+			if(M.on_fire)
 				M.visible_message("<span class='warning'>[M] tries to pat out [src]'s flames, but to no avail!</span>",
 				"<span class='warning'>You try to pat out [src]'s flames, but to no avail! Put yourself out first!</span>")
 			else
@@ -214,26 +214,26 @@
 				"<span class='warning'>You try to pat out [src]'s flames! Hot!</span>")
 				if(do_mob(M, src, 15))
 					src.fire_stacks -= 0.5
-					if (prob(10) && (M.fire_stacks <= 0))
+					if(prob(10) && (M.fire_stacks <= 0))
 						M.fire_stacks += 1
 					M.IgniteMob()
-					if (M.on_fire)
+					if(M.on_fire)
 						M.visible_message("<span class='danger'>The fire spreads from [src] to [M]!</span>",
 						"<span class='danger'>The fire spreads to you as well!</span>")
 					else
 						src.fire_stacks -= 0.5 //Less effective than stop, drop, and roll - also accounting for the fact that it takes half as long.
-						if (src.fire_stacks <= 0)
+						if(src.fire_stacks <= 0)
 							M.visible_message("<span class='warning'>[M] successfully pats out [src]'s flames.</span>",
 							"<span class='warning'>You successfully pat out [src]'s flames.</span>")
 							src.ExtinguishMob()
 							src.fire_stacks = 0
 		else
 			var/t_him = "it"
-			if (src.gender == MALE)
+			if(src.gender == MALE)
 				t_him = "him"
-			else if (src.gender == FEMALE)
+			else if(src.gender == FEMALE)
 				t_him = "her"
-			if (istype(src,/mob/living/carbon/human) && src:w_uniform)
+			if(istype(src,/mob/living/carbon/human) && src:w_uniform)
 				var/mob/living/carbon/human/H = src
 				H.w_uniform.add_fingerprint(M)
 
@@ -315,7 +315,7 @@
 	if(!item) return
 
 	var/throw_range = item.throw_range
-	if (istype(item, /obj/item/weapon/grab))
+	if(istype(item, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = item
 		item = G.throw_held() //throw the person instead of the grab
 		if(ismob(item))
@@ -370,20 +370,20 @@
 	return 1
 
 /mob/living/carbon/restrained()
-	if (handcuffed)
+	if(handcuffed)
 		return 1
 	return
 
 /mob/living/carbon/u_equip(obj/item/W as obj)
 	if(!W)	return 0
 
-	else if (W == handcuffed)
+	else if(W == handcuffed)
 		handcuffed = null
 		update_inv_handcuffed()
 		if(buckled && buckled.buckle_require_restraints)
 			buckled.unbuckle_mob()
 
-	else if (W == legcuffed)
+	else if(W == legcuffed)
 		legcuffed = null
 		update_inv_legcuffed()
 	else

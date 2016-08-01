@@ -165,7 +165,7 @@
 /obj/machinery/mining/drill/attack_hand(mob/user as mob)
 	check_supports()
 
-	if (panel_open && cell && user.Adjacent(src))
+	if(panel_open && cell && user.Adjacent(src))
 		user << "You take out \the [cell]."
 		cell.loc = get_turf(user)
 		component_parts -= cell
@@ -294,7 +294,7 @@
 
 /obj/machinery/mining/brace/New()
 	..()
-	
+
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/miningdrillbrace(src)
 
@@ -362,7 +362,7 @@
 
 	if(usr.stat) return
 
-	if (src.anchored)
+	if(src.anchored)
 		usr << "It is anchored in place!"
 		return 0
 

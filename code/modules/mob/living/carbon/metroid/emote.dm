@@ -1,6 +1,6 @@
 /mob/living/carbon/slime/emote(var/act, var/m_type=1, var/message = null)
 
-	if (findtext(act, "-", 1, null))
+	if(findtext(act, "-", 1, null))
 		var/t1 = findtext(act, "-", 1, null)
 		//param = copytext(act, t1 + 1, length(act) + 1)
 		act = copytext(act, 1, t1)
@@ -11,14 +11,14 @@
 	var/updateicon = 0
 
 	switch(act) //Alphabetical please
-		if ("me")
+		if("me")
 			if(silent)
 				return
-			if (src.client)
-				if (client.prefs.muted & MUTE_IC)
+			if(src.client)
+				if(client.prefs.muted & MUTE_IC)
 					src << "\red You cannot send IC messages (muted)."
 					return
-				if (stat)
+				if(stat)
 					return
 				if(!(message))
 					return
@@ -27,7 +27,7 @@
 			message = "<B>The [src.name]</B> bounces in place."
 			m_type = 1
 
-		if ("custom")
+		if("custom")
 			return custom_emote(m_type, message)
 
 		if("jiggle")
@@ -82,13 +82,13 @@
 			mood = ":3"
 			updateicon = 1
 
-		if ("help") //This is an exception
+		if("help") //This is an exception
 			src << "Help for slime emotes. You can use these emotes with say \"*emote\":\n\nbounce, custom, jiggle, light, moan, shiver, sway, twitch, vibrate. You can also set your face with: \n\nnomood, pout, sad, angry, frown, smile"
 
 		else
 			src << "\blue Unusable emote '[act]'. Say *help for a list."
-	if ((message && src.stat == 0))
-		if (m_type & 1)
+	if((message && src.stat == 0))
+		if(m_type & 1)
 			for(var/mob/O in viewers(src, null))
 				O.show_message(message, m_type)
 		else

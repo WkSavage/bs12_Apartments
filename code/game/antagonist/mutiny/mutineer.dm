@@ -56,7 +56,7 @@ var/datum/antagonist/mutineer/mutineers
 		var/list/candidates[0]
 		for(var/T in typesof(/datum/directive) - /datum/directive)
 			var/datum/directive/D = new T(src)
-			if (D.meets_prerequisites())
+			if(D.meets_prerequisites())
 				candidates.Add(D)
 		return candidates
 

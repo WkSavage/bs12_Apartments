@@ -20,7 +20,7 @@
 
 	if(!connected)
 		for(var/obj/item/W in (H.contents-implants))
-			if (W==H.w_uniform) // will be teared
+			if(W==H.w_uniform) // will be teared
 				continue
 			H.drop_from_inventory(W)
 		M.transforming = 1
@@ -44,11 +44,11 @@
 		return
 
 	if(M)
-		if (M.dna)
+		if(M.dna)
 			O.dna = M.dna.Clone()
 			M.dna = null
 
-		if (M.suiciding)
+		if(M.suiciding)
 			O.suiciding = M.suiciding
 			M.suiciding = null
 
@@ -67,7 +67,7 @@
 	if(M.mind)
 		M.mind.transfer_to(O)	//transfer our mind to the cute little monkey
 
-	if (connected) //inside dna thing
+	if(connected) //inside dna thing
 		var/obj/machinery/dna_scannernew/C = connected
 		O.loc = C
 		C.occupant = O
@@ -116,17 +116,17 @@
 	else
 		O = new(src)
 
-	if (M.dna.GetUIState(DNA_UI_GENDER))
+	if(M.dna.GetUIState(DNA_UI_GENDER))
 		O.gender = FEMALE
 	else
 		O.gender = MALE
 
-	if (M)
-		if (M.dna)
+	if(M)
+		if(M.dna)
 			O.dna = M.dna.Clone()
 			M.dna = null
 
-		if (M.suiciding)
+		if(M.suiciding)
 			O.suiciding = M.suiciding
 			M.suiciding = null
 
@@ -143,7 +143,7 @@
 	if(M.mind)
 		M.mind.transfer_to(O)	//transfer our mind to the human
 
-	if (connected) //inside dna thing
+	if(connected) //inside dna thing
 		var/obj/machinery/dna_scannernew/C = connected
 		O.loc = C
 		C.occupant = O
@@ -152,11 +152,11 @@
 	var/i
 	while (!i)
 		var/randomname
-		if (O.gender == MALE)
+		if(O.gender == MALE)
 			randomname = capitalize(pick(first_names_male) + " " + capitalize(pick(last_names)))
 		else
 			randomname = capitalize(pick(first_names_female) + " " + capitalize(pick(last_names)))
-		if (findname(randomname))
+		if(findname(randomname))
 			continue
 		else
 			O.real_name = randomname

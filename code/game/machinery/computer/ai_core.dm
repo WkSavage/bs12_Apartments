@@ -66,20 +66,20 @@
 				icon_state = "1"
 			if(istype(P, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = P
-				if (C.get_amount() < 5)
+				if(C.get_amount() < 5)
 					user << "<span class='warning'>You need five coils of wire to add them to the frame.</span>"
 					return
 				user << "<span class='notice'>You start to add cables to the frame.</span>"
 				playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
-				if (do_after(user, 20, src) && state == 2)
-					if (C.use(5))
+				if(do_after(user, 20, src) && state == 2)
+					if(C.use(5))
 						state = 3
 						icon_state = "3"
 						user << "<span class='notice'>You add cables to the frame.</span>"
 				return
 		if(3)
 			if(istype(P, /obj/item/weapon/wirecutters))
-				if (brain)
+				if(brain)
 					user << "Get that brain out of there first"
 				else
 					playsound(loc, 'sound/items/Wirecutter.ogg', 50, 1)
@@ -91,12 +91,12 @@
 
 			if(istype(P, /obj/item/stack/material) && P.get_material_name() == "rglass")
 				var/obj/item/stack/RG = P
-				if (RG.get_amount() < 2)
+				if(RG.get_amount() < 2)
 					user << "<span class='warning'>You need two sheets of glass to put in the glass panel.</span>"
 					return
 				user << "<span class='notice'>You start to put in the glass panel.</span>"
 				playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
-				if (do_after(user, 20,src) && state == 3)
+				if(do_after(user, 20,src) && state == 3)
 					if(RG.use(2))
 						user << "<span class='notice'>You put in the glass panel.</span>"
 						state = 4
@@ -158,7 +158,7 @@
 				playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
 				user << "<span class='notice'>You remove the glass panel.</span>"
 				state = 3
-				if (brain)
+				if(brain)
 					icon_state = "3b"
 				else
 					icon_state = "3"
@@ -214,7 +214,7 @@
 /obj/structure/AIcore/deactivated/proc/check_malf(var/mob/living/silicon/ai/ai)
 	if(!ai) return
 	for(var/datum/mind/malfai in malf.current_antagonists)
-		if (ai.mind == malfai)
+		if(ai.mind == malfai)
 			return 1
 
 /obj/structure/AIcore/deactivated/attackby(var/obj/item/weapon/W, var/mob/user)

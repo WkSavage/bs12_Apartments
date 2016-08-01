@@ -4,7 +4,7 @@
 
 	..()
 
-	if (transforming)
+	if(transforming)
 		return
 	if(!loc)
 		return
@@ -87,7 +87,7 @@
 	if(stat != DEAD)
 		if(paralysis)
 			stat = UNCONSCIOUS
-		else if (status_flags & FAKEDEATH)
+		else if(status_flags & FAKEDEATH)
 			stat = UNCONSCIOUS
 		else
 			stat = CONSCIOUS

@@ -20,15 +20,15 @@
 	//it would be cool to play a sound here
 	moving_status = SHUTTLE_WARMUP
 	spawn(warmup_time*10)
-		if (moving_status == SHUTTLE_IDLE)
+		if(moving_status == SHUTTLE_IDLE)
 			return	//someone cancelled the launch
 
-		if (at_station() && forbidden_atoms_check())
+		if(at_station() && forbidden_atoms_check())
 			//cancel the launch because of forbidden atoms. announce over supply channel?
 			moving_status = SHUTTLE_IDLE
 			return
 
-		if (!at_station())	//at centcom
+		if(!at_station())	//at centcom
 			supply_controller.buy()
 
 		//We pretend it's a long_jump by making the shuttle stay at centcom for the "in-transit" period.
@@ -36,7 +36,7 @@
 		moving_status = SHUTTLE_INTRANSIT
 
 		//If we are at the away_area then we are just pretending to move, otherwise actually do the move
-		if (origin != away_area)
+		if(origin != away_area)
 			move(origin, away_area)
 
 		//wait ETA here.
@@ -44,21 +44,21 @@
 		while (world.time <= arrive_time)
 			sleep(5)
 
-		if (destination != away_area)
+		if(destination != away_area)
 			//late
-			if (prob(late_chance))
+			if(prob(late_chance))
 				sleep(rand(0,max_late_time))
 
 			move(away_area, destination)
 
 		moving_status = SHUTTLE_IDLE
 
-		if (!at_station())	//at centcom
+		if(!at_station())	//at centcom
 			supply_controller.sell()
 
 // returns 1 if the supply shuttle should be prevented from moving because it contains forbidden atoms
 /datum/shuttle/ferry/supply/proc/forbidden_atoms_check()
-	if (!at_station())
+	if(!at_station())
 		return 0	//if badmins want to send mobs or a nuke on the supply shuttle from centcom we don't care
 
 	return supply_controller.forbidden_atoms_check(get_location_area())

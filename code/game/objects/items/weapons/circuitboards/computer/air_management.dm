@@ -49,7 +49,7 @@
 * Construct *
 ************/
 /obj/item/weapon/circuitboard/air_management/construct(var/obj/machinery/computer/general_air_control/C)
-	if (..(C))
+	if(..(C))
 		if(console_name)
 			C.name = console_name
 		C.set_frequency(frequency)
@@ -94,7 +94,7 @@
 * Deconstruct *
 **************/
 /obj/item/weapon/circuitboard/air_management/deconstruct(var/obj/machinery/computer/general_air_control/C)
-	if (..(C))
+	if(..(C))
 		console_name = C.name
 		frequency = C.frequency
 		sensors = C.sensors.Copy()

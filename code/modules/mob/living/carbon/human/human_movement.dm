@@ -4,7 +4,7 @@
 	if(species.slowdown)
 		tally += species.slowdown
 
-	if (istype(loc, /turf/space)) return -1 // It's hard to be slowed down in space by... anything
+	if(istype(loc, /turf/space)) return -1 // It's hard to be slowed down in space by... anything
 
 	if(embedded_flag)
 		handle_embedded_objects() //Moving with objects stuck in you can cause bad times.
@@ -15,11 +15,11 @@
 	var/health_deficiency = (maxHealth - health)
 	if(health_deficiency >= 40) tally += (health_deficiency / 25)
 
-	if (!(species && (species.flags & NO_PAIN)))
+	if(!(species && (species.flags & NO_PAIN)))
 		if(halloss >= 10) tally += (halloss / 10) //halloss shouldn't slow you down if you can't even feel it
 
 	var/hungry = (500 - nutrition)/5 // So overeat would be 100 and default level would be 80
-	if (hungry >= 70) tally += hungry/50
+	if(hungry >= 70) tally += hungry/50
 
 	if(istype(buckled, /obj/structure/bed/chair/wheelchair))
 		for(var/organ_name in list("l_hand","r_hand","l_arm","r_arm"))
@@ -52,7 +52,7 @@
 
 	if(FAT in src.mutations)
 		tally += 1.5
-	if (bodytemperature < 283.222)
+	if(bodytemperature < 283.222)
 		tally += (283.222 - bodytemperature) / 10 * 1.75
 
 	tally += max(2 * stance_damage, 0) //damaged/missing feet or legs is slow
@@ -93,7 +93,7 @@
 	//Check hands and mod slip
 	if(!l_hand)	prob_slip -= 2
 	else if(l_hand.w_class <= SMALL_ITEM)	prob_slip -= 1
-	if (!r_hand)	prob_slip -= 2
+	if(!r_hand)	prob_slip -= 2
 	else if(r_hand.w_class <= SMALL_ITEM)	prob_slip -= 1
 
 	return prob_slip

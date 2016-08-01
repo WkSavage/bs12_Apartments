@@ -27,7 +27,7 @@ var/const/GHOST_IMAGE_ALL = ~GHOST_IMAGE_NONE
 	updateallghostimages()
 
 /mob/observer/Destroy()
-	if (ghost_image)
+	if(ghost_image)
 		ghost_darkness_images -= ghost_image
 		ghost_sightless_images -= ghost_image
 		qdel(ghost_image)
@@ -60,11 +60,11 @@ mob/observer/check_airflow_movable()
 
 	if(x <= TRANSITIONEDGE)
 		new_x = TRANSITIONEDGE + 1
-	else if (x >= (world.maxx - TRANSITIONEDGE + 1))
+	else if(x >= (world.maxx - TRANSITIONEDGE + 1))
 		new_x = world.maxx - TRANSITIONEDGE
-	else if (y <= TRANSITIONEDGE)
+	else if(y <= TRANSITIONEDGE)
 		new_y = TRANSITIONEDGE + 1
-	else if (y >= (world.maxy - TRANSITIONEDGE + 1))
+	else if(y >= (world.maxy - TRANSITIONEDGE + 1))
 		new_y = world.maxy - TRANSITIONEDGE
 
 	var/turf/T = locate(new_x, new_y, z)

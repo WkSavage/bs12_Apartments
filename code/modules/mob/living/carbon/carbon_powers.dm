@@ -33,7 +33,7 @@
 	if(B.host_brain.ckey)
 		src << "\red <B>You send a punishing spike of psychic agony lancing into your host's brain.</B>"
 
-		if (species && (species.flags & NO_PAIN))
+		if(species && (species.flags & NO_PAIN))
 			B.host_brain << "\red You feel a strange sensation as a foreign influence prods your mind."
 			src << "\red <B>It doesn't seem to be as effective as you hoped.</B>"
 		else
@@ -62,7 +62,7 @@
 	else
 		src << "You do not have enough chemicals stored to reproduce."
 		return
-		
+
 /**
  *  Attempt to devour victim
  *
@@ -72,7 +72,7 @@
 	var/can_eat = can_devour(victim)
 	if(!can_eat)
 		return FALSE
-	
+
 	src.visible_message("<span class='danger'>\The [src] is attempting to devour \the [victim]!</span>")
 	if(can_eat == DEVOUR_FAST)
 		if(!do_mob(src, victim, 30)) return FALSE
@@ -82,5 +82,5 @@
 	admin_attack_log(src, victim, "Devoured.", "Was devoured by.", "devoured")
 	victim.forceMove(src)
 	src.stomach_contents.Add(victim)
-	
+
 	return TRUE

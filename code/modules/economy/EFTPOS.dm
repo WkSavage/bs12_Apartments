@@ -119,9 +119,9 @@
 			scan_card(I, O)
 		else
 			usr << "\icon[src]<span class='warning'>Unable to connect to linked account.</span>"
-	else if (istype(O, /obj/item/weapon/spacecash/ewallet))
+	else if(istype(O, /obj/item/weapon/spacecash/ewallet))
 		var/obj/item/weapon/spacecash/ewallet/E = O
-		if (linked_account)
+		if(linked_account)
 			if(!linked_account.suspended)
 				if(transaction_locked && !transaction_paid)
 					if(transaction_amount <= E.worth)
@@ -194,7 +194,7 @@
 					transaction_amount = try_num
 			if("toggle_lock")
 				if(transaction_locked)
-					if (transaction_paid)
+					if(transaction_paid)
 						transaction_locked = 0
 						transaction_paid = 0
 					else
@@ -209,26 +209,26 @@
 			if("scan_card")
 				if(linked_account)
 					var/obj/item/I = usr.get_active_hand()
-					if (istype(I, /obj/item/weapon/card))
+					if(istype(I, /obj/item/weapon/card))
 						scan_card(I)
 				else
 					usr << "\icon[src]<span class='warning'>Unable to link accounts.</span>"
 			if("reset")
 				//reset the access code - requires HoP/captain access
 				var/obj/item/I = usr.get_active_hand()
-				if (istype(I, /obj/item/weapon/card))
+				if(istype(I, /obj/item/weapon/card))
 					var/obj/item/weapon/card/id/C = I
 					if(access_cent_captain in C.access || access_hop in C.access || access_captain in C.access)
 						access_code = 0
 						usr << "\icon[src]<span class='info'>Access code reset to 0.</span>"
-				else if (istype(I, /obj/item/weapon/card/emag))
+				else if(istype(I, /obj/item/weapon/card/emag))
 					access_code = 0
 					usr << "\icon[src]<span class='info'>Access code reset to 0.</span>"
 
 	src.attack_self(usr)
 
 /obj/item/device/eftpos/proc/scan_card(var/obj/item/weapon/card/I, var/obj/item/ID_container)
-	if (istype(I, /obj/item/weapon/card/id))
+	if(istype(I, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/C = I
 		if(I==ID_container || ID_container == null)
 			usr.visible_message("<span class='info'>\The [usr] swipes a card through \the [src].</span>")
@@ -285,7 +285,7 @@
 					usr << "\icon[src]<span class='warning'>Connected account has been suspended.</span>"
 			else
 				usr << "\icon[src]<span class='warning'>EFTPOS is not connected to an account.</span>"
-	else if (istype(I, /obj/item/weapon/card/emag))
+	else if(istype(I, /obj/item/weapon/card/emag))
 		if(transaction_locked)
 			if(transaction_paid)
 				usr << "\icon[src]<span class='info'>You stealthily swipe \the [I] through \the [src].</span>"

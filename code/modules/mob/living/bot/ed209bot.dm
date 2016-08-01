@@ -137,7 +137,7 @@
 		if(6)
 			if(istype(W, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = W
-				if (C.get_amount() < 1)
+				if(C.get_amount() < 1)
 					user << "<span class='warning'>You need one coil of wire to wire [src].</span>"
 					return
 				user << "<span class='notice'>You start to wire [src].</span>"

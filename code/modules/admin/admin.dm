@@ -35,9 +35,9 @@ proc/admin_notice(var/message, var/rights)
 	if(!M)
 		usr << "You seem to be selecting a mob that doesn't exist anymore."
 		return
-	if (!istype(src,/datum/admins))
+	if(!istype(src,/datum/admins))
 		src = usr.client.holder
-	if (!istype(src,/datum/admins))
+	if(!istype(src,/datum/admins))
 		usr << "Error: you are not an admin!"
 		return
 
@@ -89,7 +89,7 @@ proc/admin_notice(var/message, var/rights)
 		<A href='?src=\ref[src];subtlemessage=\ref[M]'>Subtle message</A>
 	"}
 
-	if (M.client)
+	if(M.client)
 		if(!istype(M, /mob/new_player))
 			body += "<br><br>"
 			body += "<b>Transformation:</b>"
@@ -178,7 +178,7 @@ proc/admin_notice(var/message, var/rights)
 			<br>
 			<A href='?src=\ref[src];forcespeech=\ref[M]'>Forcesay</A>
 			"}
-	if (M.client)
+	if(M.client)
 		body += {" |
 			<A href='?src=\ref[src];tdome1=\ref[M]'>Thunderdome 1</A> |
 			<A href='?src=\ref[src];tdome2=\ref[M]'>Thunderdome 2</A> |
@@ -215,9 +215,9 @@ proc/admin_notice(var/message, var/rights)
 /datum/admins/proc/PlayerNotes()
 	set category = "Admin"
 	set name = "Player Notes"
-	if (!istype(src,/datum/admins))
+	if(!istype(src,/datum/admins))
 		src = usr.client.holder
-	if (!istype(src,/datum/admins))
+	if(!istype(src,/datum/admins))
 		usr << "Error: you are not an admin!"
 		return
 	PlayerNotesPage(1)
@@ -273,9 +273,9 @@ proc/admin_notice(var/message, var/rights)
 /datum/admins/proc/show_player_info(var/key as text)
 	set category = "Admin"
 	set name = "Show Player Info"
-	if (!istype(src,/datum/admins))
+	if(!istype(src,/datum/admins))
 		src = usr.client.holder
-	if (!istype(src,/datum/admins))
+	if(!istype(src,/datum/admins))
 		usr << "Error: you are not an admin!"
 		return
 	var/dat = "<html><head><title>Info on [key]</title></head>"
@@ -323,9 +323,9 @@ proc/admin_notice(var/message, var/rights)
 	set name = "Access Newscaster Network"
 	set desc = "Allows you to view, add and edit news feeds."
 
-	if (!istype(src,/datum/admins))
+	if(!istype(src,/datum/admins))
 		src = usr.client.holder
-	if (!istype(src,/datum/admins))
+	if(!istype(src,/datum/admins))
 		usr << "Error: you are not an admin!"
 		return
 	var/dat
@@ -635,7 +635,7 @@ proc/admin_notice(var/message, var/rights)
 	set category = "Server"
 	set name = "Restart"
 	set desc="Restarts the world"
-	if (!usr.client.holder)
+	if(!usr.client.holder)
 		return
 	var/confirm = alert("Restart the game world?", "Restart", "Yes", "Cancel")
 	if(confirm == "Cancel")
@@ -678,7 +678,7 @@ proc/admin_notice(var/message, var/rights)
 		return
 
 	config.ooc_allowed = !(config.ooc_allowed)
-	if (config.ooc_allowed)
+	if(config.ooc_allowed)
 		world << "<B>The OOC channel has been globally enabled!</B>"
 	else
 		world << "<B>The OOC channel has been globally disabled!</B>"
@@ -694,7 +694,7 @@ proc/admin_notice(var/message, var/rights)
 		return
 
 	config.looc_allowed = !(config.looc_allowed)
-	if (config.looc_allowed)
+	if(config.looc_allowed)
 		world << "<B>The LOOC channel has been globally enabled!</B>"
 	else
 		world << "<B>The LOOC channel has been globally disabled!</B>"
@@ -711,7 +711,7 @@ proc/admin_notice(var/message, var/rights)
 		return
 
 	config.dsay_allowed = !(config.dsay_allowed)
-	if (config.dsay_allowed)
+	if(config.dsay_allowed)
 		world << "<B>Deadchat has been globally enabled!</B>"
 	else
 		world << "<B>Deadchat has been globally disabled!</B>"
@@ -779,7 +779,7 @@ proc/admin_notice(var/message, var/rights)
 	set desc="People can't enter"
 	set name="Toggle Entering"
 	config.enter_allowed = !(config.enter_allowed)
-	if (!(config.enter_allowed))
+	if(!(config.enter_allowed))
 		world << "<B>New players may no longer enter the game.</B>"
 	else
 		world << "<B>New players may now enter the game.</B>"
@@ -793,7 +793,7 @@ proc/admin_notice(var/message, var/rights)
 	set desc="People can't be AI"
 	set name="Toggle AI"
 	config.allow_ai = !( config.allow_ai )
-	if (!( config.allow_ai ))
+	if(!( config.allow_ai ))
 		world << "<B>The AI job is no longer chooseable.</B>"
 	else
 		world << "<B>The AI job is chooseable now.</B>"
@@ -858,13 +858,13 @@ proc/admin_notice(var/message, var/rights)
 	set name="Delay"
 
 	if(!check_rights(R_SERVER))	return
-	if (!ticker || ticker.current_state != GAME_STATE_PREGAME)
+	if(!ticker || ticker.current_state != GAME_STATE_PREGAME)
 		ticker.delay_end = !ticker.delay_end
 		log_admin("[key_name(usr)] [ticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
 		message_admins("\blue [key_name(usr)] [ticker.delay_end ? "delayed the round end" : "has made the round end normally"].", 1)
 		return //alert("Round end delayed", null, null, null, null, null)
 	round_progressing = !round_progressing
-	if (!round_progressing)
+	if(!round_progressing)
 		world << "<b>The game start has been delayed.</b>"
 		log_admin("[key_name(usr)] delayed the game.")
 	else
@@ -917,8 +917,8 @@ proc/admin_notice(var/message, var/rights)
 /datum/admins/proc/unprison(var/mob/M in mob_list)
 	set category = "Admin"
 	set name = "Unprison"
-	if (M.z == 2)
-		if (config.allow_admin_jump)
+	if(M.z == 2)
+		if(config.allow_admin_jump)
 			M.loc = pick(latejoin)
 			message_admins("[key_name_admin(usr)] has unprisoned [key_name_admin(M)]", 1)
 			log_admin("[key_name(usr)] has unprisoned [key_name(M)]")
@@ -934,7 +934,7 @@ proc/admin_notice(var/message, var/rights)
 	if(!ticker || !ticker.mode)
 		return 0
 	var/datum/mind/M
-	if (ismob(character))
+	if(ismob(character))
 		var/mob/C = character
 		M = C.mind
 	else if(istype(character, /datum/mind))
@@ -1149,7 +1149,7 @@ proc/admin_notice(var/message, var/rights)
 	set desc="Reduces view range when wearing welding helmets"
 	set name="Toggle tinted welding helmets."
 	config.welder_vision = !( config.welder_vision )
-	if (config.welder_vision)
+	if(config.welder_vision)
 		world << "<B>Reduced welder vision has been enabled!</B>"
 	else
 		world << "<B>Reduced welder vision has been disabled!</B>"
@@ -1162,7 +1162,7 @@ proc/admin_notice(var/message, var/rights)
 	set desc="Guests can't enter"
 	set name="Toggle guests"
 	config.guests_allowed = !(config.guests_allowed)
-	if (!(config.guests_allowed))
+	if(!(config.guests_allowed))
 		world << "<B>Guests may no longer enter the game.</B>"
 	else
 		world << "<B>Guests may now enter the game.</B>"
@@ -1179,12 +1179,12 @@ proc/admin_notice(var/message, var/rights)
 		else if(isrobot(S))
 			var/mob/living/silicon/robot/R = S
 			usr << "<b>CYBORG [key_name(S, usr)] [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independant)"]: laws:</b>"
-		else if (ispAI(S))
+		else if(ispAI(S))
 			usr << "<b>pAI [key_name(S, usr)]'s laws:</b>"
 		else
 			usr << "<b>SOMETHING SILICON [key_name(S, usr)]'s laws:</b>"
 
-		if (S.laws == null)
+		if(S.laws == null)
 			usr << "[key_name(S, usr)]'s laws are null?? Contact a coder."
 		else
 			S.laws.show_laws(usr)
@@ -1195,9 +1195,9 @@ proc/admin_notice(var/message, var/rights)
 	set category = "Admin"
 	set name = "Show Skills"
 
-	if (!istype(src,/datum/admins))
+	if(!istype(src,/datum/admins))
 		src = usr.client.holder
-	if (!istype(src,/datum/admins))
+	if(!istype(src,/datum/admins))
 		usr << "Error: you are not an admin!"
 		return
 
@@ -1213,7 +1213,7 @@ proc/admin_notice(var/message, var/rights)
 	set name = "Update Mob Sprite"
 	set desc = "Should fix any mob sprite update errors."
 
-	if (!holder)
+	if(!holder)
 		src << "Only administrators may use this command."
 		return
 
@@ -1295,18 +1295,18 @@ proc/admin_notice(var/message, var/rights)
 		return //Extra sanity check to make sure only observers are shoved into things
 
 	//Same as assume-direct-control perm requirements.
-	if (!check_rights(R_VAREDIT,0) || !check_rights(R_ADMIN|R_DEBUG,0))
+	if(!check_rights(R_VAREDIT,0) || !check_rights(R_ADMIN|R_DEBUG,0))
 		return 0
-	if (!frommob.ckey)
+	if(!frommob.ckey)
 		return 0
 	var/question = ""
-	if (tomob.ckey)
+	if(tomob.ckey)
 		question = "This mob already has a user ([tomob.key]) in control of it! "
 	question += "Are you sure you want to place [frommob.name]([frommob.key]) in control of [tomob.name]?"
 	var/ask = alert(question, "Place ghost in control of mob?", "Yes", "No")
-	if (ask != "Yes")
+	if(ask != "Yes")
 		return 1
-	if (!frommob || !tomob) //make sure the mobs don't go away while we waited for a response
+	if(!frommob || !tomob) //make sure the mobs don't go away while we waited for a response
 		return 1
 	if(tomob.client) //No need to ghostize if there is no client
 		tomob.ghostize(0)
@@ -1322,9 +1322,9 @@ proc/admin_notice(var/message, var/rights)
 	set name = "Force Template Spawn"
 	set desc = "Force an antagonist template to spawn."
 
-	if (!istype(src,/datum/admins))
+	if(!istype(src,/datum/admins))
 		src = usr.client.holder
-	if (!istype(src,/datum/admins))
+	if(!istype(src,/datum/admins))
 		usr << "Error: you are not an admin!"
 		return
 
@@ -1346,9 +1346,9 @@ proc/admin_notice(var/message, var/rights)
 	set name = "Force Mode Spawn"
 	set desc = "Force autotraitor to proc."
 
-	if (!istype(src,/datum/admins))
+	if(!istype(src,/datum/admins))
 		src = usr.client.holder
-	if (!istype(src,/datum/admins) || !check_rights(R_ADMIN))
+	if(!istype(src,/datum/admins) || !check_rights(R_ADMIN))
 		usr << "Error: you are not an admin!"
 		return
 
@@ -1367,7 +1367,7 @@ proc/admin_notice(var/message, var/rights)
 	var/msg
 
 	if(check_rights(R_ADMIN))
-		if (H.paralysis == 0)
+		if(H.paralysis == 0)
 			H.paralysis = 8000
 			msg = "has paralyzed [key_name(H)]."
 		else

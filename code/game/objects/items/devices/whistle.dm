@@ -28,7 +28,7 @@
 	usr << "You configure the hailer to shout \"[use_message]\"."
 /
 obj/item/device/hailer/attack_self(mob/living/carbon/user as mob)
-	if (spamcheck)
+	if(spamcheck)
 		return
 
 	if(isnull(insults))

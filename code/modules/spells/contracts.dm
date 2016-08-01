@@ -62,7 +62,7 @@
 
 /obj/item/weapon/contract/wizard/xray/contract_effect(mob/user as mob)
 	..()
-	if (!(XRAY in user.mutations))
+	if(!(XRAY in user.mutations))
 		user.mutations.Add(XRAY)
 		user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 		user.see_in_dark = 8

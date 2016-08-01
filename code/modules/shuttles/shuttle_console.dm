@@ -22,7 +22,7 @@
 /obj/machinery/computer/shuttle_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
 	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles[shuttle_tag]
-	if (!istype(shuttle))
+	if(!istype(shuttle))
 		return
 
 	var/shuttle_state
@@ -34,9 +34,9 @@
 	var/shuttle_status
 	switch (shuttle.process_state)
 		if(IDLE_STATE)
-			if (shuttle.in_use)
+			if(shuttle.in_use)
 				shuttle_status = "Busy."
-			else if (!shuttle.location)
+			else if(!shuttle.location)
 				shuttle_status = "Standing-by at station."
 			else
 				shuttle_status = "Standing-by at offsite location."
@@ -60,7 +60,7 @@
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "shuttle_control_console.tmpl", "[shuttle_tag] Shuttle Control", 470, 310)
 		ui.set_initial_data(data)
 		ui.open()
@@ -74,7 +74,7 @@
 	src.add_fingerprint(usr)
 
 	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles[shuttle_tag]
-	if (!istype(shuttle))
+	if(!istype(shuttle))
 		return
 
 	if(href_list["move"])
@@ -85,7 +85,7 @@
 		shuttle.cancel_launch(src)
 
 /obj/machinery/computer/shuttle_control/emag_act(var/remaining_charges, var/mob/user)
-	if (!hacked)
+	if(!hacked)
 		req_access = list()
 		req_one_access = list()
 		hacked = 1

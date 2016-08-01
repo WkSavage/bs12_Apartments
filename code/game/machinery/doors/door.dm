@@ -160,9 +160,9 @@
 	var/damage = Proj.get_structure_damage()
 
 	// Emitter Blasts - these will eventually completely destroy the door, given enough time.
-	if (damage > 90)
+	if(damage > 90)
 		destroy_hits--
-		if (destroy_hits <= 0)
+		if(destroy_hits <= 0)
 			visible_message("<span class='danger'>\The [src.name] disintegrates!</span>")
 			switch (Proj.damage_type)
 				if(BRUTE)
@@ -222,17 +222,17 @@
 
 		var/obj/item/stack/stack = I
 		var/transfer
-		if (repairing)
+		if(repairing)
 			transfer = stack.transfer_to(repairing, amount_needed - repairing.amount)
-			if (!transfer)
+			if(!transfer)
 				user << "<span class='warning'>You must weld or remove \the [repairing] from \the [src] before you can add anything else.</span>"
 		else
 			repairing = stack.split(amount_needed)
-			if (repairing)
+			if(repairing)
 				repairing.loc = src
 				transfer = repairing.amount
 
-		if (transfer)
+		if(transfer)
 			user << "<span class='notice'>You fit [transfer] [stack.singular_name]\s to damaged and broken parts on \the [src].</span>"
 
 		return

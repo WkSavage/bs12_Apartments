@@ -12,7 +12,7 @@
 	var/obj/item/weapon/implant/imp = null
 
 /obj/item/weapon/implantcase/proc/update()
-	if (src.imp)
+	if(src.imp)
 		src.icon_state = text("implantcase-[]", src.imp.implant_color)
 	else
 		src.icon_state = "implantcase-0"
@@ -20,9 +20,9 @@
 
 /obj/item/weapon/implantcase/attackby(obj/item/weapon/I as obj, mob/user as mob)
 	..()
-	if (istype(I, /obj/item/weapon/pen))
+	if(istype(I, /obj/item/weapon/pen))
 		var/t = input(user, "What would you like the label to be?", text("[]", src.name), null)  as text
-		if (user.get_active_hand() != I)
+		if(user.get_active_hand() != I)
 			return
 		if((!in_range(src, usr) && src.loc != user))
 			return
@@ -40,10 +40,10 @@
 			spawn(5)
 				I.reagents.trans_to_obj(src.imp, 5)
 				user << "<span class='notice'>You inject 5 units of the solution. The syringe now contains [I.reagents.total_volume] units.</span>"
-	else if (istype(I, /obj/item/weapon/implanter))
+	else if(istype(I, /obj/item/weapon/implanter))
 		var/obj/item/weapon/implanter/M = I
-		if (M.imp)
-			if ((src.imp || M.imp.implanted))
+		if(M.imp)
+			if((src.imp || M.imp.implanted))
 				return
 			M.imp.loc = src
 			src.imp = M.imp
@@ -51,8 +51,8 @@
 			src.update()
 			M.update()
 		else
-			if (src.imp)
-				if (M.imp)
+			if(src.imp)
+				if(M.imp)
 					return
 				src.imp.loc = M
 				M.imp = src.imp

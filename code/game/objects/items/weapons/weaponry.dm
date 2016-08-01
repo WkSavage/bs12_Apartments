@@ -26,17 +26,17 @@
 		M << "<span class='danger'>You've been silenced!</span>"
 		return
 
-	if (!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
+	if(!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
 		user << "<span class='danger'>You don't have the dexterity to do this!</span>"
 		return
 
-	if ((CLUMSY in user.mutations) && prob(50))
+	if((CLUMSY in user.mutations) && prob(50))
 		user << "<span class='danger'>The rod slips out of your hand and hits your head.</span>"
 		user.take_organ_damage(10)
 		user.Paralyse(20)
 		return
 
-	if (M.stat !=2)
+	if(M.stat !=2)
 		if(cult && (M.mind in cult.current_antagonists) && prob(33))
 			M << "<span class='danger'>The power of [src] clears your mind of the cult's influence!</span>"
 			user << "<span class='danger'>You wave [src] over [M]'s head and see their eyes become clear, their mind returning to normal.</span>"
@@ -53,7 +53,7 @@
 /obj/item/weapon/nullrod/afterattack(atom/A, mob/user as mob, proximity)
 	if(!proximity)
 		return
-	if (istype(A, /turf/simulated/floor))
+	if(istype(A, /turf/simulated/floor))
 		user << "<span class='notice'>You hit the floor with the [src].</span>"
 		call(/obj/effect/rune/proc/revealrunes)(src)
 
@@ -147,7 +147,7 @@
 		else
 			health -= rand(1,3)
 
-	else if (HULK in user.mutations)
+	else if(HULK in user.mutations)
 		health = 0
 	else
 		health -= rand(5,8)

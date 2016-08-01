@@ -10,15 +10,15 @@
 
 /obj/machinery/computer/engines/initialize()
 	linked = map_sectors["[z]"]
-	if (linked)
-		if (!linked.eng_control)
+	if(linked)
+		if(!linked.eng_control)
 			linked.eng_control = src
 		testing("Engines console at level [z] found a corresponding overmap object '[linked.name]'.")
 	else
 		testing("Engines console at level [z] was unable to find a corresponding overmap object.")
 
 	for(var/datum/ship_engine/E in engines)
-		if (E.zlevel == z && !(E in engines))
+		if(E.zlevel == z && !(E in engines))
 			engines += E
 
 /obj/machinery/computer/engines/attack_hand(var/mob/user as mob)
@@ -52,7 +52,7 @@
 	data["engines_info"] = enginfo
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "engines_control.tmpl", "[linked.name] Engines Control", 380, 530)
 		ui.set_initial_data(data)
 		ui.open()

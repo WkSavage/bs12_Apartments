@@ -69,11 +69,11 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 
 	name = "[department] Requests Console"
 	allConsoles += src
-	if (departmentType & RC_ASSIST)
+	if(departmentType & RC_ASSIST)
 		req_console_assistance |= department
-	if (departmentType & RC_SUPPLY)
+	if(departmentType & RC_SUPPLY)
 		req_console_supplies |= department
-	if (departmentType & RC_INFO)
+	if(departmentType & RC_INFO)
 		req_console_information |= department
 
 	set_light(1)
@@ -82,15 +82,15 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	allConsoles -= src
 	var/lastDeptRC = 1
 	for(var/obj/machinery/requests_console/Console in allConsoles)
-		if (Console.department == department)
+		if(Console.department == department)
 			lastDeptRC = 0
 			break
 	if(lastDeptRC)
-		if (departmentType & RC_ASSIST)
+		if(departmentType & RC_ASSIST)
 			req_console_assistance -= department
-		if (departmentType & RC_SUPPLY)
+		if(departmentType & RC_SUPPLY)
 			req_console_supplies -= department
-		if (departmentType & RC_INFO)
+		if(departmentType & RC_INFO)
 			req_console_information -= department
 	..()
 
@@ -121,7 +121,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	data["announceAuth"] = announceAuth
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "request_console.tmpl", "[department] Request Console", 520, 410)
 		ui.set_initial_data(data)
 		ui.open()
@@ -178,7 +178,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			return
 		if(tempScreen == RCS_VIEWMSGS)
 			for(var/obj/machinery/requests_console/Console in allConsoles)
-				if (Console.department == department)
+				if(Console.department == department)
 					Console.newmessagepriority = 0
 					Console.icon_state = "req_comp0"
 					Console.set_light(1)
@@ -196,7 +196,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 					//err... hacking code, which has no reason for existing... but anyway... it was once supposed to unlock priority 3 messanging on that console (EXTREME priority...), but the code for that was removed.
 /obj/machinery/requests_console/attackby(var/obj/item/weapon/O as obj, var/mob/user as mob)
 	/*
-	if (istype(O, /obj/item/weapon/crowbar))
+	if(istype(O, /obj/item/weapon/crowbar))
 		if(open)
 			open = 0
 			icon_state="req_comp0"
@@ -206,7 +206,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 				icon_state="req_comp_open"
 			else if(hackState == 1)
 				icon_state="req_comp_rewired"
-	if (istype(O, /obj/item/weapon/screwdriver))
+	if(istype(O, /obj/item/weapon/screwdriver))
 		if(open)
 			if(hackState == 0)
 				hackState = 1
@@ -217,7 +217,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		else
 			user << "You can't do much with that."*/
 
-	if (istype(O, /obj/item/weapon/card/id))
+	if(istype(O, /obj/item/weapon/card/id))
 		if(inoperable(MAINT)) return
 		if(screen == RCS_MESSAUTH)
 			var/obj/item/weapon/card/id/T = O
@@ -225,14 +225,14 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			updateUsrDialog()
 		if(screen == RCS_ANNOUNCE)
 			var/obj/item/weapon/card/id/ID = O
-			if (access_RC_announce in ID.GetAccess())
+			if(access_RC_announce in ID.GetAccess())
 				announceAuth = 1
 				announcement.announcer = ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name
 			else
 				reset_message()
 				user << "<span class='warning'>You are not authorized to send announcements.</span>"
 			updateUsrDialog()
-	if (istype(O, /obj/item/weapon/stamp))
+	if(istype(O, /obj/item/weapon/stamp))
 		if(inoperable(MAINT)) return
 		if(screen == RCS_MESSAUTH)
 			var/obj/item/weapon/stamp/T = O

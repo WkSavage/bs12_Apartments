@@ -123,7 +123,7 @@
 	return ..()
 
 /obj/item/weapon/gun/energy/staff/handle_click_empty(mob/user = null)
-	if (user)
+	if(user)
 		user.visible_message("*fizzle*", "<span class='danger'>*fizzle*</span>")
 	else
 		src.visible_message("*fizzle*")

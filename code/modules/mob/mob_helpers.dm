@@ -127,9 +127,9 @@ var/list/global/organ_rel_size = list(
 // Do not use this if someone is intentionally trying to hit a specific body part.
 // Use get_zone_with_miss_chance() for that.
 /proc/ran_zone(zone, probability)
-	if (zone)
+	if(zone)
 		zone = check_zone(zone)
-		if (prob(probability))
+		if(prob(probability))
 			return zone
 
 	var/ran_zone = zone
@@ -166,7 +166,7 @@ var/list/global/organ_rel_size = list(
 				return zone
 
 	var/miss_chance = 10
-	if (zone in base_miss_chance)
+	if(zone in base_miss_chance)
 		miss_chance = base_miss_chance[zone]
 	miss_chance = max(miss_chance + miss_chance_mod, 0)
 	if(prob(miss_chance))
@@ -177,12 +177,12 @@ var/list/global/organ_rel_size = list(
 
 
 /proc/stars(n, pr)
-	if (pr == null)
+	if(pr == null)
 		pr = 25
-	if (pr <= 0)
+	if(pr <= 0)
 		return null
 	else
-		if (pr >= 100)
+		if(pr >= 100)
 			return n
 	var/te = n
 	var/t = ""
@@ -192,13 +192,13 @@ var/list/global/organ_rel_size = list(
 	var/intag = 0
 	while(p <= n)
 		var/char = copytext(te, p, p + 1)
-		if (char == "<") //let's try to not break tags
+		if(char == "<") //let's try to not break tags
 			intag = !intag
-		if (intag || char == " " || prob(pr))
+		if(intag || char == " " || prob(pr))
 			t = text("[][]", t, char)
 		else
 			t = text("[]*", t)
-		if (char == ">")
+		if(char == ">")
 			intag = !intag
 		p++
 	return t
@@ -234,14 +234,14 @@ proc/slur(phrase)
 	p = 1//1 is the start of any word
 	while(p <= n)//while P, which starts at 1 is less or equal to N which is the length.
 		var/n_letter = copytext(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
-		if (prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
-			if (prob(10))
+		if(prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
+			if(prob(10))
 				n_letter = text("[n_letter]-[n_letter]-[n_letter]-[n_letter]")//replaces the current letter with this instead.
 			else
-				if (prob(20))
+				if(prob(20))
 					n_letter = text("[n_letter]-[n_letter]-[n_letter]")
 				else
-					if (prob(5))
+					if(prob(5))
 						n_letter = null
 					else
 						n_letter = text("[n_letter]-[n_letter]")
@@ -285,8 +285,8 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 			n_letter = copytext(te, p, n+1)
 		else
 			n_letter = copytext(te, p, p+n_mod)
-		if (prob(50))
-			if (prob(30))
+		if(prob(50))
+			if(prob(30))
 				n_letter = text("[n_letter]-[n_letter]-[n_letter]")
 			else
 				n_letter = text("[n_letter]-[n_letter]")
@@ -323,7 +323,7 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 
 /proc/findname(msg)
 	for(var/mob/M in mob_list)
-		if (M.real_name == text("[msg]"))
+		if(M.real_name == text("[msg]"))
 			return 1
 	return 0
 
@@ -493,7 +493,7 @@ proc/is_blind(A)
 			say_dead_direct("<span class='name'>[name]</span> no longer [pick("skulks","lurks","prowls","creeps","stalks")] in the realm of the dead. [message]")
 
 /mob/proc/switch_to_camera(var/obj/machinery/camera/C)
-	if (!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || blinded || !canmove))
+	if(!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || blinded || !canmove))
 		return 0
 	check_eye(src)
 	return 1

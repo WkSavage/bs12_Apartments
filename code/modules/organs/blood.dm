@@ -52,7 +52,7 @@ var/const/BLOOD_VOLUME_SURVIVE = 40
 	for(var/obj/item/organ/external/temp in organs)
 		if(!(temp.status & ORGAN_BLEEDING) || (temp.robotic >= ORGAN_ROBOT))
 			continue
-		for(var/datum/wound/W in temp.wounds) 
+		for(var/datum/wound/W in temp.wounds)
 			if(W.bleeding())
 				if(temp.applied_pressure)
 					if(ishuman(temp.applied_pressure))
@@ -65,7 +65,7 @@ var/const/BLOOD_VOLUME_SURVIVE = 40
 				else
 					blood_max += W.damage / 40
 
-		if (temp.open)
+		if(temp.open)
 			blood_max += 2  //Yer stomach is cut open
 	drip(blood_max)
 
@@ -95,7 +95,7 @@ var/const/BLOOD_VOLUME_SURVIVE = 40
 
 	//set reagent data
 	B.data["donor"] = src
-	if (!B.data["virus2"])
+	if(!B.data["virus2"])
 		B.data["virus2"] = list()
 	B.data["virus2"] |= virus_copylist(src.virus2)
 	B.data["antibodies"] = src.antibodies
@@ -129,13 +129,13 @@ var/const/BLOOD_VOLUME_SURVIVE = 40
 
 //Transfers blood from container ot vessels
 /mob/living/carbon/proc/inject_blood(var/datum/reagent/blood/injected, var/amount)
-	if (!injected || !istype(injected))
+	if(!injected || !istype(injected))
 		return
 	var/list/sniffles = virus_copylist(injected.data["virus2"])
 	for(var/ID in sniffles)
 		var/datum/disease2/disease/sniffle = sniffles[ID]
 		infect_virus2(src,sniffle,1)
-	if (injected.data["antibodies"] && prob(5))
+	if(injected.data["antibodies"] && prob(5))
 		antibodies |= injected.data["antibodies"]
 	var/list/chems = list()
 	chems = params2list(injected.data["trace_chem"])
@@ -153,7 +153,7 @@ var/const/BLOOD_VOLUME_SURVIVE = 40
 
 	var/datum/reagent/blood/our = get_blood(vessel)
 
-	if (!injected || !our)
+	if(!injected || !our)
 		return
 	if(blood_incompatible(injected.data["blood_type"],our.data["blood_type"],injected.data["species"],our.data["species"]) )
 		reagents.add_reagent("toxin",amount * 0.5)

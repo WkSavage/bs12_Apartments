@@ -91,9 +91,9 @@
 		src.update_icon()
 		return 1
 
-	if (istype(O, /obj/item/weapon/weldingtool))
+	if(istype(O, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = O
-		if (WT.remove_fuel(0))
+		if(WT.remove_fuel(0))
 			if(health < maxHealth)
 				health += pick(1,1,1,2,2,3)
 				if(health > maxHealth)
@@ -106,7 +106,7 @@
 			user << "<span class='danger'>You need more welding fuel for this task!</span>"
 			return
 	else if(istype(O, /obj/item/weapon/card/id)||istype(O, /obj/item/device/pda))
-		if (!mmi)
+		if(!mmi)
 			user << "<span class='danger'>There's no reason to swipe your ID - \the [src] has no brain to remove.</span>"
 			return 0
 
@@ -133,7 +133,7 @@
 		O.attack(src, user, user.zone_sel.selecting)
 
 /mob/living/simple_animal/spiderbot/emag_act(var/remaining_charges, var/mob/user)
-	if (emagged)
+	if(emagged)
 		user << "<span class='warning'>[src] is already overloaded - better run.</span>"
 		return 0
 	else

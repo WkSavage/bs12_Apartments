@@ -69,7 +69,7 @@
 			for(var/i = 1; i <= 7; i++)
 				var/list/accesses = list()
 				for(var/access in get_region_accesses(i))
-					if (get_access_desc(access))
+					if(get_access_desc(access))
 						accesses.Add(list(list(
 							"desc" = replacetext(get_access_desc(access), " ", "&nbsp"),
 							"ref" = access,
@@ -81,7 +81,7 @@
 			data["regions"] = regions
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "identification_computer.tmpl", name, 600, 700, state = state)
 		ui.auto_update_layout = 1
 		ui.set_initial_data(data)
@@ -114,7 +114,7 @@
 		if("switchm")
 			if(href_list["target"] == "mod")
 				module.mod_mode = 1
-			else if (href_list["target"] == "manifest")
+			else if(href_list["target"] == "manifest")
 				module.mod_mode = 0
 		if("togglea")
 			if(module.show_assignments)

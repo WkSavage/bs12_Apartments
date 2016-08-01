@@ -28,7 +28,7 @@
 
 	switch (src.btype)
 		// radio
-		if (0)
+		if(0)
 			var/obj/item/assembly/r_i_ptank/R = new /obj/item/assembly/r_i_ptank(src.loc)
 			var/obj/item/weapon/tank/phoron/p3 = new /obj/item/weapon/tank/phoron(R)
 			var/obj/item/device/radio/signaler/p1 = new /obj/item/device/radio/signaler(R)
@@ -45,7 +45,7 @@
 			p3.air_contents.temperature = btemp + T0C
 
 		// proximity
-		if (1)
+		if(1)
 			var/obj/item/assembly/m_i_ptank/R = new /obj/item/assembly/m_i_ptank(src.loc)
 			var/obj/item/weapon/tank/phoron/p3 = new /obj/item/weapon/tank/phoron(R)
 			var/obj/item/device/prox_sensor/p1 = new /obj/item/device/prox_sensor(R)
@@ -67,7 +67,7 @@
 				R.c_state(1, src)
 
 		// timer
-		if (2)
+		if(2)
 			var/obj/item/assembly/t_i_ptank/R = new /obj/item/assembly/t_i_ptank(src.loc)
 			var/obj/item/weapon/tank/phoron/p3 = new /obj/item/weapon/tank/phoron(R)
 			var/obj/item/device/timer/p1 = new /obj/item/device/timer(R)
@@ -111,15 +111,15 @@
 	set name = "Instant TTV"
 
 	if(!check_rights(R_SPAWN)) return
-	
+
 	var/obj/effect/spawner/newbomb/proto = /obj/effect/spawner/newbomb/radio/custom
-	
+
 	var/p = input("Enter phoron amount (mol):","Phoron", initial(proto.phoron_amt)) as num|null
 	if(p == null) return
-	
+
 	var/o = input("Enter oxygen amount (mol):","Oxygen", initial(proto.oxygen_amt)) as num|null
 	if(o == null) return
-	
+
 	var/c = input("Enter carbon dioxide amount (mol):","Carbon Dioxide", initial(proto.carbon_amt)) as num|null
 	if(c == null) return
 
@@ -129,9 +129,9 @@
 	name = "TTV bomb"
 	icon = 'icons/mob/screen1.dmi'
 	icon_state = "x"
-	
+
 	var/assembly_type = /obj/item/device/assembly/signaler
-	
+
 	//Note that the maximum amount of gas you can put in a 70L air tank at 1013.25 kPa and 519K is 16.44 mol.
 	var/phoron_amt = 10.96
 	var/oxygen_amt = 16.44

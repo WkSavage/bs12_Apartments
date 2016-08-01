@@ -76,7 +76,7 @@
 	..(location)
 
 /mob/living/carbon/slime/movement_delay()
-	if (bodytemperature >= 330.23) // 135 F
+	if(bodytemperature >= 330.23) // 135 F
 		return -1	// slimes become supercharged at high temperatures
 
 	var/tally = ..()
@@ -84,7 +84,7 @@
 	var/health_deficiency = (maxHealth - health)
 	if(health_deficiency >= 30) tally += (health_deficiency / 25)
 
-	if (bodytemperature < 183.222)
+	if(bodytemperature < 183.222)
 		tally += (283.222 - bodytemperature) / 10 * 1.75
 
 	if(reagents)
@@ -100,7 +100,7 @@
 	return tally + config.slime_delay
 
 /mob/living/carbon/slime/Bump(atom/movable/AM as mob|obj, yes)
-	if ((!(yes) || now_pushing))
+	if((!(yes) || now_pushing))
 		return
 	now_pushing = 1
 
@@ -116,7 +116,7 @@
 		if(prob(probab))
 			if(istype(AM, /obj/structure/window) || istype(AM, /obj/structure/grille))
 				if(nutrition <= get_hunger_nutrition() && !Atkcool)
-					if (is_adult || prob(5))
+					if(is_adult || prob(5))
 						UnarmedAttack(AM)
 						Atkcool = 1
 						spawn(45)
@@ -149,7 +149,7 @@
 	stat(null, "Health: [round((health / maxHealth) * 100)]%")
 	stat(null, "Intent: [a_intent]")
 
-	if (client.statpanel == "Status")
+	if(client.statpanel == "Status")
 		stat(null, "Nutrition: [nutrition]/[get_max_nutrition()]")
 		if(amount_grown >= 10)
 			if(is_adult)
@@ -178,11 +178,11 @@
 	var/b_loss = null
 	var/f_loss = null
 	switch (severity)
-		if (1.0)
+		if(1.0)
 			qdel(src)
 			return
 
-		if (2.0)
+		if(2.0)
 
 			b_loss += 60
 			f_loss += 60
@@ -258,11 +258,11 @@
 
 	switch(M.a_intent)
 
-		if (I_HELP)
+		if(I_HELP)
 			help_shake_act(M)
 
-		if (I_GRAB)
-			if (M == src || anchored)
+		if(I_GRAB)
+			if(M == src || anchored)
 				return
 			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src)
 
@@ -280,8 +280,8 @@
 			var/damage = rand(1, 9)
 
 			attacked += 10
-			if (prob(90))
-				if (HULK in M.mutations)
+			if(prob(90))
+				if(HULK in M.mutations)
 					damage += 5
 					if(Victim || Target)
 						Victim = null

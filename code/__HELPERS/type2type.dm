@@ -11,7 +11,7 @@
 
 // Returns an integer given a hexadecimal number string as input.
 /proc/hex2num(hex)
-	if (!istext(hex))
+	if(!istext(hex))
 		return
 
 	var/num   = 0
@@ -64,60 +64,60 @@
 // Turns a direction into text
 /proc/num2dir(direction)
 	switch (direction)
-		if (1.0) return NORTH
-		if (2.0) return SOUTH
-		if (4.0) return EAST
-		if (8.0) return WEST
+		if(1.0) return NORTH
+		if(2.0) return SOUTH
+		if(4.0) return EAST
+		if(8.0) return WEST
 		else
 			world.log << "UNKNOWN DIRECTION: [direction]"
 
 // Turns a direction into text
 /proc/dir2text(direction)
 	switch (direction)
-		if (1.0)  return "north"
-		if (2.0)  return "south"
-		if (4.0)  return "east"
-		if (8.0)  return "west"
-		if (5.0)  return "northeast"
-		if (6.0)  return "southeast"
-		if (9.0)  return "northwest"
-		if (10.0) return "southwest"
+		if(1.0)  return "north"
+		if(2.0)  return "south"
+		if(4.0)  return "east"
+		if(8.0)  return "west"
+		if(5.0)  return "northeast"
+		if(6.0)  return "southeast"
+		if(9.0)  return "northwest"
+		if(10.0) return "southwest"
 
 // Turns text into proper directions
 /proc/text2dir(direction)
 	switch (uppertext(direction))
-		if ("NORTH")     return 1
-		if ("SOUTH")     return 2
-		if ("EAST")      return 4
-		if ("WEST")      return 8
-		if ("NORTHEAST") return 5
-		if ("NORTHWEST") return 9
-		if ("SOUTHEAST") return 6
-		if ("SOUTHWEST") return 10
+		if("NORTH")     return 1
+		if("SOUTH")     return 2
+		if("EAST")      return 4
+		if("WEST")      return 8
+		if("NORTHEAST") return 5
+		if("NORTHWEST") return 9
+		if("SOUTHEAST") return 6
+		if("SOUTHWEST") return 10
 
 // Converts an angle (degrees) into an ss13 direction
 /proc/angle2dir(var/degree)
 	degree = (degree + 22.5) % 365 // 22.5 = 45 / 2
-	if (degree < 45)  return NORTH
-	if (degree < 90)  return NORTHEAST
-	if (degree < 135) return EAST
-	if (degree < 180) return SOUTHEAST
-	if (degree < 225) return SOUTH
-	if (degree < 270) return SOUTHWEST
-	if (degree < 315) return WEST
+	if(degree < 45)  return NORTH
+	if(degree < 90)  return NORTHEAST
+	if(degree < 135) return EAST
+	if(degree < 180) return SOUTHEAST
+	if(degree < 225) return SOUTH
+	if(degree < 270) return SOUTHWEST
+	if(degree < 315) return WEST
 	return NORTH|WEST
 
 // Returns the north-zero clockwise angle in degrees, given a direction
 /proc/dir2angle(var/D)
 	switch (D)
-		if (NORTH)     return 0
-		if (SOUTH)     return 180
-		if (EAST)      return 90
-		if (WEST)      return 270
-		if (NORTHEAST) return 45
-		if (SOUTHEAST) return 135
-		if (NORTHWEST) return 315
-		if (SOUTHWEST) return 225
+		if(NORTH)     return 0
+		if(SOUTH)     return 180
+		if(EAST)      return 90
+		if(WEST)      return 270
+		if(NORTHEAST) return 45
+		if(SOUTHEAST) return 135
+		if(NORTHWEST) return 315
+		if(SOUTHWEST) return 225
 
 // Returns the angle in english
 /proc/angle2text(var/degree)
@@ -126,28 +126,28 @@
 // Converts a blend_mode constant to one acceptable to icon.Blend()
 /proc/blendMode2iconMode(blend_mode)
 	switch (blend_mode)
-		if (BLEND_MULTIPLY) return ICON_MULTIPLY
-		if (BLEND_ADD)      return ICON_ADD
-		if (BLEND_SUBTRACT) return ICON_SUBTRACT
+		if(BLEND_MULTIPLY) return ICON_MULTIPLY
+		if(BLEND_ADD)      return ICON_ADD
+		if(BLEND_SUBTRACT) return ICON_SUBTRACT
 		else                return ICON_OVERLAY
 
 // Converts a rights bitfield into a string
 /proc/rights2text(rights,seperator="")
-	if (rights & R_BUILDMODE)   . += "[seperator]+BUILDMODE"
-	if (rights & R_ADMIN)       . += "[seperator]+ADMIN"
-	if (rights & R_BAN)         . += "[seperator]+BAN"
-	if (rights & R_FUN)         . += "[seperator]+FUN"
-	if (rights & R_SERVER)      . += "[seperator]+SERVER"
-	if (rights & R_DEBUG)       . += "[seperator]+DEBUG"
-	if (rights & R_POSSESS)     . += "[seperator]+POSSESS"
-	if (rights & R_PERMISSIONS) . += "[seperator]+PERMISSIONS"
-	if (rights & R_STEALTH)     . += "[seperator]+STEALTH"
-	if (rights & R_REJUVINATE)  . += "[seperator]+REJUVINATE"
-	if (rights & R_VAREDIT)     . += "[seperator]+VAREDIT"
-	if (rights & R_SOUNDS)      . += "[seperator]+SOUND"
-	if (rights & R_SPAWN)       . += "[seperator]+SPAWN"
-	if (rights & R_MOD)         . += "[seperator]+MODERATOR"
-	if (rights & R_MENTOR)      . += "[seperator]+MENTOR"
+	if(rights & R_BUILDMODE)   . += "[seperator]+BUILDMODE"
+	if(rights & R_ADMIN)       . += "[seperator]+ADMIN"
+	if(rights & R_BAN)         . += "[seperator]+BAN"
+	if(rights & R_FUN)         . += "[seperator]+FUN"
+	if(rights & R_SERVER)      . += "[seperator]+SERVER"
+	if(rights & R_DEBUG)       . += "[seperator]+DEBUG"
+	if(rights & R_POSSESS)     . += "[seperator]+POSSESS"
+	if(rights & R_PERMISSIONS) . += "[seperator]+PERMISSIONS"
+	if(rights & R_STEALTH)     . += "[seperator]+STEALTH"
+	if(rights & R_REJUVINATE)  . += "[seperator]+REJUVINATE"
+	if(rights & R_VAREDIT)     . += "[seperator]+VAREDIT"
+	if(rights & R_SOUNDS)      . += "[seperator]+SOUND"
+	if(rights & R_SPAWN)       . += "[seperator]+SPAWN"
+	if(rights & R_MOD)         . += "[seperator]+MODERATOR"
+	if(rights & R_MENTOR)      . += "[seperator]+MENTOR"
 	return .
 
 // heat2color functions. Adapted from: http://www.tannerhelland.com/4435/convert-temperature-rgb-algorithm-code/

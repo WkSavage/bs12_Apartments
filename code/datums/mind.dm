@@ -173,17 +173,17 @@
 		var/datum/antagonist/antag = all_antag_types[href_list["move_antag_to_spawn"]]
 		if(antag) antag.place_mob(src.current)
 
-	else if (href_list["role_edit"])
+	else if(href_list["role_edit"])
 		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in joblist
-		if (!new_role) return
+		if(!new_role) return
 		assigned_role = new_role
 
-	else if (href_list["memory_edit"])
+	else if(href_list["memory_edit"])
 		var/new_memo = sanitize(input("Write new memory", "Memory", memory) as null|message)
-		if (isnull(new_memo)) return
+		if(isnull(new_memo)) return
 		memory = new_memo
 
-	else if (href_list["amb_edit"])
+	else if(href_list["amb_edit"])
 		var/datum/mind/mind = locate(href_list["amb_edit"])
 		if(!mind)
 			return
@@ -201,14 +201,14 @@
 		else
 			usr << "<span class='warning'>The mind has ceased to be.</span>"
 
-	else if (href_list["obj_edit"] || href_list["obj_add"])
+	else if(href_list["obj_edit"] || href_list["obj_add"])
 		var/datum/objective/objective
 		var/objective_pos
 		var/def_value
 
-		if (href_list["obj_edit"])
+		if(href_list["obj_edit"])
 			objective = locate(href_list["obj_edit"])
-			if (!objective) return
+			if(!objective) return
 			objective_pos = objectives.Find(objective)
 
 			//Text strings are easy to manipulate. Revised for simplicity.
@@ -218,12 +218,12 @@
 				def_value = "custom"
 
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate", "debrain", "protect", "prevent", "harm", "brig", "hijack", "escape", "survive", "steal", "download", "mercenary", "capture", "absorb", "custom")
-		if (!new_obj_type) return
+		if(!new_obj_type) return
 
 		var/datum/objective/new_objective = null
 
 		switch (new_obj_type)
-			if ("assassinate","protect","debrain", "harm", "brig")
+			if("assassinate","protect","debrain", "harm", "brig")
 				//To determine what to name the objective in explanation text.
 				var/objective_type_capital = uppertext(copytext(new_obj_type, 1,2))//Capitalize first letter.
 				var/objective_type_text = copytext(new_obj_type, 2)//Leave the rest of the text.
@@ -231,20 +231,20 @@
 
 				var/list/possible_targets = list("Free objective")
 				for(var/datum/mind/possible_target in ticker.minds)
-					if ((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
+					if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
 						possible_targets += possible_target.current
 
 				var/mob/def_target = null
 				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/protect, /datum/objective/debrain)
-				if (objective&&(objective.type in objective_list) && objective:target)
+				if(objective&&(objective.type in objective_list) && objective:target)
 					def_target = objective:target.current
 
 				var/new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
-				if (!new_target) return
+				if(!new_target) return
 
 				var/objective_path = text2path("/datum/objective/[new_obj_type]")
 				var/mob/living/M = new_target
-				if (!istype(M) || !M.mind || new_target == "Free objective")
+				if(!istype(M) || !M.mind || new_target == "Free objective")
 					new_objective = new objective_path
 					new_objective.owner = src
 					new_objective:target = null
@@ -255,34 +255,34 @@
 					new_objective:target = M.mind
 					new_objective.explanation_text = "[objective_type] [M.real_name], the [M.mind.special_role ? M.mind:special_role : M.mind:assigned_role]."
 
-			if ("prevent")
+			if("prevent")
 				new_objective = new /datum/objective/block
 				new_objective.owner = src
 
-			if ("hijack")
+			if("hijack")
 				new_objective = new /datum/objective/hijack
 				new_objective.owner = src
 
-			if ("escape")
+			if("escape")
 				new_objective = new /datum/objective/escape
 				new_objective.owner = src
 
-			if ("survive")
+			if("survive")
 				new_objective = new /datum/objective/survive
 				new_objective.owner = src
 
-			if ("mercenary")
+			if("mercenary")
 				new_objective = new /datum/objective/nuclear
 				new_objective.owner = src
 
-			if ("steal")
-				if (!istype(objective, /datum/objective/steal))
+			if("steal")
+				if(!istype(objective, /datum/objective/steal))
 					new_objective = new /datum/objective/steal
 					new_objective.owner = src
 				else
 					new_objective = objective
 				var/datum/objective/steal/steal = new_objective
-				if (!steal.select_target())
+				if(!steal.select_target())
 					return
 
 			if("download","capture","absorb")
@@ -291,7 +291,7 @@
 					def_num = objective.target_amount
 
 				var/target_number = input("Input target number:", "Objective", def_num) as num|null
-				if (isnull(target_number))//Ordinarily, you wouldn't need isnull. In this case, the value may already exist.
+				if(isnull(target_number))//Ordinarily, you wouldn't need isnull. In this case, the value may already exist.
 					return
 
 				switch(new_obj_type)
@@ -307,22 +307,22 @@
 				new_objective.owner = src
 				new_objective.target_amount = target_number
 
-			if ("custom")
+			if("custom")
 				var/expl = sanitize(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null)
-				if (!expl) return
+				if(!expl) return
 				new_objective = new /datum/objective
 				new_objective.owner = src
 				new_objective.explanation_text = expl
 
-		if (!new_objective) return
+		if(!new_objective) return
 
-		if (objective)
+		if(objective)
 			objectives -= objective
 			objectives.Insert(objective_pos, new_objective)
 		else
 			objectives += new_objective
 
-	else if (href_list["obj_delete"])
+	else if(href_list["obj_delete"])
 		var/datum/objective/objective = locate(href_list["obj_delete"])
 		if(!istype(objective))	return
 		objectives -= objective
@@ -351,15 +351,15 @@
 				H.implant_loyalty(H, override = TRUE)
 				log_admin("[key_name_admin(usr)] has loyalty implanted [current].")
 			else
-	else if (href_list["silicon"])
+	else if(href_list["silicon"])
 		BITSET(current.hud_updateflag, SPECIALROLE_HUD)
 		switch(href_list["silicon"])
 
 			if("unemag")
 				var/mob/living/silicon/robot/R = current
-				if (istype(R))
+				if(istype(R))
 					R.emagged = 0
-					if (R.activated(R.module.emag))
+					if(R.activated(R.module.emag))
 						R.module_active = null
 					if(R.module_state_1 == R.module.emag)
 						R.module_state_1 = null
@@ -373,12 +373,12 @@
 					log_admin("[key_name_admin(usr)] has unemag'ed [R].")
 
 			if("unemagcyborgs")
-				if (istype(current, /mob/living/silicon/ai))
+				if(istype(current, /mob/living/silicon/ai))
 					var/mob/living/silicon/ai/ai = current
 					for(var/mob/living/silicon/robot/R in ai.connected_robots)
 						R.emagged = 0
-						if (R.module)
-							if (R.activated(R.module.emag))
+						if(R.module)
+							if(R.activated(R.module.emag))
 								R.module_active = null
 							if(R.module_state_1 == R.module.emag)
 								R.module_state_1 = null
@@ -391,7 +391,7 @@
 								R.contents -= R.module.emag
 					log_admin("[key_name_admin(usr)] has unemag'ed [ai]'s Cyborgs.")
 
-	else if (href_list["common"])
+	else if(href_list["common"])
 		switch(href_list["common"])
 			if("undress")
 				for(var/obj/item/W in current)
@@ -400,17 +400,17 @@
 				take_uplink()
 				memory = null//Remove any memory they may have had.
 			if("crystals")
-				if (usr.client.holder.rights & R_FUN)
+				if(usr.client.holder.rights & R_FUN)
 					var/obj/item/device/uplink/suplink = find_syndicate_uplink()
 					var/crystals
-					if (suplink)
+					if(suplink)
 						crystals = suplink.uses
 					crystals = input("Amount of telecrystals for [key]","Operative uplink", crystals) as null|num
-					if (!isnull(crystals))
-						if (suplink)
+					if(!isnull(crystals))
+						if(suplink)
 							suplink.uses = crystals
 
-	else if (href_list["obj_announce"])
+	else if(href_list["obj_announce"])
 		var/obj_count = 1
 		current << "\blue Your current objectives:"
 		for(var/datum/objective/objective in objectives)
@@ -421,7 +421,7 @@
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
 	for(var/obj/item/I in L)
-		if (I.hidden_uplink)
+		if(I.hidden_uplink)
 			return I.hidden_uplink
 	return null
 

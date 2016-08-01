@@ -7,10 +7,10 @@
 	priority = 3 // Must be higher than /datum/surgery_step/internal
 	can_infect = 0
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return 0
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if (affected)
+		if(affected)
 			return 0
 		var/list/organ_data = target.species.has_limbs["[target_zone]"]
 		return !isnull(organ_data)
@@ -89,8 +89,8 @@
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		if(..())
 			var/obj/item/robot_parts/p = tool
-			if (p.part)
-				if (!(target_zone in p.part))
+			if(p.part)
+				if(!(target_zone in p.part))
 					return 0
 			return isnull(target.get_organ(target_zone))
 

@@ -422,7 +422,7 @@
 
 /obj/machinery/portable_atmospherics/hydroponics/attackby(var/obj/item/O as obj, var/mob/user as mob)
 
-	if (O.is_open_container())
+	if(O.is_open_container())
 		return 0
 
 	if(istype(O, /obj/item/weapon/wirecutters) || istype(O, /obj/item/weapon/scalpel))
@@ -457,7 +457,7 @@
 
 		var/obj/item/weapon/reagent_containers/syringe/S = O
 
-		if (S.mode == 1)
+		if(S.mode == 1)
 			if(seed)
 				return ..()
 			else
@@ -471,7 +471,7 @@
 				user << "There's nothing to draw something from."
 			return 1
 
-	else if (istype(O, /obj/item/seeds))
+	else if(istype(O, /obj/item/seeds))
 
 		if(!seed)
 
@@ -499,7 +499,7 @@
 		else
 			user << "<span class='danger'>\The [src] already has seeds in it!</span>"
 
-	else if (istype(O, /obj/item/weapon/material/minihoe))  // The minihoe
+	else if(istype(O, /obj/item/weapon/material/minihoe))  // The minihoe
 
 		if(weedlevel > 0)
 			user.visible_message("<span class='danger'>[user] starts uprooting the weeds.</span>", "<span class='danger'>You remove the weeds from the [src].</span>")
@@ -508,7 +508,7 @@
 		else
 			user << "<span class='danger'>This plot is completely devoid of weeds. It doesn't need uprooting.</span>"
 
-	else if (istype(O, /obj/item/weapon/storage/plants))
+	else if(istype(O, /obj/item/weapon/storage/plants))
 
 		attack_hand(user)
 
@@ -518,7 +518,7 @@
 				return
 			S.handle_item_insertion(G, 1)
 
-	else if ( istype(O, /obj/item/weapon/plantspray) )
+	else if( istype(O, /obj/item/weapon/plantspray) )
 
 		var/obj/item/weapon/plantspray/spray = O
 		user.remove_from_mob(O)

@@ -94,23 +94,23 @@
 			occupant.buckled = null
 			occupant.Move(src.loc)
 			occupant.buckled = src
-			if (occupant && (src.loc != occupant.loc))
-				if (propelled)
+			if(occupant && (src.loc != occupant.loc))
+				if(propelled)
 					for(var/mob/O in src.loc)
-						if (O != occupant)
+						if(O != occupant)
 							Bump(O)
 				else
 					unbuckle_mob()
-			if (pulling && (get_dist(src, pulling) > 1))
+			if(pulling && (get_dist(src, pulling) > 1))
 				pulling.pulledby = null
 				pulling << "<span class='warning'>You lost your grip!</span>"
 				pulling = null
 		else
-			if (occupant && (src.loc != occupant.loc))
+			if(occupant && (src.loc != occupant.loc))
 				src.forceMove(occupant.loc) // Failsafe to make sure the wheelchair stays beneath the occupant after driving
 
 /obj/structure/bed/chair/wheelchair/attack_hand(mob/living/user as mob)
-	if (pulling)
+	if(pulling)
 		MouseDrop(usr)
 	else
 		user_unbuckle_mob(user)
@@ -142,9 +142,9 @@
 	if(propelled || (pulling && (pulling.a_intent == I_HURT)))
 		var/mob/living/occupant = unbuckle_mob()
 
-		if (pulling && (pulling.a_intent == I_HURT))
+		if(pulling && (pulling.a_intent == I_HURT))
 			occupant.throw_at(A, 3, 3, pulling)
-		else if (propelled)
+		else if(propelled)
 			occupant.throw_at(A, 3, propelled)
 
 		var/def_zone = ran_zone()

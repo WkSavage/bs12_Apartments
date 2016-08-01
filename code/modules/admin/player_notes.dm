@@ -66,7 +66,7 @@ datum/admins/proc/notes_gethtml(var/ckey)
 //Hijacking this file for BS12 playernotes functions. I like this ^ one systemm alright, but converting sounds too bothersome~ Chinsky.
 
 /proc/notes_add(var/key, var/note, var/mob/user)
-	if (!key || !note)
+	if(!key || !note)
 		return
 
 	//Loading list of notes for this key
@@ -91,7 +91,7 @@ datum/admins/proc/notes_gethtml(var/ckey)
 	var/day_loc = findtext(full_date, time2text(world.timeofday, "DD"))
 
 	var/datum/player_info/P = new
-	if (user)
+	if(user)
 		P.author = user.key
 		P.rank = user.client.holder.rank
 	else

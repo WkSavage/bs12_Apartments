@@ -28,14 +28,14 @@
 	return
 
 /obj/effect/spresent/relaymove(mob/user as mob)
-	if (user.stat)
+	if(user.stat)
 		return
 	user << "<span class='warning'>You can't move.</span>"
 
 /obj/effect/spresent/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
 
-	if (!istype(W, /obj/item/weapon/wirecutters))
+	if(!istype(W, /obj/item/weapon/wirecutters))
 		user << "<span class='warning'>I need wirecutters for that.</span>"
 		return
 
@@ -43,7 +43,7 @@
 
 	for(var/mob/M in src) //Should only be one but whatever.
 		M.loc = src.loc
-		if (M.client)
+		if(M.client)
 			M.client.eye = M.client.mob
 			M.client.perspective = MOB_PERSPECTIVE
 
@@ -152,15 +152,15 @@
 
 /obj/item/weapon/wrapping_paper/attackby(obj/item/W as obj, mob/user as mob)
 	..()
-	if (!( locate(/obj/structure/table, src.loc) ))
+	if(!( locate(/obj/structure/table, src.loc) ))
 		user << "<span class='warning'>You MUST put the paper on a table!</span>"
-	if (W.w_class < BULKY_ITEM)
-		if ((istype(user.l_hand, /obj/item/weapon/wirecutters) || istype(user.r_hand, /obj/item/weapon/wirecutters)))
+	if(W.w_class < BULKY_ITEM)
+		if((istype(user.l_hand, /obj/item/weapon/wirecutters) || istype(user.r_hand, /obj/item/weapon/wirecutters)))
 			var/a_used = W.get_storage_cost()
-			if (a_used == DO_NOT_STORE)
+			if(a_used == DO_NOT_STORE)
 				user << "<span class='warning'>You can't wrap that!</span>" //no gift-wrapping lit welders
 				return
-			if (src.amount < a_used)
+			if(src.amount < a_used)
 				user << "<span class='warning'>You need more paper!</span>"
 				return
 			else
@@ -174,7 +174,7 @@
 					src.add_fingerprint(user)
 					src.amount -= a_used
 
-			if (src.amount <= 0)
+			if(src.amount <= 0)
 				new /obj/item/weapon/c_tube( src.loc )
 				qdel(src)
 				return
@@ -190,15 +190,15 @@
 		user << text("There is about [] square units of paper left!", src.amount)
 
 /obj/item/weapon/wrapping_paper/attack(mob/target as mob, mob/user as mob)
-	if (!istype(target, /mob/living/carbon/human)) return
+	if(!istype(target, /mob/living/carbon/human)) return
 	var/mob/living/carbon/human/H = target
 
-	if (istype(H.wear_suit, /obj/item/clothing/suit/straight_jacket) || H.stat)
-		if (src.amount > 2)
+	if(istype(H.wear_suit, /obj/item/clothing/suit/straight_jacket) || H.stat)
+		if(src.amount > 2)
 			var/obj/effect/spresent/present = new /obj/effect/spresent (H.loc)
 			src.amount -= 2
 
-			if (H.client)
+			if(H.client)
 				H.client.perspective = EYE_PERSPECTIVE
 				H.client.eye = present
 

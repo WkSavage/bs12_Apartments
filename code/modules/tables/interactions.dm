@@ -3,8 +3,8 @@
 	if(air_group || (height==0)) return 1
 	if(istype(mover,/obj/item/projectile))
 		return (check_cover(mover,target))
-	if (flipped == 1)
-		if (get_dir(loc, target) == dir)
+	if(flipped == 1)
+		if(get_dir(loc, target) == dir)
 			return !density
 		else
 			return 1
@@ -23,13 +23,13 @@
 		cover = get_step(loc, get_dir(from, loc))
 	if(!cover)
 		return 1
-	if (get_dist(P.starting, loc) <= 1) //Tables won't help you if people are THIS close
+	if(get_dist(P.starting, loc) <= 1) //Tables won't help you if people are THIS close
 		return 1
 
 	var/chance = 20
 	if(ismob(P.original) && get_turf(P.original) == cover)
 		var/mob/M = P.original
-		if (M.lying)
+		if(M.lying)
 			chance += 20				//Lying down lets you catch less bullets
 	if(flipped)
 		if(get_dir(loc, from) == dir)	//Flipped tables catch mroe bullets
@@ -55,8 +55,8 @@
 /obj/structure/table/CheckExit(atom/movable/O as mob|obj, target as turf)
 	if(istype(O) && O.checkpass(PASSTABLE))
 		return 1
-	if (flipped==1)
-		if (get_dir(loc, target) == dir)
+	if(flipped==1)
+		if(get_dir(loc, target) == dir)
 			return !density
 		else
 			return 1
@@ -65,34 +65,34 @@
 
 /obj/structure/table/MouseDrop_T(obj/O as obj, mob/user as mob)
 
-	if ((!( istype(O, /obj/item/weapon) ) || user.get_active_hand() != O))
+	if((!( istype(O, /obj/item/weapon) ) || user.get_active_hand() != O))
 		return ..()
 	if(isrobot(user))
 		return
 	user.drop_item()
-	if (O.loc != src.loc)
+	if(O.loc != src.loc)
 		step(O, get_dir(O, src))
 	return
 
 
 /obj/structure/table/attackby(obj/item/W, mob/user, var/click_params)
-	if (!W) return
+	if(!W) return
 
 	// Handle harm intent grabbing/tabling.
 	if(istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
 		var/obj/item/weapon/grab/G = W
-		if (istype(G.affecting, /mob/living))
+		if(istype(G.affecting, /mob/living))
 			var/mob/living/M = G.affecting
 			var/obj/occupied = turf_is_crowded()
 			if(occupied)
 				user << "<span class='danger'>There's \a [occupied] in the way.</span>"
 				return
-			if (G.state < GRAB_AGGRESSIVE)
+			if(G.state < GRAB_AGGRESSIVE)
 				user << "<span class='danger'>You need a better grip to do that!</span>"
 			else
 				if(user.a_intent == I_HURT)
 					var/blocked = M.run_armor_check("head", "melee")
-					if (prob(30 * blocked_mult(blocked)))
+					if(prob(30 * blocked_mult(blocked)))
 						M.Weaken(5)
 					M.apply_damage(8, BRUTE, "head", blocked)
 					visible_message("<span class='danger'>[G.assailant] slams [G.affecting]'s face against \the [src]!</span>")
@@ -154,17 +154,17 @@ Note: This proc can be overwritten to allow for different types of auto-alignmen
 */
 /obj/item/var/center_of_mass = "x=16;y=16" //can be null for no exact placement behaviour
 /obj/structure/table/proc/auto_align(obj/item/W, click_params)
-	if (!W.center_of_mass) // Clothing, material stacks, generally items with large sprites where exact placement would be unhandy.
+	if(!W.center_of_mass) // Clothing, material stacks, generally items with large sprites where exact placement would be unhandy.
 		W.pixel_x = rand(-W.randpixel, W.randpixel)
 		W.pixel_y = rand(-W.randpixel, W.randpixel)
 		W.pixel_z = 0
 		return
 
-	if (!click_params)
+	if(!click_params)
 		return
 
 	var/list/click_data = params2list(click_params)
-	if (!click_data["icon-x"] || !click_data["icon-y"])
+	if(!click_data["icon-x"] || !click_data["icon-y"])
 		return
 
 	// Calculation to apply new pixelshift.
@@ -186,7 +186,7 @@ Note: This proc can be overwritten to allow for different types of auto-alignmen
 
 	var/i = -1
 	for(var/obj/item/I in get_turf(src))
-		if (I.anchored || !I.center_of_mass)
+		if(I.anchored || !I.center_of_mass)
 			continue
 		i++
 		I.pixel_x = max(3-i*3, -3) + 1 // There's a sprite layering bug for 0/0 pixelshift, so we avoid it.

@@ -16,11 +16,11 @@
 
 /obj/effect/map/ship/initialize()
 	for(var/obj/machinery/computer/engines/E in machines)
-		if (E.z == map_z)
+		if(E.z == map_z)
 			eng_control = E
 			break
 	for(var/obj/machinery/computer/helm/H in machines)
-		if (H.z == map_z)
+		if(H.z == map_z)
 			nav_control = H
 			break
 	processing_objects.Add(src)
@@ -60,11 +60,11 @@
 		toggle_move_stars(map_z, fore_dir)
 
 /obj/effect/map/ship/proc/can_burn()
-	if (!eng_control)
+	if(!eng_control)
 		return 0
-	if (world.time < last_burn + 10)
+	if(world.time < last_burn + 10)
 		return 0
-	if (!eng_control.burn())
+	if(!eng_control.burn())
 		return 0
 	return 1
 
@@ -76,9 +76,9 @@
 #define SIGN(X) (X == 0 ? 0 : (X > 0 ? 1 : -1))
 /obj/effect/map/ship/proc/decelerate()
 	if(!is_still() && can_burn())
-		if (speed[1])
+		if(speed[1])
 			adjust_speed(-SIGN(speed[1]) * min(get_acceleration(),abs(speed[1])), 0)
-		if (speed[2])
+		if(speed[2])
 			adjust_speed(0, -SIGN(speed[2]) * min(get_acceleration(),abs(speed[2])))
 		last_burn = world.time
 
@@ -111,5 +111,5 @@
 		var/turf/newloc = locate(x + deltas[1], y + deltas[2], z)
 		if(newloc)
 			Move(newloc)
-		if(rotate)	
+		if(rotate)
 			rotate(get_heading())

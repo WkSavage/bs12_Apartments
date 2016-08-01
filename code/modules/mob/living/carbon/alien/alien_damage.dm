@@ -6,12 +6,12 @@
 	var/b_loss = null
 	var/f_loss = null
 	switch (severity)
-		if (1.0)
+		if(1.0)
 			b_loss += 500
 			gib()
 			return
 
-		if (2.0)
+		if(2.0)
 
 			b_loss += 60
 
@@ -22,7 +22,7 @@
 
 		if(3.0)
 			b_loss += 30
-			if (prob(50))
+			if(prob(50))
 				Paralyse(1)
 			ear_damage += 15
 			ear_deaf += 60

@@ -55,7 +55,7 @@
 /datum/shuttle/multi_shuttle/move(var/area/origin, var/area/destination)
 	..()
 	last_move = world.time
-	if (destination == src.origin)
+	if(destination == src.origin)
 		returned_home = 1
 	docking_controller = destination_dock_controllers[last_location]
 
@@ -169,7 +169,7 @@
 		updateUsrDialog()
 		return
 
-	if (MS.moving_status != SHUTTLE_IDLE)
+	if(MS.moving_status != SHUTTLE_IDLE)
 		usr << "\blue [shuttle_tag] vessel is moving."
 		return
 

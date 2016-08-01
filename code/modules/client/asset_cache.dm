@@ -43,10 +43,10 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 
 	client << browse_rsc(asset_cache.cache[asset_name], asset_name)
 	if(!verify || !winexists(client, "asset_cache_browser")) // Can't access the asset cache browser, rip.
-		if (client)
+		if(client)
 			client.cache += asset_name
 		return 1
-	if (!client)
+	if(!client)
 		return 0
 
 	client.sending |= asset_name
@@ -88,17 +88,17 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 	var/list/unreceived = asset_list - (client.cache + client.sending)
 	if(!unreceived || !unreceived.len)
 		return 0
-	if (unreceived.len >= ASSET_CACHE_TELL_CLIENT_AMOUNT)
+	if(unreceived.len >= ASSET_CACHE_TELL_CLIENT_AMOUNT)
 		client << "Sending Resources..."
 	for(var/asset in unreceived)
-		if (asset in asset_cache.cache)
+		if(asset in asset_cache.cache)
 			client << browse_rsc(asset_cache.cache[asset], asset)
 
 	if(!verify || !winexists(client, "asset_cache_browser")) // Can't access the asset cache browser, rip.
-		if (client)
+		if(client)
 			client.cache += unreceived
 		return 1
-	if (!client)
+	if(!client)
 		return 0
 	client.sending |= unreceived
 	var/job = ++client.last_asset_job
@@ -126,9 +126,9 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 //The proc calls procs that sleep for long times.
 /proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 	for(var/file in files)
-		if (!client)
+		if(!client)
 			break
-		if (register_asset)
+		if(register_asset)
 			register_asset(file,files[file])
 		send_asset(client,file)
 		sleep(0) //queuing calls like this too quickly can cause issues in some client versions
@@ -145,7 +145,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 
 //get a assetdatum or make a new one
 /proc/get_asset_datum(var/type)
-	if (!(type in asset_datums))
+	if(!(type in asset_datums))
 		return new type()
 	return asset_datums[type]
 

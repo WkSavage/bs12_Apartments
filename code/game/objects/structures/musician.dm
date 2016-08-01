@@ -376,7 +376,7 @@
 			var/t = ""
 			do
 				t = html_encode(input(usr, "Please paste the entire song, formatted:", text("[]", src.name), t)  as message)
-				if (!in_range(src, usr))
+				if(!in_range(src, usr))
 					return
 
 				if(lentext(t) >= 3072)
@@ -412,11 +412,11 @@
 	return
 
 /obj/structure/device/piano/attackby(obj/item/O as obj, mob/user as mob)
-	if (istype(O, /obj/item/weapon/wrench))
-		if (anchored)
+	if(istype(O, /obj/item/weapon/wrench))
+		if(anchored)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			user << "<span class='notice'>You begin to loosen \the [src]'s casters...</span>"
-			if (do_after(user, 40, src))
+			if(do_after(user, 40, src))
 				user.visible_message( \
 					"[user] loosens \the [src]'s casters.", \
 					"<span class='notice'>You have loosened \the [src]. Now it can be pulled somewhere else.</span>", \
@@ -425,7 +425,7 @@
 		else
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			user << "<span class='notice'>You begin to tighten \the [src] to the floor...</span>"
-			if (do_after(user, 20, src))
+			if(do_after(user, 20, src))
 				user.visible_message( \
 					"[user] tightens \the [src]'s casters.", \
 					"<span class='notice'>You have tightened \the [src]'s casters. Now it can be played again</span>.", \

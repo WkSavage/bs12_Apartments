@@ -208,7 +208,7 @@
 
 // setup the PDA and its name
 /mob/living/silicon/robot/proc/setup_PDA()
-	if (!rbPDA)
+	if(!rbPDA)
 		rbPDA = new/obj/item/device/pda/ai(src)
 	rbPDA.set_name_and_job(custom_name,"[modtype] [braintype]")
 
@@ -236,7 +236,7 @@
 		module_sprites = new_sprites.Copy()
 		//Custom_sprite check and entry
 
-		if (custom_sprite == 1)
+		if(custom_sprite == 1)
 			var/list/valid_states = icon_states(CUSTOM_ITEM_SYNTH)
 			if("[ckey]-[modtype]" in valid_states)
 				module_sprites["Custom"] = "[src.ckey]-[modtype]"
@@ -306,7 +306,7 @@
 	data_core.ResetPDAManifest()
 
 	//We also need to update name of internal camera.
-	if (camera)
+	if(camera)
 		camera.c_tag = changed_name
 
 	if(!custom_sprite) //Check for custom sprite
@@ -328,7 +328,7 @@
 	spawn(0)
 		var/newname
 		newname = sanitizeSafe(input(src,"You are a robot. Enter a name, or leave blank for the default name.", "Name change","") as text, MAX_NAME_LEN)
-		if (newname)
+		if(newname)
 			custom_name = newname
 
 		updatename()
@@ -370,7 +370,7 @@
 		src << "\red Your self-diagnosis component isn't functioning."
 
 	var/datum/robot_component/CO = get_component("diagnosis unit")
-	if (!cell_use_power(CO.active_usage))
+	if(!cell_use_power(CO.active_usage))
 		src << "\red Low Power."
 	var/dat = self_diagnosis()
 	src << browse(dat, "window=robotdiagnosis")
@@ -413,7 +413,7 @@
 /mob/living/silicon/robot/proc/show_jetpack_pressure()
 	// if you have a jetpack, show the internal tank pressure
 	var/obj/item/weapon/tank/jetpack/current_jetpack = installed_jetpack()
-	if (current_jetpack)
+	if(current_jetpack)
 		stat("Internal Atmosphere Info", current_jetpack.name)
 		stat("Tank Pressure", current_jetpack.air_contents.return_pressure())
 
@@ -438,7 +438,7 @@
 // update the status screen display
 /mob/living/silicon/robot/Stat()
 	. = ..()
-	if (statpanel("Status"))
+	if(statpanel("Status"))
 		show_cell_power()
 		show_jetpack_pressure()
 		stat(null, text("Lights: [lights_on ? "ON" : "OFF"]"))
@@ -455,7 +455,7 @@
 	return 2
 
 /mob/living/silicon/robot/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/weapon/handcuffs)) // fuck i don't even know why isrobot() in handcuff code isn't working so this will have to do
+	if(istype(W, /obj/item/weapon/handcuffs)) // fuck i don't even know why isrobot() in handcuff code isn't working so this will have to do
 		return
 
 	if(opened) // Are they trying to insert something?
@@ -477,16 +477,16 @@
 
 				return
 
-	if (istype(W, /obj/item/weapon/weldingtool))
-		if (src == user)
+	if(istype(W, /obj/item/weapon/weldingtool))
+		if(src == user)
 			user << "<span class='warning'>You lack the reach to be able to repair yourself.</span>"
 			return
 
-		if (!getBruteLoss())
+		if(!getBruteLoss())
 			user << "Nothing to fix here!"
 			return
 		var/obj/item/weapon/weldingtool/WT = W
-		if (WT.remove_fuel(0))
+		if(WT.remove_fuel(0))
 			user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
 			adjustBruteLoss(-30)
 			updatehealth()
@@ -498,18 +498,18 @@
 			return
 
 	else if(istype(W, /obj/item/stack/cable_coil) && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
-		if (!getFireLoss())
+		if(!getFireLoss())
 			user << "Nothing to fix here!"
 			return
 		var/obj/item/stack/cable_coil/coil = W
-		if (coil.use(1))
+		if(coil.use(1))
 			user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
 			adjustFireLoss(-30)
 			updatehealth()
 			for(var/mob/O in viewers(user, null))
 				O.show_message(text("\red [user] has fixed some of the burnt wires on [src]!"), 1)
 
-	else if (istype(W, /obj/item/weapon/crowbar))	// crowbar means open or close the cover
+	else if(istype(W, /obj/item/weapon/crowbar))	// crowbar means open or close the cover
 		if(opened)
 			if(cell)
 				user << "You close the cover."
@@ -564,7 +564,7 @@
 				user << "You open the cover."
 				opened = 1
 				updateicon()
-	else if (istype(W, /obj/item/weapon/stock_parts/matter_bin) && opened) // Installing/swapping a matter bin
+	else if(istype(W, /obj/item/weapon/stock_parts/matter_bin) && opened) // Installing/swapping a matter bin
 		if(storage)
 			user << "You replace \the [storage] with \the [W]"
 			storage.forceMove(get_turf(src))
@@ -576,7 +576,7 @@
 		W.forceMove(src)
 		recalculate_synth_capacities()
 
-	else if (istype(W, /obj/item/weapon/cell) && opened)	// trying to put a cell inside
+	else if(istype(W, /obj/item/weapon/cell) && opened)	// trying to put a cell inside
 		var/datum/robot_component/C = components["power cell"]
 		if(wiresexposed)
 			user << "Close the panel first."
@@ -597,8 +597,8 @@
 			C.brute_damage = 0
 			C.electronics_damage = 0
 
-	else if (istype(W, /obj/item/weapon/wirecutters) || istype(W, /obj/item/device/multitool))
-		if (wiresexposed)
+	else if(istype(W, /obj/item/weapon/wirecutters) || istype(W, /obj/item/device/multitool))
+		if(wiresexposed)
 			wires.Interact(user)
 		else
 			user << "You can't reach the wiring."
@@ -621,7 +621,7 @@
 		else
 			user << "Unable to locate a radio."
 
-	else if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda)||istype(W, /obj/item/weapon/card/robot))			// trying to unlock the interface with an ID card
+	else if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda)||istype(W, /obj/item/weapon/card/robot))			// trying to unlock the interface with an ID card
 		if(emagged)//still allow them to open the cover
 			user << "The interface seems slightly damaged"
 		if(opened)
@@ -768,13 +768,13 @@
 
 
 	for(var/obj in module.modules)
-		if (!obj)
+		if(!obj)
 			dat += text("<B>Resource depleted</B><BR>")
 		else if(activated(obj))
 			dat += text("[obj]: <B>Activated</B><BR>")
 		else
 			dat += text("[obj]: <A HREF=?src=\ref[src];act=\ref[obj]>Activate</A><BR>")
-	if (emagged)
+	if(emagged)
 		if(activated(module.emag))
 			dat += text("[module.emag]: <B>Activated</B><BR>")
 		else
@@ -794,19 +794,19 @@
 	if(usr != src)
 		return 1
 
-	if (href_list["showalerts"])
+	if(href_list["showalerts"])
 		open_subsystem(/datum/nano_module/alarm_monitor/all)
 		return 1
 
-	if (href_list["mod"])
+	if(href_list["mod"])
 		var/obj/item/O = locate(href_list["mod"])
-		if (istype(O) && (O.loc == src))
+		if(istype(O) && (O.loc == src))
 			O.attack_self(src)
 		return 1
 
-	if (href_list["act"])
+	if(href_list["act"])
 		var/obj/item/O = locate(href_list["act"])
-		if (!istype(O))
+		if(!istype(O))
 			return 1
 
 		if(!((O in src.module.modules) || (O == src.module.emag)))
@@ -838,7 +838,7 @@
 		installed_modules()
 		return 1
 
-	if (href_list["deact"])
+	if(href_list["deact"])
 		var/obj/item/O = locate(href_list["deact"])
 		if(activated(O))
 			if(module_state_1 == O)
@@ -871,7 +871,7 @@
 			var/turf/tile = loc
 			if(isturf(tile))
 				tile.clean_blood()
-				if (istype(tile, /turf/simulated))
+				if(istype(tile, /turf/simulated))
 					var/turf/simulated/S = tile
 					S.dirt = 0
 				for(var/A in tile)
@@ -940,7 +940,7 @@
 	set src = usr
 
 	var/obj/item/W = get_active_hand()
-	if (W)
+	if(W)
 		W.attack_self(src)
 
 	return
@@ -960,7 +960,7 @@
 	icon_state = module_sprites[icontype]
 	updateicon()
 
-	if (module_sprites.len > 1 && triesleft >= 1 && client)
+	if(module_sprites.len > 1 && triesleft >= 1 && client)
 		icon_selection_tries--
 		var/choice = input("Look at your icon - is this what you want?") in list("Yes","No")
 		if(choice=="No")

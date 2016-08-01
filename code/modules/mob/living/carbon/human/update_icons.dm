@@ -147,7 +147,7 @@ Please contact me on #coderbus IRC. ~Carn x
 	update_hud()		//TODO: remove the need for this
 	overlays.Cut()
 
-	if (icon_update)
+	if(icon_update)
 		icon = stand_icon
 		for(var/entry in overlays_standing)
 			if(istype(entry, /image))
@@ -597,7 +597,7 @@ var/global/list/damage_icon_parts = list()
 				standing = image("icon" = 'icons/mob/ears.dmi', "icon_state" = "[t_type]")
 			standing.color = l_ear.color
 			both.overlays += standing
-			
+
 		if(r_ear)
 			var/image/standing
 			var/t_type = r_ear.icon_state
@@ -611,7 +611,7 @@ var/global/list/damage_icon_parts = list()
 				standing = image("icon" = 'icons/mob/ears.dmi', "icon_state" = "[t_type]")
 			standing.color = r_ear.color
 			both.overlays += standing
-			
+
 		overlays_standing[EARS_LAYER] = both
 
 	else
@@ -940,7 +940,7 @@ var/global/list/damage_icon_parts = list()
 
 		overlays_standing[R_HAND_LAYER] = standing
 
-		if (handcuffed) drop_r_hand() //this should be moved out of icon code
+		if(handcuffed) drop_r_hand() //this should be moved out of icon code
 	else
 		overlays_standing[R_HAND_LAYER] = null
 
@@ -976,7 +976,7 @@ var/global/list/damage_icon_parts = list()
 
 		overlays_standing[L_HAND_LAYER] = standing
 
-		if (handcuffed) drop_l_hand() //This probably should not be here
+		if(handcuffed) drop_l_hand() //This probably should not be here
 	else
 		overlays_standing[L_HAND_LAYER] = null
 

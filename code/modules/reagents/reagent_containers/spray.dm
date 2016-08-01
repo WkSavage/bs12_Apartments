@@ -53,7 +53,7 @@
 
 /obj/item/weapon/reagent_containers/spray/proc/Spray_at(atom/A as mob|obj, mob/user as mob, proximity)
 	playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1, -6)
-	if (A.density && proximity)
+	if(A.density && proximity)
 		A.visible_message("[usr] sprays [A] with [src].")
 		reagents.splash(A, amount_per_transfer_from_this)
 	else
@@ -86,7 +86,7 @@
 	set category = "Object"
 	set src in usr
 
-	if (alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
+	if(alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
 		return
 	if(isturf(usr.loc))
 		usr << "<span class='notice'>You empty \the [src] onto the floor.</span>"

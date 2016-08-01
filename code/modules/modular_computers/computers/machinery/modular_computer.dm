@@ -46,7 +46,7 @@ var/list/global_modular_computers = list()
 	overlays.Cut()
 
 	if(!cpu || !cpu.enabled)
-		if (!(stat & NOPOWER) || battery_powered)
+		if(!(stat & NOPOWER) || battery_powered)
 			overlays.Add(screen_icon_screensaver)
 		set_light(0)
 		return
@@ -155,7 +155,7 @@ var/list/global_modular_computers = list()
 
 	else	// No wireless connection run only on battery.
 		use_power = 0
-		if (cpu.battery_module)
+		if(cpu.battery_module)
 			if(!cpu.battery_module.check_functionality())
 				power_failure(1)
 				return

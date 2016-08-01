@@ -1,13 +1,13 @@
 /mob/living/silicon/robot/drone/say(var/message)
 	if(local_transmit)
-		if (src.client)
+		if(src.client)
 			if(client.prefs.muted & MUTE_IC)
 				src << "You cannot send IC messages (muted)."
 				return 0
 
 		message = sanitize(message)
 
-		if (stat == DEAD)
+		if(stat == DEAD)
 			return say_dead(message)
 
 		if(copytext(message,1,2) == "*")
@@ -19,7 +19,7 @@
 				return L.broadcast(src,trim(copytext(message,2)))
 
 		//Must be concious to speak
-		if (stat)
+		if(stat)
 			return 0
 
 		var/list/listeners = hearers(5,src)
@@ -30,7 +30,7 @@
 				D << "<b>[src]</b> transmits, \"[message]\""
 
 		for(var/mob/M in player_list)
-			if (istype(M, /mob/new_player))
+			if(istype(M, /mob/new_player))
 				continue
 			else if(M.stat == DEAD && M.is_preference_enabled(/datum/client_preference/ghost_ears))
 				if(M.client) M << "<b>[src]</b> transmits, \"[message]\""

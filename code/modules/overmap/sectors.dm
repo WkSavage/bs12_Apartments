@@ -50,7 +50,7 @@ var/global/list/map_sectors = list()
 	map_z = data.zlevel
 	name = data.name
 	always_known = data.known
-	if (data.icon != 'icons/mob/screen1.dmi')
+	if(data.icon != 'icons/mob/screen1.dmi')
 		icon = data.icon
 		icon_state = data.icon_state
 	if(data.desc)
@@ -68,13 +68,13 @@ var/global/list/map_sectors = list()
 
 /obj/effect/map/Crossed(atom/movable/A)
 	testing("[A] has entered sector\"[name]\"")
-	if (istype(A,/obj/effect/map/ship))
+	if(istype(A,/obj/effect/map/ship))
 		var/obj/effect/map/ship/S = A
 		S.current_sector = src
 
 /obj/effect/map/Uncrossed(atom/movable/A)
 	testing("[A] has left sector\"[name]\"")
-	if (istype(A,/obj/effect/map/ship))
+	if(istype(A,/obj/effect/map/ship))
 		var/obj/effect/map/ship/S = A
 		S.current_sector = null
 
@@ -99,7 +99,7 @@ var/global/list/map_sectors = list()
 /obj/effect/map/sector/temporary/Destroy()
 	map_sectors["[map_z]"] = null
 	testing("Temporary sector at [x],[y] was deleted.")
-	if (can_die())
+	if(can_die())
 		testing("Associated zlevel disappeared.")
 		world.maxz--
 

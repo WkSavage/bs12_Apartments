@@ -113,11 +113,11 @@
 	..()
 	if(istype(W, /obj/item/stack/material) && W.get_material_name() == DEFAULT_WALL_MATERIAL && !l_arm && !r_arm && !l_leg && !r_leg && !chest && !head)
 		var/obj/item/stack/material/M = W
-		if (M.use(1))
+		if(M.use(1))
 			var/obj/item/weapon/secbot_assembly/ed209_assembly/B = new /obj/item/weapon/secbot_assembly/ed209_assembly
 			B.loc = get_turf(src)
 			user << "<span class='notice'>You armed the robot frame.</span>"
-			if (user.get_inactive_hand()==src)
+			if(user.get_inactive_hand()==src)
 				user.remove_from_mob(src)
 				user.put_in_inactive_hand(B)
 			qdel(src)
@@ -236,11 +236,11 @@
 		else
 			user << "<span class='warning'>The MMI must go in after everything else!</span>"
 
-	if (istype(W, /obj/item/weapon/pen))
+	if(istype(W, /obj/item/weapon/pen))
 		var/t = sanitizeSafe(input(user, "Enter new robot name", src.name, src.created_name), MAX_NAME_LEN)
-		if (!t)
+		if(!t)
 			return
-		if (!in_range(src, usr) && src.loc != usr)
+		if(!in_range(src, usr) && src.loc != usr)
 			return
 
 		src.created_name = t

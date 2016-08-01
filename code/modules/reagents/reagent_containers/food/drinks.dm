@@ -69,11 +69,11 @@
 			return
 		if(!reagents || reagents.total_volume == 0)
 			user << "<span class='notice'>\The [src] is empty!</span>"
-		else if (reagents.total_volume <= volume * 0.25)
+		else if(reagents.total_volume <= volume * 0.25)
 			user << "<span class='notice'>\The [src] is almost empty!</span>"
-		else if (reagents.total_volume <= volume * 0.66)
+		else if(reagents.total_volume <= volume * 0.66)
 			user << "<span class='notice'>\The [src] is half full!</span>"
-		else if (reagents.total_volume <= volume * 0.90)
+		else if(reagents.total_volume <= volume * 0.90)
 			user << "<span class='notice'>\The [src] is almost full!</span>"
 		else
 			user << "<span class='notice'>\The [src] is full!</span>"

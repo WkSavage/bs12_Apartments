@@ -182,11 +182,11 @@ var/list/mob_hat_cache = list()
 		user << "<span class='danger'>\The [src] is not compatible with \the [W].</span>"
 		return
 
-	else if (istype(W, /obj/item/weapon/crowbar))
+	else if(istype(W, /obj/item/weapon/crowbar))
 		user << "<span class='danger'>\The [src] is hermetically sealed. You can't open the case.</span>"
 		return
 
-	else if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
+	else if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
 
 		if(stat == 2)
 

@@ -102,20 +102,20 @@ var/const/FALLOFF_SOUNDS = 0.5
 		var/datum/gas_mixture/hearer_env = T.return_air()
 		var/datum/gas_mixture/source_env = turf_source.return_air()
 
-		if (hearer_env && source_env)
+		if(hearer_env && source_env)
 			var/pressure = min(hearer_env.return_pressure(), source_env.return_pressure())
 
-			if (pressure < ONE_ATMOSPHERE)
+			if(pressure < ONE_ATMOSPHERE)
 				pressure_factor = max((pressure - SOUND_MINIMUM_PRESSURE)/(ONE_ATMOSPHERE - SOUND_MINIMUM_PRESSURE), 0)
 		else //in space
 			pressure_factor = 0
 
-		if (distance <= 1)
+		if(distance <= 1)
 			pressure_factor = max(pressure_factor, 0.15)	//hearing through contact
 
 		S.volume *= pressure_factor
 
-		if (S.volume <= 0)
+		if(S.volume <= 0)
 			return	//no volume means no sound
 
 		var/dx = turf_source.x - T.x // Hearing from the right/left
@@ -130,23 +130,23 @@ var/const/FALLOFF_SOUNDS = 0.5
 
 		if(istype(src,/mob/living/))
 			var/mob/living/M = src
-			if (M.hallucination)
+			if(M.hallucination)
 				S.environment = PSYCHOTIC
-			else if (M.druggy)
+			else if(M.druggy)
 				S.environment = DRUGGED
-			else if (M.drowsyness)
+			else if(M.drowsyness)
 				S.environment = DIZZY
-			else if (M.confused)
+			else if(M.confused)
 				S.environment = DIZZY
-			else if (M.sleeping)
+			else if(M.sleeping)
 				S.environment = UNDERWATER
-			else if (pressure_factor < 0.5)
+			else if(pressure_factor < 0.5)
 				S.environment = SPACE
 			else
 				var/area/A = get_area(src)
 				S.environment = A.sound_env
 
-		else if (pressure_factor < 0.5)
+		else if(pressure_factor < 0.5)
 			S.environment = SPACE
 		else
 			var/area/A = get_area(src)
@@ -165,14 +165,14 @@ var/const/FALLOFF_SOUNDS = 0.5
 /proc/get_sfx(soundin)
 	if(istext(soundin))
 		switch(soundin)
-			if ("shatter") soundin = pick(shatter_sound)
-			if ("explosion") soundin = pick(explosion_sound)
-			if ("sparks") soundin = pick(spark_sound)
-			if ("rustle") soundin = pick(rustle_sound)
-			if ("punch") soundin = pick(punch_sound)
-			if ("clownstep") soundin = pick(clown_sound)
-			if ("swing_hit") soundin = pick(swing_hit_sound)
-			if ("hiss") soundin = pick(hiss_sound)
-			if ("pageturn") soundin = pick(page_sound)
-			//if ("gunshot") soundin = pick(gun_sound)
+			if("shatter") soundin = pick(shatter_sound)
+			if("explosion") soundin = pick(explosion_sound)
+			if("sparks") soundin = pick(spark_sound)
+			if("rustle") soundin = pick(rustle_sound)
+			if("punch") soundin = pick(punch_sound)
+			if("clownstep") soundin = pick(clown_sound)
+			if("swing_hit") soundin = pick(swing_hit_sound)
+			if("hiss") soundin = pick(hiss_sound)
+			if("pageturn") soundin = pick(page_sound)
+			//if("gunshot") soundin = pick(gun_sound)
 	return soundin

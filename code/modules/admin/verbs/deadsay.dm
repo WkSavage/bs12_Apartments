@@ -21,7 +21,7 @@
 	msg = sanitize(msg)
 	log_admin("DSAY: [key_name(src)] : [msg]")
 
-	if (!msg)
+	if(!msg)
 		return
 
 	say_dead_direct("<span class='name'>[stafftype]([src.holder.fakekey ? src.holder.fakekey : src.key])</span> says, <span class='message'>\"[msg]\"</span>")

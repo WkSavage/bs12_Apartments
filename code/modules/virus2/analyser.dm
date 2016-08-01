@@ -30,7 +30,7 @@
 	if(scanning)
 		scanning -= 1
 		if(scanning == 0)
-			if (dish.virus2.addToDB())
+			if(dish.virus2.addToDB())
 				ping("\The [src] pings, \"New pathogen added to data bank.\"")
 
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(src.loc)

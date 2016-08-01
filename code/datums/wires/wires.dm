@@ -102,7 +102,7 @@ var/list/wireColours = list("red", "blue", "green", "darkred", "orange", "brown"
 	html += "</table>"
 	html += "</div>"
 
-	if (random)
+	if(random)
 		html += "<i>\The [holder] appears to have tamper-resistant electronics installed.</i><br><br>" //maybe this could be more generic?
 
 	return html

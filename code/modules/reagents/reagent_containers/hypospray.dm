@@ -30,7 +30,7 @@
 	if(!reagents.total_volume)
 		user << "<span class='warning'>[src] is empty.</span>"
 		return
-	if (!istype(M))
+	if(!istype(M))
 		return
 
 	var/mob/living/carbon/human/H = M

@@ -13,7 +13,7 @@
 	for(var/obj/machinery/ai_status_display/O in world)
 		O.mode = 2
 
-	if (istype(loc, /obj/item/device/aicard))
+	if(istype(loc, /obj/item/device/aicard))
 		var/obj/item/device/aicard/card = loc
 		card.update_icon()
 

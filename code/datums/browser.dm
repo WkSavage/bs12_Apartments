@@ -19,13 +19,13 @@
 /datum/browser/New(nuser, nwindow_id, ntitle = 0, nwidth = 0, nheight = 0, var/atom/nref = null)
 	user = nuser
 	window_id = nwindow_id
-	if (ntitle)
+	if(ntitle)
 		title = format_text(ntitle)
-	if (nwidth)
+	if(nwidth)
 		width = nwidth
-	if (nheight)
+	if(nheight)
 		height = nheight
-	if (nref)
+	if(nref)
 		ref = nref
 	// If a client exists, but they have disabled fancy windowing, disable it!
 	if(user && user.client && !user.client.is_preference_enabled(/datum/client_preference/browser_style))
@@ -73,7 +73,7 @@
 		head_content += "<script type='text/javascript' src='[filename]'></script>"
 
 	var/title_attributes = "class='uiTitle'"
-	if (title_image)
+	if(title_image)
 		title_attributes = "class='uiTitle icon' style='background-image: url([title_image]);'"
 
 	return {"<!DOCTYPE html>
@@ -105,10 +105,10 @@
 
 /datum/browser/proc/open(var/use_onclose = 1)
 	var/window_size = ""
-	if (width && height)
+	if(width && height)
 		window_size = "size=[width]x[height];"
 	user << browse(get_content(), "window=[window_id];[window_size][window_options]")
-	if (use_onclose)
+	if(use_onclose)
 		onclose(user, window_id, ref)
 
 /datum/browser/proc/close()
@@ -120,7 +120,7 @@
 /mob/proc/browse_rsc_icon(icon, icon_state, dir = -1)
 	/*
 	var/icon/I
-	if (dir >= 0)
+	if(dir >= 0)
 		I = new /icon(icon, icon_state, dir)
 	else
 		I = new /icon(icon, icon_state)

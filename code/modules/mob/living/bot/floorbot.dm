@@ -63,7 +63,7 @@
 	add_fingerprint(usr)
 	switch(href_list["operation"])
 		if("start")
-			if (on)
+			if(on)
 				turn_off()
 			else
 				turn_on()
@@ -331,7 +331,7 @@
 		user << "<span class='notice'>You add the sensor to the toolbox and tiles!</span>"
 		user.drop_from_inventory(src)
 		qdel(src)
-	else if (istype(W, /obj/item/weapon/pen))
+	else if(istype(W, /obj/item/weapon/pen))
 		var/t = sanitizeSafe(input(user, "Enter new robot name", name, created_name), MAX_NAME_LEN)
 		if(!t)
 			return

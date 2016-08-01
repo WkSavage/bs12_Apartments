@@ -17,7 +17,7 @@
 
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
-		if (istype(W, /obj/item/weapon/card/id))
+		if(istype(W, /obj/item/weapon/card/id))
 			if(src.broken)
 				user << "<span class='warning'>It appears to be broken.</span>"
 				return

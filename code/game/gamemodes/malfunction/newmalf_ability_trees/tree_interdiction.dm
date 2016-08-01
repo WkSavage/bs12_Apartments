@@ -47,7 +47,7 @@
 	if(!ability_prechecks(user, price))
 		return
 
-	if (alert(user, "Really recall the shuttle?", "Recall Shuttle: ", "Yes", "No") != "Yes")
+	if(alert(user, "Really recall the shuttle?", "Recall Shuttle: ", "Yes", "No") != "Yes")
 		return
 
 	if(!ability_pay(user, price))

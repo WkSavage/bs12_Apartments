@@ -147,7 +147,7 @@
 	on = !on
 	update_icon()
 	if(on)
-		if (M.loc == loc)
+		if(M.loc == loc)
 			wash(M)
 			process_heat(M)
 		for(var/atom/movable/G in src.loc)
@@ -234,9 +234,9 @@
 				washears = !(H.head.flags_inv & HIDEEARS)
 
 			if(H.wear_mask)
-				if (washears)
+				if(washears)
 					washears = !(H.wear_mask.flags_inv & HIDEEARS)
-				if (washglasses)
+				if(washglasses)
 					washglasses = !(H.wear_mask.flags_inv & HIDEEYES)
 
 			if(H.head)
@@ -355,10 +355,10 @@
 	thing.update_icon()
 
 /obj/structure/sink/attack_hand(mob/user as mob)
-	if (ishuman(user))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
-		if (user.hand)
+		if(user.hand)
 			temp = H.organs_by_name["l_hand"]
 		if(temp && !temp.is_usable())
 			user << "<span class='notice'>You try to move your [temp.name], but cannot!</span>"
@@ -395,12 +395,12 @@
 		return
 
 	var/obj/item/weapon/reagent_containers/RG = O
-	if (istype(RG) && RG.is_open_container())
+	if(istype(RG) && RG.is_open_container())
 		RG.reagents.add_reagent("water", min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
 		user.visible_message("<span class='notice'>[user] fills \the [RG] using \the [src].</span>","<span class='notice'>You fill \the [RG] using \the [src].</span>")
 		return 1
 
-	else if (istype(O, /obj/item/weapon/melee/baton))
+	else if(istype(O, /obj/item/weapon/melee/baton))
 		var/obj/item/weapon/melee/baton/B = O
 		if(B.bcell)
 			if(B.bcell.charge > 0 && B.status == 1)

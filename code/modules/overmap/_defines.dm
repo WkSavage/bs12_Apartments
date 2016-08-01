@@ -20,18 +20,18 @@ proc/toggle_move_stars(zlevel, direction)
 	if(!direction)
 		gen_dir = null
 
-	if (moving_levels["zlevel"] != gen_dir)
+	if(moving_levels["zlevel"] != gen_dir)
 		moving_levels["zlevel"] = gen_dir
 		for(var/x = 1 to world.maxx)
 			for(var/y = 1 to world.maxy)
 				var/turf/space/T = locate(x,y,zlevel)
-				if (istype(T))
+				if(istype(T))
 					if(!gen_dir)
 						T.icon_state = "[((T.x + T.y) ^ ~(T.x * T.y) + T.z) % 25]"
 					else
 						T.icon_state = "speedspace_[gen_dir]_[rand(1,15)]"
 						for(var/atom/movable/AM in T)
-							if (!AM.anchored)
+							if(!AM.anchored)
 								AM.throw_at(get_step(T,reverse_direction(direction)), 5, 1)
 
 
@@ -40,7 +40,7 @@ var/list/cached_space = list()
 
 proc/overmap_spacetravel(var/turf/space/T, var/atom/movable/A)
 	var/obj/effect/map/M = map_sectors["[T.z]"]
-	if (!M)
+	if(!M)
 		return
 	var/mapx = M.x
 	var/mapy = M.y
@@ -53,17 +53,17 @@ proc/overmap_spacetravel(var/turf/space/T, var/atom/movable/A)
 		ny = rand(TRANSITIONEDGE + 2, world.maxy - TRANSITIONEDGE - 2)
 		mapx = max(1, mapx-1)
 
-	else if (A.x >= (world.maxx - TRANSITIONEDGE - 1))
+	else if(A.x >= (world.maxx - TRANSITIONEDGE - 1))
 		nx = TRANSITIONEDGE + 2
 		ny = rand(TRANSITIONEDGE + 2, world.maxy - TRANSITIONEDGE - 2)
 		mapx = min(world.maxx, mapx+1)
 
-	else if (T.y <= TRANSITIONEDGE)
+	else if(T.y <= TRANSITIONEDGE)
 		ny = world.maxy - TRANSITIONEDGE -2
 		nx = rand(TRANSITIONEDGE + 2, world.maxx - TRANSITIONEDGE - 2)
 		mapy = max(1, mapy-1)
 
-	else if (A.y >= (world.maxy - TRANSITIONEDGE - 1))
+	else if(A.y >= (world.maxy - TRANSITIONEDGE - 1))
 		ny = TRANSITIONEDGE + 2
 		nx = rand(TRANSITIONEDGE + 2, world.maxx - TRANSITIONEDGE - 2)
 		mapy = min(world.maxy, mapy+1)
@@ -95,7 +95,7 @@ proc/overmap_spacetravel(var/turf/space/T, var/atom/movable/A)
 
 	if(istype(M, /obj/effect/map/sector/temporary))
 		var/obj/effect/map/sector/temporary/source = M
-		if (source.can_die())
+		if(source.can_die())
 			testing("Catching [M] for future use")
 			source.loc = null
 			cached_space += source

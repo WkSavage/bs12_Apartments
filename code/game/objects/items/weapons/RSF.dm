@@ -22,9 +22,9 @@ RSF
 
 /obj/item/weapon/rsf/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
-	if (istype(W, /obj/item/weapon/rcd_ammo))
+	if(istype(W, /obj/item/weapon/rcd_ammo))
 
-		if ((stored_matter + 10) > 30)
+		if((stored_matter + 10) > 30)
 			user << "The RSF can't hold any more matter."
 			return
 
@@ -37,23 +37,23 @@ RSF
 
 /obj/item/weapon/rsf/attack_self(mob/user as mob)
 	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
-	if (mode == 1)
+	if(mode == 1)
 		mode = 2
 		user << "Changed dispensing mode to 'Drinking Glass'"
 		return
-	if (mode == 2)
+	if(mode == 2)
 		mode = 3
 		user << "Changed dispensing mode to 'Paper'"
 		return
-	if (mode == 3)
+	if(mode == 3)
 		mode = 4
 		user << "Changed dispensing mode to 'Pen'"
 		return
-	if (mode == 4)
+	if(mode == 4)
 		mode = 5
 		user << "Changed dispensing mode to 'Dice Pack'"
 		return
-	if (mode == 5)
+	if(mode == 5)
 		mode = 1
 		user << "Changed dispensing mode to 'Cigarette'"
 		return

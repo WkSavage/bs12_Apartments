@@ -33,7 +33,7 @@ var/datum/antagonist/highlander/highlanders
 		return
 
 	for(var/obj/item/I in player)
-		if (istype(I, /obj/item/weapon/implant))
+		if(istype(I, /obj/item/weapon/implant))
 			continue
 		qdel(I)
 

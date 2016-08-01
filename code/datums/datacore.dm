@@ -150,7 +150,7 @@
 	var/real_title = assignment
 
 	for(var/datum/data/record/t in data_core.general)
-		if (t)
+		if(t)
 			if(t.fields["name"] == name)
 				foundrecord = t
 				break
@@ -235,7 +235,7 @@
 	var/icon/preview_icon = null
 
 	var/g = "m"
-	if (H.gender == FEMALE)
+	if(H.gender == FEMALE)
 		g = "f"
 
 	var/icon/icobase = H.species.icobase
@@ -257,7 +257,7 @@
 
 	// Skin tone
 	if(H.species.flags & HAS_SKIN_TONE)
-		if (H.s_tone >= 0)
+		if(H.s_tone >= 0)
 			preview_icon.Blend(rgb(H.s_tone, H.s_tone, H.s_tone), ICON_ADD)
 		else
 			preview_icon.Blend(rgb(-H.s_tone,  -H.s_tone,  -H.s_tone), ICON_SUBTRACT)
@@ -269,7 +269,7 @@
 
 	var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = H.species ? H.species.eyes : "eyes_s")
 
-	if (H.species.flags & HAS_EYE_COLOR)
+	if(H.species.flags & HAS_EYE_COLOR)
 		eyes_s.Blend(rgb(H.r_eyes, H.g_eyes, H.b_eyes), ICON_ADD)
 
 	var/datum/sprite_accessory/hair_style = hair_styles_list[H.h_style]

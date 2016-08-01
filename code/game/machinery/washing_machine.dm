@@ -105,45 +105,45 @@
 		istype(W,/obj/item/weapon/bedsheet))
 
 		//YES, it's hardcoded... saves a var/can_be_washed for every single clothing item.
-		if ( istype(W,/obj/item/clothing/suit/space ) )
+		if( istype(W,/obj/item/clothing/suit/space ) )
 			user << "This item does not fit."
 			return
-		if ( istype(W,/obj/item/clothing/suit/syndicatefake ) )
+		if( istype(W,/obj/item/clothing/suit/syndicatefake ) )
 			user << "This item does not fit."
 			return
-//		if ( istype(W,/obj/item/clothing/suit/powered ) )
+//		if( istype(W,/obj/item/clothing/suit/powered ) )
 //			user << "This item does not fit."
 //			return
-		if ( istype(W,/obj/item/clothing/suit/cyborg_suit ) )
+		if( istype(W,/obj/item/clothing/suit/cyborg_suit ) )
 			user << "This item does not fit."
 			return
-		if ( istype(W,/obj/item/clothing/suit/bomb_suit ) )
+		if( istype(W,/obj/item/clothing/suit/bomb_suit ) )
 			user << "This item does not fit."
 			return
-		if ( istype(W,/obj/item/clothing/suit/armor ) )
+		if( istype(W,/obj/item/clothing/suit/armor ) )
 			user << "This item does not fit."
 			return
-		if ( istype(W,/obj/item/clothing/suit/armor ) )
+		if( istype(W,/obj/item/clothing/suit/armor ) )
 			user << "This item does not fit."
 			return
-		if ( istype(W,/obj/item/clothing/mask/gas ) )
+		if( istype(W,/obj/item/clothing/mask/gas ) )
 			user << "This item does not fit."
 			return
-		if ( istype(W,/obj/item/clothing/mask/smokable/cigarette ) )
+		if( istype(W,/obj/item/clothing/mask/smokable/cigarette ) )
 			user << "This item does not fit."
 			return
-		if ( istype(W,/obj/item/clothing/head/syndicatefake ) )
+		if( istype(W,/obj/item/clothing/head/syndicatefake ) )
 			user << "This item does not fit."
 			return
-//		if ( istype(W,/obj/item/clothing/head/powered ) )
+//		if( istype(W,/obj/item/clothing/head/powered ) )
 //			user << "This item does not fit."
 //			return
-		if ( istype(W,/obj/item/clothing/head/helmet ) )
+		if( istype(W,/obj/item/clothing/head/helmet ) )
 			user << "This item does not fit."
 			return
 
 		if(contents.len < 5)
-			if ( state in list(1, 3) )
+			if( state in list(1, 3) )
 				user.drop_item()
 				W.loc = src
 				state = 3

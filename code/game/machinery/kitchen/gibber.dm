@@ -56,13 +56,13 @@
 
 /obj/machinery/gibber/update_icon()
 	overlays.Cut()
-	if (dirty)
+	if(dirty)
 		src.overlays += image('icons/obj/kitchen.dmi', "grbloody")
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if (!occupant)
+	if(!occupant)
 		src.overlays += image('icons/obj/kitchen.dmi', "grjam")
-	else if (operating)
+	else if(operating)
 		src.overlays += image('icons/obj/kitchen.dmi', "gruse")
 	else
 		src.overlays += image('icons/obj/kitchen.dmi', "gridle")
@@ -146,7 +146,7 @@
 	set name = "Empty Gibber"
 	set src in oview(1)
 
-	if (usr.stat != 0)
+	if(usr.stat != 0)
 		return
 	src.go_out()
 	add_fingerprint(usr)
@@ -157,7 +157,7 @@
 		return
 	for(var/obj/O in src)
 		O.loc = src.loc
-	if (src.occupant.client)
+	if(src.occupant.client)
 		src.occupant.client.eye = src.occupant.client.mob
 		src.occupant.client.perspective = MOB_PERSPECTIVE
 	src.occupant.loc = src.loc

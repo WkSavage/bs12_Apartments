@@ -10,7 +10,7 @@
 		user << "<span class='warning'>There is already \a [holstered] holstered here!</span>"
 		return
 
-	if (!(I.slot_flags & SLOT_HOLSTER))
+	if(!(I.slot_flags & SLOT_HOLSTER))
 		user << "<span class='warning'>[I] won't fit in [src]!</span>"
 		return
 
@@ -51,8 +51,8 @@
 		clear_holster()
 
 /obj/item/clothing/accessory/holster/attack_hand(mob/user as mob)
-	if (has_suit)	//if we are part of a suit
-		if (holstered)
+	if(has_suit)	//if we are part of a suit
+		if(holstered)
 			unholster(user)
 		return
 
@@ -62,13 +62,13 @@
 	holster(W, user)
 
 /obj/item/clothing/accessory/holster/emp_act(severity)
-	if (holstered)
+	if(holstered)
 		holstered.emp_act(severity)
 	..()
 
 /obj/item/clothing/accessory/holster/examine(mob/user)
 	..(user)
-	if (holstered)
+	if(holstered)
 		user << "A [holstered] is holstered here."
 	else
 		user << "It is empty."
@@ -92,14 +92,14 @@
 
 	//can't we just use src here?
 	var/obj/item/clothing/accessory/holster/H = null
-	if (istype(src, /obj/item/clothing/accessory/holster))
+	if(istype(src, /obj/item/clothing/accessory/holster))
 		H = src
-	else if (istype(src, /obj/item/clothing/under))
+	else if(istype(src, /obj/item/clothing/under))
 		var/obj/item/clothing/under/S = src
-		if (S.accessories.len)
+		if(S.accessories.len)
 			H = locate() in S.accessories
 
-	if (!H)
+	if(!H)
 		usr << "<span class='warning'>Something is very wrong.</span>"
 
 	if(!H.holstered)

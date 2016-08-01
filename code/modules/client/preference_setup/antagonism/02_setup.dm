@@ -25,7 +25,7 @@ var/global/list/uplink_locations = list("PDA", "Headset", "None")
 		. +="<a href='?src=\ref[src];exploitable_record=1'>[TextPreview(pref.exploit_record,40)]</a><br>"
 
 /datum/category_item/player_setup_item/antagonism/basic/OnTopic(var/href,var/list/href_list, var/mob/user)
-	if (href_list["antagtask"])
+	if(href_list["antagtask"])
 		pref.uplinklocation = next_in_list(pref.uplinklocation, uplink_locations)
 		return TOPIC_REFRESH
 

@@ -9,29 +9,29 @@
 
 /obj/item/frame/apc/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
-	if (istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/weapon/wrench))
 		new /obj/item/stack/material/steel( get_turf(src.loc), 2 )
 		qdel(src)
 
 /obj/item/frame/apc/try_build(turf/on_wall)
-	if (get_dist(on_wall,usr)>1)
+	if(get_dist(on_wall,usr)>1)
 		return
 	var/ndir = get_dir(usr,on_wall)
-	if (!(ndir in cardinal))
+	if(!(ndir in cardinal))
 		return
 	var/turf/loc = get_turf(usr)
 	var/area/A = loc.loc
-	if (!istype(loc, /turf/simulated/floor))
+	if(!istype(loc, /turf/simulated/floor))
 		usr << "<span class='warning'>APC cannot be placed on this spot.</span>"
 		return
-	if (A.requires_power == 0 || istype(A, /area/space))
+	if(A.requires_power == 0 || istype(A, /area/space))
 		usr << "<span class='warning'>APC cannot be placed in this area.</span>"
 		return
-	if (A.get_apc())
+	if(A.get_apc())
 		usr << "<span class='warning'>This area already has an APC.</span>"
 		return //only one APC per area
 	for(var/obj/machinery/power/terminal/T in loc)
-		if (T.master)
+		if(T.master)
 			usr << "<span class='warning'>There is another network terminal here.</span>"
 			return
 		else

@@ -70,7 +70,7 @@
 					H << "<span class='notice'>Remove [src]'s mask!</span>"
 					return 0
 
-				if (!cpr_time)
+				if(!cpr_time)
 					return 0
 
 				cpr_time = 0
@@ -142,7 +142,7 @@
 					if(src.canmove && src!=H && prob(20))
 						block = 1
 
-			if (M.grabbed_by.len)
+			if(M.grabbed_by.len)
 				// Someone got a good grip on them, they won't be able to do much damage
 				rand_damage = max(1, rand_damage - 2)
 

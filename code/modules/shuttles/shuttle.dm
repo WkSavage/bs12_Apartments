@@ -46,7 +46,7 @@
 	//it would be cool to play a sound here
 	moving_status = SHUTTLE_WARMUP
 	spawn(warmup_time*10)
-		if (moving_status == SHUTTLE_IDLE)
+		if(moving_status == SHUTTLE_IDLE)
 			return	//someone cancelled the launch
 
 		moving_status = SHUTTLE_INTRANSIT //shouldn't matter but just to be safe
@@ -60,7 +60,7 @@
 	//it would be cool to play a sound here
 	moving_status = SHUTTLE_WARMUP
 	spawn(warmup_time*10)
-		if (moving_status == SHUTTLE_IDLE)
+		if(moving_status == SHUTTLE_IDLE)
 			return	//someone cancelled the launch
 
 		arrive_time = world.time + travel_time*10
@@ -75,17 +75,17 @@
 		moving_status = SHUTTLE_IDLE
 
 /datum/shuttle/proc/dock()
-	if (!docking_controller)
+	if(!docking_controller)
 		return
 
 	var/dock_target = current_dock_target()
-	if (!dock_target)
+	if(!dock_target)
 		return
 
 	docking_controller.initiate_docking(dock_target)
 
 /datum/shuttle/proc/undock()
-	if (!docking_controller)
+	if(!docking_controller)
 		return
 	docking_controller.initiate_undocking()
 
@@ -93,7 +93,7 @@
 	return null
 
 /datum/shuttle/proc/skip_docking_checks()
-	if (!docking_controller || !current_dock_target())
+	if(!docking_controller || !current_dock_target())
 		return 1	//shuttles without docking controllers or at locations without docking ports act like old-style shuttles
 	return 0
 
@@ -111,7 +111,7 @@
 		//world << "cancelling move, shuttle will overlap."
 		return
 
-	if (docking_controller && !docking_controller.undocked())
+	if(docking_controller && !docking_controller.undocked())
 		docking_controller.force_undock()
 
 	var/list/dstturfs = list()

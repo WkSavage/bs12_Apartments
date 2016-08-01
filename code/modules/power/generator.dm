@@ -98,9 +98,9 @@
 				air1.temperature = air1.temperature - energy_transfer/air1_heat_capacity
 
 	//Transfer the air
-	if (air1)
+	if(air1)
 		circ1.air2.merge(air1)
-	if (air2)
+	if(air2)
 		circ2.air2.merge(air2)
 
 	//Update the gas networks
@@ -162,7 +162,7 @@
 /obj/machinery/power/generator/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	// this is the data which will be sent to the ui
 	var/vertical = 0
-	if (dir == NORTH || dir == SOUTH)
+	if(dir == NORTH || dir == SOUTH)
 		vertical = 1
 
 	var/data[0]
@@ -215,7 +215,7 @@
 	set name = "Rotate Generator (Clockwise)"
 	set src in view(1)
 
-	if (usr.stat || usr.restrained()  || anchored)
+	if(usr.stat || usr.restrained()  || anchored)
 		return
 
 	src.set_dir(turn(src.dir, 90))
@@ -225,7 +225,7 @@
 	set name = "Rotate Generator (Counterclockwise)"
 	set src in view(1)
 
-	if (usr.stat || usr.restrained()  || anchored)
+	if(usr.stat || usr.restrained()  || anchored)
 		return
 
 	src.set_dir(turn(src.dir, -90))

@@ -5,7 +5,7 @@
 		return 0
 	if(accessories.len && restricted_accessory_slots && (A.slot in restricted_accessory_slots))
 		for(var/obj/item/clothing/accessory/AC in accessories)
-			if (AC.slot == A.slot)
+			if(AC.slot == A.slot)
 				return 0
 
 /obj/item/clothing/attackby(var/obj/item/I, var/mob/user)
@@ -40,15 +40,15 @@
 	return ..()
 
 /obj/item/clothing/MouseDrop(var/obj/over_object)
-	if (ishuman(usr) || issmall(usr))
+	if(ishuman(usr) || issmall(usr))
 		//makes sure that the clothing is equipped so that we can't drag it into our hand from miles away.
-		if (!(src.loc == usr))
+		if(!(src.loc == usr))
 			return
 
-		if (( usr.restrained() ) || ( usr.stat ))
+		if(( usr.restrained() ) || ( usr.stat ))
 			return
 
-		if (!usr.unEquip(src))
+		if(!usr.unEquip(src))
 			return
 
 		switch(over_object.name)

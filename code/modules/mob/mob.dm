@@ -47,20 +47,20 @@
 
 	if(!client)	return
 
-	if (type)
+	if(type)
 		if(type & 1 && (sdisabilities & BLIND || blinded || paralysis) )//Vision related
-			if (!( alt ))
+			if(!( alt ))
 				return
 			else
 				msg = alt
 				type = alt_type
-		if (type & 2 && (sdisabilities & DEAF || ear_deaf))//Hearing related
-			if (!( alt ))
+		if(type & 2 && (sdisabilities & DEAF || ear_deaf))//Hearing related
+			if(!( alt ))
 				return
 			else
 				msg = alt
 				type = alt_type
-				if ((type & 1 && sdisabilities & BLIND))
+				if((type & 1 && sdisabilities & BLIND))
 					return
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS || sleeping > 0)
@@ -90,7 +90,7 @@
 				M.show_message( self_message, 1, blind_message, 2)
 			else if(M.see_invisible >= invisibility) // Cannot view the invisible
 				M.show_message( message, 1, blind_message, 2)
-			else if (blind_message)
+			else if(blind_message)
 				M.show_message(blind_message, 2)
 
 // Returns an amount of power drawn from the object (-1 if it's not viable).
@@ -134,7 +134,7 @@
 
 /mob/proc/findname(msg)
 	for(var/mob/M in mob_list)
-		if (M.real_name == text("[]", msg))
+		if(M.real_name == text("[]", msg))
 			return M
 	return 0
 
@@ -174,13 +174,13 @@
 
 /mob/proc/incapacitated(var/incapacitation_flags = INCAPACITATION_DEFAULT)
 
-	if ((incapacitation_flags & INCAPACITATION_STUNNED) && stunned)
+	if((incapacitation_flags & INCAPACITATION_STUNNED) && stunned)
 		return 1
 
-	if ((incapacitation_flags & INCAPACITATION_FORCELYING) && (weakened || resting))
+	if((incapacitation_flags & INCAPACITATION_FORCELYING) && (weakened || resting))
 		return 1
 
-	if ((incapacitation_flags & INCAPACITATION_KNOCKOUT) && (stat || paralysis || sleeping || (status_flags & FAKEDEATH)))
+	if((incapacitation_flags & INCAPACITATION_KNOCKOUT) && (stat || paralysis || sleeping || (status_flags & FAKEDEATH)))
 		return 1
 
 	if((incapacitation_flags & INCAPACITATION_RESTRAINED) && restrained())
@@ -203,13 +203,13 @@
 	return
 
 /mob/proc/reset_view(atom/A)
-	if (client)
+	if(client)
 		A = A ? A : eyeobj
-		if (istype(A, /atom/movable))
+		if(istype(A, /atom/movable))
 			client.perspective = EYE_PERSPECTIVE
 			client.eye = A
 		else
-			if (isturf(loc))
+			if(isturf(loc))
 				client.eye = client.mob
 				client.perspective = MOB_PERSPECTIVE
 			else
@@ -243,7 +243,7 @@
 		return 0
 
 	var/tile = get_turf(A)
-	if (!tile)
+	if(!tile)
 		return 0
 
 	var/obj/P = new /obj/effect/decal/point(tile)
@@ -257,30 +257,30 @@
 
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
-	if ((!( istype(l_hand, /obj/item/weapon/grab) ) && !( istype(r_hand, /obj/item/weapon/grab) )))
-		if (!( L ))
+	if((!( istype(l_hand, /obj/item/weapon/grab) ) && !( istype(r_hand, /obj/item/weapon/grab) )))
+		if(!( L ))
 			return null
 		else
 			return L.container
 	else
-		if (!( L ))
+		if(!( L ))
 			L = new /obj/effect/list_container/mobl( null )
 			L.container += src
 			L.master = src
-		if (istype(l_hand, /obj/item/weapon/grab))
+		if(istype(l_hand, /obj/item/weapon/grab))
 			var/obj/item/weapon/grab/G = l_hand
-			if (!( L.container.Find(G.affecting) ))
+			if(!( L.container.Find(G.affecting) ))
 				L.container += G.affecting
-				if (G.affecting)
+				if(G.affecting)
 					G.affecting.ret_grab(L, 1)
-		if (istype(r_hand, /obj/item/weapon/grab))
+		if(istype(r_hand, /obj/item/weapon/grab))
 			var/obj/item/weapon/grab/G = r_hand
-			if (!( L.container.Find(G.affecting) ))
+			if(!( L.container.Find(G.affecting) ))
 				L.container += G.affecting
-				if (G.affecting)
+				if(G.affecting)
 					G.affecting.ret_grab(L, 1)
-		if (!( flag ))
-			if (L.master == src)
+		if(!( flag ))
+			if(L.master == src)
 				var/list/temp = list(  )
 				temp += L.container
 				//L = null
@@ -299,12 +299,12 @@
 
 	if(hand)
 		var/obj/item/W = l_hand
-		if (W)
+		if(W)
 			W.attack_self(src)
 			update_inv_l_hand()
 	else
 		var/obj/item/W = r_hand
-		if (W)
+		if(W)
 			W.attack_self(src)
 			update_inv_r_hand()
 	return
@@ -342,15 +342,15 @@
 /mob/proc/store_memory(msg as message, popup, sane = 1)
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 
-	if (sane)
+	if(sane)
 		msg = sanitize(msg)
 
-	if (length(memory) == 0)
+	if(length(memory) == 0)
 		memory += msg
 	else
 		memory += "<BR>[msg]"
 
-	if (popup)
+	if(popup)
 		memory()
 
 /mob/proc/update_flavor_text()
@@ -368,7 +368,7 @@
 		src << "<span class='alert'>Your flavor text is likely out of date! <a href='byond://?src=\ref[src];flavor_change=1'>Change</a></span>"
 
 /mob/proc/print_flavor_text()
-	if (flavor_text && flavor_text != "")
+	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(lentext(msg) <= 40)
 			return "\blue [msg]"
@@ -386,13 +386,13 @@
 	set name = "Respawn"
 	set category = "OOC"
 
-	if (!( config.abandon_allowed ))
+	if(!( config.abandon_allowed ))
 		usr << "<span class='notice'>Respawn is disabled.</span>"
 		return
-	if ((stat != DEAD || !( ticker )))
+	if((stat != DEAD || !( ticker )))
 		usr << "<span class='notice'><B>You must be dead to use this!</B></span>"
 		return
-	if (ticker.mode && ticker.mode.deny_respawn)
+	if(ticker.mode && ticker.mode.deny_respawn)
 		usr << "<span class='notice'>Respawn is disabled for this roundtype.</span>"
 		return
 	else if(!MayRespawn(1, config.respawn_delay))
@@ -478,7 +478,7 @@
 			continue
 		if(istype(O, /obj/item/weapon/disk/nuclear))
 			var/name = "Nuclear Disk"
-			if (names.Find(name))
+			if(names.Find(name))
 				namecounts[name]++
 				name = "[name] ([namecounts[name]])"
 			else
@@ -488,7 +488,7 @@
 
 		if(istype(O, /obj/singularity))
 			var/name = "Singularity"
-			if (names.Find(name))
+			if(names.Find(name))
 				namecounts[name]++
 				name = "[name] ([namecounts[name]])"
 			else
@@ -498,7 +498,7 @@
 
 		if(istype(O, /obj/machinery/bot))
 			var/name = "BOT: [O.name]"
-			if (names.Find(name))
+			if(names.Find(name))
 				namecounts[name]++
 				name = "[name] ([namecounts[name]])"
 			else
@@ -509,7 +509,7 @@
 
 	for(var/mob/M in sortAtom(mob_list))
 		var/name = M.name
-		if (names.Find(name))
+		if(names.Find(name))
 			namecounts[name]++
 			name = "[name] ([namecounts[name]])"
 		else
@@ -526,14 +526,14 @@
 	var/ok = "[is_admin ? "Admin Observe" : "Observe"]"
 	eye_name = input("Please, select a player!", ok, null, null) as null|anything in creatures
 
-	if (!eye_name)
+	if(!eye_name)
 		return
 
 	var/mob/mob_eye = creatures[eye_name]
 
 	if(client && mob_eye)
 		client.eye = mob_eye
-		if (is_admin)
+		if(is_admin)
 			client.adminobs = 1
 			if(mob_eye == client.mob || client.eye == client.mob)
 				client.adminobs = 0
@@ -593,10 +593,10 @@
 
 /mob/proc/start_pulling(var/atom/movable/AM)
 
-	if ( !AM || !usr || src==AM || !isturf(src.loc) )	//if there's no person pulling OR the person is pulling themself OR the object being pulled is inside something: abort!
+	if( !AM || !usr || src==AM || !isturf(src.loc) )	//if there's no person pulling OR the person is pulling themself OR the object being pulled is inside something: abort!
 		return
 
-	if (AM.anchored)
+	if(AM.anchored)
 		src << "<span class='warning'>It won't budge!</span>"
 		return
 
@@ -972,7 +972,7 @@ mob/proc/yank_out_object()
 			affected.wounds += I
 			H.custom_pain("Something tears wetly in your [affected] as [selection] is pulled free!", 1)
 
-		if (ishuman(U))
+		if(ishuman(U))
 			var/mob/living/carbon/human/human_user = U
 			human_user.bloody_hands(H)
 
@@ -1064,7 +1064,7 @@ mob/proc/yank_out_object()
 //Throwing stuff
 
 /mob/proc/toggle_throw_mode()
-	if (src.in_throw_mode)
+	if(src.in_throw_mode)
 		throw_mode_off()
 	else
 		throw_mode_on()

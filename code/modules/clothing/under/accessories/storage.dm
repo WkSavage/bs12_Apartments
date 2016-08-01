@@ -13,18 +13,18 @@
 	hold = new/obj/item/weapon/storage/internal/pockets(src, slots, max_w_class)
 
 /obj/item/clothing/accessory/storage/attack_hand(mob/user as mob)
-	if (has_suit)	//if we are part of a suit
+	if(has_suit)	//if we are part of a suit
 		hold.open(user)
 		return
 
-	if (hold.handle_attack_hand(user))	//otherwise interact as a regular storage item
+	if(hold.handle_attack_hand(user))	//otherwise interact as a regular storage item
 		..(user)
 
 /obj/item/clothing/accessory/storage/MouseDrop(obj/over_object as obj)
-	if (has_suit)
+	if(has_suit)
 		return
 
-	if (hold.handle_mousedrop(usr, over_object))
+	if(hold.handle_mousedrop(usr, over_object))
 		..(over_object)
 
 /obj/item/clothing/accessory/storage/attackby(obj/item/W as obj, mob/user as mob)

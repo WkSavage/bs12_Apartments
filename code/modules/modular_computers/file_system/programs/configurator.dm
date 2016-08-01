@@ -55,7 +55,7 @@
 
 	data["hardware"] = all_entries
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "laptop_configuration.tmpl", "NTOS Configuration Utility", 575, 700, state = state)
 		ui.auto_update_layout = 1
 		ui.set_initial_data(data)

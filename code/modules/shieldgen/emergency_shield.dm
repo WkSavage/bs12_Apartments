@@ -22,7 +22,7 @@
 	check_failure()
 
 /obj/machinery/shield/proc/check_failure()
-	if (src.health <= 0)
+	if(src.health <= 0)
 		visible_message("<span class='notice'>\The [src] dissipates!</span>")
 		qdel(src)
 		return
@@ -69,13 +69,13 @@
 /obj/machinery/shield/ex_act(severity)
 	switch(severity)
 		if(1.0)
-			if (prob(75))
+			if(prob(75))
 				qdel(src)
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				qdel(src)
 	return
 
@@ -162,8 +162,8 @@
 
 /obj/machinery/shieldgen/proc/create_shields()
 	for(var/turf/target_tile in range(2, src))
-		if (istype(target_tile,/turf/space) && !(locate(/obj/machinery/shield) in target_tile))
-			if (malfunction && prob(33) || !malfunction)
+		if(istype(target_tile,/turf/space) && !(locate(/obj/machinery/shield) in target_tile))
+			if(malfunction && prob(33) || !malfunction)
 				var/obj/machinery/shield/S = new/obj/machinery/shield(target_tile)
 				deployed_shields += S
 				use_power(S.shield_generate_power)
@@ -175,27 +175,27 @@
 /obj/machinery/shieldgen/power_change()
 	. = ..()
 	if(!. || !active) return
-	if (stat & NOPOWER)
+	if(stat & NOPOWER)
 		collapse_shields()
 	else
 		create_shields()
 
 /obj/machinery/shieldgen/process()
-	if (!active || (stat & NOPOWER))
+	if(!active || (stat & NOPOWER))
 		return
 
 	if(malfunction)
 		if(deployed_shields.len && prob(5))
 			qdel(pick(deployed_shields))
 	else
-		if (check_delay <= 0)
+		if(check_delay <= 0)
 			create_shields()
 
 			var/new_power_usage = 0
 			for(var/obj/machinery/shield/shield_tile in deployed_shields)
 				new_power_usage += shield_tile.shield_idle_power
 
-			if (new_power_usage != idle_power_usage)
+			if(new_power_usage != idle_power_usage)
 				idle_power_usage = new_power_usage
 				use_power(0)
 
@@ -220,7 +220,7 @@
 			src.checkhp()
 		if(2.0)
 			src.health -= 30
-			if (prob(15))
+			if(prob(15))
 				src.malfunction = 1
 			src.checkhp()
 		if(3.0)
@@ -248,7 +248,7 @@
 		user << "The panel must be closed before operating this machine."
 		return
 
-	if (src.active)
+	if(src.active)
 		user.visible_message("\blue \icon[src] [user] deactivated the shield generator.", \
 			"\blue \icon[src] You deactivate the shield generator.", \
 			"You hear heavy droning fade out.")
@@ -284,7 +284,7 @@
 		user << "<span class='notice'>You begin to replace the wires.</span>"
 		//if(do_after(user, min(60, round( ((maxhealth/health)*10)+(malfunction*10) ))) //Take longer to repair heavier damage
 		if(do_after(user, 30,src))
-			if (coil.use(1))
+			if(coil.use(1))
 				health = max_health
 				malfunction = 0
 				user << "<span class='notice'>You repair the [src]!</span>"

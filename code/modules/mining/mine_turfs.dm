@@ -58,7 +58,7 @@
 /turf/simulated/mineral/ex_act(severity)
 	switch(severity)
 		if(2.0)
-			if (prob(70))
+			if(prob(70))
 				mined_ore = 1 //some of the stuff gets blown up
 				GetDrilled()
 		if(1.0)
@@ -117,31 +117,31 @@
 //Not even going to touch this pile of spaghetti
 /turf/simulated/mineral/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
-	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
+	if(!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
 		usr << "\red You don't have the dexterity to do this!"
 		return
 
-	if (istype(W, /obj/item/device/core_sampler))
+	if(istype(W, /obj/item/device/core_sampler))
 		geologic_data.UpdateNearbyArtifactInfo(src)
 		var/obj/item/device/core_sampler/C = W
 		C.sample_item(src, user)
 		return
 
-	if (istype(W, /obj/item/device/depth_scanner))
+	if(istype(W, /obj/item/device/depth_scanner))
 		var/obj/item/device/depth_scanner/C = W
 		C.scan_atom(user, src)
 		return
 
-	if (istype(W, /obj/item/device/measuring_tape))
+	if(istype(W, /obj/item/device/measuring_tape))
 		var/obj/item/device/measuring_tape/P = W
 		user.visible_message("<span class='notice'>\The [user] extends [P] towards [src].</span>","<span class='notice'>You extend [P] towards [src].</span>")
 		if(do_after(user,25, src))
 			user << "<span class='notice'>\icon[P] [src] has been excavated to a depth of [2*excavation_level]cm.</span>"
 		return
 
-	if (istype(W, /obj/item/weapon/pickaxe))
+	if(istype(W, /obj/item/weapon/pickaxe))
 		var/turf/T = user.loc
-		if (!( istype(T, /turf) ))
+		if(!( istype(T, /turf) ))
 			return
 
 		var/obj/item/weapon/pickaxe/P = W
@@ -262,7 +262,7 @@
 
 /turf/simulated/mineral/proc/GetDrilled(var/artifact_fail = 0)
 	//var/destroyed = 0 //used for breaking strange rocks
-	if (mineral && mineral.result_amount)
+	if(mineral && mineral.result_amount)
 
 		//if the turf has already been excavated, some of it's ore has been removed
 		for(var/i = 1 to mineral.result_amount - mined_ore)
@@ -379,10 +379,10 @@
 	var/mineralChance = 100 //10 //means 10% chance of this plot changing to a mineral deposit
 
 /turf/simulated/mineral/random/New()
-	if (prob(mineralChance) && !mineral)
+	if(prob(mineralChance) && !mineral)
 		var/mineral_name = pickweight(mineralSpawnChanceList) //temp mineral name
 		mineral_name = lowertext(mineral_name)
-		if (mineral_name && (mineral_name in ore_data))
+		if(mineral_name && (mineral_name in ore_data))
 			mineral = ore_data[mineral_name]
 			UpdateMineral()
 
@@ -424,7 +424,7 @@
 		if(3.0)
 			return
 		if(2.0)
-			if (prob(70))
+			if(prob(70))
 				gets_dug()
 		if(1.0)
 			gets_dug()
@@ -451,12 +451,12 @@
 			break
 
 	if(valid_tool)
-		if (dug)
+		if(dug)
 			user << "\red This area has already been dug"
 			return
 
 		var/turf/T = user.loc
-		if (!(istype(T)))
+		if(!(istype(T)))
 			return
 
 		user << "\red You start digging."

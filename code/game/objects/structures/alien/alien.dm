@@ -23,7 +23,7 @@
 		if(2.0)
 			health-=50
 		if(3.0)
-			if (prob(50))
+			if(prob(50))
 				health-=50
 			else
 				health-=25

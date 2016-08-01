@@ -386,7 +386,7 @@ About the new airlock wires panel:
 	return ((src.aiControlDisabled==1) && (!hackProof) && (!src.isAllPowerLoss()));
 
 /obj/machinery/door/airlock/proc/arePowerSystemsOn()
-	if (stat & (NOPOWER|BROKEN))
+	if(stat & (NOPOWER|BROKEN))
 		return 0
 	return (src.main_power_lost_until==0 || src.backup_power_lost_until==0)
 
@@ -484,11 +484,11 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/proc/set_safeties(var/activate, var/feedback = 0)
 	var/message = ""
 	// Safeties!  We don't need no stinking safeties!
-	if (src.isWireCut(AIRLOCK_WIRE_SAFETY))
+	if(src.isWireCut(AIRLOCK_WIRE_SAFETY))
 		message = text("The safety wire is cut - Cannot enable safeties.")
-	else if (!activate && src.safe)
+	else if(!activate && src.safe)
 		safe = 0
-	else if (activate && !src.safe)
+	else if(activate && !src.safe)
 		safe = 1
 
 	if(feedback && message)
@@ -524,14 +524,14 @@ About the new airlock wires panel:
 			overlays = list()
 			if(p_open)
 				overlays += image(icon, "panel_open")
-			if (!(stat & NOPOWER))
+			if(!(stat & NOPOWER))
 				if(stat & BROKEN)
 					overlays += image(icon, "sparks_broken")
-				else if (health < maxhealth * 3/4)
+				else if(health < maxhealth * 3/4)
 					overlays += image(icon, "sparks_damaged")
 			if(welded)
 				overlays += image(icon, "welded")
-		else if (health < maxhealth * 3/4 && !(stat & NOPOWER))
+		else if(health < maxhealth * 3/4 && !(stat & NOPOWER))
 			overlays += image(icon, "sparks_damaged")
 	else
 		icon_state = "door_open"
@@ -594,7 +594,7 @@ About the new airlock wires panel:
 	data["commands"] = commands
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "door_control.tmpl", "Door Controls", 450, 350, state = state)
 		ui.set_initial_data(data)
 		ui.open()
@@ -645,14 +645,14 @@ About the new airlock wires panel:
 			sleep(10)
 			//bring up airlock dialog
 			src.aiHacking = 0
-			if (user)
+			if(user)
 				src.attack_ai(user)
 
 /obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if (src.isElectrified())
-		if (istype(mover, /obj/item))
+	if(src.isElectrified())
+		if(istype(mover, /obj/item))
 			var/obj/item/i = mover
-			if (i.matter && (DEFAULT_WALL_MATERIAL in i.matter) && i.matter[DEFAULT_WALL_MATERIAL] > 0)
+			if(i.matter && (DEFAULT_WALL_MATERIAL in i.matter) && i.matter[DEFAULT_WALL_MATERIAL] > 0)
 				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
@@ -697,7 +697,7 @@ About the new airlock wires panel:
 		if(src.canAIHack(user))
 			src.hack(user)
 		else
-			if (src.isAllPowerLoss()) //don't really like how this gets checked a second time, but not sure how else to do it.
+			if(src.isAllPowerLoss()) //don't really like how this gets checked a second time, but not sure how else to do it.
 				user << "<span class='warning'>Unable to interface: Connection timed out.</span>"
 			else
 				user << "<span class='warning'>Unable to interface: Connection refused.</span>"
@@ -745,18 +745,18 @@ About the new airlock wires panel:
 			// Door speed control
 			if(src.isWireCut(AIRLOCK_WIRE_SPEED))
 				usr << text("The timing wire is cut - Cannot alter timing.")
-			else if (activate && src.normalspeed)
+			else if(activate && src.normalspeed)
 				normalspeed = 0
-			else if (!activate && !src.normalspeed)
+			else if(!activate && !src.normalspeed)
 				normalspeed = 1
 		if("lights")
 			// Bolt lights
 			if(src.isWireCut(AIRLOCK_WIRE_LIGHT))
 				usr << "The bolt lights wire is cut - The door bolt lights are permanently disabled."
-			else if (!activate && src.lights)
+			else if(!activate && src.lights)
 				lights = 0
 				usr << "The door bolt lights have been disabled."
-			else if (activate && !src.lights)
+			else if(activate && !src.lights)
 				lights = 1
 				usr << "The door bolt lights have been enabled."
 
@@ -803,8 +803,8 @@ About the new airlock wires panel:
 		else
 			return
 	else if(istype(C, /obj/item/weapon/screwdriver))
-		if (src.p_open)
-			if (stat & BROKEN)
+		if(src.p_open)
+			if(stat & BROKEN)
 				usr << "<span class='warning'>The panel is broken and cannot be closed.</span>"
 			else
 				src.p_open = 0
@@ -828,7 +828,7 @@ About the new airlock wires panel:
 				user << "<span class='notice'>You removed the airlock electronics!</span>"
 
 				var/obj/structure/door_assembly/da = new assembly_type(src.loc)
-				if (istype(da, /obj/structure/door_assembly/multi_tile))
+				if(istype(da, /obj/structure/door_assembly/multi_tile))
 					da.set_dir(src.dir)
 
  				da.anchored = 1
@@ -845,7 +845,7 @@ About the new airlock wires panel:
 					new /obj/item/weapon/circuitboard/broken(src.loc)
 					operating = 0
 				else
-					if (!electronics) create_electronics()
+					if(!electronics) create_electronics()
 
 					electronics.loc = src.loc
 					electronics = null
@@ -891,10 +891,10 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/set_broken()
 	src.p_open = 1
 	stat |= BROKEN
-	if (secured_wires)
+	if(secured_wires)
 		lock()
 	for(var/mob/O in viewers(src, null))
-		if ((O.client && !( O.blinded )))
+		if((O.client && !( O.blinded )))
 			O.show_message("[src.name]'s control panel bursts open, sparks spewing out!")
 
 	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
@@ -974,7 +974,7 @@ About the new airlock wires panel:
 	if(locked)
 		return 0
 
-	if (operating && !forced) return 0
+	if(operating && !forced) return 0
 
 	src.locked = 1
 	for(var/mob/M in range(1,src))
@@ -986,7 +986,7 @@ About the new airlock wires panel:
 	if(!src.locked)
 		return
 
-	if (!forced)
+	if(!forced)
 		if(operating || !src.arePowerSystemsOn() || isWireCut(AIRLOCK_WIRE_DOOR_BOLTS)) return
 
 	src.locked = 0
@@ -1004,7 +1004,7 @@ About the new airlock wires panel:
 	..()
 
 	//if assembly is given, create the new door from the assembly
-	if (assembly && istype(assembly))
+	if(assembly && istype(assembly))
 		assembly_type = assembly.type
 
 		electronics = assembly.electronics
@@ -1032,7 +1032,7 @@ About the new airlock wires panel:
 	var/turf/T = get_turf(newloc)
 	if(T && (T.z in using_map.admin_levels))
 		secured_wires = 1
-	if (secured_wires)
+	if(secured_wires)
 		wires = new/datum/wires/airlock/secure(src)
 	else
 		wires = new/datum/wires/airlock(src)
@@ -1059,7 +1059,7 @@ About the new airlock wires panel:
 // the airlock is deconstructed
 /obj/machinery/door/airlock/proc/create_electronics()
 	//create new electronics
-	if (secured_wires)
+	if(secured_wires)
 		src.electronics = new/obj/item/weapon/airlock_electronics/secure( src.loc )
 	else
 		src.electronics = new/obj/item/weapon/airlock_electronics( src.loc )
@@ -1069,7 +1069,7 @@ About the new airlock wires panel:
 		src.check_access()
 	if(src.req_access.len)
 		electronics.conf_access = src.req_access
-	else if (src.req_one_access.len)
+	else if(src.req_one_access.len)
 		electronics.conf_access = src.req_one_access
 		electronics.one_access = 1
 

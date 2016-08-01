@@ -6,18 +6,18 @@
 /datum/surgery_step/generic/
 	can_infect = 1
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		if (isslime(target))
+		if(isslime(target))
 			return 0
-		if (target_zone == "eyes")	//there are specific steps for eye surgery
+		if(target_zone == "eyes")	//there are specific steps for eye surgery
 			return 0
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return 0
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if (affected == null)
+		if(affected == null)
 			return 0
-		if (affected.is_stump())
+		if(affected.is_stump())
 			return 0
-		if (affected.robotic >= ORGAN_ROBOT)
+		if(affected.robotic >= ORGAN_ROBOT)
 			return 0
 		return 1
 
@@ -200,10 +200,10 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		var/msg = "[user] starts to pry open the incision on [target]'s [affected.name] with \the [tool]."
 		var/self_msg = "You start to pry open the incision on [target]'s [affected.name] with \the [tool]."
-		if (target_zone == "chest")
+		if(target_zone == "chest")
 			msg = "[user] starts to separate the ribcage and rearrange the organs in [target]'s torso with \the [tool]."
 			self_msg = "You start to separate the ribcage and rearrange the organs in [target]'s torso with \the [tool]."
-		if (target_zone == "groin")
+		if(target_zone == "groin")
 			msg = "[user] starts to pry open the incision and rearrange the organs in [target]'s lower abdomen with \the [tool]."
 			self_msg = "You start to pry open the incision and rearrange the organs in [target]'s lower abdomen with \the [tool]."
 		user.visible_message(msg, self_msg)
@@ -214,10 +214,10 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		var/msg = "\blue [user] keeps the incision open on [target]'s [affected.name] with \the [tool]."
 		var/self_msg = "\blue You keep the incision open on [target]'s [affected.name] with \the [tool]."
-		if (target_zone == "chest")
+		if(target_zone == "chest")
 			msg = "\blue [user] keeps the ribcage open on [target]'s torso with \the [tool]."
 			self_msg = "\blue You keep the ribcage open on [target]'s torso with \the [tool]."
-		if (target_zone == "groin")
+		if(target_zone == "groin")
 			msg = "\blue [user] keeps the incision open on [target]'s lower abdomen with \the [tool]."
 			self_msg = "\blue You keep the incision open on [target]'s lower abdomen with \the [tool]."
 		user.visible_message(msg, self_msg)
@@ -227,10 +227,10 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		var/msg = "\red [user]'s hand slips, tearing the edges of the incision on [target]'s [affected.name] with \the [tool]!"
 		var/self_msg = "\red Your hand slips, tearing the edges of the incision on [target]'s [affected.name] with \the [tool]!"
-		if (target_zone == "chest")
+		if(target_zone == "chest")
 			msg = "\red [user]'s hand slips, damaging several organs in [target]'s torso with \the [tool]!"
 			self_msg = "\red Your hand slips, damaging several organs in [target]'s torso with \the [tool]!"
-		if (target_zone == "groin")
+		if(target_zone == "groin")
 			msg = "\red [user]'s hand slips, damaging several organs in [target]'s lower abdomen with \the [tool]"
 			self_msg = "\red Your hand slips, damaging several organs in [target]'s lower abdomen with \the [tool]!"
 		user.visible_message(msg, self_msg)
@@ -283,12 +283,12 @@
 	max_duration = 160
 
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		if (target_zone == "eyes")	//there are specific steps for eye surgery
+		if(target_zone == "eyes")	//there are specific steps for eye surgery
 			return 0
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return 0
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if (affected == null)
+		if(affected == null)
 			return 0
 		return !affected.cannot_amputate
 

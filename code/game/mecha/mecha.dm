@@ -271,7 +271,7 @@
 				return
 		var/obj/mecha/Mech = M.loc
 		spawn() //this helps prevent clickspam fest.
-			if (Mech)
+			if(Mech)
 				Mech.click_action(object,M)
 //	else
 //		return ..()
@@ -293,7 +293,7 @@
 		if(!target)
 			return
 	if(istype(target, /obj/machinery))
-		if (src.interface_action(target))
+		if(src.interface_action(target))
 			return
 	if(!target.Adjacent(src))
 		if(selected && selected.is_ranged())
@@ -576,7 +576,7 @@
 			user.visible_message("<span class='danger'>\The [user] hits \the [src]. Nothing happens.</span>","<span class='danger'>You hit \the [src] with no visible effect.</span>")
 			src.log_append_to_last("Armor saved.")
 		return
-	else if ((HULK in user.mutations) && !deflect_hit(is_melee=1))
+	else if((HULK in user.mutations) && !deflect_hit(is_melee=1))
 		src.hit_damage(damage=15, is_melee=1)
 		src.check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 		user.visible_message("<font color='red'><b>[user] hits [src.name], doing some damage.</b></font>", "<font color='red'><b>You hit [src.name] with all your might. The metal creaks and bends.</b></font>")
@@ -654,13 +654,13 @@
 		if(1.0)
 			qdel(src)
 		if(2.0)
-			if (prob(30))
+			if(prob(30))
 				qdel(src)
 			else
 				src.take_damage(initial(src.health)/2)
 				src.check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT),1)
 		if(3.0)
-			if (prob(5))
+			if(prob(5))
 				qdel(src)
 			else
 				src.take_damage(initial(src.health)/5)
@@ -801,8 +801,8 @@
 
 	else if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != I_HURT)
 		var/obj/item/weapon/weldingtool/WT = W
-		if (WT.remove_fuel(0,user))
-			if (hasInternalDamage(MECHA_INT_TANK_BREACH))
+		if(WT.remove_fuel(0,user))
+			if(hasInternalDamage(MECHA_INT_TANK_BREACH))
 				clearInternalDamage(MECHA_INT_TANK_BREACH)
 				user << "<span class='notice'>You repair the damaged gas tank.</span>"
 				user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
@@ -1002,10 +1002,10 @@
 	set name = "Enter Exosuit"
 	set src in oview(1)
 
-	if (usr.stat || !ishuman(usr))
+	if(usr.stat || !ishuman(usr))
 		return
 
-	if (usr.buckled)
+	if(usr.buckled)
 		usr << "<span class='warning'>You can't climb into the exosuit while buckled!</span>"
 		return
 
@@ -1015,12 +1015,12 @@
 		if(C.handcuffed)
 			usr << "<span class='danger'>Kinda hard to climb in while handcuffed don't you think?</span>"
 			return
-	if (src.occupant)
+	if(src.occupant)
 		usr << "<span class='danger'>The [src.name] is already occupied!</span>"
 		src.log_append_to_last("Permission denied.")
 		return
 /*
-	if (usr.abiotic())
+	if(usr.abiotic())
 		usr << "<span class='notice'>Subject cannot have abiotic items on.</span>"
 		return
 */
@@ -1390,7 +1390,7 @@
 	if(!id_card || !user) return
 
 	var/maint_options = "<a href='?src=\ref[src];set_internal_tank_valve=1;user=\ref[user]'>Set Cabin Air Pressure</a>"
-	if (locate(/obj/item/mecha_parts/mecha_equipment/tool/passenger) in contents)
+	if(locate(/obj/item/mecha_parts/mecha_equipment/tool/passenger) in contents)
 		maint_options += "<a href='?src=\ref[src];remove_passenger=1;user=\ref[user]'>Remove Passenger</a>"
 
 	var/output = {"<html>
@@ -1481,7 +1481,7 @@
 	if(href_list["rfreq"])
 		if(usr != src.occupant)	return
 		var/new_frequency = (radio.frequency + filter.getNum("rfreq"))
-		if ((radio.frequency < PUBLIC_LOW_FREQ || radio.frequency > PUBLIC_HIGH_FREQ))
+		if((radio.frequency < PUBLIC_LOW_FREQ || radio.frequency > PUBLIC_HIGH_FREQ))
 			new_frequency = sanitize_frequency(new_frequency)
 		radio.set_frequency(new_frequency)
 		send_byjax(src.occupant,"exosuit.browser","rfreq","[format_frequency(radio.frequency)]")
@@ -1490,16 +1490,16 @@
 		if(usr != src.occupant)	return
 		src.disconnect_from_port()
 		return
-	if (href_list["port_connect"])
+	if(href_list["port_connect"])
 		if(usr != src.occupant)	return
 		src.connect_to_port()
 		return
-	if (href_list["view_log"])
+	if(href_list["view_log"])
 		if(usr != src.occupant)	return
 		src.occupant << browse(src.get_log_html(), "window=exosuit_log")
 		onclose(occupant, "exosuit_log")
 		return
-	if (href_list["change_name"])
+	if(href_list["change_name"])
 		if(usr != src.occupant)	return
 		var/newname = sanitizeSafe(input(occupant,"Choose new exosuit name","Rename exosuit",initial(name)) as text, MAX_NAME_LEN)
 		if(newname)
@@ -1507,7 +1507,7 @@
 		else
 			alert(occupant, "nope.avi")
 		return
-	if (href_list["toggle_id_upload"])
+	if(href_list["toggle_id_upload"])
 		if(usr != src.occupant)	return
 		add_req_access = !add_req_access
 		send_byjax(src.occupant,"exosuit.browser","t_id_upload","[add_req_access?"L":"Unl"]ock ID upload panel")
@@ -1548,23 +1548,23 @@
 		var/mob/user = filter.getMob("user")
 		var/list/passengers = list()
 		for(var/obj/item/mecha_parts/mecha_equipment/tool/passenger/P in contents)
-			if (P.occupant)
+			if(P.occupant)
 				passengers["[P.occupant]"] = P
 
-		if (!passengers)
+		if(!passengers)
 			user << "<span class='warning'>There are no passengers to remove.</span>"
 			return
 
 		var/pname = input(user, "Choose a passenger to forcibly remove.", "Forcibly Remove Passenger") as null|anything in passengers
 
-		if (!pname)
+		if(!pname)
 			return
 
 		var/obj/item/mecha_parts/mecha_equipment/tool/passenger/P = passengers[pname]
 		var/mob/occupant = P.occupant
 
 		user.visible_message("<span class='notice'>\The [user] begins opening the hatch on \the [P]...</span>", "<span class='notice'>You begin opening the hatch on \the [P]...</span>")
-		if (!do_after(user, 40, needhand=0))
+		if(!do_after(user, 40, needhand=0))
 			return
 
 		user.visible_message("<span class='notice'>\The [user] opens the hatch on \the [P] and removes [occupant]!</span>", "<span class='notice'>You open the hatch on \the [P] and remove [occupant]!</span>")
@@ -1627,7 +1627,7 @@
 
 /*
 
-	if (href_list["ai_take_control"])
+	if(href_list["ai_take_control"])
 		var/mob/living/silicon/ai/AI = locate(href_list["ai_take_control"])
 		var/duration = text2num(href_list["duration"])
 		var/mob/living/silicon/ai/O = new /mob/living/silicon/ai(src)
@@ -1665,7 +1665,7 @@
 			AI.toxloss = O.toxloss
 			AI.updatehealth()
 			qdel(O)
-			if (!AI.stat)
+			if(!AI.stat)
 				AI.icon_state = "ai"
 			else
 				AI.icon_state = "ai-crash"
@@ -1698,7 +1698,7 @@
 	return 0
 
 /obj/mecha/proc/reset_icon()
-	if (initial_icon)
+	if(initial_icon)
 		icon_state = initial_icon
 	else
 		icon_state = initial(icon_state)

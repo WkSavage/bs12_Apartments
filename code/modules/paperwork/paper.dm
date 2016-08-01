@@ -401,16 +401,16 @@
 		return
 
 	if(istype(P, /obj/item/weapon/paper) || istype(P, /obj/item/weapon/photo))
-		if (istype(P, /obj/item/weapon/paper/carbon))
+		if(istype(P, /obj/item/weapon/paper/carbon))
 			var/obj/item/weapon/paper/carbon/C = P
-			if (!C.iscopy && !C.copied)
+			if(!C.iscopy && !C.copied)
 				user << "<span class='notice'>Take off the carbon copy first.</span>"
 				add_fingerprint(user)
 				return
 		var/obj/item/weapon/paper_bundle/B = new(src.loc)
-		if (name != "paper")
+		if(name != "paper")
 			B.name = name
-		else if (P.name != "paper" && P.name != "photo")
+		else if(P.name != "paper" && P.name != "photo")
 			B.name = P.name
 
 		user.drop_from_inventory(P)
@@ -431,7 +431,7 @@
 			return
 
 		var/obj/item/weapon/pen/robopen/RP = P
-		if ( istype(RP) && RP.mode == 2 )
+		if( istype(RP) && RP.mode == 2 )
 			RP.RenamePaper(user,src)
 		else
 			user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info_links][stamps]</BODY></HTML>", "window=[name]")

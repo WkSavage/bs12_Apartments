@@ -39,7 +39,7 @@
 /obj/item/clothing/mob_can_equip(M as mob, slot)
 
 	//if we can't equip the item anyway, don't bother with species_restricted (cuts down on spam)
-	if (!..())
+	if(!..())
 		return 0
 
 	if(species_restricted && istype(M,/mob/living/carbon/human))
@@ -75,12 +75,12 @@
 			species_restricted = list(target_species)
 
 	//Set icon
-	if (sprite_sheets_refit && (target_species in sprite_sheets_refit))
+	if(sprite_sheets_refit && (target_species in sprite_sheets_refit))
 		icon_override = sprite_sheets_refit[target_species]
 	else
 		icon_override = initial(icon_override)
 
-	if (sprite_sheets_obj && (target_species in sprite_sheets_obj))
+	if(sprite_sheets_obj && (target_species in sprite_sheets_obj))
 		icon = sprite_sheets_obj[target_species]
 	else
 		icon = initial(icon)
@@ -98,12 +98,12 @@
 			species_restricted = list(target_species)
 
 	//Set icon
-	if (sprite_sheets_refit && (target_species in sprite_sheets_refit))
+	if(sprite_sheets_refit && (target_species in sprite_sheets_refit))
 		icon_override = sprite_sheets_refit[target_species]
 	else
 		icon_override = initial(icon_override)
 
-	if (sprite_sheets_obj && (target_species in sprite_sheets_obj))
+	if(sprite_sheets_obj && (target_species in sprite_sheets_obj))
 		icon = sprite_sheets_obj[target_species]
 	else
 		icon = initial(icon)
@@ -118,7 +118,7 @@
 	sprite_sheets = list("Resomi" = 'icons/mob/species/resomi/ears.dmi')
 
 /obj/item/clothing/ears/update_clothing_icon()
-	if (ismob(src.loc))
+	if(ismob(src.loc))
 		var/mob/M = src.loc
 		M.update_inv_ears()
 
@@ -155,7 +155,7 @@ BLIND     // can't see anything
 		)
 
 /obj/item/clothing/glasses/update_clothing_icon()
-	if (ismob(src.loc))
+	if(ismob(src.loc))
 		var/mob/M = src.loc
 		M.update_inv_glasses()
 
@@ -180,7 +180,7 @@ BLIND     // can't see anything
 		)
 
 /obj/item/clothing/gloves/update_clothing_icon()
-	if (ismob(src.loc))
+	if(ismob(src.loc))
 		var/mob/M = src.loc
 		M.update_inv_gloves()
 
@@ -188,7 +188,7 @@ BLIND     // can't see anything
 	if(cell)
 		//why is this not part of the powercell code?
 		cell.charge -= 1000 / severity
-		if (cell.charge < 0)
+		if(cell.charge < 0)
 			cell.charge = 0
 	..()
 
@@ -198,7 +198,7 @@ BLIND     // can't see anything
 
 /obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user)
 	if(istype(W, /obj/item/weapon/wirecutters) || istype(W, /obj/item/weapon/scalpel))
-		if (clipped)
+		if(clipped)
 			user << "<span class='notice'>The [src] have already been clipped!</span>"
 			update_icon()
 			return
@@ -319,7 +319,7 @@ BLIND     // can't see anything
 		H.update_inv_head()
 
 /obj/item/clothing/head/update_clothing_icon()
-	if (ismob(src.loc))
+	if(ismob(src.loc))
 		var/mob/M = src.loc
 		M.update_inv_head()
 
@@ -341,7 +341,7 @@ BLIND     // can't see anything
 	var/list/say_verbs
 
 /obj/item/clothing/mask/update_clothing_icon()
-	if (ismob(src.loc))
+	if(ismob(src.loc))
 		var/mob/M = src.loc
 		M.update_inv_wear_mask()
 
@@ -424,7 +424,7 @@ BLIND     // can't see anything
 	return
 
 /obj/item/clothing/shoes/update_clothing_icon()
-	if (ismob(src.loc))
+	if(ismob(src.loc))
 		var/mob/M = src.loc
 		M.update_inv_shoes()
 
@@ -448,7 +448,7 @@ BLIND     // can't see anything
 		)
 
 /obj/item/clothing/suit/update_clothing_icon()
-	if (ismob(src.loc))
+	if(ismob(src.loc))
 		var/mob/M = src.loc
 		M.update_inv_wear_suit()
 
@@ -491,7 +491,7 @@ BLIND     // can't see anything
 /obj/item/clothing/under/attack_hand(var/mob/user)
 	if(accessories && accessories.len)
 		..()
-	if ((ishuman(usr) || issmall(usr)) && src.loc == user)
+	if((ishuman(usr) || issmall(usr)) && src.loc == user)
 		return
 	..()
 
@@ -557,7 +557,7 @@ BLIND     // can't see anything
 	if(H) update_clothing_icon()
 
 /obj/item/clothing/under/update_clothing_icon()
-	if (ismob(src.loc))
+	if(ismob(src.loc))
 		var/mob/M = src.loc
 		M.update_inv_w_uniform()
 
@@ -576,8 +576,8 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/proc/set_sensors(mob/user as mob)
 	var/mob/M = user
-	if (isobserver(M)) return
-	if (user.incapacitated()) return
+	if(isobserver(M)) return
+	if(user.incapacitated()) return
 	if(has_sensor >= SUIT_LOCKED_SENSORS)
 		user << "The controls are locked."
 		return 0
@@ -592,7 +592,7 @@ BLIND     // can't see anything
 		return
 	sensor_mode = modes.Find(switchMode) - 1
 
-	if (src.loc == user)
+	if(src.loc == user)
 		switch(sensor_mode)
 			if(0)
 				user.visible_message("[user] adjusts the tracking sensor on \his [src.name].", "You disable your suit's remote sensing equipment.")
@@ -603,7 +603,7 @@ BLIND     // can't see anything
 			if(3)
 				user.visible_message("[user] adjusts the tracking sensor on \his [src.name].", "Your suit will now report your vital lifesigns as well as your coordinate position.")
 
-	else if (ismob(src.loc))
+	else if(ismob(src.loc))
 		if(sensor_mode == 0)
 			user.visible_message("<span class='warning'>[user] disables [src.loc]'s remote sensing equipment.</span>", "You disable [src.loc]'s remote sensing equipment.")
 		else

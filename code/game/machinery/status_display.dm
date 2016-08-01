@@ -84,7 +84,7 @@
 		if(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)				//emergency shuttle timer
 			if(emergency_shuttle.waiting_to_leave())
 				message1 = "-ETD-"
-				if (emergency_shuttle.shuttle.is_launching())
+				if(emergency_shuttle.shuttle.is_launching())
 					message2 = "Launch"
 				else
 					message2 = get_shuttle_timer_departure()
@@ -177,7 +177,7 @@
 
 /obj/machinery/status_display/proc/get_supply_shuttle_timer()
 	var/datum/shuttle/ferry/supply/shuttle = supply_controller.shuttle
-	if (!shuttle)
+	if(!shuttle)
 		return "Error"
 
 	if(shuttle.has_arrive_time())

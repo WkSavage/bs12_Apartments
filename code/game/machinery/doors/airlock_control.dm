@@ -10,7 +10,7 @@ obj/machinery/door/airlock
 
 obj/machinery/door/airlock/process()
 	..()
-	if (arePowerSystemsOn())
+	if(arePowerSystemsOn())
 		execute_current_command()
 
 obj/machinery/door/airlock/receive_signal(datum/signal/signal)
@@ -21,7 +21,7 @@ obj/machinery/door/airlock/receive_signal(datum/signal/signal)
 	cur_command = signal.data["command"]
 
 	//if there's no power, recieve the signal but just don't do anything. This allows airlocks to continue to work normally once power is restored
-	if (arePowerSystemsOn()) return //no power
+	if(arePowerSystemsOn()) return //no power
 
 	spawn()
 		execute_current_command()
@@ -30,11 +30,11 @@ obj/machinery/door/airlock/proc/execute_current_command()
 	if(operating)
 		return //emagged or busy doing something else
 
-	if (!cur_command)
+	if(!cur_command)
 		return
 
 	do_command(cur_command)
-	if (command_completed(cur_command))
+	if(command_completed(cur_command))
 		cur_command = null
 
 obj/machinery/door/airlock/proc/do_command(var/command)
@@ -100,7 +100,7 @@ obj/machinery/door/airlock/proc/send_status(var/bumped = 0)
 		signal.data["door_status"] = density?("closed"):("open")
 		signal.data["lock_status"] = locked?("locked"):("unlocked")
 
-		if (bumped)
+		if(bumped)
 			signal.data["bumped_with_access"] = 1
 
 		radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
@@ -259,7 +259,7 @@ obj/machinery/access_button/update_icon()
 
 obj/machinery/access_button/attackby(obj/item/I as obj, mob/user as mob)
 	//Swiping ID on the access button
-	if (istype(I, /obj/item/weapon/card/id) || istype(I, /obj/item/device/pda))
+	if(istype(I, /obj/item/weapon/card/id) || istype(I, /obj/item/device/pda))
 		attack_hand(user)
 		return
 	..()

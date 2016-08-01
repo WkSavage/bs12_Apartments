@@ -12,9 +12,9 @@
 	active_power_usage = 10000
 
 /obj/machinery/robotic_fabricator/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if (istype(O, /obj/item/stack/material) && O.get_material_name() == DEFAULT_WALL_MATERIAL)
+	if(istype(O, /obj/item/stack/material) && O.get_material_name() == DEFAULT_WALL_MATERIAL)
 		var/obj/item/stack/M = O
-		if (src.metal_amount < 150000.0)
+		if(src.metal_amount < 150000.0)
 			var/count = 0
 			src.overlays += "fab-load-metal"
 			spawn(15)
@@ -34,10 +34,10 @@
 
 /obj/machinery/robotic_fabricator/attack_hand(user as mob)
 	var/dat
-	if (..())
+	if(..())
 		return
 
-	if (src.operating)
+	if(src.operating)
 		dat = {"
 <TT>Building [src.being_built.name].<BR>
 Please wait until completion...</TT><BR>
@@ -61,14 +61,14 @@ Please wait until completion...</TT><BR>
 	return
 
 /obj/machinery/robotic_fabricator/Topic(href, href_list)
-	if (..())
+	if(..())
 		return
 
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 
-	if (href_list["make"])
-		if (!src.operating)
+	if(href_list["make"])
+		if(!src.operating)
 			var/part_type = text2num(href_list["make"])
 
 			var/build_type = null
@@ -76,44 +76,44 @@ Please wait until completion...</TT><BR>
 			var/build_cost = 25000
 
 			switch (part_type)
-				if (1)
+				if(1)
 					build_type = /obj/item/robot_parts/l_arm
 					build_time = 200
 					build_cost = 25000
 
-				if (2)
+				if(2)
 					build_type = /obj/item/robot_parts/r_arm
 					build_time = 200
 					build_cost = 25000
 
-				if (3)
+				if(3)
 					build_type = /obj/item/robot_parts/l_leg
 					build_time = 200
 					build_cost = 25000
 
-				if (4)
+				if(4)
 					build_type = /obj/item/robot_parts/r_leg
 					build_time = 200
 					build_cost = 25000
 
-				if (5)
+				if(5)
 					build_type = /obj/item/robot_parts/chest
 					build_time = 350
 					build_cost = 50000
 
-				if (6)
+				if(6)
 					build_type = /obj/item/robot_parts/head
 					build_time = 350
 					build_cost = 50000
 
-				if (7)
+				if(7)
 					build_type = /obj/item/robot_parts/robot_suit
 					build_time = 600
 					build_cost = 75000
 
 			var/building = build_type
-			if (!isnull(building))
-				if (src.metal_amount >= build_cost)
+			if(!isnull(building))
+				if(src.metal_amount >= build_cost)
 					src.operating = 1
 					src.update_use_power(2)
 
@@ -125,7 +125,7 @@ Please wait until completion...</TT><BR>
 					src.updateUsrDialog()
 
 					spawn (build_time)
-						if (!isnull(src.being_built))
+						if(!isnull(src.being_built))
 							src.being_built.loc = get_turf(src)
 							src.being_built = null
 						src.update_use_power(1)
@@ -134,5 +134,5 @@ Please wait until completion...</TT><BR>
 		return
 
 	for(var/mob/M in viewers(1, src))
-		if (M.client && M.machine == src)
+		if(M.client && M.machine == src)
 			src.attack_hand(M)

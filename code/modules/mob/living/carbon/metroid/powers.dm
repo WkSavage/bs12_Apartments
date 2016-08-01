@@ -1,36 +1,36 @@
 /mob/living/carbon/slime/proc/Wrap(var/mob/living/M) // This is a proc for the clicks
-	if (Victim == M || src == M)
+	if(Victim == M || src == M)
 		Feedstop()
 		return
 
-	if (Victim)
+	if(Victim)
 		src << "I am already feeding..."
 		return
 
 	var t = invalidFeedTarget(M)
-	if (t)
+	if(t)
 		src << t
 		return
 
 	Feedon(M)
 
 /mob/living/carbon/slime/proc/invalidFeedTarget(var/mob/living/M)
-	if (!M || !istype(M))
+	if(!M || !istype(M))
 		return "This subject is incompatible..."
-	if (istype(M, /mob/living/carbon/slime)) // No cannibalism... yet
+	if(istype(M, /mob/living/carbon/slime)) // No cannibalism... yet
 		return "I cannot feed on other slimes..."
-	if (!Adjacent(M))
+	if(!Adjacent(M))
 		return "This subject is too far away..."
-	if (issilicon(M))
+	if(issilicon(M))
 		return "This subject does not have an edible life energy..."
-	if (M.getarmor(null, "bio") >= 100)
+	if(M.getarmor(null, "bio") >= 100)
 		return "This subject is protected..."
-	if (ishuman(M))
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.species.flags & (NO_POISON|NO_SCAN))
 			//they can't take clone or tox damage, then for the most part they aren't affected by being fed on - and presumably feeding on them would not affect the slime either
 			return "This subject does not have an edible life energy..."
-	if (istype(M, /mob/living/carbon) && M.getCloneLoss() >= M.maxHealth * 1.5 || istype(M, /mob/living/simple_animal) && M.stat == DEAD)
+	if(istype(M, /mob/living/carbon) && M.getCloneLoss() >= M.maxHealth * 1.5 || istype(M, /mob/living/simple_animal) && M.stat == DEAD)
 		return "This subject does not have an edible life energy..."
 	for(var/mob/living/carbon/slime/met in view())
 		if(met.Victim == M && met != src)
@@ -68,12 +68,12 @@
 
 			if(prob(15) && M.client && istype(M, /mob/living/carbon))
 				var/painMes = pick("You can feel your body becoming weak!", "You feel like you're about to die!", "You feel every part of your body screaming in agony!", "A low, rolling pain passes through your body!", "Your body feels as if it's falling apart!", "You feel extremely weak!", "A sharp, deep pain bathes every inch of your body!")
-				if (ishuman(M))
+				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					H.custom_pain(painMes)
-				else if (istype(M, /mob/living/carbon))
+				else if(istype(M, /mob/living/carbon))
 					var/mob/living/carbon/C = M
-					if (!(C.species && (C.species.flags & NO_PAIN)))
+					if(!(C.species && (C.species.flags & NO_PAIN)))
 						M << "<span class='danger'>[painMes]</span>"
 
 			gain_nutrition(rand(20,25) * hazmat)

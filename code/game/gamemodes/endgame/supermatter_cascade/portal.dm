@@ -34,7 +34,7 @@
 	if(!(A.singuloCanEat()))
 		return 0
 
-	if (istype(A, /mob/living/))
+	if(istype(A, /mob/living/))
 		var/mob/living/L = A
 		if(L.buckled && istype(L.buckled,/obj/structure/bed/))
 			var/turf/O = L.buckled
@@ -43,28 +43,28 @@
 		else
 			do_teleport(L, pick(endgame_safespawns)) //dead-on precision
 
-	else if (istype(A, /obj/mecha/))
+	else if(istype(A, /obj/mecha/))
 		do_teleport(A, pick(endgame_safespawns)) //dead-on precision
 
-	else if (isturf(A))
+	else if(isturf(A))
 		var/turf/T = A
 		var/dist = get_dist(T, src)
-		if (dist <= consume_range && T.density)
+		if(dist <= consume_range && T.density)
 			T.density = 0
 
 		for(var/atom/movable/AM in T.contents)
-			if (AM == src) // This is the snowflake.
+			if(AM == src) // This is the snowflake.
 				continue
 
-			if (dist <= consume_range)
+			if(dist <= consume_range)
 				consume(AM)
 				continue
 
-			if (dist > consume_range)
+			if(dist > consume_range)
 				if(!(AM.singuloCanEat()))
 					continue
 
-				if (101 == AM.invisibility)
+				if(101 == AM.invisibility)
 					continue
 
 				spawn (0)

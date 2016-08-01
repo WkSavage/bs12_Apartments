@@ -178,13 +178,13 @@ var/list/tape_roll_applications = list()
 			if(possible_dirs & (NORTH|SOUTH))
 				var/obj/item/tape/TP = new tape_type(start)
 				for(var/dir in list(NORTH, SOUTH))
-					if (possible_dirs & dir)
+					if(possible_dirs & dir)
 						TP.tape_dir += dir
 				TP.update_icon()
 			if(possible_dirs & (EAST|WEST))
 				var/obj/item/tape/TP = new tape_type(start)
 				for(var/dir in list(EAST, WEST))
-					if (possible_dirs & dir)
+					if(possible_dirs & dir)
 						TP.tape_dir += dir
 				TP.update_icon()
 			start = null
@@ -203,7 +203,7 @@ var/list/tape_roll_applications = list()
 		while (can_place)
 			if(cur.density == 1)
 				can_place = 0
-			else if (istype(cur, /turf/space))
+			else if(istype(cur, /turf/space))
 				can_place = 0
 			else
 				for(var/obj/O in cur)
@@ -213,7 +213,7 @@ var/list/tape_roll_applications = list()
 			if(cur == end)
 				break
 			cur = get_step_towards(cur,end)
-		if (!can_place)
+		if(!can_place)
 			start = null
 			update_icon()
 			usr << "<span class='warning'>You can't run \the [src] through that!</span>"
@@ -261,14 +261,14 @@ var/list/tape_roll_applications = list()
 	if(!proximity)
 		return
 
-	if (istype(A, /obj/machinery/door/airlock))
+	if(istype(A, /obj/machinery/door/airlock))
 		var/turf/T = get_turf(A)
 		var/obj/item/tape/P = new tape_type(T)
 		P.update_icon()
 		P.layer = 3.2
 		user << "<span class='notice'>You finish placing \the [src].</span>"
 
-	if (istype(A, /turf/simulated/floor) ||istype(A, /turf/unsimulated/floor))
+	if(istype(A, /turf/simulated/floor) ||istype(A, /turf/unsimulated/floor))
 		var/turf/F = A
 		var/direction = user.loc == F ? user.dir : turn(user.dir, 180)
 		var/icon/hazard_overlay = hazard_overlays["[direction]"]
@@ -295,7 +295,7 @@ var/list/tape_roll_applications = list()
 	if(!lifted && ismob(mover))
 		var/mob/M = mover
 		add_fingerprint(M)
-		if (!allowed(M))	//only select few learn art of not crumpling the tape
+		if(!allowed(M))	//only select few learn art of not crumpling the tape
 			M << "<span class='warning'>You are not supposed to go past [src]...</span>"
 			if(M.a_intent == I_HELP)
 				return 0
@@ -306,7 +306,7 @@ var/list/tape_roll_applications = list()
 	breaktape(W, user)
 
 /obj/item/tape/attack_hand(mob/user as mob)
-	if (user.a_intent == I_HELP && src.allowed(user))
+	if(user.a_intent == I_HELP && src.allowed(user))
 		user.show_viewers("<span class='notice'>\The [user] lifts \the [src], allowing passage.</span>")
 		for(var/obj/item/tape/T in gettapeline())
 			T.lift(100) //~10 seconds

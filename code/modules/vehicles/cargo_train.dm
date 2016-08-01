@@ -55,7 +55,7 @@
 
 	if(is_train_head() && !on)
 		return 0
-	
+
 	//space check ~no flying space trains sorry
 	if(on && istype(destination, /turf/space))
 		return 0
@@ -209,7 +209,7 @@
 		return
 
 	turn_on()
-	if (on)
+	if(on)
 		usr << "You start [src]'s engine."
 	else
 		if(cell.charge < charge_use)
@@ -230,7 +230,7 @@
 		return
 
 	turn_off()
-	if (!on)
+	if(!on)
 		usr << "You stop [src]'s engine."
 
 /obj/vehicle/train/cargo/engine/verb/remove_key()

@@ -106,7 +106,7 @@ steam.start() -- spawns the effect
 	..()
 	playsound(src.loc, "sparks", 100, 1)
 	var/turf/T = src.loc
-	if (istype(T, /turf))
+	if(istype(T, /turf))
 		T.hotspot_expose(1000,100)
 
 /obj/effect/sparks/initialize()
@@ -119,14 +119,14 @@ steam.start() -- spawns the effect
 
 /obj/effect/sparks/Destroy()
 	var/turf/T = src.loc
-	if (istype(T, /turf))
+	if(istype(T, /turf))
 		T.hotspot_expose(1000,100)
 	return ..()
 
 /obj/effect/sparks/Move()
 	..()
 	var/turf/T = src.loc
-	if (istype(T, /turf))
+	if(istype(T, /turf))
 		T.hotspot_expose(1000,100)
 
 /datum/effect/effect/system/spark_spread
@@ -191,9 +191,9 @@ steam.start() -- spawns the effect
 		affect(M)
 
 /obj/effect/effect/smoke/proc/affect(var/mob/living/carbon/M)
-	if (istype(M))
+	if(istype(M))
 		return 0
-	if (M.internal != null)
+	if(M.internal != null)
 		if(M.wear_mask && (M.wear_mask.item_flags & AIRTIGHT))
 			return 0
 		if(istype(M,/mob/living/carbon/human))
@@ -231,11 +231,11 @@ steam.start() -- spawns the effect
 		affect(M)
 
 /obj/effect/effect/smoke/bad/affect(var/mob/living/carbon/M)
-	if (!..())
+	if(!..())
 		return 0
 	M.drop_item()
 	M.adjustOxyLoss(1)
-	if (M.coughedtime != 1)
+	if(M.coughedtime != 1)
 		M.coughedtime = 1
 		M.emote("cough")
 		spawn ( 20 )
@@ -259,12 +259,12 @@ steam.start() -- spawns the effect
 		affect(M)
 
 /obj/effect/effect/smoke/sleepy/affect(mob/living/carbon/M as mob )
-	if (!..())
+	if(!..())
 		return 0
 
 	M.drop_item()
 	M:sleeping += 1
-	if (M.coughedtime != 1)
+	if(M.coughedtime != 1)
 		M.coughedtime = 1
 		M.emote("cough")
 		spawn ( 20 )
@@ -284,13 +284,13 @@ steam.start() -- spawns the effect
 		affect(R)
 
 /obj/effect/effect/smoke/mustard/affect(var/mob/living/carbon/human/R)
-	if (!..())
+	if(!..())
 		return 0
-	if (R.wear_suit != null)
+	if(R.wear_suit != null)
 		return 0
 
 	R.burn_skin(0.75)
-	if (R.coughedtime != 1)
+	if(R.coughedtime != 1)
 		R.coughedtime = 1
 		R.emote("gasp")
 		spawn (20)
@@ -339,7 +339,7 @@ steam.start() -- spawns the effect
 				sleep(10)
 				step(smoke,direction)
 			spawn(smoke.time_to_live*0.75+rand(10,30))
-				if (smoke) qdel(smoke)
+				if(smoke) qdel(smoke)
 				src.total_smoke--
 
 
@@ -461,7 +461,7 @@ steam.start() -- spawns the effect
 		return
 
 	start()
-		if (amount <= 2)
+		if(amount <= 2)
 			var/datum/effect/effect/system/spark_spread/s = PoolOrNew(/datum/effect/effect/system/spark_spread)
 			s.set_up(2, 1, location)
 			s.start()
@@ -469,7 +469,7 @@ steam.start() -- spawns the effect
 			for(var/mob/M in viewers(5, location))
 				M << "<span class='warning'>The solution violently explodes.</span>"
 			for(var/mob/M in viewers(1, location))
-				if (prob (50 * amount))
+				if(prob (50 * amount))
 					M << "<span class='warning'>The explosion knocks you down.</span>"
 					M.Weaken(rand(1,5))
 			return
@@ -480,16 +480,16 @@ steam.start() -- spawns the effect
 			var/flash = -1
 
 			// Clamp all values to fractions of max_explosion_range, following the same pattern as for tank transfer bombs
-			if (round(amount/12) > 0)
+			if(round(amount/12) > 0)
 				devst = devst + amount/12
 
-			if (round(amount/6) > 0)
+			if(round(amount/6) > 0)
 				heavy = heavy + amount/6
 
-			if (round(amount/3) > 0)
+			if(round(amount/3) > 0)
 				light = light + amount/3
 
-			if (flashing && flashing_factor)
+			if(flashing && flashing_factor)
 				flash = (amount/4) * flashing_factor
 
 			for(var/mob/M in viewers(8, location))

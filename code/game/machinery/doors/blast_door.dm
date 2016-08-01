@@ -132,7 +132,7 @@
 // Parameters: None
 // Description: Opens the door. Does necessary checks. Automatically closes if autoclose is true
 /obj/machinery/door/blast/open()
-	if (src.operating || (stat & BROKEN || stat & NOPOWER))
+	if(src.operating || (stat & BROKEN || stat & NOPOWER))
 		return
 	force_open()
 	if(autoclose)
@@ -144,7 +144,7 @@
 // Parameters: None
 // Description: Closes the door. Does necessary checks.
 /obj/machinery/door/blast/close()
-	if (src.operating || (stat & BROKEN || stat & NOPOWER))
+	if(src.operating || (stat & BROKEN || stat & NOPOWER))
 		return
 	force_close()
 

@@ -58,7 +58,7 @@
 	set desc = "Transfer Plasma to another alien"
 	set category = "Abilities"
 
-	if (get_dist(src,M) > 1)
+	if(get_dist(src,M) > 1)
 		src << "<span class='alium'>You need to be closer.</span>"
 		return
 
@@ -68,7 +68,7 @@
 		return
 
 	var/amount = input("Amount:", "Transfer Plasma to [M]") as num
-	if (amount)
+	if(amount)
 		amount = abs(round(amount))
 		if(check_alien_ability(amount,0,"plasma vessel"))
 			M.gain_plasma(amount)

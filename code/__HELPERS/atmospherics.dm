@@ -18,7 +18,7 @@
 	var/total_moles = mixture.total_moles
 
 	var/list/results = list()
-	if (total_moles>0)
+	if(total_moles>0)
 		results += "<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>"
 		for(var/mix in mixture.gas)
 			results += "<span class='notice'>[gas_data.name[mix]]: [round((mixture.gas[mix] / total_moles) * 100)]%</span>"

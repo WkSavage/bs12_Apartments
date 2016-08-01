@@ -62,12 +62,12 @@ var/global/list/narsie_list = list()
 /obj/singularity/narsie/process()
 	eat()
 
-	if (!target || prob(5))
+	if(!target || prob(5))
 		pickcultist()
 
 	move()
 
-	if (prob(25))
+	if(prob(25))
 		mezzer()
 
 /obj/singularity/narsie/large/eat()
@@ -168,7 +168,7 @@ var/global/list/narsie_list = list()
 		old_narsie(A)
 
 /obj/singularity/narsie/proc/new_narsie(const/atom/A)
-	if (istype(A, /mob/) && (get_dist(A, src) <= 7))
+	if(istype(A, /mob/) && (get_dist(A, src) <= 7))
 		var/mob/M = A
 
 		if(M.status_flags & GODMODE)
@@ -177,20 +177,20 @@ var/global/list/narsie_list = list()
 		M.cultify()
 
 //ITEM PROCESSING
-	else if (istype(A, /obj/))
+	else if(istype(A, /obj/))
 		var/obj/O = A
 		O.cultify()
 
 //TURF PROCESSING
-	else if (isturf(A))
+	else if(isturf(A))
 		var/dist = get_dist(A, src)
 
 		for(var/atom/movable/AM in A.contents)
-			if (dist <= consume_range)
+			if(dist <= consume_range)
 				consume(AM)
 				continue
 
-		if (dist <= consume_range && !istype(A, /turf/space))
+		if(dist <= consume_range && !istype(A, /turf/space))
 			var/turf/T = A
 			if(T.holy)
 				T.holy = 0 //Nar-Sie doesn't give a shit about sacred grounds.
@@ -200,7 +200,7 @@ var/global/list/narsie_list = list()
 	if(!(A.singuloCanEat()))
 		return 0
 
-	if (istype(A, /mob/living/))
+	if(istype(A, /mob/living/))
 		var/mob/living/C2 = A
 
 		if(C2.status_flags & GODMODE)
@@ -208,23 +208,23 @@ var/global/list/narsie_list = list()
 
 		C2.dust() // Changed from gib(), just for less lag.
 
-	else if (istype(A, /obj/))
+	else if(istype(A, /obj/))
 		qdel(A)
 
-		if (A)
+		if(A)
 			qdel(A)
-	else if (isturf(A))
+	else if(isturf(A))
 		var/dist = get_dist(A, src)
 
 		for(var/atom/movable/AM2 in A.contents)
-			if (AM2 == src) // This is the snowflake.
+			if(AM2 == src) // This is the snowflake.
 				continue
 
-			if (dist <= consume_range)
+			if(dist <= consume_range)
 				consume(AM2)
 				continue
 
-		if (dist <= consume_range && !istype(A, get_base_turf_by_area(A)))
+		if(dist <= consume_range && !istype(A, get_base_turf_by_area(A)))
 			var/turf/T2 = A
 			T2.ChangeTurf(get_base_turf_by_area(A))
 
@@ -232,7 +232,7 @@ var/global/list/narsie_list = list()
 	if(!(A.singuloCanEat()))
 		return 0
 
-	if (istype(A, /mob/living/))
+	if(istype(A, /mob/living/))
 		var/mob/living/C2 = A
 
 		if(C2.status_flags & GODMODE)
@@ -240,33 +240,33 @@ var/global/list/narsie_list = list()
 
 		C2.dust() // Changed from gib(), just for less lag.
 
-	else if (istype(A, /obj/))
+	else if(istype(A, /obj/))
 		qdel(A)
 
-		if (A)
+		if(A)
 			qdel(A)
-	else if (isturf(A))
+	else if(isturf(A))
 		var/dist = get_dist(A, src)
 
 		for(var/atom/movable/AM2 in A.contents)
-			if (AM2 == src) // This is the snowflake.
+			if(AM2 == src) // This is the snowflake.
 				continue
 
-			if (dist <= consume_range)
+			if(dist <= consume_range)
 				consume(AM2)
 				continue
 
-			if (dist > consume_range)
+			if(dist > consume_range)
 				if(!(AM2.singuloCanEat()))
 					continue
 
-				if (101 == AM2.invisibility)
+				if(101 == AM2.invisibility)
 					continue
 
 				spawn (0)
 					AM2.singularity_pull(src, src.current_size)
 
-		if (dist <= consume_range && !istype(A, get_base_turf_by_area(A)))
+		if(dist <= consume_range && !istype(A, get_base_turf_by_area(A)))
 			var/turf/T2 = A
 			T2.ChangeTurf(get_base_turf_by_area(A))
 
@@ -317,7 +317,7 @@ var/global/list/narsie_list = list()
 	target << "<span class='notice'><b>[capname] HAS LOST INTEREST IN YOU.</b></span>"
 	target = food
 
-	if (ishuman(target))
+	if(ishuman(target))
 		target << "<span class='danger'>[capname] HUNGERS FOR YOUR SOUL.</span>"
 	else
 		target << "<span class='danger'>[capname] HAS CHOSEN YOU TO LEAD HIM TO HIS NEXT MEAL.</span>"

@@ -5,16 +5,16 @@
 	message = sanitize(message)
 	log_whisper("[src.name]/[src.key] : [message]")
 
-	if (src.client)
-		if (src.client.prefs.muted & MUTE_IC)
+	if(src.client)
+		if(src.client.prefs.muted & MUTE_IC)
 			src << "\red You cannot whisper (muted)."
 			return
 
 
-	if (src.stat == 2)
+	if(src.stat == 2)
 		return src.say_dead(message)
 
-	if (src.stat)
+	if(src.stat)
 		return
 
 	if(name != GetVoice())
@@ -22,7 +22,7 @@
 
 	//parse the language code and consume it
 	var/datum/language/speaking = parse_language(message)
-	if (speaking)
+	if(speaking)
 		message = copytext(message,2+length(speaking.key))
 
 	whisper_say(message, speaking, alt_name)
@@ -31,7 +31,7 @@
 //This is used by both the whisper verb and human/say() to handle whispering
 /mob/living/carbon/human/proc/whisper_say(var/message, var/datum/language/speaking = null, var/alt_name="", var/verb="whispers")
 
-	if (istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
+	if(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
 		src << "<span class='danger'>You're muzzled and cannot speak!</span>"
 		return
 
@@ -42,8 +42,8 @@
 
 	var/not_heard //the message displayed to people who could not hear the whispering
 	var/adverb
-	if (speaking)
-		if (speaking.whisper_verb)
+	if(speaking)
+		if(speaking.whisper_verb)
 			verb = speaking.whisper_verb
 			not_heard = "[verb] something"
 		else
@@ -79,7 +79,7 @@
 
 	//ghosts
 	for(var/mob/M in dead_mob_list_)	//does this include players who joined as observers as well?
-		if (!(M.client))
+		if(!(M.client))
 			continue
 		if(M.stat == DEAD && M.is_preference_enabled(/datum/client_preference/ghost_ears))
 			listening |= M
@@ -93,7 +93,7 @@
 	//pass on the message to objects that can hear us.
 	for(var/obj/O in view(message_range, src))
 		spawn (0)
-			if (O)
+			if(O)
 				O.hear_talk(src, message, verb, speaking)
 
 	var/list/eavesdropping = hearers(eavesdropping_range, src)
@@ -114,13 +114,13 @@
 		M << speech_bubble
 		M.hear_say(message, verb, speaking, alt_name, italics, src)
 
-	if (eavesdropping.len)
+	if(eavesdropping.len)
 		var/new_message = stars(message)	//hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
 		for(var/mob/M in eavesdropping)
 			M << speech_bubble
 			M.hear_say(new_message, verb, speaking, alt_name, italics, src)
 
-	if (watching.len)
+	if(watching.len)
 		var/rendered = "<span class='game say'><span class='name'>[src.name]</span> [not_heard].</span>"
 		for(var/mob/M in watching)
 			M.show_message(rendered, 2)

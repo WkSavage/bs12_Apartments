@@ -21,7 +21,7 @@ obj/machinery/recharger/attackby(obj/item/weapon/G as obj, mob/user as mob)
 
 	var/allowed = 0
 	for(var/allowed_type in allowed_devices)
-		if (istype(G, allowed_type)) allowed = 1
+		if(istype(G, allowed_type)) allowed = 1
 
 	if(allowed)
 		if(charging)
@@ -31,10 +31,10 @@ obj/machinery/recharger/attackby(obj/item/weapon/G as obj, mob/user as mob)
 		if(!powered())
 			user << "<span class='warning'>The [name] blinks red as you try to insert the item!</span>"
 			return
-		if (istype(G, /obj/item/weapon/gun/energy/gun/nuclear) || istype(G, /obj/item/weapon/gun/energy/crossbow))
+		if(istype(G, /obj/item/weapon/gun/energy/gun/nuclear) || istype(G, /obj/item/weapon/gun/energy/crossbow))
 			user << "<span class='notice'>Your gun's recharge port was removed to make room for a miniaturized reactor.</span>"
 			return
-		if (istype(G, /obj/item/weapon/gun/energy/staff))
+		if(istype(G, /obj/item/weapon/gun/energy/staff))
 			return
 		if(istype(G, /obj/item/laptop))
 			var/obj/item/laptop/L = G

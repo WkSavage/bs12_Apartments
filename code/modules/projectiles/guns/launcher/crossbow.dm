@@ -136,7 +136,7 @@
 
 /obj/item/weapon/gun/launcher/crossbow/attackby(obj/item/W as obj, mob/user as mob)
 	if(!bolt)
-		if (istype(W,/obj/item/weapon/arrow))
+		if(istype(W,/obj/item/weapon/arrow))
 			user.drop_from_inventory(W, src)
 			bolt = W
 			user.visible_message("[user] slides [bolt] into [src].","You slide [bolt] into [src].")
@@ -144,7 +144,7 @@
 			return
 		else if(istype(W,/obj/item/stack/rods))
 			var/obj/item/stack/rods/R = W
-			if (R.use(1))
+			if(R.use(1))
 				bolt = new /obj/item/weapon/arrow/rod(src)
 				bolt.fingerprintslast = src.fingerprintslast
 				bolt.loc = src

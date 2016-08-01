@@ -177,7 +177,7 @@
 		return 0
 
 	user << "<span class='notice'>Now reinforcing...</span>"
-	if (!do_after(user, 40,src) || !S.use(2))
+	if(!do_after(user, 40,src) || !S.use(2))
 		return 1 //don't call parent attackby() past this point
 	user << "<span class='notice'>You added reinforcement!</span>"
 
@@ -197,7 +197,7 @@
 	qdel(src)
 
 /obj/structure/girder/attack_hand(mob/user as mob)
-	if (HULK in user.mutations)
+	if(HULK in user.mutations)
 		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
 		dismantle()
 		return
@@ -210,11 +210,11 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(30))
+			if(prob(30))
 				dismantle()
 			return
 		if(3.0)
-			if (prob(5))
+			if(prob(5))
 				dismantle()
 			return
 		else

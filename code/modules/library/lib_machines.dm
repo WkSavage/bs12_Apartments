@@ -238,7 +238,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 	onclose(user, "library")
 
 /obj/machinery/librarycomp/emag_act(var/remaining_charges, var/mob/user)
-	if (src.density && !src.emagged)
+	if(src.density && !src.emagged)
 		src.emagged = 1
 		return 1
 

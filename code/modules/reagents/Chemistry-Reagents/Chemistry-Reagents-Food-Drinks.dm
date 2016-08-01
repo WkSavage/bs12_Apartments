@@ -1264,7 +1264,7 @@
 	if(alien == IS_DIONA)
 		return
 	M.drowsyness = max(0, M.drowsyness - 7)
-	if (M.bodytemperature > 310)
+	if(M.bodytemperature > 310)
 		M.bodytemperature = max(310, M.bodytemperature - (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	M.make_jittery(5)
 	M.add_chemical_effect(CE_PULSE, 2)
@@ -1865,7 +1865,7 @@
 	if(dose > 60 && ishuman(M) && prob(5))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/heart/L = H.internal_organs_by_name["heart"]
-		if (L && istype(L))
+		if(L && istype(L))
 			if(dose < 120)
 				L.take_damage(10 * removed, 0)
 			else

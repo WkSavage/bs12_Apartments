@@ -4,12 +4,12 @@
 	set invisibility = 0
 	set background = 1
 
-	if (transforming)	return
+	if(transforming)	return
 	if(!loc)			return
 
 	..()
 
-	if (stat != DEAD && can_progress())
+	if(stat != DEAD && can_progress())
 		update_progression()
 
 	blinded = null
@@ -60,7 +60,7 @@
 
 		if(sleeping)
 			adjustHalLoss(-3)
-			if (mind)
+			if(mind)
 				if(mind.active && client != null)
 					sleeping = max(sleeping-1, 0)
 			blinded = 1
@@ -91,21 +91,21 @@
 
 /mob/living/carbon/alien/handle_regular_hud_updates()
 
-	if (stat == 2 || (XRAY in src.mutations))
+	if(stat == 2 || (XRAY in src.mutations))
 		sight |= SEE_TURFS
 		sight |= SEE_MOBS
 		sight |= SEE_OBJS
 		see_in_dark = 8
 		see_invisible = SEE_INVISIBLE_LEVEL_TWO
-	else if (stat != 2)
+	else if(stat != 2)
 		sight &= ~SEE_TURFS
 		sight &= ~SEE_MOBS
 		sight &= ~SEE_OBJS
 		see_in_dark = 2
 		see_invisible = SEE_INVISIBLE_LIVING
 
-	if (healths)
-		if (stat != 2)
+	if(healths)
+		if(stat != 2)
 			switch(health)
 				if(100 to INFINITY)
 					healths.icon_state = "health0"
@@ -124,7 +124,7 @@
 		else
 			healths.icon_state = "health7"
 
-	if (client)
+	if(client)
 		client.screen.Remove(global_hud.blurry,global_hud.druggy,global_hud.vimpaired)
 
 	if(stat != DEAD)
@@ -151,11 +151,11 @@
 
 	if(environment.temperature > (T0C+66))
 		adjustFireLoss((environment.temperature - (T0C+66))/5) // Might be too high, check in testing.
-		if (fire) fire.icon_state = "fire2"
+		if(fire) fire.icon_state = "fire2"
 		if(prob(20))
 			src << "<span class='danger'>You feel a searing heat!</span>"
 	else
-		if (fire) fire.icon_state = "fire0"
+		if(fire) fire.icon_state = "fire0"
 
 /mob/living/carbon/alien/handle_fire()
 	if(..())

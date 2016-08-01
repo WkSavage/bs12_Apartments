@@ -176,7 +176,7 @@
 	main.restartProcess(src.name)
 
 /datum/controller/process/proc/kill()
-	if (!killed)
+	if(!killed)
 		var/msg = "[name] process was killed at tick #[ticks]."
 		log_debug(msg)
 		message_admins(msg)
@@ -219,14 +219,14 @@
 
 	var/elapsedTime = getElapsedTime()
 
-	if (hung)
+	if(hung)
 		handleHung()
 		return
-	else if (elapsedTime > hang_restart_time)
+	else if(elapsedTime > hang_restart_time)
 		hung()
-	else if (elapsedTime > hang_alert_time)
+	else if(elapsedTime > hang_alert_time)
 		setStatus(PROCESS_STATUS_PROBABLY_HUNG)
-	else if (elapsedTime > hang_warning_time)
+	else if(elapsedTime > hang_warning_time)
 		setStatus(PROCESS_STATUS_MAYBE_HUNG)
 
 

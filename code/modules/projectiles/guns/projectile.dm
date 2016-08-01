@@ -61,7 +61,7 @@
 		if(handle_casings != HOLD_CASINGS)
 			ammo_magazine.stored_ammo -= chambered
 
-	if (chambered)
+	if(chambered)
 		return chambered.BB
 	return null
 
@@ -76,7 +76,7 @@
 	process_chambered()
 
 /obj/item/weapon/gun/projectile/proc/process_chambered()
-	if (!chambered) return
+	if(!chambered) return
 
 	switch(handle_casings)
 		if(EJECT_CASINGS) //eject casing onto ground.

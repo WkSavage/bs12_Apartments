@@ -111,17 +111,17 @@
 /datum/species/xenos/proc/regenerate(var/mob/living/carbon/human/H)
 	var/heal_rate = weeds_heal_rate
 	var/mend_prob = 10
-	if (!H.resting)
+	if(!H.resting)
 		heal_rate = weeds_heal_rate / 3
 		mend_prob = 1
 
 	//first heal damages
-	if (H.getBruteLoss() || H.getFireLoss() || H.getOxyLoss() || H.getToxLoss())
+	if(H.getBruteLoss() || H.getFireLoss() || H.getOxyLoss() || H.getToxLoss())
 		H.adjustBruteLoss(-heal_rate)
 		H.adjustFireLoss(-heal_rate)
 		H.adjustOxyLoss(-heal_rate)
 		H.adjustToxLoss(-heal_rate)
-		if (prob(5))
+		if(prob(5))
 			H << "<span class='alium'>You feel a soothing sensation come over you...</span>"
 		return 1
 
@@ -129,15 +129,15 @@
 	for(var/obj/item/organ/I in H.internal_organs)
 		if(I.damage > 0)
 			I.damage = max(I.damage - heal_rate, 0)
-			if (prob(5))
+			if(prob(5))
 				H << "<span class='alium'>You feel a soothing sensation within your [I.parent_organ]...</span>"
 			return 1
 
 	//next mend broken bones, approx 10 ticks each
 	for(var/obj/item/organ/external/E in H.bad_external_organs)
-		if (E.status & ORGAN_BROKEN)
-			if (prob(mend_prob))
-				if (E.mend_fracture())
+		if(E.status & ORGAN_BROKEN)
+			if(prob(mend_prob))
+				if(E.mend_fracture())
 					H << "<span class='alium'>You feel something mend itself inside your [E.name].</span>"
 			return 1
 

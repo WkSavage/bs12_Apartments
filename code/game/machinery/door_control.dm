@@ -7,10 +7,6 @@
 	var/desiredstate = 0
 	var/exposedwires = 0
 	var/wires = 3
-	/*
-	Bitflag,	1=checkID
-				2=Network Access
-	*/
 
 	anchored = 1.0
 	use_power = 1
@@ -78,19 +74,12 @@
 	desc = "It controls doors, remotely."
 
 	var/specialfunctions = 1
-	/*
-	Bitflag, 	1= open
-				2= idscan,
-				4= bolts
-				8= shock
-				16= door safties
-	*/
 
 /obj/machinery/button/remote/airlock/trigger()
 	for(var/obj/machinery/door/airlock/D in world)
 		if(D.id_tag == src.id)
 			if(specialfunctions & OPEN)
-				if (D.density)
+				if(D.density)
 					spawn(0)
 						D.open()
 						return
@@ -170,7 +159,7 @@
 	update_icon()
 
 	for(var/obj/machinery/door/blast/M in machines)
-		if (M.id == src.id)
+		if(M.id == src.id)
 			spawn( 0 )
 				M.open()
 				return
@@ -184,7 +173,7 @@
 	sleep(50)
 
 	for(var/obj/machinery/door/blast/M in machines)
-		if (M.id == src.id)
+		if(M.id == src.id)
 			spawn(0)
 				M.close()
 				return

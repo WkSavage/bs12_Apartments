@@ -20,23 +20,23 @@
 	return
 
 /obj/item/weapon/implanter/proc/update()
-	if (src.imp)
+	if(src.imp)
 		src.icon_state = "implanter1"
 	else
 		src.icon_state = "implanter0"
 	return
 
 /obj/item/weapon/implanter/attack(mob/M as mob, mob/user as mob)
-	if (!istype(M, /mob/living/carbon))
+	if(!istype(M, /mob/living/carbon))
 		return
-	if (user && src.imp)
+	if(user && src.imp)
 		M.visible_message("<span class='warning'>[user] is attemping to implant [M].</span>")
 
 		user.setClickCooldown(DEFAULT_QUICK_COOLDOWN)
 		user.do_attack_animation(M)
 
 		var/turf/T1 = get_turf(M)
-		if (T1 && ((M == user) || do_after(user, 50, M)))
+		if(T1 && ((M == user) || do_after(user, 50, M)))
 			if(user && M && (get_turf(M) == T1) && src && src.imp)
 				M.visible_message("<span class='warning'>[M] has been implanted by [user].</span>")
 
@@ -46,7 +46,7 @@
 					src.imp.loc = M
 					src.imp.imp_in = M
 					src.imp.implanted = 1
-					if (ishuman(M))
+					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
 						var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 						affected.implants += src.imp
@@ -97,7 +97,7 @@
 	return
 
 /obj/item/weapon/implanter/compressed/update()
-	if (imp)
+	if(imp)
 		var/obj/item/weapon/implant/compressed/c = imp
 		if(!c.scanned)
 			icon_state = "cimplanter1"
@@ -109,8 +109,8 @@
 
 /obj/item/weapon/implanter/compressed/attack(mob/M as mob, mob/user as mob)
 	var/obj/item/weapon/implant/compressed/c = imp
-	if (!c)	return
-	if (c.scanned == null)
+	if(!c)	return
+	if(c.scanned == null)
 		user << "Please scan an object with the implanter first."
 		return
 	..()
@@ -120,7 +120,7 @@
 		return
 	if(istype(A,/obj/item) && imp)
 		var/obj/item/weapon/implant/compressed/c = imp
-		if (c.scanned)
+		if(c.scanned)
 			user << "<span class='warning'>Something is already scanned inside the implant!</span>"
 			return
 		c.scanned = A

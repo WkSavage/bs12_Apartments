@@ -177,7 +177,7 @@
 
 /datum/reagents/proc/del_reagent(var/id)
 	for(var/datum/reagent/current in reagent_list)
-		if (current.id == id)
+		if(current.id == id)
 			reagent_list -= current
 			qdel(current)
 			update_total()
@@ -304,7 +304,7 @@
 	trans_to(target, amount, multiplier, copy)
 
 /datum/reagents/proc/trans_id_to(var/atom/target, var/id, var/amount = 1)
-	if (!target || !target.reagents || !target.simulated)
+	if(!target || !target.reagents || !target.simulated)
 		return
 
 	amount = min(amount, get_reagent_amount(id))

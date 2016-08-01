@@ -1,13 +1,13 @@
 var/church_name = null
 /proc/church_name()
-	if (church_name)
+	if(church_name)
 		return church_name
 
 	var/name = ""
 
 	name += pick("Holy", "United", "First", "Second", "Last")
 
-	if (prob(20))
+	if(prob(20))
 		name += " Space"
 
 	name += " " + pick("Church", "Cathedral", "Body", "Worshippers", "Movement", "Witnesses")
@@ -17,7 +17,7 @@ var/church_name = null
 
 var/command_name = null
 /proc/command_name()
-	if (command_name)
+	if(command_name)
 		return command_name
 
 	var/name = "[boss_name]"
@@ -33,7 +33,7 @@ var/command_name = null
 
 var/religion_name = null
 /proc/religion_name()
-	if (religion_name)
+	if(religion_name)
 		return religion_name
 
 	var/name = ""
@@ -47,14 +47,14 @@ var/religion_name = null
 	return "Nyx"
 
 /proc/station_name()
-	if (station_name)
+	if(station_name)
 		return station_name
 
 	var/random = rand(1,5)
 	var/name = ""
 
 	//Rare: Pre-Prefix
-	if (prob(10))
+	if(prob(10))
 		name = pick("Imperium", "Heretical", "Cuban", "Psychic", "Elegant", "Common", "Uncommon", "Rare", "Unique", "Houseruled", "Religious", "Atheist", "Traditional", "Houseruled", "Mad", "Super", "Ultra", "Secret", "Top Secret", "Deep", "Death", "Zybourne", "Central", "Main", "Government", "Uoi", "Fat", "Automated", "Experimental", "Augmented")
 		station_name = name + " "
 
@@ -97,7 +97,7 @@ var/religion_name = null
 			station_name += pick("13","XIII","Thirteen")
 
 
-	if (config && config.server_name)
+	if(config && config.server_name)
 		world.name = "[config.server_name]: [name]"
 	else
 		world.name = station_name
@@ -108,7 +108,7 @@ var/religion_name = null
 
 	station_name = name
 
-	if (config && config.server_name)
+	if(config && config.server_name)
 		world.name = "[config.server_name]: [name]"
 	else
 		world.name = name
@@ -117,7 +117,7 @@ var/religion_name = null
 
 var/syndicate_name = null
 /proc/syndicate_name()
-	if (syndicate_name)
+	if(syndicate_name)
 		return syndicate_name
 
 	var/name = ""
@@ -126,11 +126,11 @@ var/syndicate_name = null
 	name += pick("Clandestine", "Prima", "Blue", "Zero-G", "Max", "Blasto", "Waffle", "North", "Omni", "Newton", "Cyber", "Bonk", "Gene", "Gib")
 
 	// Suffix
-	if (prob(80))
+	if(prob(80))
 		name += " "
 
 		// Full
-		if (prob(60))
+		if(prob(60))
 			name += pick("Syndicate", "Consortium", "Collective", "Corporation", "Group", "Holdings", "Biotech", "Industries", "Systems", "Products", "Chemicals", "Enterprises", "Family", "Creations", "International", "Intergalactic", "Interplanetary", "Foundation", "Positronics", "Hive")
 		// Broken
 		else

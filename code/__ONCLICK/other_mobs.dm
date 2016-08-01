@@ -73,7 +73,7 @@
 
 	// Eating
 	if(Victim)
-		if (Victim == A)
+		if(Victim == A)
 			Feedstop()
 		return
 
@@ -87,12 +87,12 @@
 		var/power = max(0, min(10, (powerlevel + rand(0, 3))))
 
 		switch(src.a_intent)
-			if (I_HELP) // We just poke the other
+			if(I_HELP) // We just poke the other
 				M.visible_message("<span class='notice'>[src] gently pokes [M]!</span>", "<span class='notice'>[src] gently pokes you!</span>")
-			if (I_DISARM) // We stun the target, with the intention to feed
+			if(I_DISARM) // We stun the target, with the intention to feed
 				var/stunprob = 1
 
-				if (powerlevel > 0 && !istype(A, /mob/living/carbon/slime))
+				if(powerlevel > 0 && !istype(A, /mob/living/carbon/slime))
 					switch(power * 10)
 						if(0) stunprob *= 10
 						if(1 to 2) stunprob *= 20
@@ -111,9 +111,9 @@
 				else
 					M.visible_message("<span class='danger'>[src] has tried to pounce at [M]!</span>", "<span class='danger'>[src] has tried to pounce at you!</span>")
 				M.updatehealth()
-			if (I_GRAB) // We feed
+			if(I_GRAB) // We feed
 				Wrap(M)
-			if (I_HURT) // Attacking
+			if(I_HURT) // Attacking
 				if(iscarbon(M) && prob(15))
 					M.visible_message("<span class='danger'>[src] has pounced at [M]!</span>", "<span class='danger'>[src] has pounced at you!</span>")
 					M.Weaken(power)

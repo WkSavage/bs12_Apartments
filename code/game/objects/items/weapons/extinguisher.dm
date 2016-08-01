@@ -79,12 +79,12 @@
 		playsound(src.loc, 'sound/effects/refill.ogg', 50, 1, -6)
 		return
 
-	if (!safety)
-		if (src.reagents.total_volume < 1)
+	if(!safety)
+		if(src.reagents.total_volume < 1)
 			usr << "<span class='notice'>\The [src] is empty.</span>"
 			return
 
-		if (world.time < src.last_use + 20)
+		if(world.time < src.last_use + 20)
 			return
 
 		src.last_use = world.time

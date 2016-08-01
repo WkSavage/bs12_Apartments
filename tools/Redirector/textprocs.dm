@@ -13,7 +13,7 @@ proc
 	///////////////////
 	dd_file2list(file_path, separator = "\n")
 		var/file
-		if (isfile(file_path))
+		if(isfile(file_path))
 			file = file_path
 		else
 			file = file(file_path)
@@ -54,11 +54,11 @@ proc
 	/////////////////////
 	dd_hassuffix(text, suffix)
 		var/start = length(text) - length(suffix)
-		if (start) return findtext(text, suffix, start)
+		if(start) return findtext(text, suffix, start)
 
 	dd_hasSuffix(text, suffix)
 		var/start = length(text) - length(suffix)
-		if (start) return findtextEx(text, suffix, start)
+		if(start) return findtextEx(text, suffix, start)
 
 	/////////////////////////////
 	// Turning text into lists //
@@ -76,10 +76,10 @@ proc
 			textList += "[buggyText]"										// Working around weird problem where "text" != "text" after this copytext().
 
 			searchPosition = findPosition + separatorlength					// Skip over separator.
-			if (findPosition == 0)											// Didn't find anything at end of string so stop here.
+			if(findPosition == 0)											// Didn't find anything at end of string so stop here.
 				return textList
 			else
-				if (searchPosition > textlength)							// Found separator at very end of string.
+				if(searchPosition > textlength)							// Found separator at very end of string.
 					textList += ""											// So add empty element.
 					return textList
 
@@ -96,41 +96,41 @@ proc
 			textList += "[buggyText]"										// Working around weird problem where "text" != "text" after this copytext().
 
 			searchPosition = findPosition + separatorlength					// Skip over separator.
-			if (findPosition == 0)											// Didn't find anything at end of string so stop here.
+			if(findPosition == 0)											// Didn't find anything at end of string so stop here.
 				return textList
 			else
-				if (searchPosition > textlength)							// Found separator at very end of string.
+				if(searchPosition > textlength)							// Found separator at very end of string.
 					textList += ""											// So add empty element.
 					return textList
 
 	dd_list2text(list/the_list, separator)
 		var/total = the_list.len
-		if (total == 0)														// Nothing to work with.
+		if(total == 0)														// Nothing to work with.
 			return
 
 		var/newText = "[the_list[1]]"										// Treats any object/number as text also.
 		var/count
 		for(count = 2, count <= total, count++)
-			if (separator) newText += separator
+			if(separator) newText += separator
 			newText += "[the_list[count]]"
 		return newText
 
 	dd_centertext(message, length)
 		var/new_message = message
 		var/size = length(message)
-		if (size == length)
+		if(size == length)
 			return new_message
-		if (size > length)
+		if(size > length)
 			return copytext(new_message, 1, length + 1)
 
 		// Need to pad text to center it.
 		var/delta = length - size
-		if (delta == 1)
+		if(delta == 1)
 			// Add one space after it.
 			return new_message + " "
 
 		// Is this an odd number? If so, add extra space to front.
-		if (delta % 2)
+		if(delta % 2)
 			new_message = " " + new_message
 			delta--
 
@@ -144,7 +144,7 @@ proc
 	dd_limittext(message, length)
 		// Truncates text to limit if necessary.
 		var/size = length(message)
-		if (size <= length)
+		if(size <= length)
 			return message
 		else
 			return copytext(message, 1, length + 1)

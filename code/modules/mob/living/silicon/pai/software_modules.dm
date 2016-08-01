@@ -255,12 +255,12 @@
 			if(record)
 				var/datum/data/record/R = record
 				var/datum/data/record/M = null
-				if (!( data_core.general.Find(R) ))
+				if(!( data_core.general.Find(R) ))
 					P.medical_cannotfind = 1
 				else
 					P.medical_cannotfind = 0
 					for(var/datum/data/record/E in data_core.medical)
-						if ((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
+						if((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 							M = E
 					P.medicalActive1 = R
 					P.medicalActive2 = M
@@ -309,14 +309,14 @@
 			if(record)
 				var/datum/data/record/R = record
 				var/datum/data/record/S = null
-				if (!( data_core.general.Find(R) ))
+				if(!( data_core.general.Find(R) ))
 					P.securityActive1 = null
 					P.securityActive2 = null
 					P.security_cannotfind = 1
 				else
 					P.security_cannotfind = 0
 					for(var/datum/data/record/E in data_core.security)
-						if ((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
+						if((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 							S = E
 					P.securityActive1 = R
 					P.securityActive2 = S

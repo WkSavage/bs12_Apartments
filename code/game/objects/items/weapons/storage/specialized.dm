@@ -1,5 +1,5 @@
 /*
-	Mining and plant bags, can store a ridiculous number of items in order to deal with the ridiculous amount of ores or plant products 
+	Mining and plant bags, can store a ridiculous number of items in order to deal with the ridiculous amount of ores or plant products
 	that can be produced by mining or (xeno)botany, however it can only hold those items.
 
 	These storages typically should also support quick gather and quick empty to make managing large numbers of items easier.
@@ -123,7 +123,7 @@
 
 		var/row_num = 0
 		var/col_count = min(7,storage_slots) -1
-		if (adjusted_contents > 7)
+		if(adjusted_contents > 7)
 			row_num = round((adjusted_contents-1) / 7) // 7 is the maximum allowed width.
 		src.arrange_item_slots(row_num, col_count)
 		return

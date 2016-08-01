@@ -8,7 +8,7 @@
 	blood_level = 1
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return 0
 
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -25,14 +25,14 @@
 	max_duration = 70
 
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		return ..() && affected && affected.open == 2
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -43,7 +43,7 @@
 
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -53,7 +53,7 @@
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -74,14 +74,14 @@
 	max_duration = 40
 
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		return ..() && affected && affected.open == 2.5
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -93,7 +93,7 @@
 
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -109,7 +109,7 @@
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -131,14 +131,14 @@
 
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		return ..() && affected && affected.open == 3
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -150,7 +150,7 @@
 
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -162,7 +162,7 @@
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -172,7 +172,7 @@
 
 		affected.createwound(BRUISE, 20)
 		affected.fracture()
-		
+
 		if(affected.internal_organs && affected.internal_organs.len)
 			if(prob(40))
 				var/obj/item/organ/O = pick(affected.internal_organs) //TODO weight by organ size
@@ -190,14 +190,14 @@
 
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		return ..() && affected && affected.open == 2.5
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -209,7 +209,7 @@
 
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 

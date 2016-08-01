@@ -55,13 +55,13 @@ var/global/list/sparring_attack_cache = list()
 				target.visible_message("<span class='danger'>[target] looks momentarily disoriented.</span>", "<span class='danger'>You see stars.</span>")
 				target.apply_effect(attack_damage*2, EYE_BLUR, armour)
 			if("l_arm", "l_hand")
-				if (target.l_hand)
+				if(target.l_hand)
 					// Disarm left hand
 					//Urist McAssistant dropped the macguffin with a scream just sounds odd. Plus it doesn't work with NO_PAIN
 					target.visible_message("<span class='danger'>\The [target.l_hand] was knocked right out of [target]'s grasp!</span>")
 					target.drop_l_hand()
 			if("r_arm", "r_hand")
-				if (target.r_hand)
+				if(target.r_hand)
 					// Disarm right hand
 					target.visible_message("<span class='danger'>\The [target.r_hand] was knocked right out of [target]'s grasp!</span>")
 					target.drop_r_hand()
@@ -117,7 +117,7 @@ var/global/list/sparring_attack_cache = list()
 	for(var/obj/item/clothing/C in list(user.wear_mask, user.head, user.wear_suit))
 		if(C && (C.body_parts_covered & FACE) && (C.item_flags & THICKMATERIAL))
 			return 0 //prevent biting through a space helmet or similar
-	if (user == target && (zone == "head" || zone == "eyes" || zone == "mouth"))
+	if(user == target && (zone == "head" || zone == "eyes" || zone == "mouth"))
 		return 0 //how do you bite yourself in the head?
 	return 1
 
@@ -172,7 +172,7 @@ var/global/list/sparring_attack_cache = list()
 	damage = 0
 
 /datum/unarmed_attack/kick/is_usable(var/mob/living/carbon/human/user, var/mob/living/carbon/human/target, var/zone)
-	if (user.legcuffed)
+	if(user.legcuffed)
 		return 0
 
 	if(!(zone in list("l_leg", "r_leg", "l_foot", "r_foot", "groin")))
@@ -213,13 +213,13 @@ var/global/list/sparring_attack_cache = list()
 
 /datum/unarmed_attack/stomp/is_usable(var/mob/living/carbon/human/user, var/mob/living/carbon/human/target, var/zone)
 
-	if (user.legcuffed)
+	if(user.legcuffed)
 		return 0
 
 	if(!istype(target))
 		return 0
 
-	if (!user.lying && (target.lying || (zone in list("l_foot", "r_foot"))))
+	if(!user.lying && (target.lying || (zone in list("l_foot", "r_foot"))))
 		if(target.grabbed_by == user && target.lying)
 			return 0
 		var/obj/item/organ/external/E = user.organs_by_name["l_foot"]

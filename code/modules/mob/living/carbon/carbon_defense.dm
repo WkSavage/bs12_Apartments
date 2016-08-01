@@ -23,9 +23,9 @@
 	apply_damage(effective_force, I.damtype, hit_zone, blocked, sharp=weapon_sharp, edge=weapon_edge, used_weapon=I)
 
 	//Melee weapon embedded object code.
-	if (I && I.damtype == BRUTE && !I.anchored && !is_robot_module(I))
+	if(I && I.damtype == BRUTE && !I.anchored && !is_robot_module(I))
 		var/damage = effective_force //just the effective damage used for sorting out embedding, no further damage is applied here
-		if (blocked)
+		if(blocked)
 			damage *= blocked_mult(blocked)
 
 		//blunt objects should really not be embedding in things unless a huge amount of force is involved

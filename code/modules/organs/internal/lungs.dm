@@ -33,7 +33,7 @@
 	if(!owner)
 		return
 
-	if (germ_level > INFECTION_LEVEL_ONE)
+	if(germ_level > INFECTION_LEVEL_ONE)
 		if(prob(5))
 			owner.emote("cough")		//respitory tract infection
 
@@ -116,7 +116,7 @@
 			alert = 1
 			failed_exhale = 1
 			var/ratio = 1.0 - (safe_exhaled_max - exhaled_pp)/(safe_exhaled_max*0.3)
-			if (owner.getOxyLoss() < 50*ratio)
+			if(owner.getOxyLoss() < 50*ratio)
 				oxyloss = HUMAN_MAX_OXYLOSS
 		else if(exhaled_pp > safe_exhaled_max * 0.6)
 			word = pick("a little dizzy","short of breath")
@@ -153,7 +153,7 @@
 
 	// Were we able to breathe?
 	var/failed_breath = failed_inhale || failed_exhale
-	if (!failed_breath)
+	if(!failed_breath)
 		owner.adjustOxyLoss(-5)
 
 	handle_temperature_effects(breath)
@@ -196,7 +196,7 @@
 
 		//breathing in hot/cold air also heats/cools you a bit
 		var/temp_adj = breath.temperature - owner.bodytemperature
-		if (temp_adj < 0)
+		if(temp_adj < 0)
 			temp_adj /= (BODYTEMP_COLD_DIVISOR * 5)	//don't raise temperature as much as if we were directly exposed
 		else
 			temp_adj /= (BODYTEMP_HEAT_DIVISOR * 5)	//don't raise temperature as much as if we were directly exposed
@@ -204,8 +204,8 @@
 		var/relative_density = breath.total_moles / (MOLES_CELLSTANDARD * BREATH_PERCENTAGE)
 		temp_adj *= relative_density
 
-		if (temp_adj > BODYTEMP_HEATING_MAX) temp_adj = BODYTEMP_HEATING_MAX
-		if (temp_adj < BODYTEMP_COOLING_MAX) temp_adj = BODYTEMP_COOLING_MAX
+		if(temp_adj > BODYTEMP_HEATING_MAX) temp_adj = BODYTEMP_HEATING_MAX
+		if(temp_adj < BODYTEMP_COOLING_MAX) temp_adj = BODYTEMP_COOLING_MAX
 		//world << "Breath: [breath.temperature], [src]: [bodytemperature], Adjusting: [temp_adj]"
 		owner.bodytemperature += temp_adj
 

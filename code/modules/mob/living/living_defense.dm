@@ -30,12 +30,12 @@
 		return 100
 
 	//this makes it so that X armour blocks X% damage, when including the chance of hard block.
-	//I double checked and this formula will also ensure that a higher effective_armor 
+	//I double checked and this formula will also ensure that a higher effective_armor
 	//will always result in higher (non-fullblock) damage absorption too, which is also a nice property
 	//In particular, blocked will increase from 0 to 50 as effective_armor increases from 0 to 0.999 (if it is 1 then we never get here because ofc)
 	//and the average damage absorption = (blocked/100)*(1-fullblock) + 1.0*(fullblock) = effective_armor
 	var/blocked = (effective_armor - fullblock)/(1 - fullblock)*100
-	
+
 	if(blocked > 20)
 		//Should we show this every single time?
 		if(soften_text)
@@ -45,7 +45,7 @@
 
 	return round(blocked, 1)
 
-//Adds two armor values together. 
+//Adds two armor values together.
 //If armor_a and armor_b are between 0-100 the result will always also be between 0-100.
 /proc/add_armor(var/armor_a, var/armor_b)
 	if(armor_a >= 100 || armor_b >= 100)
@@ -78,7 +78,7 @@
 	var/absorb = run_armor_check(def_zone, P.check_armour, P.armor_penetration)
 	var/proj_sharp = is_sharp(P)
 	var/proj_edge = has_edge(P)
-	if ((proj_sharp || proj_edge) && prob(absorb))
+	if((proj_sharp || proj_edge) && prob(absorb))
 		proj_sharp = 0
 		proj_edge = 0
 
@@ -92,13 +92,13 @@
 /mob/living/proc/stun_effect_act(var/stun_amount, var/agony_amount, var/def_zone, var/used_weapon=null)
 	flash_pain()
 
-	if (stun_amount)
+	if(stun_amount)
 		Stun(stun_amount)
 		Weaken(stun_amount)
 		apply_effect(STUTTER, stun_amount)
 		apply_effect(EYE_BLUR, stun_amount)
 
-	if (agony_amount)
+	if(agony_amount)
 		apply_damage(agony_amount, HALLOSS, def_zone, 0, used_weapon)
 		apply_effect(STUTTER, agony_amount/10)
 		apply_effect(EYE_BLUR, agony_amount/10)
@@ -156,11 +156,11 @@
 		var/throw_damage = O.throwforce*(speed/THROWFORCE_SPEED_DIVISOR)
 
 		var/miss_chance = 15
-		if (O.throw_source)
+		if(O.throw_source)
 			var/distance = get_dist(O.throw_source, loc)
 			miss_chance = max(15*(distance-2), 0)
 
-		if (prob(miss_chance))
+		if(prob(miss_chance))
 			visible_message("\blue \The [O] misses [src] narrowly!")
 			return
 
@@ -299,7 +299,7 @@
 
 //Finds the effective temperature that the mob is burning at.
 /mob/living/proc/fire_burn_temperature()
-	if (fire_stacks <= 0)
+	if(fire_stacks <= 0)
 		return 0
 
 	//Scale quadratically so that single digit numbers of fire stacks don't burn ridiculously hot.

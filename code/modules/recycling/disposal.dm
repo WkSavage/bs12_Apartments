@@ -113,7 +113,7 @@
 			for(var/mob/V in viewers(usr))
 				V.show_message("[usr] starts putting [GM.name] into the disposal.", 3)
 			if(do_after(usr, 20, src))
-				if (GM.client)
+				if(GM.client)
 					GM.client.perspective = EYE_PERSPECTIVE
 					GM.client.eye = src
 				GM.forceMove(src)
@@ -180,7 +180,7 @@
 		msg_admin_attack("[user] ([user.ckey]) placed [target] ([target.ckey]) in a disposals unit. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 	else
 		return
-	if (target.client)
+	if(target.client)
 		target.client.perspective = EYE_PERSPECTIVE
 		target.client.eye = src
 
@@ -205,7 +205,7 @@
 // leave the disposal
 /obj/machinery/disposal/proc/go_out(mob/user)
 
-	if (user.client)
+	if(user.client)
 		user.client.eye = user.client.mob
 		user.client.perspective = MOB_PERSPECTIVE
 	user.forceMove(src.loc)
@@ -389,7 +389,7 @@
 		var/transfer_moles = (PUMP_MAX_FLOW_RATE/env.volume)*env.total_moles	//group_multiplier is divided out here
 		power_draw = pump_gas(src, env, air_contents, transfer_moles, active_power_usage)
 
-	if (power_draw > 0)
+	if(power_draw > 0)
 		use_power(power_draw)
 
 // perform a flush
@@ -460,7 +460,7 @@
 		qdel(H)
 
 /obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if (istype(mover,/obj/item) && mover.throwing)
+	if(istype(mover,/obj/item) && mover.throwing)
 		var/obj/item/I = mover
 		if(istype(I, /obj/item/projectile))
 			return
@@ -619,12 +619,12 @@
 
 		var/mob/living/U = user
 
-		if (U.stat || U.last_special <= world.time)
+		if(U.stat || U.last_special <= world.time)
 			return
 
 		U.last_special = world.time+100
 
-		if (src.loc)
+		if(src.loc)
 			for(var/mob/M in hearers(src.loc.loc))
 				M << "<FONT size=[max(0, 5 - get_dist(src, M))]>CLONG, clong!</FONT>"
 
@@ -1311,7 +1311,7 @@
 	var/obj/machinery/disposal/D = locate() in src.loc
 	if(D)
 		linked = D
-		if (!D.trunk)
+		if(!D.trunk)
 			D.trunk = src
 
 	var/obj/structure/disposaloutlet/O = locate() in src.loc
@@ -1503,7 +1503,7 @@
 
 // check if mob has client, if so restore client view on eject
 /mob/pipe_eject(var/direction)
-	if (src.client)
+	if(src.client)
 		src.client.perspective = MOB_PERSPECTIVE
 		src.client.eye = src
 

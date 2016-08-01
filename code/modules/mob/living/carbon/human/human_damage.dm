@@ -102,7 +102,7 @@
 
 /mob/living/carbon/human/proc/adjustBruteLossByPart(var/amount, var/organ_name, var/obj/damage_source = null)
 	amount = amount*species.brute_mod
-	if (organ_name in organs_by_name)
+	if(organ_name in organs_by_name)
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
 		if(amount > 0)
@@ -115,7 +115,7 @@
 
 /mob/living/carbon/human/proc/adjustFireLossByPart(var/amount, var/organ_name, var/obj/damage_source = null)
 	amount = amount*species.burn_mod
-	if (organ_name in organs_by_name)
+	if(organ_name in organs_by_name)
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
 		if(amount > 0)
@@ -161,28 +161,28 @@
 
 	var/heal_prob = max(0, 80 - getCloneLoss())
 	var/mut_prob = min(80, getCloneLoss()+10)
-	if (amount > 0)
-		if (prob(mut_prob))
+	if(amount > 0)
+		if(prob(mut_prob))
 			var/list/obj/item/organ/external/candidates = list()
 			for(var/obj/item/organ/external/O in organs)
 				if(!(O.status & ORGAN_MUTATED))
 					candidates |= O
-			if (candidates.len)
+			if(candidates.len)
 				var/obj/item/organ/external/O = pick(candidates)
 				O.mutate()
 				src << "<span class = 'notice'>Something is not right with your [O.name]...</span>"
 				return
 	else
-		if (prob(heal_prob))
+		if(prob(heal_prob))
 			for(var/obj/item/organ/external/O in organs)
-				if (O.status & ORGAN_MUTATED)
+				if(O.status & ORGAN_MUTATED)
 					O.unmutate()
 					src << "<span class = 'notice'>Your [O.name] is shaped normally again.</span>"
 					return
 
-	if (getCloneLoss() < 1)
+	if(getCloneLoss() < 1)
 		for(var/obj/item/organ/external/O in organs)
-			if (O.status & ORGAN_MUTATED)
+			if(O.status & ORGAN_MUTATED)
 				O.unmutate()
 				src << "<span class = 'notice'>Your [O.name] is shaped normally again.</span>"
 	BITSET(hud_updateflag, HEALTH_HUD)
@@ -334,7 +334,7 @@ This function restores all organs.
 /mob/living/carbon/human/proc/HealDamage(zone, brute, burn)
 	var/obj/item/organ/external/E = get_organ(zone)
 	if(istype(E, /obj/item/organ/external))
-		if (E.heal_damage(brute, burn))
+		if(E.heal_damage(brute, burn))
 			UpdateDamageIcon()
 			BITSET(hud_updateflag, HEALTH_HUD)
 	else
@@ -352,7 +352,7 @@ This function restores all organs.
 	//Handle other types of damage
 	if(damagetype != BRUTE && damagetype != BURN)
 		if(!stat && damagetype == HALLOSS && !(species && (species.flags & NO_PAIN)))
-			if ((damage > 25 && prob(20)) || (damage > 50 && prob(60)))
+			if((damage > 25 && prob(20)) || (damage > 50 && prob(60)))
 				emote("scream")
 
 		..(damage, damagetype, def_zone, blocked)

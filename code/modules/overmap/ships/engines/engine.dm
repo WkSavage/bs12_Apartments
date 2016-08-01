@@ -10,7 +10,7 @@ var/list/ship_engines = list()
 	engine = holder
 	zlevel = holder.z
 	for(var/obj/machinery/computer/engines/E in machines)
-		if (E.z == zlevel && !(src in E.engines))
+		if(E.z == zlevel && !(src in E.engines))
 			E.engines += src
 			break
 
@@ -54,7 +54,7 @@ var/list/ship_engines = list()
 
 /datum/ship_engine/proc/die()
 	for(var/obj/machinery/computer/engines/E in machines)
-		if (E.z == zlevel)
+		if(E.z == zlevel)
 			E.engines -= src
 			break
 	qdel(src)

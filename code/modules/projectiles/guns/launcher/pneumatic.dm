@@ -34,7 +34,7 @@
 	set category = "Object"
 	set src in range(0)
 	var/N = input("Percentage of tank used per shot:","[src]") as null|anything in possible_pressure_amounts
-	if (N)
+	if(N)
 		pressure_setting = N
 		usr << "You dial the pressure valve to [pressure_setting]%."
 
@@ -78,7 +78,7 @@
 /obj/item/weapon/gun/launcher/pneumatic/consume_next_projectile(mob/user=null)
 	if(!item_storage.contents.len)
 		return null
-	if (!tank)
+	if(!tank)
 		user << "There is no gas tank in [src]!"
 		return null
 

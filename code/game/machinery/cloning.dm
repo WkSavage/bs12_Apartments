@@ -372,9 +372,9 @@
 /obj/machinery/clonepod/update_icon()
 	..()
 	icon_state = "pod_0"
-	if (occupant && !(stat & NOPOWER))
+	if(occupant && !(stat & NOPOWER))
 		icon_state = "pod_1"
-	else if (mess)
+	else if(mess)
 		icon_state = "pod_g"
 
 //Health Tracker Implant

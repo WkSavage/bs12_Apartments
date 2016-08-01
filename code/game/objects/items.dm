@@ -132,11 +132,11 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 				return
 		if(3.0)
-			if (prob(5))
+			if(prob(5))
 				qdel(src)
 				return
 		else
@@ -174,11 +174,11 @@
 	return ..(user, distance, "", "It is a [size] item.")
 
 /obj/item/attack_hand(mob/user as mob)
-	if (!user) return
-	if (hasorgans(user))
+	if(!user) return
+	if(hasorgans(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
-		if (user.hand)
+		if(user.hand)
 			temp = H.organs_by_name["l_hand"]
 		if(temp && !temp.is_usable())
 			user << "<span class='notice'>You try to move your [temp.name], but cannot!</span>"
@@ -187,12 +187,12 @@
 			user << "<span class='notice'>You try to use your hand, but realize it is no longer attached!</span>"
 			return
 	src.pickup(user)
-	if (istype(src.loc, /obj/item/weapon/storage))
+	if(istype(src.loc, /obj/item/weapon/storage))
 		var/obj/item/weapon/storage/S = src.loc
 		S.remove_from_storage(src)
 
 	src.throwing = 0
-	if (src.loc == user)
+	if(src.loc == user)
 		if(!user.unEquip(src))
 			return
 	else
@@ -209,7 +209,7 @@
 	return
 
 /obj/item/attack_ai(mob/user as mob)
-	if (istype(src.loc, /obj/item/weapon/robot_module))
+	if(istype(src.loc, /obj/item/weapon/robot_module))
 		//If the item is part of a cyborg module, equip it
 		if(!isrobot(user))
 			return
@@ -411,7 +411,7 @@ var/list/global/slot_flags_enumeration = list(
 				return 0
 			var/obj/item/clothing/under/uniform = H.w_uniform
 			if(uniform.accessories.len && !uniform.can_attach_accessory(src))
-				if (!disable_warning)
+				if(!disable_warning)
 					H << "<span class='warning'>You already have an accessory of this type attached to your [uniform].</span>"
 				return 0
 	return 1
@@ -536,7 +536,7 @@ var/list/global/slot_flags_enumeration = list(
 				M.eye_blurry += 10
 				M.Paralyse(1)
 				M.Weaken(4)
-			if (eyes.damage >= eyes.min_broken_damage)
+			if(eyes.damage >= eyes.min_broken_damage)
 				if(M.stat != 2)
 					M << "<span class='warning'>You go blind!</span>"
 		var/obj/item/organ/external/affecting = H.get_organ("head")
@@ -563,7 +563,7 @@ var/list/global/slot_flags_enumeration = list(
 		update_icon()
 
 /obj/item/add_blood(mob/living/carbon/human/M as mob)
-	if (!..())
+	if(!..())
 		return 0
 
 	if(istype(src, /obj/item/weapon/melee/energy))
@@ -649,16 +649,16 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 		var/viewoffset = tilesize * tileoffset
 
 		switch(user.dir)
-			if (NORTH)
+			if(NORTH)
 				user.client.pixel_x = 0
 				user.client.pixel_y = viewoffset
-			if (SOUTH)
+			if(SOUTH)
 				user.client.pixel_x = 0
 				user.client.pixel_y = -viewoffset
-			if (EAST)
+			if(EAST)
 				user.client.pixel_x = viewoffset
 				user.client.pixel_y = 0
-			if (WEST)
+			if(WEST)
 				user.client.pixel_x = -viewoffset
 				user.client.pixel_y = 0
 

@@ -157,7 +157,7 @@ proc/spawn_money(var/sum, spawnloc, mob/living/carbon/human/human_user as mob)
 		var/obj/item/weapon/spacecash/bundle/bundle = new (spawnloc)
 		bundle.worth = sum
 		bundle.update_icon()
-		if (ishuman(human_user) && !human_user.get_active_hand())
+		if(ishuman(human_user) && !human_user.get_active_hand())
 			human_user.put_in_hands(bundle)
 	return
 
@@ -169,5 +169,5 @@ proc/spawn_money(var/sum, spawnloc, mob/living/carbon/human/human_user as mob)
 
 /obj/item/weapon/spacecash/ewallet/examine(mob/user)
 	..(user)
-	if (!(user in view(2)) && user!=src.loc) return
+	if(!(user in view(2)) && user!=src.loc) return
 	user << "\blue Charge card's owner: [src.owner_name]. Thalers remaining: [src.worth]."

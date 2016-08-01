@@ -359,7 +359,7 @@
 	qdel(src)
 
 /mob/new_player/proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)
-	if (ticker.current_state == GAME_STATE_PLAYING)
+	if(ticker.current_state == GAME_STATE_PLAYING)
 		if(character.mind.role_alt_title)
 			rank = character.mind.role_alt_title
 		// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "A new Cyborg has arrived"/"A new Android has arrived"/etc.
@@ -376,7 +376,7 @@
 		if(emergency_shuttle.going_to_centcom()) //Shuttle is going to centcomm, not recalled
 			dat += "<font color='red'><b>The station has been evacuated.</b></font><br>"
 		if(emergency_shuttle.online())
-			if (emergency_shuttle.evac)	// Emergency shuttle is past the point of no recall
+			if(emergency_shuttle.evac)	// Emergency shuttle is past the point of no recall
 				dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
 			else						// Crew transfer initiated
 				dat += "<font color='red'>The station is currently undergoing crew transfer procedures.</font><br>"

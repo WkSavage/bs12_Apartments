@@ -82,7 +82,7 @@
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "transfer_valve.tmpl", "Tank Transfer Valve", 460, 280)
@@ -95,9 +95,9 @@
 
 /obj/item/device/transfer_valve/Topic(href, href_list)
 	..()
-	if ( usr.stat || usr.restrained() )
+	if( usr.stat || usr.restrained() )
 		return 0
-	if (src.loc != usr)
+	if(src.loc != usr)
 		return 0
 	if(tank_one && href_list["tankone"])
 		remove_tank(tank_one)

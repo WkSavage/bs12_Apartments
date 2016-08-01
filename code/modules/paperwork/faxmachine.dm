@@ -83,12 +83,12 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 /obj/machinery/photocopier/faxmachine/Topic(href, href_list)
 	if(href_list["send"])
 		if(copyitem)
-			if (destination in admin_departments)
+			if(destination in admin_departments)
 				send_admin_fax(usr, destination)
 			else
 				sendfax(destination)
 
-			if (sendcooldown)
+			if(sendcooldown)
 				spawn(sendcooldown) // cooldown time
 					sendcooldown = 0
 
@@ -101,7 +101,7 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 			updateUsrDialog()
 
 	if(href_list["scan"])
-		if (scan)
+		if(scan)
 			if(ishuman(usr))
 				scan.loc = usr.loc
 				if(!usr.get_active_hand())
@@ -112,7 +112,7 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 				scan = null
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if (istype(I, /obj/item/weapon/card/id) && usr.unEquip(I))
+			if(istype(I, /obj/item/weapon/card/id) && usr.unEquip(I))
 				I.loc = src
 				scan = I
 		authenticated = 0
@@ -123,8 +123,8 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 		if(!destination) destination = lastdestination
 
 	if(href_list["auth"])
-		if ( (!( authenticated ) && (scan)) )
-			if (check_access(scan))
+		if( (!( authenticated ) && (scan)) )
+			if(check_access(scan))
 				authenticated = 1
 
 	if(href_list["logout"])
@@ -143,7 +143,7 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 		if( F.department == destination )
 			success = F.recievefax(copyitem)
 
-	if (success)
+	if(success)
 		visible_message("[src] beeps, \"Message transmitted successfully.\"")
 		//sendcooldown = 600
 	else
@@ -162,11 +162,11 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 	// give the sprite some time to flick
 	sleep(20)
 
-	if (istype(incoming, /obj/item/weapon/paper))
+	if(istype(incoming, /obj/item/weapon/paper))
 		copy(incoming)
-	else if (istype(incoming, /obj/item/weapon/photo))
+	else if(istype(incoming, /obj/item/weapon/photo))
 		photocopy(incoming)
-	else if (istype(incoming, /obj/item/weapon/paper_bundle))
+	else if(istype(incoming, /obj/item/weapon/paper_bundle))
 		bundlecopy(incoming)
 	else
 		return 0
@@ -181,11 +181,11 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 	use_power(200)
 
 	var/obj/item/rcvdcopy
-	if (istype(copyitem, /obj/item/weapon/paper))
+	if(istype(copyitem, /obj/item/weapon/paper))
 		rcvdcopy = copy(copyitem)
-	else if (istype(copyitem, /obj/item/weapon/photo))
+	else if(istype(copyitem, /obj/item/weapon/photo))
 		rcvdcopy = photocopy(copyitem)
-	else if (istype(copyitem, /obj/item/weapon/paper_bundle))
+	else if(istype(copyitem, /obj/item/weapon/paper_bundle))
 		rcvdcopy = bundlecopy(copyitem, 0)
 	else
 		visible_message("[src] beeps, \"Error transmitting message.\"")
@@ -196,12 +196,12 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 
 	//message badmins that a fax has arrived
 	switch(destination)
-		if (boss_name)
+		if(boss_name)
 			message_admins(sender, "[uppertext(boss_short)] FAX", rcvdcopy, "CentcommFaxReply", "#006100")
-		if ("Sol Government")
+		if("Sol Government")
 			message_admins(sender, "SOL GOVERNMENT FAX", rcvdcopy, "CentcommFaxReply", "#1F66A0")
 			//message_admins(sender, "SOL GOVERNMENT FAX", rcvdcopy, "SolGovFaxReply", "#1F66A0")
-		if ("Supply")
+		if("Supply")
 			message_admins(sender, "[uppertext(boss_short)] SUPPLY FAX", rcvdcopy, "CentcommFaxReply", "#5F4519")
 
 	sendcooldown = 1800

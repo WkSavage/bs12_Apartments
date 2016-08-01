@@ -141,7 +141,7 @@
 			var/mob/living/carbon/human/H = mob
 			var/organ = pick(list("r_arm","l_arm","r_leg","r_leg"))
 			var/obj/item/organ/external/E = H.organs_by_name[organ]
-			if (!(E.status & ORGAN_DEAD))
+			if(!(E.status & ORGAN_DEAD))
 				E.status |= ORGAN_DEAD
 				H << "<span class='notice'>You can't feel your [E.name] anymore...</span>"
 				for(var/obj/item/organ/external/C in E.children)
@@ -166,7 +166,7 @@
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
 			for(var/obj/item/organ/external/E in H.organs)
-				if (E.status & ORGAN_BROKEN && prob(30))
+				if(E.status & ORGAN_BROKEN && prob(30))
 					E.status ^= ORGAN_BROKEN
 		var/heal_amt = -5*multiplier
 		mob.apply_damages(heal_amt,heal_amt,heal_amt,heal_amt)
@@ -225,7 +225,7 @@
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
 			var/obj/item/organ/brain/B = H.internal_organs_by_name["brain"]
-			if (B && B.damage < B.min_broken_damage)
+			if(B && B.damage < B.min_broken_damage)
 				B.take_damage(5)
 		else
 			mob.setBrainLoss(10)
@@ -284,7 +284,7 @@
 		name = "[initial(name)] ([initial(R.name)])"
 
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount(data) < 5)
+		if(mob.reagents.get_reagent_amount(data) < 5)
 			mob.reagents.add_reagent(data, 2)
 
 ////////////////////////STAGE 2/////////////////////////////////
@@ -353,9 +353,9 @@
 	stage = 2
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		mob << "<span class='notice'>You feel a rush of energy inside you!</span>"
-		if (mob.reagents.get_reagent_amount("hyperzine") < 10)
+		if(mob.reagents.get_reagent_amount("hyperzine") < 10)
 			mob.reagents.add_reagent("hyperzine", 4)
-		if (prob(30))
+		if(prob(30))
 			mob.jitteriness += 10
 
 ////////////////////////STAGE 1/////////////////////////////////
@@ -364,13 +364,13 @@
 	name = "Coldingtons Effect"
 	stage = 1
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (prob(30))
+		if(prob(30))
 			mob << "<span class='warning'>You feel like you are about to sneeze!</span>"
 		sleep(5)
 		mob.say("*sneeze")
 		for(var/mob/living/carbon/M in get_step(mob,mob.dir))
 			mob.spread_disease_to(M)
-		if (prob(50))
+		if(prob(50))
 			var/obj/effect/decal/cleanable/mucus/M = new(get_turf(mob))
 			M.virus2 = virus_copylist(mob.virus2)
 

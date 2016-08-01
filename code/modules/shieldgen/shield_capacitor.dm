@@ -71,8 +71,8 @@
 	interact(user)
 
 /obj/machinery/shield_capacitor/interact(mob/user)
-	if ( (get_dist(src, user) > 1 ) || (stat & (BROKEN)) )
-		if (!istype(user, /mob/living/silicon))
+	if( (get_dist(src, user) > 1 ) || (stat & (BROKEN)) )
+		if(!istype(user, /mob/living/silicon))
 			user.unset_machine()
 			user << browse(null, "window=shield_capacitor")
 			return
@@ -100,17 +100,17 @@
 	user.set_machine(src)
 
 /obj/machinery/shield_capacitor/process()
-	if (!anchored)
+	if(!anchored)
 		active = 0
 
 	//see if we can connect to a power net.
 	var/datum/powernet/PN
 	var/turf/T = src.loc
 	var/obj/structure/cable/C = T.get_cable_node()
-	if (C)
+	if(C)
 		PN = C.powernet
 
-	if (PN)
+	if(PN)
 		var/power_draw = between(0, max_charge - stored_charge, charge_rate) //what we are trying to draw
 		power_draw = PN.draw_power(power_draw) //what we actually get
 		stored_charge += power_draw
@@ -144,7 +144,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if (src.anchored)
+	if(src.anchored)
 		usr << "It is fastened to the floor!"
 		return
 	src.set_dir(turn(src.dir, 270))

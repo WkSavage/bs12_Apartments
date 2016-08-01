@@ -152,7 +152,7 @@ var/global/datum/controller/gameticker/ticker
 		//Cleanup some stuff
 		for(var/obj/effect/landmark/start/S in landmarks_list)
 			//Deleting Startpoints but we need the ai point to AI-ize people later
-			if (S.name != "AI")
+			if(S.name != "AI")
 				qdel(S)
 		world << "<FONT color='blue'><B>Enjoy the game!</B></FONT>"
 		world << sound('sound/AI/welcome.ogg') // Skie
@@ -330,7 +330,7 @@ var/global/datum/controller/gameticker/ticker
 
 		var/game_finished = 0
 		var/mode_finished = 0
-		if (config.continous_rounds)
+		if(config.continous_rounds)
 			game_finished = (emergency_shuttle.returned() || mode.station_was_nuked)
 			mode_finished = (!post_game && mode.check_finished())
 		else
@@ -351,7 +351,7 @@ var/global/datum/controller/gameticker/ticker
 						sleep(50)
 
 				callHook("roundend")
-				if (universe_has_ended)
+				if(universe_has_ended)
 					if(mode.station_was_nuked)
 						feedback_set_details("end_proper","nuke")
 					else
@@ -376,7 +376,7 @@ var/global/datum/controller/gameticker/ticker
 				else
 					world << "<span class='notice'><b>An admin has delayed the round end</b></span>"
 
-		else if (mode_finished)
+		else if(mode_finished)
 			post_game = 1
 
 			mode.cleanup()
@@ -417,13 +417,13 @@ var/global/datum/controller/gameticker/ticker
 	world << "<br>"
 
 	for(var/mob/living/silicon/ai/aiPlayer in mob_list)
-		if (aiPlayer.stat != 2)
+		if(aiPlayer.stat != 2)
 			world << "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws at the end of the round were:</b>"
 		else
 			world << "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws when it was deactivated were:</b>"
 		aiPlayer.show_laws(1)
 
-		if (aiPlayer.connected_robots.len)
+		if(aiPlayer.connected_robots.len)
 			var/robolist = "<b>The AI's loyal minions were:</b> "
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
 				robolist += "[robo.name][robo.stat?" (Deactivated) (Played by: [robo.key]), ":" (Played by: [robo.key]), "]"
@@ -437,8 +437,8 @@ var/global/datum/controller/gameticker/ticker
 			dronecount++
 			continue
 
-		if (!robo.connected_ai)
-			if (robo.stat != 2)
+		if(!robo.connected_ai)
+			if(robo.stat != 2)
 				world << "<b>[robo.name] (Played by: [robo.key]) survived as an AI-less synthetic! Its laws were:</b>"
 			else
 				world << "<b>[robo.name] (Played by: [robo.key]) was unable to survive the rigors of being a synthetic without an AI. Its laws were:</b>"
@@ -477,7 +477,7 @@ var/global/datum/controller/gameticker/ticker
 	var/datum/antagonist/antag = antag_choices[1]
 	while(antag_choices.len && antag)
 		var/needs_ghost = antag.flags & (ANTAG_OVERRIDE_JOB | ANTAG_OVERRIDE_MOB)
-		if (needs_ghost)
+		if(needs_ghost)
 			looking_for_antags = 1
 			antag_pool.Cut()
 			world << "<b>A ghost is needed to spawn \a [antag.role_text].</b>\nGhosts may enter the antag pool by making sure their [antag.role_text] preference is set to high, then using the toggle-add-antag-candidacy verb. You have 3 minutes to enter the pool."

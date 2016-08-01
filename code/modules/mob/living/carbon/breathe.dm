@@ -19,7 +19,7 @@
 
 	if(losebreath>0) //Suffocating so do not take a breath
 		losebreath--
-		if (prob(10)) //Gasp per 10 ticks? Sounds about right.
+		if(prob(10)) //Gasp per 10 ticks? Sounds about right.
 			spawn emote("gasp")
 	else
 		//Okay, we can breathe, now check if we can get air
@@ -37,16 +37,16 @@
 
 /mob/living/carbon/proc/get_breath_from_internal(var/volume_needed=BREATH_VOLUME) //hopefully this will allow overrides to specify a different default volume without breaking any cases where volume is passed in.
 	if(internal)
-		if (!contents.Find(internal))
+		if(!contents.Find(internal))
 			internal = null
-		if (!(wear_mask && (wear_mask.item_flags & AIRTIGHT)))
+		if(!(wear_mask && (wear_mask.item_flags & AIRTIGHT)))
 			internal = null
 		if(internal)
-			if (internals)
+			if(internals)
 				internals.icon_state = "internal1"
 			return internal.remove_air_volume(volume_needed)
 		else
-			if (internals)
+			if(internals)
 				internals.icon_state = "internal0"
 	return null
 

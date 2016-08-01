@@ -158,7 +158,7 @@
 			filling.color = reagents.get_color()
 			overlays += filling
 
-		if (!is_open_container())
+		if(!is_open_container())
 			var/image/lid = image(icon, src, "lid_[initial(icon_state)]")
 			overlays += lid
 
@@ -255,7 +255,7 @@
 
 /obj/item/weapon/reagent_containers/glass/bucket/update_icon()
 	overlays.Cut()
-	if (!is_open_container())
+	if(!is_open_container())
 		var/image/lid = image(icon, src, "lid_[initial(icon_state)]")
 		overlays += lid
 

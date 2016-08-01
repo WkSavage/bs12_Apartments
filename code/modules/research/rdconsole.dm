@@ -126,7 +126,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if(istype(D, /obj/item/weapon/disk/tech_disk))
 			t_disk = D
-		else if (istype(D, /obj/item/weapon/disk/design_disk))
+		else if(istype(D, /obj/item/weapon/disk/design_disk))
 			d_disk = D
 		else
 			user << "<span class='notice'>Machine cannot accept disks in that format.</span>"
@@ -383,7 +383,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				screen = 1.6
 				updateUsrDialog()
 
-	else if (href_list["print"]) //Print research information
+	else if(href_list["print"]) //Print research information
 		screen = 0.5
 		spawn(20)
 			var/obj/item/weapon/paper/PR = new/obj/item/weapon/paper

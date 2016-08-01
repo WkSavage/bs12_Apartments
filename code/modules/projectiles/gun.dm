@@ -158,7 +158,7 @@
 		Fire(A,user,params) //Otherwise, fire normally.
 
 /obj/item/weapon/gun/attack(atom/A, mob/living/user, def_zone)
-	if (A == user && user.zone_sel.selecting == "mouth" && !mouthshoot)
+	if(A == user && user.zone_sel.selecting == "mouth" && !mouthshoot)
 		handle_suicide(user)
 	else if(user.a_intent == I_HURT) //point blank shooting
 		Fire(A, user, pointblank=1)
@@ -175,7 +175,7 @@
 		return
 
 	if(world.time < next_fire_time)
-		if (world.time % 3) //to prevent spam
+		if(world.time % 3) //to prevent spam
 			user << "<span class='warning'>[src] is not ready to fire again!</span>"
 		return
 
@@ -229,7 +229,7 @@
 
 //called if there was no projectile to shoot
 /obj/item/weapon/gun/proc/handle_click_empty(mob/user)
-	if (user)
+	if(user)
 		user.visible_message("*click click*", "<span class='danger'>*click*</span>")
 	else
 		src.visible_message("*click click*")
@@ -320,7 +320,7 @@
 	P.dispersion = disp_mod
 
 	//accuracy bonus from aiming
-	if (aim_targets && (target in aim_targets))
+	if(aim_targets && (target in aim_targets))
 		//If you aim at someone beforehead, it'll hit more often.
 		//Kinda balanced by fact you need like 2 seconds to aim
 		//As opposed to no-delay pew pew
@@ -372,7 +372,7 @@
 		mouthshoot = 0
 		return
 	var/obj/item/projectile/in_chamber = consume_next_projectile()
-	if (istype(in_chamber))
+	if(istype(in_chamber))
 		user.visible_message("<span class = 'warning'>[user] pulls the trigger.</span>")
 		var/shot_sound = in_chamber.fire_sound? in_chamber.fire_sound : fire_sound
 		if(silenced)
@@ -385,7 +385,7 @@
 			return
 
 		in_chamber.on_hit(M)
-		if (in_chamber.damage_type != HALLOSS)
+		if(in_chamber.damage_type != HALLOSS)
 			log_and_message_admins("[key_name(user)] commited suicide using \a [src]")
 			user.apply_damage(in_chamber.damage*2.5, in_chamber.damage_type, "head", used_weapon = "Point blank shot in the mouth with \a [in_chamber]", sharp=1)
 			user.death()

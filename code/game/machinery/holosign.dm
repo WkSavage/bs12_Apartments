@@ -26,7 +26,7 @@
 	return ..()
 
 /obj/machinery/holosign/proc/toggle()
-	if (stat & (BROKEN|NOPOWER))
+	if(stat & (BROKEN|NOPOWER))
 		return
 	lit = !lit
 	use_power = lit ? 2 : 1
@@ -34,7 +34,7 @@
 
 //maybe add soft lighting? Maybe, though not everything needs it
 /obj/machinery/holosign/update_icon()
-	if (!lit || (stat & (BROKEN|NOPOWER)))
+	if(!lit || (stat & (BROKEN|NOPOWER)))
 		icon_state = "sign_off"
 	else
 		icon_state = on_icon
@@ -62,7 +62,7 @@
 	icon_state = "light[active]"
 
 	for(var/obj/machinery/holosign/M in machines)
-		if (M.id == src.id)
+		if(M.id == src.id)
 			spawn( 0 )
 				M.toggle()
 				return

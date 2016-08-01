@@ -1,14 +1,14 @@
 /mob/living/silicon/ai/Life()
-	if (src.stat == DEAD)
+	if(src.stat == DEAD)
 		return
 
-	if (src.stat!=CONSCIOUS)
+	if(src.stat!=CONSCIOUS)
 		src.cameraFollow = null
 		src.reset_view(null)
 
 	src.updatehealth()
 
-	if (!hardware_integrity() || !backup_capacitor())
+	if(!hardware_integrity() || !backup_capacitor())
 		death()
 		return
 
@@ -26,7 +26,7 @@
 		stop_apu(1)
 
 	// We aren't shut down, and we lack external power. Try to fix it using the restoration routine.
-	if (!self_shutdown && !has_power(0))
+	if(!self_shutdown && !has_power(0))
 		// AI's restore power routine is not running. Start it automatically.
 		if(aiRestorePowerRoutine == AI_RESTOREPOWER_IDLE)
 			aiRestorePowerRoutine = AI_RESTOREPOWER_STARTING
@@ -40,9 +40,9 @@
 	process_queued_alarms()
 	handle_regular_hud_updates()
 	switch(src.sensor_mode)
-		if (SEC_HUD)
+		if(SEC_HUD)
 			process_sec_hud(src,0,src.eyeobj)
-		if (MED_HUD)
+		if(MED_HUD)
 			process_med_hud(src,0,src.eyeobj)
 
 

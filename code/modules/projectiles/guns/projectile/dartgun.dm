@@ -97,7 +97,7 @@
 
 /obj/item/weapon/gun/projectile/dartgun/examine(mob/user)
 	..()
-	if (beakers.len)
+	if(beakers.len)
 		user << "\blue [src] contains:"
 		for(var/obj/item/weapon/reagent_containers/glass/beaker/B in beakers)
 			if(B.reagents && B.reagents.reagent_list.len)
@@ -141,7 +141,7 @@
 	user.set_machine(src)
 	var/list/dat = list("<b>[src] mixing control:</b><br><br>")
 
-	if (!beakers.len)
+	if(!beakers.len)
 		dat += "There are no beakers inserted!<br><br>"
 	else
 		for(var/i in 1 to beakers.len)
@@ -184,14 +184,14 @@
 	if(href_list["stop_mix"])
 		var/index = text2num(href_list["stop_mix"])
 		mixing -= beakers[index]
-	else if (href_list["mix"])
+	else if(href_list["mix"])
 		var/index = text2num(href_list["mix"])
 		mixing |= beakers[index]
-	else if (href_list["eject"])
+	else if(href_list["eject"])
 		var/index = text2num(href_list["eject"])
 		if(beakers[index])
 			remove_beaker(beakers[index], usr)
-	else if (href_list["eject_cart"])
+	else if(href_list["eject_cart"])
 		unload_ammo(usr)
 
 	Interact(usr)

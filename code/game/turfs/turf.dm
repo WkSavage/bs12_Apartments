@@ -69,7 +69,7 @@
 
 	..()
 
-	if (!mover || !isturf(mover.loc) || isobserver(mover))
+	if(!mover || !isturf(mover.loc) || isobserver(mover))
 		return 1
 
 	//First, check objects to block exit that are not on the border
@@ -94,7 +94,7 @@
 				return 0
 
 	//Then, check the turf itself
-	if (!src.CanPass(mover, src))
+	if(!src.CanPass(mover, src))
 		mover.Bump(src, 1)
 		return 0
 
@@ -135,7 +135,7 @@ var/const/enterloopsanity = 100
 			spawn(0)
 				if(A)
 					A.HasProximity(thing, 1)
-					if ((thing && A) && (thing.flags & PROXMOVE))
+					if((thing && A) && (thing.flags & PROXMOVE))
 						thing.HasProximity(A, 1)
 	return
 

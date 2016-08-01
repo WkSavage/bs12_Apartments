@@ -116,11 +116,11 @@
 /mob/living/silicon/pai/Stat()
 	. = ..()
 	statpanel("Status")
-	if (src.client.statpanel == "Status")
+	if(src.client.statpanel == "Status")
 		show_silenced()
 
 /mob/living/silicon/pai/check_eye(var/mob/user as mob)
-	if (!src.current)
+	if(!src.current)
 		return -1
 	return 0
 
@@ -164,11 +164,11 @@
 			src << "<font color=green>You feel an electric surge run through your circuitry and become acutely aware at how lucky you are that you can still feel at all.</font>"
 
 /mob/living/silicon/pai/proc/switchCamera(var/obj/machinery/camera/C)
-	if (!C)
+	if(!C)
 		src.unset_machine()
 		src.reset_view(null)
 		return 0
-	if (stat == 2 || !C.status || !(src.network in C.network)) return 0
+	if(stat == 2 || !C.status || !(src.network in C.network)) return 0
 
 	// ok, we're alive, camera is good and in our network...
 

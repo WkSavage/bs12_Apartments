@@ -87,10 +87,10 @@
 	if(!owner)
 		return
 
-	if (germ_level > INFECTION_LEVEL_ONE)
+	if(germ_level > INFECTION_LEVEL_ONE)
 		if(prob(1))
 			owner << "\red Your skin itches."
-	if (germ_level > INFECTION_LEVEL_TWO)
+	if(germ_level > INFECTION_LEVEL_TWO)
 		if(prob(1))
 			spawn owner.vomit()
 
@@ -99,7 +99,7 @@
 		//High toxins levels are dangerous
 		if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent("anti_toxin"))
 			//Healthy liver suffers on its own
-			if (src.damage < min_broken_damage)
+			if(src.damage < min_broken_damage)
 				src.damage += 0.2 * PROCESS_ACCURACY
 			//Damaged one shares the fun
 			else
@@ -108,7 +108,7 @@
 					O.damage += 0.2  * PROCESS_ACCURACY
 
 		//Detox can heal small amounts of damage
-		if (src.damage && src.damage < src.min_bruised_damage && owner.reagents.has_reagent("anti_toxin"))
+		if(src.damage && src.damage < src.min_bruised_damage && owner.reagents.has_reagent("anti_toxin"))
 			src.damage -= 0.2 * PROCESS_ACCURACY
 
 		if(src.damage < 0)
@@ -156,7 +156,7 @@
 		if(inflamed > 400)
 			if(prob(1))
 				germ_level += rand(2,6)
-				if (owner.nutrition > 100)
+				if(owner.nutrition > 100)
 					owner.vomit()
 				else
 					owner << "<span class='danger'>You gag as you want to throw up, but there's nothing in your stomach!</span>"

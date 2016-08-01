@@ -68,11 +68,11 @@
 		var/mob/living/L = M
 		L.apply_effect(rand(5,20), IRRADIATE, blocked = 0)
 
-	if (!(NOCLONE in M.mutations)) // prevents drained people from having their DNA changed
-		if (buf.types & DNA2_BUF_UI)
-			if (!block) //isolated block?
+	if(!(NOCLONE in M.mutations)) // prevents drained people from having their DNA changed
+		if(buf.types & DNA2_BUF_UI)
+			if(!block) //isolated block?
 				M.UpdateAppearance(buf.dna.UI.Copy())
-				if (buf.types & DNA2_BUF_UE) //unique enzymes? yes
+				if(buf.types & DNA2_BUF_UE) //unique enzymes? yes
 					M.real_name = buf.dna.real_name
 					M.name = buf.dna.real_name
 				uses--
@@ -80,8 +80,8 @@
 				M.dna.SetUIValue(block,src.GetValue())
 				M.UpdateAppearance()
 				uses--
-		if (buf.types & DNA2_BUF_SE)
-			if (!block) //isolated block?
+		if(buf.types & DNA2_BUF_SE)
+			if(!block) //isolated block?
 				M.dna.SE = buf.dna.SE.Copy()
 				M.dna.UpdateSE()
 			else
@@ -92,15 +92,15 @@
 				trigger_side_effect(M)
 
 	spawn(0)//this prevents the collapse of space-time continuum
-		if (user)
+		if(user)
 			user.drop_from_inventory(src)
 		qdel(src)
 	return uses
 
 /obj/item/weapon/dnainjector/attack(mob/M as mob, mob/user as mob)
-	if (!istype(M, /mob))
+	if(!istype(M, /mob))
 		return
-	if (!usr.IsAdvancedToolUser())
+	if(!usr.IsAdvancedToolUser())
 		return
 	if(inuse)
 		return 0

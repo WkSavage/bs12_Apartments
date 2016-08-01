@@ -128,11 +128,11 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 				return
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				spawn(0)
 					src.malfunction()
 					return
@@ -141,7 +141,7 @@
 	return
 
 /obj/machinery/vending/emag_act(var/remaining_charges, var/mob/user)
-	if (!emagged)
+	if(!emagged)
 		src.emagged = 1
 		user << "You short out the product lock on \the [src]"
 		return 1
@@ -150,18 +150,18 @@
 
 	var/obj/item/weapon/card/id/I = W.GetID()
 
-	if (currently_vending && vendor_account && !vendor_account.suspended)
+	if(currently_vending && vendor_account && !vendor_account.suspended)
 		var/paid = 0
 		var/handled = 0
 
-		if (I) //for IDs and PDAs and wallets with IDs
+		if(I) //for IDs and PDAs and wallets with IDs
 			paid = pay_with_card(I,W)
 			handled = 1
-		else if (istype(W, /obj/item/weapon/spacecash/ewallet))
+		else if(istype(W, /obj/item/weapon/spacecash/ewallet))
 			var/obj/item/weapon/spacecash/ewallet/C = W
 			paid = pay_with_ewallet(C)
 			handled = 1
-		else if (istype(W, /obj/item/weapon/spacecash/bundle))
+		else if(istype(W, /obj/item/weapon/spacecash/bundle))
 			var/obj/item/weapon/spacecash/bundle/C = W
 			paid = pay_with_cash(C)
 			handled = 1
@@ -173,7 +173,7 @@
 			nanomanager.update_uis(src)
 			return // don't smack that machine with your 2 thalers
 
-	if (I || istype(W, /obj/item/weapon/spacecash))
+	if(I || istype(W, /obj/item/weapon/spacecash))
 		attack_hand(user)
 		return
 	else if(istype(W, /obj/item/weapon/screwdriver))
@@ -270,7 +270,7 @@
 	else
 		visible_message("<span class='info'>\The [usr] swipes \the [ID_container] through \the [src].</span>")
 	var/datum/money_account/customer_account = get_account(I.associated_account_number)
-	if (!customer_account)
+	if(!customer_account)
 		src.status_message = "Error: Unable to access account. Please contact technical support if problem persists."
 		src.status_error = 1
 		return 0
@@ -396,7 +396,7 @@
 		data["panel"] = 0
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "vending_machine.tmpl", src.name, 440, 600)
 		ui.set_initial_data(data)
 		ui.open()
@@ -419,8 +419,8 @@
 		coin = null
 		categories &= ~CAT_COIN
 
-	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))))
-		if ((href_list["vend"]) && (src.vend_ready) && (!currently_vending))
+	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))))
+		if((href_list["vend"]) && (src.vend_ready) && (!currently_vending))
 			if((!allowed(usr)) && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
 				usr << "<span class='warning'>Access denied.</span>"	//Unless emagged of course
 				flick(icon_deny,src)
@@ -447,10 +447,10 @@
 					src.status_message = "Please swipe a card or insert cash to pay for the item."
 					src.status_error = 0
 
-		else if (href_list["cancelpurchase"])
+		else if(href_list["cancelpurchase"])
 			src.currently_vending = null
 
-		else if ((href_list["togglevoice"]) && (src.panel_open))
+		else if((href_list["togglevoice"]) && (src.panel_open))
 			src.shut_up = !src.shut_up
 
 		src.add_fingerprint(usr)
@@ -466,7 +466,7 @@
 	src.status_error = 0
 	nanomanager.update_uis(src)
 
-	if (R.category & CAT_COIN)
+	if(R.category & CAT_COIN)
 		if(!coin)
 			user << "<span class='notice'>You need to insert a coin to get this item.</span>"
 			return
@@ -489,7 +489,7 @@
 			src.last_reply = world.time
 
 	use_power(vend_power_usage)	//actuators and stuff
-	if (src.icon_vend) //Show the vending animation if needed
+	if(src.icon_vend) //Show the vending animation if needed
 		flick(src.icon_vend,src)
 	spawn(src.vend_delay)
 		R.get_product(get_turf(src))
@@ -544,7 +544,7 @@
 	if(stat & NOPOWER)
 		return
 
-	if (!message)
+	if(!message)
 		return
 
 	for(var/mob/O in hearers(src, null))
@@ -580,10 +580,10 @@
 
 	for(var/datum/stored_items/vending_products/R in src.product_records)
 		throw_item = R.get_product(loc)
-		if (!throw_item)
+		if(!throw_item)
 			continue
 		break
-	if (!throw_item)
+	if(!throw_item)
 		return 0
 	spawn(0)
 		throw_item.throw_at(target, 16, 3, src)

@@ -51,7 +51,7 @@ meteor_act
 			agony_amount *= 1.50
 		if("l_hand", "r_hand")
 			var/c_hand
-			if (def_zone == "l_hand")
+			if(def_zone == "l_hand")
 				c_hand = l_hand
 			else
 				c_hand = r_hand
@@ -60,7 +60,7 @@ meteor_act
 				msg_admin_attack("[src.name] ([src.ckey]) was disarmed by a stun effect")
 
 				drop_from_inventory(c_hand)
-				if (affected.robotic >= ORGAN_ROBOT)
+				if(affected.robotic >= ORGAN_ROBOT)
 					emote("me", 1, "drops what they were holding, their [affected.name] malfunctioning!")
 				else
 					var/emote_scream = pick("screams in pain and ", "lets out a sharp cry and ", "cries out and ")
@@ -82,7 +82,7 @@ meteor_act
 
 	//If you don't specify a bodypart, it checks ALL your bodyparts for protection, and averages out the values
 	for(var/organ_name in organs_by_name)
-		if (organ_name in organ_rel_size)
+		if(organ_name in organ_rel_size)
 			var/obj/item/organ/external/organ = organs_by_name[organ_name]
 			if(organ)
 				var/weight = organ_rel_size[organ_name]
@@ -92,7 +92,7 @@ meteor_act
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
 /mob/living/carbon/human/proc/get_siemens_coefficient_organ(var/obj/item/organ/external/def_zone)
-	if (!def_zone)
+	if(!def_zone)
 		return 1.0
 
 	var/siemens_coefficient = species.siemens_coefficient
@@ -113,7 +113,7 @@ meteor_act
 		if(gear && istype(gear ,/obj/item/clothing))
 			var/obj/item/clothing/C = gear
 			if(istype(C) && C.body_parts_covered & def_zone.body_part)
-				protection = add_armor(protection, C.armor[type]) 
+				protection = add_armor(protection, C.armor[type])
 	return protection
 
 /mob/living/carbon/human/proc/check_head_coverage()
@@ -159,7 +159,7 @@ meteor_act
 		return null
 
 	var/obj/item/organ/external/affecting = get_organ(hit_zone)
-	if (!affecting || affecting.is_stump())
+	if(!affecting || affecting.is_stump())
 		user << "<span class='danger'>They are missing that limb!</span>"
 		return null
 
@@ -188,7 +188,7 @@ meteor_act
 		if(!..(I, user, effective_force, blocked, hit_zone))
 			return 0
 
-		//set the dislocate mult less than the effective force mult so that 
+		//set the dislocate mult less than the effective force mult so that
 		//dislocating limbs on disarm is a bit easier than breaking limbs on harm
 		attack_joint(affecting, I, effective_force, 0.5, blocked) //...but can dislocate joints
 	else if(!..())
@@ -215,7 +215,7 @@ meteor_act
 	return 1
 
 /mob/living/carbon/human/proc/attack_bloody(obj/item/W, mob/living/attacker, var/effective_force, var/hit_zone)
-	if(W.damtype != BRUTE) 
+	if(W.damtype != BRUTE)
 		return
 
 	//make non-sharp low-force weapons less likely to be bloodied
@@ -317,7 +317,7 @@ meteor_act
 		var/throw_damage = O.throwforce*(speed/THROWFORCE_SPEED_DIVISOR)
 
 		var/zone
-		if (istype(O.thrower, /mob/living))
+		if(istype(O.thrower, /mob/living))
 			var/mob/living/L = O.thrower
 			zone = check_zone(L.zone_sel.selecting)
 		else
@@ -325,7 +325,7 @@ meteor_act
 
 		//check if we hit
 		var/miss_chance = 15
-		if (O.throw_source)
+		if(O.throw_source)
 			var/distance = get_dist(O.throw_source, loc)
 			miss_chance = max(15*(distance-2), 0)
 		zone = get_zone_with_miss_chance(zone, src, miss_chance, ranged_attack=1)
@@ -363,10 +363,10 @@ meteor_act
 		//thrown weapon embedded object code.
 		if(dtype == BRUTE && istype(O,/obj/item))
 			var/obj/item/I = O
-			if (!is_robot_module(I))
+			if(!is_robot_module(I))
 				var/sharp = is_sharp(I)
 				var/damage = throw_damage //the effective damage used for embedding purposes, no actual damage is dealt here
-				if (armor)
+				if(armor)
 					damage *= blocked_mult(armor)
 
 				//blunt objects should really not be embedding in things unless a huge amount of force is involved
@@ -411,7 +411,7 @@ meteor_act
 
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
-	if (gloves)
+	if(gloves)
 		gloves.add_blood(source)
 		gloves:transfer_blood = amount
 		gloves:bloody_hands_mob = source

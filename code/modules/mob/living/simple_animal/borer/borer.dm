@@ -105,7 +105,7 @@
 		if(eta_status)
 			stat(null, eta_status)
 
-	if (client.statpanel == "Status")
+	if(client.statpanel == "Status")
 		stat("Chemicals", chemicals)
 
 /mob/living/simple_animal/borer/proc/detatch()

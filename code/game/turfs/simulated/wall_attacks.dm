@@ -60,8 +60,8 @@
 	add_fingerprint(user)
 	user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
 	var/rotting = (locate(/obj/effect/overlay/wallrot) in src)
-	if (HULK in user.mutations)
-		if (rotting || !prob(material.hardness))
+	if(HULK in user.mutations)
+		if(rotting || !prob(material.hardness))
 			success_smash(user)
 		else
 			fail_smash(user)
@@ -94,7 +94,7 @@
 /turf/simulated/wall/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
 	user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
-	if (!user.)
+	if(!user.)
 		user << "<span class='warning'>You don't have the dexterity to do this!</span>"
 		return
 
@@ -211,7 +211,7 @@
 	else
 		switch(construction_stage)
 			if(6)
-				if (istype(W, /obj/item/weapon/wirecutters))
+				if(istype(W, /obj/item/weapon/wirecutters))
 					playsound(src, 'sound/items/Wirecutter.ogg', 100, 1)
 					construction_stage = 5
 					new /obj/item/stack/rods( src )
@@ -219,7 +219,7 @@
 					update_icon()
 					return
 			if(5)
-				if (istype(W, /obj/item/weapon/screwdriver))
+				if(istype(W, /obj/item/weapon/screwdriver))
 					user << "<span class='notice'>You begin removing the support lines.</span>"
 					playsound(src, 'sound/items/Screwdriver.ogg', 100, 1)
 					if(!do_after(user,40,src) || !istype(src, /turf/simulated/wall) || construction_stage != 5)
@@ -247,7 +247,7 @@
 					else
 						user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
 						return
-				else if (istype(W, /obj/item/weapon/pickaxe/plasmacutter))
+				else if(istype(W, /obj/item/weapon/pickaxe/plasmacutter))
 					cut_cover = 1
 				if(cut_cover)
 					user << "<span class='notice'>You begin slicing through the metal cover.</span>"
@@ -259,7 +259,7 @@
 					user << "<span class='notice'>You press firmly on the cover, dislodging it.</span>"
 					return
 			if(3)
-				if (istype(W, /obj/item/weapon/crowbar))
+				if(istype(W, /obj/item/weapon/crowbar))
 					user << "<span class='notice'>You struggle to pry off the cover.</span>"
 					playsound(src, 'sound/items/Crowbar.ogg', 100, 1)
 					if(!do_after(user,100,src) || !istype(src, /turf/simulated/wall) || construction_stage != 3)
@@ -269,7 +269,7 @@
 					user << "<span class='notice'>You pry off the cover.</span>"
 					return
 			if(2)
-				if (istype(W, /obj/item/weapon/wrench))
+				if(istype(W, /obj/item/weapon/wrench))
 					user << "<span class='notice'>You start loosening the anchoring bolts which secure the support rods to their frame.</span>"
 					playsound(src, 'sound/items/Ratchet.ogg', 100, 1)
 					if(!do_after(user,40,src) || !istype(src, /turf/simulated/wall) || construction_stage != 2)

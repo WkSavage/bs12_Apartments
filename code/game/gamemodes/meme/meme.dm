@@ -103,7 +103,7 @@
 
 
 /datum/game_mode/proc/forge_meme_objectives(var/datum/mind/meme, var/datum/mind/first_host)
-	if (config.objectives_disabled)
+	if(config.objectives_disabled)
 		return
 
 	// meme always needs to attune X hosts
@@ -124,7 +124,7 @@
 	return
 
 /datum/game_mode/proc/greet_meme(var/datum/mind/meme, var/you_are=1)
-	if (you_are)
+	if(you_are)
 		meme.current << "<span class='danger'>You are a meme!</span>"
 	show_objectives(meme)
 	return
@@ -138,7 +138,7 @@
 			continue
 		memes_alive++
 
-	if (memes_alive)
+	if(memes_alive)
 		return ..()
 	else
 		return 1

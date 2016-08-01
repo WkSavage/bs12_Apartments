@@ -19,7 +19,7 @@
 	if(!src.enabled()) return 1
 	if(air_group || (height==0)) return 1
 
-	if ((get_dir(loc, target) & dir) && src.is_blocked(mover))
+	if((get_dir(loc, target) & dir) && src.is_blocked(mover))
 		src.give_feedback(mover)
 		return 0
 	return 1
@@ -58,7 +58,7 @@
 	return on && !(stat & NOPOWER)
 
 /obj/machinery/mech_sensor/update_icon(var/safety = 0)
-	if (enabled())
+	if(enabled())
 		icon_state = "airlock_sensor_standby"
 	else
 		icon_state = "airlock_sensor_off"
@@ -82,7 +82,7 @@
 
 	if(signal.data["command"] == "enable")
 		on = 1
-	else if (signal.data["command"] == "disable")
+	else if(signal.data["command"] == "disable")
 		on = 0
 
 	update_icon()

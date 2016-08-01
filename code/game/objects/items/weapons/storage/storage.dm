@@ -49,19 +49,19 @@
 	if(!canremove)
 		return
 
-	if (ishuman(usr) || issmall(usr)) //so monkeys can take off their backpacks -- Urist
+	if(ishuman(usr) || issmall(usr)) //so monkeys can take off their backpacks -- Urist
 		if(over_object == usr && Adjacent(usr)) // this must come before the screen objects only block
 			src.open(usr)
 			return
 
-		if (!( istype(over_object, /obj/screen) ))
+		if(!( istype(over_object, /obj/screen) ))
 			return ..()
 
-		if (usr.incapacitated())
+		if(usr.incapacitated())
 			return
 
 		//makes sure that the storage is equipped, so that we can't drag it into our hand from miles away.
-		if (!usr.contains(src))
+		if(!usr.contains(src))
 			return
 
 		src.add_fingerprint(usr)
@@ -83,7 +83,7 @@
 		L += S.return_inv()
 	for(var/obj/item/weapon/gift/G in src)
 		L += G.gift
-		if (istype(G.gift, /obj/item/weapon/storage))
+		if(istype(G.gift, /obj/item/weapon/storage))
 			L += G.gift:return_inv()
 	return L
 
@@ -127,11 +127,11 @@
 	is_seeing -= user
 
 /obj/item/weapon/storage/proc/open(mob/user as mob)
-	if (src.use_sound)
+	if(src.use_sound)
 		playsound(src.loc, src.use_sound, 50, 1, -5)
 
 	orient2hud(user)
-	if (user.s_active)
+	if(user.s_active)
 		user.s_active.close(user)
 	show_to(user)
 
@@ -164,7 +164,7 @@
 		O.screen_loc = "[cx],[cy]"
 		O.layer = SCREEN_LAYER+0.01
 		cx++
-		if (cx > mx)
+		if(cx > mx)
 			cx = tx
 			cy--
 	src.closer.screen_loc = "[mx+1],[my]"
@@ -175,7 +175,7 @@
 	var/adjusted_contents = contents.len
 	var/row_num = 0
 	var/col_count = min(7,storage_slots) -1
-	if (adjusted_contents > 7)
+	if(adjusted_contents > 7)
 		row_num = round((adjusted_contents-1) / 7) // 7 is the maximum allowed width.
 	src.arrange_item_slots(row_num, col_count)
 
@@ -190,7 +190,7 @@
 		O.maptext = ""
 		O.layer = SCREEN_LAYER+0.01
 		cx++
-		if (cx > (4+cols))
+		if(cx > (4+cols))
 			cx = 4
 			cy--
 
@@ -300,7 +300,7 @@
 			user << "<span class='notice'>\The [src] cannot hold [W].</span>"
 		return 0
 
-	if (max_w_class != null && W.w_class > max_w_class)
+	if(max_w_class != null && W.w_class > max_w_class)
 		if(!stop_messages)
 			user << "<span class='notice'>\The [W] is too big for this [src.name].</span>"
 		return 0
@@ -347,11 +347,11 @@
 
 		if(!prevent_warning)
 			for(var/mob/M in viewers(usr, null))
-				if (M == usr)
+				if(M == usr)
 					usr << "<span class='notice'>You put \the [W] into [src].</span>"
-				else if (M in range(1)) //If someone is standing close enough, they can tell what it is... TODO replace with distance check
+				else if(M in range(1)) //If someone is standing close enough, they can tell what it is... TODO replace with distance check
 					M.show_message("<span class='notice'>\The [usr] puts [W] into [src].</span>")
-				else if (W && W.w_class >= NORMAL_ITEM) //Otherwise they can only see large or normal items from a distance...
+				else if(W && W.w_class >= NORMAL_ITEM) //Otherwise they can only see large or normal items from a distance...
 					M.show_message("<span class='notice'>\The [usr] puts [W] into [src].</span>")
 
 		src.orient2hud(usr)
@@ -365,8 +365,8 @@
 	if(!istype(W)) return 0
 
 	for(var/mob/M in range(1, src.loc))
-		if (M.s_active == src)
-			if (M.client)
+		if(M.s_active == src)
+			if(M.client)
 				M.client.screen -= W
 
 	if(new_location)
@@ -440,12 +440,12 @@
 			H.r_store = null
 			return
 
-	if (src.loc == user)
+	if(src.loc == user)
 		src.open(user)
 	else
 		..()
 		for(var/mob/M in range(1))
-			if (M.s_active == src)
+			if(M.s_active == src)
 				src.close(M)
 	src.add_fingerprint(user)
 	return
@@ -582,13 +582,13 @@
 	var/atom/cur_atom = src
 
 	while (cur_atom && !(cur_atom in container.contents))
-		if (isarea(cur_atom))
+		if(isarea(cur_atom))
 			return -1
-		if (istype(cur_atom.loc, /obj/item/weapon/storage))
+		if(istype(cur_atom.loc, /obj/item/weapon/storage))
 			depth++
 		cur_atom = cur_atom.loc
 
-	if (!cur_atom)
+	if(!cur_atom)
 		return -1	//inside something with a null loc.
 
 	return depth
@@ -600,13 +600,13 @@
 	var/atom/cur_atom = src
 
 	while (cur_atom && !isturf(cur_atom))
-		if (isarea(cur_atom))
+		if(isarea(cur_atom))
 			return -1
-		if (istype(cur_atom.loc, /obj/item/weapon/storage))
+		if(istype(cur_atom.loc, /obj/item/weapon/storage))
 			depth++
 		cur_atom = cur_atom.loc
 
-	if (!cur_atom)
+	if(!cur_atom)
 		return -1	//inside something with a null loc.
 
 	return depth

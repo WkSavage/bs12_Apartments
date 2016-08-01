@@ -30,7 +30,7 @@
 
 /obj/item/stack/rods/attackby(obj/item/W as obj, mob/user as mob)
 	..()
-	if (istype(W, /obj/item/weapon/weldingtool))
+	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 
 		if(get_amount() < 2)
@@ -46,7 +46,7 @@
 			src = null
 			var/replace = (user.get_inactive_hand()==R)
 			R.use(2)
-			if (!R && replace)
+			if(!R && replace)
 				user.put_in_hands(new_item)
 		return
 	..()
@@ -57,9 +57,9 @@
 
 	if(!istype(user.loc,/turf)) return 0
 
-	if (locate(/obj/structure/grille, usr.loc))
+	if(locate(/obj/structure/grille, usr.loc))
 		for(var/obj/structure/grille/G in usr.loc)
-			if (G.destroyed)
+			if(G.destroyed)
 				G.health = 10
 				G.density = 1
 				G.destroyed = 0
@@ -74,7 +74,7 @@
 			return
 		usr << "<span class='notice'>Assembling grille...</span>"
 		in_use = 1
-		if (!do_after(usr, 10))
+		if(!do_after(usr, 10))
 			in_use = 0
 			return
 		var/obj/structure/grille/F = new /obj/structure/grille/ ( usr.loc )

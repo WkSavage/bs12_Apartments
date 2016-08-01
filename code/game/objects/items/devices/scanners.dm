@@ -35,7 +35,7 @@ REAGENT SCANNER
 	scan_mob(M, user)
 
 /obj/item/device/healthanalyzer/proc/scan_mob(mob/living/M, mob/living/user)
-	if ((CLUMSY in user.mutations) && prob(50))
+	if((CLUMSY in user.mutations) && prob(50))
 		user << text("<span class='warning'>You try to analyze the floor's vitals!</span>")
 		for(var/mob/O in viewers(M, null))
 			O.show_message("<span class='warning'>\The [user] has analyzed the floor's vitals!</span>", 1)
@@ -45,12 +45,12 @@ REAGENT SCANNER
 		user.show_message("<span class='notice'>Key: Suffocation/Toxin/Burns/Brute</span>", 1)
 		user.show_message("<span class='notice'>Body Temperature: ???</span>", 1)
 		return
-	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
+	if(!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
 		usr << "<span class='warning'>You don't have the dexterity to do this!</span>"
 		return
 	user.visible_message("<span class='notice'>[user] has analyzed [M]'s vitals.</span>","<span class='notice'>You have analyzed [M]'s vitals.</span>")
 
-	if (!istype(M,/mob/living/carbon/human) || M.isSynthetic())
+	if(!istype(M,/mob/living/carbon/human) || M.isSynthetic())
 		//these sensors are designed for organic life
 		user.show_message("<span class='notice'>Analyzing Results for ERROR:\n\t Overall Status: ERROR</span>")
 		user.show_message("<span class='notice'>    Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font></span>", 1)
@@ -126,22 +126,22 @@ REAGENT SCANNER
 				user << "<span class='warning'>Non-medical reagent[(unknown > 1)?"s":""] found in subject's stomach.</span>"
 		if(C.virus2.len)
 			for(var/ID in C.virus2)
-				if (ID in virusDB)
+				if(ID in virusDB)
 					var/datum/data/record/V = virusDB[ID]
 					user.show_message("<span class='warning'>Warning: Pathogen [V.fields["name"]] detected in subject's blood. Known antigen : [V.fields["antigen"]]</span>")
 //			user.show_message(text("<span class='warning'>Warning: Unknown pathogen detected in subject's blood.</span>"))
-	if (M.getCloneLoss())
+	if(M.getCloneLoss())
 		user.show_message("<span class='warning'>Subject appears to have been imperfectly cloned.</span>")
-//	if (M.reagents && M.reagents.get_reagent_amount("inaprovaline"))
+//	if(M.reagents && M.reagents.get_reagent_amount("inaprovaline"))
 //		user.show_message("<span class='notice'>Bloodstream Analysis located [M.reagents:get_reagent_amount("inaprovaline")] units of rejuvenation chemicals.</span>")
-	if (M.has_brain_worms())
+	if(M.has_brain_worms())
 		user.show_message("<span class='warning'>Subject suffering from aberrant brain activity. Recommend further scanning.</span>")
 
-	else if (M.getBrainLoss() >= 60 || !M.has_brain())
+	else if(M.getBrainLoss() >= 60 || !M.has_brain())
 		user.show_message("<span class='warning'>Subject is brain dead.</span>")
-	else if (M.getBrainLoss() >= 25)
+	else if(M.getBrainLoss() >= 25)
 		user.show_message("<span class='warning'>Severe brain damage detected. Subject likely to have a traumatic brain injury.</span>")
-	else if (M.getBrainLoss() >= 10)
+	else if(M.getBrainLoss() >= 10)
 		user.show_message("<span class='warning'>Significant brain damage detected. Subject may have had a concussion.</span>")
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
@@ -156,7 +156,7 @@ REAGENT SCANNER
 			if(e.has_infected_wound())
 				user << "<span class='warning'>Infected wound detected in subject [limb]. Disinfection recommended.</span>"
 
-		if (H.internal_organs_by_name["stack"])
+		if(H.internal_organs_by_name["stack"])
 			user.show_message("<span class='notice'>Subject has a neural lace implant.</span>")
 
 		for(var/name in H.organs_by_name)
@@ -212,16 +212,16 @@ REAGENT SCANNER
 
 /obj/item/device/analyzer/atmosanalyze(var/mob/user)
 	var/air = user.return_air()
-	if (!air)
+	if(!air)
 		return
 
 	return atmosanalyzer_scan(src, air, user)
 
 /obj/item/device/analyzer/attack_self(mob/user as mob)
 
-	if (user.stat)
+	if(user.stat)
 		return
-	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
+	if(!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
 		usr << "<span class='warning'>You don't have the dexterity to do this!</span>"
 		return
 
@@ -259,9 +259,9 @@ REAGENT SCANNER
 		icon_state = initial(icon_state)
 
 /obj/item/device/mass_spectrometer/attack_self(mob/user as mob)
-	if (user.stat)
+	if(user.stat)
 		return
-	if (!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
+	if(!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
 		user << "<span class='warning'>You don't have the dexterity to do this!</span>"
 		return
 	if(reagents.total_volume)
@@ -310,9 +310,9 @@ REAGENT SCANNER
 /obj/item/device/reagent_scanner/afterattack(obj/O, mob/user as mob, proximity)
 	if(!proximity)
 		return
-	if (user.stat)
+	if(user.stat)
 		return
-	if (!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
+	if(!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
 		user << "<span class='warning'>You don't have the dexterity to do this!</span>"
 		return
 	if(!istype(O))
@@ -352,24 +352,24 @@ REAGENT SCANNER
 	matter = list(DEFAULT_WALL_MATERIAL = 30,"glass" = 20)
 
 /obj/item/device/slime_scanner/attack(mob/living/M as mob, mob/living/user as mob)
-	if (!isslime(M))
+	if(!isslime(M))
 		user << "<B>This device can only scan slimes!</B>"
 		return
 	var/mob/living/carbon/slime/T = M
 	user.show_message("Slime scan results:")
 	user.show_message(text("[T.colour] [] slime", T.is_adult ? "adult" : "baby"))
 	user.show_message(text("Nutrition: [T.nutrition]/[]", T.get_max_nutrition()))
-	if (T.nutrition < T.get_starve_nutrition())
+	if(T.nutrition < T.get_starve_nutrition())
 		user.show_message("<span class='alert'>Warning: slime is starving!</span>")
-	else if (T.nutrition < T.get_hunger_nutrition())
+	else if(T.nutrition < T.get_hunger_nutrition())
 		user.show_message("<span class='warning'>Warning: slime is hungry</span>")
 	user.show_message("Electric change strength: [T.powerlevel]")
 	user.show_message("Health: [T.health]")
-	if (T.slime_mutation[4] == T.colour)
+	if(T.slime_mutation[4] == T.colour)
 		user.show_message("This slime does not evolve any further")
 	else
-		if (T.slime_mutation[3] == T.slime_mutation[4])
-			if (T.slime_mutation[2] == T.slime_mutation[1])
+		if(T.slime_mutation[3] == T.slime_mutation[4])
+			if(T.slime_mutation[2] == T.slime_mutation[1])
 				user.show_message(text("Possible mutation: []", T.slime_mutation[3]))
 				user.show_message("Genetic destability: [T.mutation_chance/2]% chance of mutation on splitting")
 			else
@@ -378,7 +378,7 @@ REAGENT SCANNER
 		else
 			user.show_message(text("Possible mutations: [], [], [], []", T.slime_mutation[1], T.slime_mutation[2], T.slime_mutation[3], T.slime_mutation[4]))
 			user.show_message("Genetic destability: [T.mutation_chance]% chance of mutation on splitting")
-	if (T.cores > 1)
+	if(T.cores > 1)
 		user.show_message("Anomalious slime core amount detected")
 	user.show_message("Growth progress: [T.amount_grown]/10")
 

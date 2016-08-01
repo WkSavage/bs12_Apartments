@@ -12,7 +12,7 @@
 
 /obj/machinery/computer/helm/initialize()
 	linked = map_sectors["[z]"]
-	if (linked)
+	if(linked)
 		if(!linked.nav_control)
 			linked.nav_control = src
 		testing("Helm console at level [z] found a corresponding overmap object '[linked.name]'.")
@@ -21,7 +21,7 @@
 
 	for(var/level in map_sectors)
 		var/obj/effect/map/sector/S = map_sectors["[level]"]
-		if (istype(S) && S.always_known)
+		if(istype(S) && S.always_known)
 			var/datum/data/record/R = new()
 			R.fields["name"] = S.name
 			R.fields["x"] = S.x
@@ -30,7 +30,7 @@
 
 /obj/machinery/computer/helm/process()
 	..()
-	if (autopilot && dx && dy)
+	if(autopilot && dx && dy)
 		var/turf/T = locate(dx,dy,1)
 		if(linked.loc == T)
 			if(linked.is_still())
@@ -53,9 +53,9 @@
 		return 1
 
 /obj/machinery/computer/helm/check_eye(var/mob/user as mob)
-	if (!manual_control)
+	if(!manual_control)
 		return -1
-	if (!get_dist(user, src) > 1 || user.blinded || !linked )
+	if(!get_dist(user, src) > 1 || user.blinded || !linked )
 		return -1
 	return 0
 
@@ -104,7 +104,7 @@
 	data["locations"] = locations
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "helm.tmpl", "[linked.name] Helm Control", 380, 530)
 		ui.set_initial_data(data)
 		ui.open()
@@ -114,10 +114,10 @@
 	if(..())
 		return 1
 
-	if (!linked)
+	if(!linked)
 		return
 
-	if (href_list["add"])
+	if(href_list["add"])
 		var/datum/data/record/R = new()
 		var/sec_name = input("Input naviation entry name", "New navigation entry", "Sector #[known_sectors.len]") as text
 		if(!sec_name)
@@ -134,42 +134,42 @@
 				R.fields["y"] = Clamp(newy, 1, world.maxy)
 		known_sectors += R
 
-	if (href_list["remove"])
+	if(href_list["remove"])
 		var/datum/data/record/R = locate(href_list["remove"])
 		known_sectors.Remove(R)
 
-	if (href_list["setx"])
+	if(href_list["setx"])
 		var/newx = input("Input new destiniation x coordinate", "Coordinate input", dx) as num|null
-		if (newx)
+		if(newx)
 			dx = Clamp(newx, 1, world.maxx)
 
-	if (href_list["sety"])
+	if(href_list["sety"])
 		var/newy = input("Input new destiniation y coordinate", "Coordinate input", dy) as num|null
-		if (newy)
+		if(newy)
 			dy = Clamp(newy, 1, world.maxy)
 
-	if (href_list["x"] && href_list["y"])
+	if(href_list["x"] && href_list["y"])
 		dx = text2num(href_list["x"])
 		dy = text2num(href_list["y"])
 
-	if (href_list["reset"])
+	if(href_list["reset"])
 		dx = 0
 		dy = 0
 
-	if (href_list["move"])
+	if(href_list["move"])
 		var/ndir = text2num(href_list["move"])
 		linked.relaymove(usr, ndir)
 
-	if (href_list["brake"])
+	if(href_list["brake"])
 		linked.decelerate()
 
-	if (href_list["apilot"])
+	if(href_list["apilot"])
 		autopilot = !autopilot
 
-	if (href_list["manual"])
+	if(href_list["manual"])
 		manual_control = !manual_control
 
-	if (href_list["state"])
+	if(href_list["state"])
 		state = href_list["state"]
 	add_fingerprint(usr)
 	updateUsrDialog()

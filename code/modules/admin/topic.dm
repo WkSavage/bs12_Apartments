@@ -195,22 +195,22 @@
 
 		switch(href_list["call_shuttle"])
 			if("1")
-				if ((!( ticker ) || !emergency_shuttle.location()))
+				if((!( ticker ) || !emergency_shuttle.location()))
 					return
-				if (emergency_shuttle.can_call())
+				if(emergency_shuttle.can_call())
 					emergency_shuttle.call_evac()
 					log_admin("[key_name(usr)] called the Emergency Shuttle")
 					message_admins("\blue [key_name_admin(usr)] called the Emergency Shuttle to the station", 1)
 
 			if("2")
-				if (!( ticker ) || !emergency_shuttle.location())
+				if(!( ticker ) || !emergency_shuttle.location())
 					return
-				if (emergency_shuttle.can_call())
+				if(emergency_shuttle.can_call())
 					emergency_shuttle.call_evac()
 					log_admin("[key_name(usr)] called the Emergency Shuttle")
 					message_admins("\blue [key_name_admin(usr)] called the Emergency Shuttle to the station", 1)
 
-				else if (emergency_shuttle.can_recall())
+				else if(emergency_shuttle.can_recall())
 					emergency_shuttle.recall()
 					log_admin("[key_name(usr)] sent the Emergency Shuttle back")
 					message_admins("\blue [key_name_admin(usr)] sent the Emergency Shuttle back", 1)
@@ -220,14 +220,14 @@
 	else if(href_list["edit_shuttle_time"])
 		if(!check_rights(R_SERVER))	return
 
-		if (emergency_shuttle.wait_for_launch)
+		if(emergency_shuttle.wait_for_launch)
 			var/new_time_left = input("Enter new shuttle launch countdown (seconds):","Edit Shuttle Launch Time", emergency_shuttle.estimate_launch_time() ) as num
 
 			emergency_shuttle.launch_time = world.time + new_time_left*10
 
 			log_admin("[key_name(usr)] edited the Emergency Shuttle's launch time to [new_time_left]")
 			message_admins("\blue [key_name_admin(usr)] edited the Emergency Shuttle's launch time to [new_time_left*10]", 1)
-		else if (emergency_shuttle.shuttle.has_arrive_time())
+		else if(emergency_shuttle.shuttle.has_arrive_time())
 
 			var/new_time_left = input("Enter new shuttle arrival time (seconds):","Edit Shuttle Arrival Time", emergency_shuttle.estimate_arrival_time() ) as num
 			emergency_shuttle.shuttle.arrive_time = world.time + new_time_left*10
@@ -754,7 +754,7 @@
 
 	else if(href_list["boot2"])
 		var/mob/M = locate(href_list["boot2"])
-		if (ismob(M))
+		if(ismob(M))
 			if(!check_if_greater_rights_than(M.client))
 				return
 			var/reason = sanitize(input("Please enter reason"))
@@ -897,7 +897,7 @@
 	else if(href_list["c_mode2"])
 		if(!check_rights(R_ADMIN|R_SERVER))	return
 
-		if (ticker && ticker.mode)
+		if(ticker && ticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
 		master_mode = href_list["c_mode2"]
 		log_admin("[key_name(usr)] set the mode as [master_mode].")
@@ -1232,9 +1232,9 @@
 			var/mob/living/L = M
 			var/status
 			switch (M.stat)
-				if (0) status = "Alive"
-				if (1) status = "<font color='orange'><b>Unconscious</b></font>"
-				if (2) status = "<font color='red'><b>Dead</b></font>"
+				if(0) status = "Alive"
+				if(1) status = "<font color='orange'><b>Unconscious</b></font>"
+				if(2) status = "<font color='red'><b>Dead</b></font>"
 			health_description = "Status = [status]"
 			health_description += "<BR>Oxy: [L.getOxyLoss()] - Tox: [L.getToxLoss()] - Fire: [L.getFireLoss()] - Brute: [L.getBruteLoss()] - Clone: [L.getCloneLoss()] - Brain: [L.getBrainLoss()]"
 		else
@@ -1360,13 +1360,13 @@
 
 	else if(href_list["AdminFaxView"])
 		var/obj/item/fax = locate(href_list["AdminFaxView"])
-		if (istype(fax, /obj/item/weapon/paper))
+		if(istype(fax, /obj/item/weapon/paper))
 			var/obj/item/weapon/paper/P = fax
 			P.show_content(usr,1)
-		else if (istype(fax, /obj/item/weapon/photo))
+		else if(istype(fax, /obj/item/weapon/photo))
 			var/obj/item/weapon/photo/H = fax
 			H.show(usr)
-		else if (istype(fax, /obj/item/weapon/paper_bundle))
+		else if(istype(fax, /obj/item/weapon/paper_bundle))
 			//having multiple people turning pages on a paper_bundle can cause issues
 			//open a browse window listing the contents instead
 			var/data = ""
@@ -1380,16 +1380,16 @@
 		else
 			usr << "\red The faxed item is not viewable. This is probably a bug, and should be reported on the tracker: [fax.type]"
 
-	else if (href_list["AdminFaxViewPage"])
+	else if(href_list["AdminFaxViewPage"])
 		var/page = text2num(href_list["AdminFaxViewPage"])
 		var/obj/item/weapon/paper_bundle/bundle = locate(href_list["paper_bundle"])
 
-		if (!bundle) return
+		if(!bundle) return
 
-		if (istype(bundle.pages[page], /obj/item/weapon/paper))
+		if(istype(bundle.pages[page], /obj/item/weapon/paper))
 			var/obj/item/weapon/paper/P = bundle.pages[page]
 			P.show_content(src.owner, 1)
-		else if (istype(bundle.pages[page], /obj/item/weapon/photo))
+		else if(istype(bundle.pages[page], /obj/item/weapon/photo))
 			var/obj/item/weapon/photo/H = bundle.pages[page]
 			H.show(src.owner)
 		return
@@ -1545,9 +1545,9 @@
 		var/atom/loc = usr.loc
 
 		var/dirty_paths
-		if (istext(href_list["object_list"]))
+		if(istext(href_list["object_list"]))
 			dirty_paths = list(href_list["object_list"])
-		else if (istype(href_list["object_list"], /list))
+		else if(istype(href_list["object_list"], /list))
 			dirty_paths = href_list["object_list"]
 
 		var/paths = list()
@@ -1595,40 +1595,40 @@
 			obj_dir = 2
 		var/obj_name = sanitize(href_list["object_name"])
 		var/where = href_list["object_where"]
-		if (!( where in list("onfloor","inhand","inmarked") ))
+		if(!( where in list("onfloor","inhand","inmarked") ))
 			where = "onfloor"
 
 		if( where == "inhand" )
 			usr << "Support for inhand not available yet. Will spawn on floor."
 			where = "onfloor"
 
-		if ( where == "inhand" )	//Can only give when human or monkey
-			if ( !( ishuman(usr) || issmall(usr) ) )
+		if( where == "inhand" )	//Can only give when human or monkey
+			if( !( ishuman(usr) || issmall(usr) ) )
 				usr << "Can only spawn in hand when you're a human or a monkey."
 				where = "onfloor"
-			else if ( usr.get_active_hand() )
+			else if( usr.get_active_hand() )
 				usr << "Your active hand is full. Spawning on floor."
 				where = "onfloor"
 
-		if ( where == "inmarked" )
+		if( where == "inmarked" )
 			var/marked_datum = marked_datum()
-			if ( !marked_datum )
+			if( !marked_datum )
 				usr << "You don't have any object marked. Abandoning spawn."
 				return
 			else
-				if ( !istype(marked_datum,/atom) )
+				if( !istype(marked_datum,/atom) )
 					usr << "The object you have marked cannot be used as a target. Target must be of type /atom. Abandoning spawn."
 					return
 
 		var/atom/target //Where the object will be spawned
 		switch ( where )
-			if ( "onfloor" )
+			if( "onfloor" )
 				switch (href_list["offset_type"])
-					if ("absolute")
+					if("absolute")
 						target = locate(0 + X,0 + Y,0 + Z)
-					if ("relative")
+					if("relative")
 						target = locate(loc.x + X,loc.y + Y,loc.z + Z)
-			if ( "inmarked" )
+			if( "inmarked" )
 				target = marked_datum()
 
 		if(target)
@@ -1826,7 +1826,7 @@
 
 	else if(href_list["ac_setScreen"]) //Brings us to the main menu and resets all fields~
 		src.admincaster_screen = text2num(href_list["ac_setScreen"])
-		if (src.admincaster_screen == 0)
+		if(src.admincaster_screen == 0)
 			if(src.admincaster_feed_channel)
 				src.admincaster_feed_channel = new /datum/feed_channel
 			if(src.admincaster_feed_message)

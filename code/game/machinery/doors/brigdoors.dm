@@ -36,7 +36,7 @@
 
 	spawn(20)
 		for(var/obj/machinery/door/window/brigdoor/M in machines)
-			if (M.id == src.id)
+			if(M.id == src.id)
 				targets += M
 
 		for(var/obj/machinery/flasher/F in machines)

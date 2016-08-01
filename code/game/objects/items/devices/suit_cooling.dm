@@ -30,13 +30,13 @@
 	cell.loc = src
 
 /obj/item/device/suit_cooling_unit/process()
-	if (!on || !cell)
+	if(!on || !cell)
 		return
 
-	if (!ismob(loc))
+	if(!ismob(loc))
 		return
 
-	if (!attached_to_suit(loc))		//make sure they have a suit and we are attached to it
+	if(!attached_to_suit(loc))		//make sure they have a suit and we are attached to it
 		return
 
 	var/mob/living/carbon/human/H = loc
@@ -45,7 +45,7 @@
 	var/env_temp = get_environment_temperature()		//wont save you from a fire
 	var/temp_adj = min(H.bodytemperature - max(thermostat, env_temp), max_cooling)
 
-	if (temp_adj < 0.5)	//only cools, doesn't heat, also we don't need extreme precision
+	if(temp_adj < 0.5)	//only cools, doesn't heat, also we don't need extreme precision
 		return
 
 	var/charge_usage = (temp_adj/max_cooling)*charge_consumption
@@ -58,7 +58,7 @@
 		turn_off()
 
 /obj/item/device/suit_cooling_unit/proc/get_environment_temperature()
-	if (ishuman(loc))
+	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(istype(H.loc, /obj/mecha))
 			var/obj/mecha/M = H.loc
@@ -72,18 +72,18 @@
 		return 0	//space has no temperature, this just makes sure the cooling unit works in space
 
 	var/datum/gas_mixture/environment = T.return_air()
-	if (!environment)
+	if(!environment)
 		return 0
 
 	return environment.temperature
 
 /obj/item/device/suit_cooling_unit/proc/attached_to_suit(mob/M)
-	if (!ishuman(M))
+	if(!ishuman(M))
 		return 0
 
 	var/mob/living/carbon/human/H = M
 
-	if (!H.wear_suit || H.s_store != src)
+	if(!H.wear_suit || H.s_store != src)
 		return 0
 
 	return 1
@@ -98,7 +98,7 @@
 	updateicon()
 
 /obj/item/device/suit_cooling_unit/proc/turn_off()
-	if (ismob(src.loc))
+	if(ismob(src.loc))
 		var/mob/M = src.loc
 		M.show_message("\The [src] clicks and whines as it powers down.", 2)	//let them know in case it's run out of power.
 	on = 0
@@ -124,11 +124,11 @@
 		turn_off()
 	else
 		turn_on()
-		if (on)
+		if(on)
 			user << "You switch on the [src]."
 
 /obj/item/device/suit_cooling_unit/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/weapon/screwdriver))
 		if(cover_open)
 			cover_open = 0
 			user << "You screw the panel into place."
@@ -138,7 +138,7 @@
 		updateicon()
 		return
 
-	if (istype(W, /obj/item/weapon/cell))
+	if(istype(W, /obj/item/weapon/cell))
 		if(cover_open)
 			if(cell)
 				user << "There is a [cell] already installed here."
@@ -153,8 +153,8 @@
 	return ..()
 
 /obj/item/device/suit_cooling_unit/proc/updateicon()
-	if (cover_open)
-		if (cell)
+	if(cover_open)
+		if(cell)
 			icon_state = "suitcooler1"
 		else
 			icon_state = "suitcooler2"
@@ -165,21 +165,21 @@
 	if(!..(user, 1))
 		return
 
-	if (on)
-		if (attached_to_suit(src.loc))
+	if(on)
+		if(attached_to_suit(src.loc))
 			user << "It's switched on and running."
 		else
 			user << "It's switched on, but not attached to anything."
 	else
 		user << "It is switched off."
 
-	if (cover_open)
+	if(cover_open)
 		if(cell)
 			user << "The panel is open, exposing the [cell]."
 		else
 			user << "The panel is open."
 
-	if (cell)
+	if(cell)
 		user << "The charge meter reads [round(cell.percent())]%."
 	else
 		user << "It doesn't have a power cell installed."

@@ -63,13 +63,13 @@
 				step_to(src,movement_target,1)
 
 				if(movement_target)		//Not redundant due to sleeps, Item can be gone in 6 decisecomds
-					if (movement_target.loc.x < src.x)
+					if(movement_target.loc.x < src.x)
 						set_dir(WEST)
-					else if (movement_target.loc.x > src.x)
+					else if(movement_target.loc.x > src.x)
 						set_dir(EAST)
-					else if (movement_target.loc.y < src.y)
+					else if(movement_target.loc.y < src.y)
 						set_dir(SOUTH)
-					else if (movement_target.loc.y > src.y)
+					else if(movement_target.loc.y > src.y)
 						set_dir(NORTH)
 					else
 						set_dir(SOUTH)
@@ -94,7 +94,7 @@
 	if(istype(O, /obj/item/weapon/newspaper))
 		if(!stat)
 			for(var/mob/M in viewers(user, null))
-				if ((M.client && !( M.blinded )))
+				if((M.client && !( M.blinded )))
 					M.show_message("\blue [user] baps [name] on the nose with the rolled up [O]")
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2))

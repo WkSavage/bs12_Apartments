@@ -151,7 +151,7 @@
 /obj/machinery/firealarm/attack_hand(mob/user as mob)
 	if(user.stat || stat & (NOPOWER|BROKEN))
 		return
-	if (buildstage != 2)
+	if(buildstage != 2)
 		return
 
 	user.set_machine(src)

@@ -75,13 +75,13 @@ var/list/global/tank_gauge_cache = list()
 
 /obj/item/weapon/tank/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
-	if (istype(src.loc, /obj/item/assembly))
+	if(istype(src.loc, /obj/item/assembly))
 		icon = src.loc
 
-	if ((istype(W, /obj/item/device/analyzer)) && get_dist(user, src) <= 1)
+	if((istype(W, /obj/item/device/analyzer)) && get_dist(user, src) <= 1)
 		var/obj/item/device/analyzer/A = W
 		A.analyze_gases(src, user)
-	else if (istype(W,/obj/item/latexballon))
+	else if(istype(W,/obj/item/latexballon))
 		var/obj/item/latexballon/LB = W
 		LB.blow(src)
 		src.add_fingerprint(user)
@@ -90,7 +90,7 @@ var/list/global/tank_gauge_cache = list()
 		bomb_assemble(W,user)
 
 /obj/item/weapon/tank/attack_self(mob/user as mob)
-	if (!(src.air_contents))
+	if(!(src.air_contents))
 		return
 
 	ui_interact(user)
@@ -141,7 +141,7 @@ var/list/global/tank_gauge_cache = list()
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "tanks.tmpl", "Tank", 500, 300)
@@ -154,21 +154,21 @@ var/list/global/tank_gauge_cache = list()
 
 /obj/item/weapon/tank/Topic(href, href_list)
 	..()
-	if (usr.stat|| usr.restrained())
+	if(usr.stat|| usr.restrained())
 		return 0
-	if (src.loc != usr)
+	if(src.loc != usr)
 		return 0
 
-	if (href_list["dist_p"])
-		if (href_list["dist_p"] == "reset")
+	if(href_list["dist_p"])
+		if(href_list["dist_p"] == "reset")
 			src.distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
-		else if (href_list["dist_p"] == "max")
+		else if(href_list["dist_p"] == "max")
 			src.distribute_pressure = TANK_MAX_RELEASE_PRESSURE
 		else
 			var/cp = text2num(href_list["dist_p"])
 			src.distribute_pressure += cp
 		src.distribute_pressure = min(max(round(src.distribute_pressure), 0), TANK_MAX_RELEASE_PRESSURE)
-	if (href_list["stat"])
+	if(href_list["stat"])
 		toggle_valve(usr)
 
 	src.add_fingerprint(usr)
@@ -181,7 +181,7 @@ var/list/global/tank_gauge_cache = list()
 			location.internal = null
 			location.internals.icon_state = "internal0"
 			user << "<span class='notice'>You close the tank release valve.</span>"
-			if (location.internals)
+			if(location.internals)
 				location.internals.icon_state = "internal0"
 		else
 			var/can_open_valve
@@ -195,7 +195,7 @@ var/list/global/tank_gauge_cache = list()
 			if(can_open_valve)
 				location.internal = src
 				user << "<span class='notice'>You open \the [src] valve.</span>"
-				if (location.internals)
+				if(location.internals)
 					location.internals.icon_state = "internal1"
 			else
 				user << "<span class='warning'>You need something to connect to \the [src].</span>"

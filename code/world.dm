@@ -89,7 +89,7 @@ var/world_topic_spam_protect_time = world.timeofday
 /world/Topic(T, addr, master, key)
 	diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key][log_end]"
 
-	if (T == "ping")
+	if(T == "ping")
 		var/x = 1
 		for(var/client/C)
 			x++
@@ -102,7 +102,7 @@ var/world_topic_spam_protect_time = world.timeofday
 				n++
 		return n
 
-	else if (copytext(T,1,7) == "status")
+	else if(copytext(T,1,7) == "status")
 		var/input[] = params2list(T)
 		var/list/s = list()
 		s["version"] = game_version
@@ -414,15 +414,15 @@ var/world_topic_spam_protect_time = world.timeofday
 /world/proc/load_mods()
 	if(config.admin_legacy_system)
 		var/text = file2text("config/moderators.txt")
-		if (!text)
+		if(!text)
 			error("Failed to load config/mods.txt")
 		else
 			var/list/lines = splittext(text, "\n")
 			for(var/line in lines)
-				if (!line)
+				if(!line)
 					continue
 
-				if (copytext(line, 1, 2) == ";")
+				if(copytext(line, 1, 2) == ";")
 					continue
 
 				var/title = "Moderator"
@@ -435,14 +435,14 @@ var/world_topic_spam_protect_time = world.timeofday
 /world/proc/load_mentors()
 	if(config.admin_legacy_system)
 		var/text = file2text("config/mentors.txt")
-		if (!text)
+		if(!text)
 			error("Failed to load config/mentors.txt")
 		else
 			var/list/lines = splittext(text, "\n")
 			for(var/line in lines)
-				if (!line)
+				if(!line)
 					continue
-				if (copytext(line, 1, 2) == ";")
+				if(copytext(line, 1, 2) == ";")
 					continue
 
 				var/title = "Mentor"
@@ -455,7 +455,7 @@ var/world_topic_spam_protect_time = world.timeofday
 /world/proc/update_status()
 	var/s = ""
 
-	if (config && config.server_name)
+	if(config && config.server_name)
 		s += "<b>[config.server_name]</b> &#8212; "
 
 	s += "<b>[station_name()]</b>";
@@ -474,36 +474,36 @@ var/world_topic_spam_protect_time = world.timeofday
 	else
 		features += "<b>STARTING</b>"
 
-	if (!config.enter_allowed)
+	if(!config.enter_allowed)
 		features += "closed"
 
 	features += config.abandon_allowed ? "respawn" : "no respawn"
 
-	if (config && config.allow_vote_mode)
+	if(config && config.allow_vote_mode)
 		features += "vote"
 
-	if (config && config.allow_ai)
+	if(config && config.allow_ai)
 		features += "AI allowed"
 
 	var/n = 0
 	for(var/mob/M in player_list)
-		if (M.client)
+		if(M.client)
 			n++
 
-	if (n > 1)
+	if(n > 1)
 		features += "~[n] players"
-	else if (n > 0)
+	else if(n > 0)
 		features += "~[n] player"
 
 
-	if (config && config.hostedby)
+	if(config && config.hostedby)
 		features += "hosted by <b>[config.hostedby]</b>"
 
-	if (features)
+	if(features)
 		s += ": [jointext(features, ", ")]"
 
 	/* does this help? I do not know */
-	if (src.status != s)
+	if(src.status != s)
 		src.status = s
 
 #define FAILED_DB_CONNECTION_CUTOFF 5
@@ -526,7 +526,7 @@ proc/setup_database_connection()
 
 	dbcon.Connect("dbi:mysql:[db]:[address]:[port]","[user]","[pass]")
 	. = dbcon.IsConnected()
-	if ( . )
+	if( . )
 		failed_db_connections = 0	//If this connection succeeded, reset the failed connections counter.
 	else
 		failed_db_connections++		//If it failed, increase the failed connections counter.
@@ -561,7 +561,7 @@ proc/setup_old_database_connection()
 
 	dbcon_old.Connect("dbi:mysql:[db]:[address]:[port]","[user]","[pass]")
 	. = dbcon_old.IsConnected()
-	if ( . )
+	if( . )
 		failed_old_db_connections = 0	//If this connection succeeded, reset the failed connections counter.
 	else
 		failed_old_db_connections++		//If it failed, increase the failed connections counter.

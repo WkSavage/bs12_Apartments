@@ -312,7 +312,7 @@ var/last_message_id = 0
 	frequency.post_signal(src, status_signal)
 
 /proc/cancel_call_proc(var/mob/user)
-	if (!( ticker ) || !emergency_shuttle.can_recall())
+	if(!( ticker ) || !emergency_shuttle.can_recall())
 		return
 	if((ticker.mode.name == "blob")||(ticker.mode.name == "Meteor"))
 		return
@@ -335,7 +335,7 @@ var/last_message_id = 0
 		PS.allowedtocall = !(PS.allowedtocall)
 
 /proc/call_shuttle_proc(var/mob/user)
-	if ((!( ticker ) || !emergency_shuttle.location()))
+	if((!( ticker ) || !emergency_shuttle.location()))
 		return
 
 	if(!universe.OnShuttleCall(usr))
@@ -371,7 +371,7 @@ var/last_message_id = 0
 	log_and_message_admins("has called the shuttle.")
 
 /proc/init_shift_change(var/mob/user, var/force = 0)
-	if ((!( ticker ) || !emergency_shuttle.location()))
+	if((!( ticker ) || !emergency_shuttle.location()))
 		return
 
 	if(emergency_shuttle.going_to_centcom())
@@ -407,7 +407,7 @@ var/last_message_id = 0
 	emergency_shuttle.call_transfer()
 
 	//delay events in case of an autotransfer
-	if (isnull(user))
+	if(isnull(user))
 		event_manager.delay_events(EVENT_LEVEL_MODERATE, 10200) //17 minutes
 		event_manager.delay_events(EVENT_LEVEL_MAJOR, 10200)
 

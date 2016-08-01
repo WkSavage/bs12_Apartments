@@ -91,11 +91,11 @@
 	if(M.equipment.len >= M.max_equip)
 		return 0
 
-	if (ispath(required_type))
+	if(ispath(required_type))
 		return istype(M, required_type)
 
 	for(var/path in required_type)
-		if (istype(M, path))
+		if(istype(M, path))
 			return 1
 
 	return 0

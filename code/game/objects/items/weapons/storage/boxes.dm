@@ -39,19 +39,19 @@
 	if(..()) return
 
 	//try to fold it.
-	if ( contents.len )
+	if( contents.len )
 		return
 
-	if ( !ispath(src.foldable) )
+	if( !ispath(src.foldable) )
 		return
 	var/found = 0
 	// Close any open UI windows first
 	for(var/mob/M in range(1))
-		if (M.s_active == src)
+		if(M.s_active == src)
 			src.close(M)
-		if ( M == user )
+		if( M == user )
 			found = 1
-	if ( !found )	// User is too far away
+	if( !found )	// User is too far away
 		return
 	// Now make the cardboard
 	user << "<span class='notice'>You fold [src] flat.</span>"

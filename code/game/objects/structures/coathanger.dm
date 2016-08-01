@@ -18,7 +18,7 @@
 	for(var/T in allowed)
 		if(istype(W,T))
 			can_hang = 1
-	if (can_hang && !coat)
+	if(can_hang && !coat)
 		user.visible_message("[user] hangs [W] on \the [src].", "You hang [W] on the \the [src]")
 		coat = W
 		user.drop_from_inventory(coat, src)
@@ -33,7 +33,7 @@
 		if(istype(mover,T))
 			can_hang = 1
 
-	if (can_hang && !coat)
+	if(can_hang && !coat)
 		src.visible_message("[mover] lands on \the [src].")
 		coat = mover
 		coat.loc = src
@@ -44,9 +44,9 @@
 
 /obj/structure/coatrack/update_icon()
 	overlays.Cut()
-	if (istype(coat, /obj/item/clothing/suit/storage/toggle/labcoat))
+	if(istype(coat, /obj/item/clothing/suit/storage/toggle/labcoat))
 		overlays += image(icon, icon_state = "coat_lab")
-	if (istype(coat, /obj/item/clothing/suit/storage/toggle/labcoat/cmo))
+	if(istype(coat, /obj/item/clothing/suit/storage/toggle/labcoat/cmo))
 		overlays += image(icon, icon_state = "coat_cmo")
-	if (istype(coat, /obj/item/clothing/suit/storage/det_trench))
+	if(istype(coat, /obj/item/clothing/suit/storage/det_trench))
 		overlays += image(icon, icon_state = "coat_det")

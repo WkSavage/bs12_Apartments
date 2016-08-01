@@ -31,12 +31,12 @@
 	self_recharge = 1
 	modifystate = null
 	requires_two_hands = 1 //bulkier than an e-gun, but not quite the size of a carbine
-	
+
 	firemodes = list(
 		list(mode_name="stun", projectile_type=/obj/item/projectile/beam/stun),
 		list(mode_name="lethal", projectile_type=/obj/item/projectile/beam),
 		)
-	
+
 	var/lightfail = 0
 
 //override for failcheck behaviour
@@ -58,7 +58,7 @@
 /obj/item/weapon/gun/energy/gun/nuclear/proc/update_reactor()
 	if(lightfail)
 		overlays += "nucgun-medium"
-	else if ((power_supply.charge/power_supply.maxcharge) <= 0.5)
+	else if((power_supply.charge/power_supply.maxcharge) <= 0.5)
 		overlays += "nucgun-light"
 	else
 		overlays += "nucgun-clean"

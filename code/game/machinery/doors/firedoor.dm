@@ -218,7 +218,7 @@
 					user.visible_message("<span class='danger'>[user] has removed the electronics from \the [src].</span>",
 										"You have removed the electronics from [src].")
 
-					if (stat & BROKEN)
+					if(stat & BROKEN)
 						new /obj/item/weapon/circuitboard/broken(src.loc)
 					else
 						new/obj/item/weapon/airalarm_electronics(src.loc)

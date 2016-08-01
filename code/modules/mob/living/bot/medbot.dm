@@ -125,7 +125,7 @@
 	dat += "Status: <A href='?src=\ref[src];power=1'>[on ? "On" : "Off"]</A><BR>"
 	dat += "Maintenance panel is [open ? "opened" : "closed"]<BR>"
 	dat += "Beaker: "
-	if (reagent_glass)
+	if(reagent_glass)
 		dat += "<A href='?src=\ref[src];eject=1'>Loaded \[[reagent_glass.reagents.total_volume]/[reagent_glass.reagents.maximum_volume]\]</a>"
 	else
 		dat += "None Loaded"
@@ -178,8 +178,8 @@
 		return
 	usr.set_machine(src)
 	add_fingerprint(usr)
-	if ((href_list["power"]) && access_scanner.allowed(usr))
-		if (on)
+	if((href_list["power"]) && access_scanner.allowed(usr))
+		if(on)
 			turn_off()
 		else
 			turn_on()
@@ -203,17 +203,17 @@
 	else if((href_list["use_beaker"]) && (!locked || issilicon(usr)))
 		use_beaker = !use_beaker
 
-	else if (href_list["eject"] && (!isnull(reagent_glass)))
+	else if(href_list["eject"] && (!isnull(reagent_glass)))
 		if(!locked)
 			reagent_glass.loc = get_turf(src)
 			reagent_glass = null
 		else
 			usr << "<span class='notice'>You cannot eject the beaker because the panel is locked.</span>"
 
-	else if ((href_list["togglevoice"]) && (!locked || issilicon(usr)))
+	else if((href_list["togglevoice"]) && (!locked || issilicon(usr)))
 		vocal = !vocal
 
-	else if ((href_list["declaretreatment"]) && (!locked || issilicon(usr)))
+	else if((href_list["declaretreatment"]) && (!locked || issilicon(usr)))
 		declare_treatment = !declare_treatment
 
 	attack_hand(usr)
@@ -242,7 +242,7 @@
 	new /obj/item/weapon/storage/firstaid(Tsec)
 	new /obj/item/device/assembly/prox_sensor(Tsec)
 	new /obj/item/device/healthanalyzer(Tsec)
-	if (prob(50))
+	if(prob(50))
 		new /obj/item/robot_parts/l_arm(Tsec)
 
 	if(reagent_glass)
@@ -287,7 +287,7 @@
 /* Construction */
 
 /obj/item/weapon/storage/firstaid/attackby(var/obj/item/robot_parts/S, mob/user as mob)
-	if ((!istype(S, /obj/item/robot_parts/l_arm)) && (!istype(S, /obj/item/robot_parts/r_arm)))
+	if((!istype(S, /obj/item/robot_parts/l_arm)) && (!istype(S, /obj/item/robot_parts/r_arm)))
 		..()
 		return
 

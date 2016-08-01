@@ -20,23 +20,23 @@
 		return
 
 
-	if (message)
+	if(message)
 		log_emote("[name]/[key] : [message]")
 
  //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
  // Maybe some people are okay with that.
 
 		for(var/mob/M in player_list)
-			if (!M.client)
+			if(!M.client)
 				continue //skip monkeys and leavers
-			if (istype(M, /mob/new_player))
+			if(istype(M, /mob/new_player))
 				continue
 			if(findtext(message," snores.")) //Because we have so many sleeping people.
 				break
 			if(M.stat == DEAD && M.is_preference_enabled(/datum/client_preference/ghost_sight) && !(M in viewers(src,null)))
 				M.show_message(message, m_type)
 
-		if (m_type & 1)
+		if(m_type & 1)
 			var/list/see = get_mobs_or_objects_in_view(world.view,src) | viewers(get_turf(src), null)
 			for(var/I in see)
 				if(isobj(I))
@@ -48,7 +48,7 @@
 					var/mob/M = I
 					M.show_message(message, 1)
 
-		else if (m_type & 2)
+		else if(m_type & 2)
 			var/list/hear = get_mobs_or_objects_in_view(world.view,src)
 			for(var/I in hear)
 				if(isobj(I))

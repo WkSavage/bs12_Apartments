@@ -53,7 +53,7 @@
 
 /obj/item/weapon/reagent_containers/chem_disp_cartridge/attack_self()
 	..()
-	if (is_open_container())
+	if(is_open_container())
 		usr << "<span class = 'notice'>You put the cap on \the [src].</span>"
 		flags ^= OPENCONTAINER
 	else
@@ -61,7 +61,7 @@
 		flags |= OPENCONTAINER
 
 /obj/item/weapon/reagent_containers/chem_disp_cartridge/afterattack(obj/target, mob/user , flag)
-	if (!is_open_container() || !flag)
+	if(!is_open_container() || !flag)
 		return
 
 	else if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.

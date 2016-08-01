@@ -51,7 +51,7 @@ var/const/MAX_ACTIVE_TIME = 400
 			user << "\red \b [src] is not moving."
 		if(CONSCIOUS)
 			user << "\red \b [src] seems to be active."
-	if (sterile)
+	if(sterile)
 		user << "\red \b It looks like the proboscis has been removed."
 	return
 
@@ -143,7 +143,7 @@ var/const/MAX_ACTIVE_TIME = 400
 		target.contents += src // Monkey sanity check - Snapshot
 
 		if(!sterile) L.Paralyse(MAX_IMPREGNATION_TIME/6) //something like 25 ticks = 20 seconds with the default settings
-	else if (iscorgi(M))
+	else if(iscorgi(M))
 		var/mob/living/simple_animal/corgi/corgi = M
 		src.loc = corgi
 		corgi.facehugger = src

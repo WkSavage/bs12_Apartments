@@ -272,7 +272,7 @@
 		return
 
 	var/icon_level = danger_level
-	if (alarm_area.atmosalm)
+	if(alarm_area.atmosalm)
 		icon_level = max(icon_level, 1)	//if there's an atmos alarm but everything is okay locally, no need to go past yellow
 
 	var/new_color = null
@@ -318,10 +318,10 @@
 
 /obj/machinery/alarm/proc/register_env_machine(var/m_id, var/device_type)
 	var/new_name
-	if (device_type=="AVP")
+	if(device_type=="AVP")
 		new_name = "[alarm_area.name] Vent Pump #[alarm_area.air_vent_names.len+1]"
 		alarm_area.air_vent_names[m_id] = new_name
-	else if (device_type=="AScr")
+	else if(device_type=="AScr")
 		new_name = "[alarm_area.name] Air Scrubber #[alarm_area.air_scrub_names.len+1]"
 		alarm_area.air_scrub_names[m_id] = new_name
 	else
@@ -332,12 +332,12 @@
 /obj/machinery/alarm/proc/refresh_all()
 	for(var/id_tag in alarm_area.air_vent_names)
 		var/list/I = alarm_area.air_vent_info[id_tag]
-		if (I && I["timestamp"]+AALARM_REPORT_TIMEOUT/2 > world.time)
+		if(I && I["timestamp"]+AALARM_REPORT_TIMEOUT/2 > world.time)
 			continue
 		send_signal(id_tag, list("status") )
 	for(var/id_tag in alarm_area.air_scrub_names)
 		var/list/I = alarm_area.air_scrub_info[id_tag]
-		if (I && I["timestamp"]+AALARM_REPORT_TIMEOUT/2 > world.time)
+		if(I && I["timestamp"]+AALARM_REPORT_TIMEOUT/2 > world.time)
 			continue
 		send_signal(id_tag, list("status") )
 
@@ -397,7 +397,7 @@
 				send_signal(device_id, list("power"= 0) )
 
 /obj/machinery/alarm/proc/apply_danger_level(var/new_danger_level)
-	if (report_danger_level && alarm_area.atmosalert(new_danger_level, src))
+	if(report_danger_level && alarm_area.atmosalert(new_danger_level, src))
 		post_alert(new_danger_level)
 
 	update_icon()
@@ -427,7 +427,7 @@
 
 /obj/machinery/alarm/attack_hand(mob/user)
 	. = ..()
-	if (.)
+	if(.)
 		return
 	return interact(user)
 
@@ -748,7 +748,7 @@
 		if(1)
 			if(istype(W, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = W
-				if (C.use(5))
+				if(C.use(5))
 					user << "<span class='notice'>You wire \the [src].</span>"
 					buildstage = 2
 					update_icon()

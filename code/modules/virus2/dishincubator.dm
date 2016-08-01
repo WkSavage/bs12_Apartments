@@ -70,12 +70,12 @@
 	data["can_breed_virus"] = null
 	data["blood_already_infected"] = null
 
-	if (beaker)
+	if(beaker)
 		var/datum/reagent/blood/B = locate(/datum/reagent/blood) in beaker.reagents.reagent_list
 		data["can_breed_virus"] = dish && dish.virus2 && B
 
-		if (B)
-			if (!B.data["virus2"])
+		if(B)
+			if(!B.data["virus2"])
 				B.data["virus2"] = list()
 
 			var/list/virus = B.data["virus2"]
@@ -83,7 +83,7 @@
 				data["blood_already_infected"] = virus[ID]
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "dish_incubator.tmpl", src.name, 400, 600)
 		ui.set_initial_data(data)
 		ui.open()
@@ -136,7 +136,7 @@
 				foodsupply = 100
 			nanomanager.update_uis(src)
 
-		if (locate(/datum/reagent/toxin) in beaker.reagents.reagent_list && toxins < 100)
+		if(locate(/datum/reagent/toxin) in beaker.reagents.reagent_list && toxins < 100)
 			for(var/datum/reagent/toxin/T in beaker.reagents.reagent_list)
 				toxins += max(T.strength,1)
 				beaker.reagents.remove_reagent(T.id,1)
@@ -146,55 +146,55 @@
 			nanomanager.update_uis(src)
 
 /obj/machinery/disease2/incubator/Topic(href, href_list)
-	if (..()) return 1
+	if(..()) return 1
 
 	var/mob/user = usr
 	var/datum/nanoui/ui = nanomanager.get_open_ui(user, src, "main")
 
 	src.add_fingerprint(user)
 
-	if (href_list["close"])
+	if(href_list["close"])
 		user.unset_machine()
 		ui.close()
 		return 0
 
-	if (href_list["ejectchem"])
+	if(href_list["ejectchem"])
 		if(beaker)
 			beaker.loc = src.loc
 			beaker = null
 		return 1
 
-	if (href_list["power"])
-		if (dish)
+	if(href_list["power"])
+		if(dish)
 			on = !on
 			icon_state = on ? "incubator_on" : "incubator"
 		return 1
 
-	if (href_list["ejectdish"])
+	if(href_list["ejectdish"])
 		if(dish)
 			dish.loc = src.loc
 			dish = null
 		return 1
 
-	if (href_list["rad"])
+	if(href_list["rad"])
 		radiation = min(100, radiation + 10)
 		return 1
 
-	if (href_list["flush"])
+	if(href_list["flush"])
 		radiation = 0
 		toxins = 0
 		foodsupply = 0
 		return 1
 
 	if(href_list["virus"])
-		if (!dish)
+		if(!dish)
 			return 1
 
 		var/datum/reagent/blood/B = locate(/datum/reagent/blood) in beaker.reagents.reagent_list
-		if (!B)
+		if(!B)
 			return 1
 
-		if (!B.data["virus2"])
+		if(!B.data["virus2"])
 			B.data["virus2"] = list()
 
 		var/list/virus = list("[dish.virus2.uniqueID]" = dish.virus2.getcopy())

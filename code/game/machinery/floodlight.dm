@@ -1,5 +1,3 @@
-//these are probably broken
-
 /obj/machinery/floodlight
 	name = "Emergency Floodlight"
 	icon = 'icons/obj/machines/floodlight.dmi'
@@ -10,12 +8,13 @@
 	var/use = 200 // 200W light
 	var/unlocked = 0
 	var/open = 0
-	var/brightness_on = 8		//can't remember what the maxed out value is
+	var/brightness_on = 7 // can't remember what the maxed out value is
+	light_power = 20
 
 /obj/machinery/floodlight/New()
 	src.cell = new(src)
-	cell.maxcharge = 1000
-	cell.charge = 1000 // 41minutes @ 200W
+	cell.maxcharge = 2600
+	cell.charge    = 2600
 	..()
 
 /obj/machinery/floodlight/update_icon()
@@ -23,22 +22,16 @@
 	icon_state = "flood[open ? "o" : ""][open && cell ? "b" : ""]0[on]"
 
 /obj/machinery/floodlight/process()
-	if(!on)
-		return
-
-	if(!cell || (cell.charge < (use * CELLRATE)))
+	if(on)
+		cell.charge -= use
+		if(cell.charge <= 0)
+			on = 0
+			update_icon()
+			set_light(0)
+			src.visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
+			return
+	else
 		turn_off(1)
-		return
-
-	// If the cell is almost empty rarely "flicker" the light. Aesthetic only.
-	if((cell.percent() < 10) && prob(5))
-		set_light(brightness_on/2, brightness_on/4)
-		spawn(20)
-			if(on)
-				set_light(brightness_on, brightness_on/2)
-
-	cell.use(use*CELLRATE)
-
 
 // Returns 0 on failure and 1 on success
 /obj/machinery/floodlight/proc/turn_on(var/loud = 0)
@@ -86,23 +79,29 @@
 
 		src.cell = null
 		on = 0
-		set_light(0)
 		user << "You remove the power cell"
 		update_icon()
 		return
 
 	if(on)
-		turn_off(1)
+		on = 0
+		to_chat(user, "\blue You turn off the light")
+		set_light(0)
 	else
-		if(!turn_on(1))
-			user << "You try to turn on \the [src] but it does not work."
+		if(!cell)
+			return
+		if(cell.charge <= 0)
+			return
+		on = 1
+		to_chat(user, "\blue You turn on the light")
+		set_light(brightness_on)
 
 	update_icon()
 
 
 /obj/machinery/floodlight/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/weapon/screwdriver))
-		if (!open)
+	if(istype(W, /obj/item/weapon/screwdriver))
+		if(!open)
 			if(unlocked)
 				unlocked = 0
 				user << "You screw the battery panel in place."
@@ -110,7 +109,7 @@
 				unlocked = 1
 				user << "You unscrew the battery panel."
 
-	if (istype(W, /obj/item/weapon/crowbar))
+	if(istype(W, /obj/item/weapon/crowbar))
 		if(unlocked)
 			if(open)
 				open = 0
@@ -121,7 +120,7 @@
 					open = 1
 					user << "You remove the battery panel."
 
-	if (istype(W, /obj/item/weapon/cell))
+	if(istype(W, /obj/item/weapon/cell))
 		if(open)
 			if(cell)
 				user << "There is a power cell already installed."

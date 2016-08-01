@@ -36,9 +36,9 @@
 		else
 			user << "<span class='danger'>It looks heavily damaged.</span>"
 	if(silicate)
-		if (silicate < 30)
+		if(silicate < 30)
 			user << "<span class='notice'>It has a thin layer of silicate.</span>"
-		else if (silicate < 70)
+		else if(silicate < 70)
 			user << "<span class='notice'>It is covered in silicate.</span>"
 		else
 			user << "<span class='notice'>There is a thick layer of silicate covering it.</span>"
@@ -74,7 +74,7 @@
 		updateSilicate()
 
 /obj/structure/window/proc/updateSilicate()
-	if (overlays)
+	if(overlays)
 		overlays.Cut()
 
 	var/image/img = image(src.icon, src.icon_state)
@@ -175,9 +175,9 @@
 		user.do_attack_animation(src)
 		shatter()
 
-	else if (usr.a_intent == I_HURT)
+	else if(usr.a_intent == I_HURT)
 
-		if (istype(usr,/mob/living/carbon/human))
+		if(istype(usr,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = usr
 			if(H.species.can_shred(H))
 				attack_generic(H,25)
@@ -210,7 +210,7 @@
 
 /obj/structure/window/attackby(obj/item/W as obj, mob/user as mob)
 	if(!istype(W)) return//I really wish I did not need this
-	if (istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
+	if(istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
 		var/obj/item/weapon/grab/G = W
 		if(istype(G.affecting,/mob/living))
 			grab_smash_attack(G, BRUTE)
@@ -277,7 +277,7 @@
 			hit(10)
 		if(2)
 			M.visible_message("<span class='danger'>[user] bashes [M] against \the [src]!</span>")
-			if (prob(50))
+			if(prob(50))
 				M.Weaken(1)
 			M.apply_damage(10, damtype, def_zone, blocked, src)
 			hit(25)
@@ -334,10 +334,10 @@
 	..()
 
 	//player-constructed windows
-	if (constructed)
+	if(constructed)
 		set_anchored(FALSE)
 
-	if (start_dir)
+	if(start_dir)
 		set_dir(start_dir)
 
 	health = maxhealth
@@ -476,7 +476,7 @@
 	..()
 
 	//player-constructed windows
-	if (constructed)
+	if(constructed)
 		state = 0
 
 /obj/structure/window/reinforced/full
@@ -563,7 +563,7 @@
 	update_icon()
 
 	for(var/obj/structure/window/reinforced/polarized/W in range(src,range))
-		if (W.id == src.id || !W.id)
+		if(W.id == src.id || !W.id)
 			spawn(0)
 				W.toggle()
 				return

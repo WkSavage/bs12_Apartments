@@ -148,7 +148,7 @@ Proc for attack log creation, because really why not
 
 //checks whether this item is a module of the robot it is located in.
 /proc/is_robot_module(var/obj/item/thing)
-	if (!thing || !istype(thing.loc, /mob/living/silicon/robot))
+	if(!thing || !istype(thing.loc, /mob/living/silicon/robot))
 		return 0
 	var/mob/living/silicon/robot/R = thing.loc
 	return (thing in R.module.modules)
@@ -168,7 +168,7 @@ Proc for attack log creation, because really why not
 
 	var/holding = user.get_active_hand()
 	var/datum/progressbar/progbar
-	if (progress)
+	if(progress)
 		progbar = new(user, time, target)
 
 	var/endtime = world.time+time
@@ -176,7 +176,7 @@ Proc for attack log creation, because really why not
 	. = 1
 	while (world.time < endtime)
 		sleep(1)
-		if (progress)
+		if(progress)
 			progbar.update(world.time - starttime)
 		if(!user || !target)
 			. = 0
@@ -200,7 +200,7 @@ Proc for attack log creation, because really why not
 			. = 0
 			break
 
-	if (progbar)
+	if(progbar)
 		qdel(progbar)
 
 /proc/do_after(mob/user, delay, atom/target = null, needhand = 1, progress = 1, var/incapacitation_flags = INCAPACITATION_DEFAULT)
@@ -215,7 +215,7 @@ Proc for attack log creation, because really why not
 	var/holding = user.get_active_hand()
 
 	var/datum/progressbar/progbar
-	if (progress)
+	if(progress)
 		progbar = new(user, delay, target)
 
 	var/endtime = world.time + delay
@@ -223,7 +223,7 @@ Proc for attack log creation, because really why not
 	. = 1
 	while (world.time < endtime)
 		sleep(1)
-		if (progress)
+		if(progress)
 			progbar.update(world.time - starttime)
 
 		if(!user || user.incapacitated(incapacitation_flags) || user.loc != original_loc)
@@ -239,7 +239,7 @@ Proc for attack log creation, because really why not
 				. = 0
 				break
 
-	if (progbar)
+	if(progbar)
 		qdel(progbar)
 
 /proc/able_mobs_in_oview(var/origin)

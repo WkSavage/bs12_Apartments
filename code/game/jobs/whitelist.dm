@@ -15,7 +15,7 @@ var/list/whitelist = list()
 
 /proc/load_alienwhitelist()
 	var/text = file2text("config/alienwhitelist.txt")
-	if (!text)
+	if(!text)
 		log_misc("Failed to load config/alienwhitelist.txt")
 		return 0
 	else

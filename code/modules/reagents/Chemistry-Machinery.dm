@@ -41,7 +41,7 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 				return
 
@@ -76,7 +76,7 @@
 	if(..())
 		return 1
 
-	if (href_list["ejectp"])
+	if(href_list["ejectp"])
 		if(loaded_pill_bottle)
 			loaded_pill_bottle.loc = src.loc
 			loaded_pill_bottle = null
@@ -87,7 +87,7 @@
 
 	if(beaker)
 		var/datum/reagents/R = beaker:reagents
-		if (href_list["analyze"])
+		if(href_list["analyze"])
 			var/dat = ""
 			if(!condi)
 				if(href_list["name"] == "Blood")
@@ -107,21 +107,21 @@
 			usr << browse(dat, "window=chem_master;size=575x400")
 			return
 
-		else if (href_list["add"])
+		else if(href_list["add"])
 
 			if(href_list["amount"])
 				var/id = href_list["add"]
 				var/amount = Clamp((text2num(href_list["amount"])), 0, 200)
 				R.trans_id_to(src, id, amount)
 
-		else if (href_list["addcustom"])
+		else if(href_list["addcustom"])
 
 			var/id = href_list["addcustom"]
 			useramount = input("Select the amount to transfer.", 30, useramount) as num
 			useramount = Clamp(useramount, 0, 200)
 			src.Topic(null, list("amount" = "[useramount]", "add" = "[id]"))
 
-		else if (href_list["remove"])
+		else if(href_list["remove"])
 
 			if(href_list["amount"])
 				var/id = href_list["remove"]
@@ -132,32 +132,32 @@
 					reagents.remove_reagent(id, amount)
 
 
-		else if (href_list["removecustom"])
+		else if(href_list["removecustom"])
 
 			var/id = href_list["removecustom"]
 			useramount = input("Select the amount to transfer.", 30, useramount) as num
 			useramount = Clamp(useramount, 0, 200)
 			src.Topic(null, list("amount" = "[useramount]", "remove" = "[id]"))
 
-		else if (href_list["toggle"])
+		else if(href_list["toggle"])
 			mode = !mode
 
-		else if (href_list["main"])
+		else if(href_list["main"])
 			attack_hand(usr)
 			return
-		else if (href_list["eject"])
+		else if(href_list["eject"])
 			if(beaker)
 				beaker:loc = src.loc
 				beaker = null
 				reagents.clear_reagents()
 				icon_state = "mixer0"
-		else if (href_list["createpill"] || href_list["createpill_multiple"])
+		else if(href_list["createpill"] || href_list["createpill_multiple"])
 			var/count = 1
 
 			if(reagents.total_volume/count < 1) //Sanity checking.
 				return
 
-			if (href_list["createpill_multiple"])
+			if(href_list["createpill_multiple"])
 				count = input("Select the number of pills to make.", "Max [max_pill_count]", pillamount) as num
 				count = Clamp(count, 1, max_pill_count)
 
@@ -165,7 +165,7 @@
 				return
 
 			var/amount_per_pill = reagents.total_volume/count
-			if (amount_per_pill > 60) amount_per_pill = 60
+			if(amount_per_pill > 60) amount_per_pill = 60
 
 			var/name = sanitizeSafe(input(usr,"Name:","Name your pill!","[reagents.get_master_reagent_name()] ([amount_per_pill] units)"), MAX_NAME_LEN)
 
@@ -182,7 +182,7 @@
 						P.loc = loaded_pill_bottle
 						src.updateUsrDialog()
 
-		else if (href_list["createbottle"])
+		else if(href_list["createbottle"])
 			if(!condi)
 				var/name = sanitizeSafe(input(usr,"Name:","Name your bottle!",reagents.get_master_reagent_name()), MAX_NAME_LEN)
 				var/obj/item/weapon/reagent_containers/glass/bottle/P = new/obj/item/weapon/reagent_containers/glass/bottle(src.loc)
@@ -325,11 +325,11 @@
 
 /obj/machinery/reagentgrinder/attackby(var/obj/item/O as obj, var/mob/user as mob)
 
-	if (istype(O,/obj/item/weapon/reagent_containers/glass) || \
+	if(istype(O,/obj/item/weapon/reagent_containers/glass) || \
 		istype(O,/obj/item/weapon/reagent_containers/food/drinks/glass2) || \
 		istype(O,/obj/item/weapon/reagent_containers/food/drinks/shaker))
 
-		if (beaker)
+		if(beaker)
 			return 1
 		else
 			src.beaker =  O
@@ -400,10 +400,10 @@
 		for(var/obj/item/O in holdingitems)
 			processing_chamber += "\A [O.name]<BR>"
 
-		if (!processing_chamber)
+		if(!processing_chamber)
 			is_chamber_empty = 1
 			processing_chamber = "Nothing."
-		if (!beaker)
+		if(!beaker)
 			beaker_contents = "<B>No beaker attached.</B><br>"
 		else
 			is_beaker_ready = 1
@@ -421,11 +421,11 @@
 	[processing_chamber]<br>
 	[beaker_contents]<hr>
 	"}
-		if (is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
+		if(is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
 			dat += "<A href='?src=\ref[src];action=grind'>Process the reagents</a><BR>"
 		if(holdingitems && holdingitems.len > 0)
 			dat += "<A href='?src=\ref[src];action=eject'>Eject the reagents</a><BR>"
-		if (beaker)
+		if(beaker)
 			dat += "<A href='?src=\ref[src];action=detach'>Detach the beaker</a><BR>"
 	else
 		dat += "Please wait..."
@@ -439,20 +439,20 @@
 		return 1
 
 	switch(href_list["action"])
-		if ("grind")
+		if("grind")
 			grind()
 		if("eject")
 			eject()
-		if ("detach")
+		if("detach")
 			detach()
 	src.updateUsrDialog()
 	return 1
 
 /obj/machinery/reagentgrinder/proc/detach()
 
-	if (usr.stat != 0)
+	if(usr.stat != 0)
 		return
-	if (!beaker)
+	if(!beaker)
 		return
 	beaker.loc = src.loc
 	beaker = null
@@ -460,9 +460,9 @@
 
 /obj/machinery/reagentgrinder/proc/eject()
 
-	if (usr.stat != 0)
+	if(usr.stat != 0)
 		return
-	if (!holdingitems || holdingitems.len == 0)
+	if(!holdingitems || holdingitems.len == 0)
 		return
 
 	for(var/obj/item/O in holdingitems)
@@ -477,7 +477,7 @@
 		return
 
 	// Sanity check.
-	if (!beaker || (beaker && beaker.reagents.total_volume >= beaker.reagents.maximum_volume))
+	if(!beaker || (beaker && beaker.reagents.total_volume >= beaker.reagents.maximum_volume))
 		return
 
 	playsound(src.loc, 'sound/machines/blender.ogg', 50, 1)
@@ -511,7 +511,7 @@
 			if(O.reagents.total_volume == 0)
 				holdingitems -= O
 				qdel(O)
-			if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
+			if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 				break
 
 #undef REAGENTS_PER_SHEET

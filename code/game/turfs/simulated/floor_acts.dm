@@ -5,7 +5,7 @@
 			src.ChangeTurf(get_base_turf_by_area(src))
 		if(2.0)
 			switch(pick(40;1,40;2,3))
-				if (1)
+				if(1)
 					if(prob(33)) new /obj/item/stack/material/steel(src)
 					src.ReplaceWithLattice()
 				if(2)
@@ -18,7 +18,7 @@
 						src.break_tile()
 					src.hotspot_expose(1000,CELL_VOLUME)
 		if(3.0)
-			if (prob(50))
+			if(prob(50))
 				src.break_tile()
 				src.hotspot_expose(1000,CELL_VOLUME)
 	return

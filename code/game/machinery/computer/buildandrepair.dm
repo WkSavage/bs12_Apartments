@@ -68,13 +68,13 @@
 				src.icon_state = "1"
 			if(istype(P, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = P
-				if (C.get_amount() < 5)
+				if(C.get_amount() < 5)
 					user << "<span class='warning'>You need five coils of wire to add them to the frame.</span>"
 					return
 				user << "<span class='notice'>You start to add cables to the frame.</span>"
 				playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 				if(do_after(user, 20, src) && state == 2)
-					if (C.use(5))
+					if(C.use(5))
 						user << "<span class='notice'>You add cables to the frame.</span>"
 						state = 3
 						icon_state = "3"
@@ -89,13 +89,13 @@
 
 			if(istype(P, /obj/item/stack/material) && P.get_material_name() == "glass")
 				var/obj/item/stack/G = P
-				if (G.get_amount() < 2)
+				if(G.get_amount() < 2)
 					user << "<span class='warning'>You need two sheets of glass to put in the glass panel.</span>"
 					return
 				playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 				user << "<span class='notice'>You start to put in the glass panel.</span>"
 				if(do_after(user, 20, src) && state == 3)
-					if (G.use(2))
+					if(G.use(2))
 						user << "<span class='notice'>You put in the glass panel.</span>"
 						src.state = 4
 						src.icon_state = "4"

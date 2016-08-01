@@ -92,7 +92,7 @@ var/global/list/limb_icon_cache = list()
 	var/gender = "_m"
 	if(!gendered_icon)
 		gender = null
-	else if (dna && dna.GetUIState(DNA_UI_GENDER))
+	else if(dna && dna.GetUIState(DNA_UI_GENDER))
 		gender = "_f"
 	else if(owner && owner.gender == FEMALE)
 		gender = "_f"
@@ -102,13 +102,13 @@ var/global/list/limb_icon_cache = list()
 
 	if(force_icon)
 		icon = force_icon
-	else if (!dna)
+	else if(!dna)
 		icon = 'icons/mob/human_races/r_human.dmi'
-	else if (robotic >= ORGAN_ROBOT)
+	else if(robotic >= ORGAN_ROBOT)
 		icon = 'icons/mob/human_races/robotic.dmi'
-	else if (status & ORGAN_MUTATED)
+	else if(status & ORGAN_MUTATED)
 		icon = species.deform
-	else if (owner && (SKELETON in owner.mutations))
+	else if(owner && (SKELETON in owner.mutations))
 		icon = 'icons/mob/human_races/r_skeleton.dmi'
 	else
 		icon = species.icobase

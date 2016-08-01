@@ -150,7 +150,7 @@
 
 	if(istype(W, /obj/item/weapon/weldingtool) && ( (istext(glass)) || (glass == 1) || (!anchored) ))
 		var/obj/item/weapon/weldingtool/WT = W
-		if (WT.remove_fuel(0, user))
+		if(WT.remove_fuel(0, user))
 			playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
 			if(istext(glass))
 				user.visible_message("[user] welds the [glass] plating off the airlock assembly.", "You start to weld the [glass] plating off the airlock assembly.")
@@ -192,12 +192,12 @@
 
 	else if(istype(W, /obj/item/stack/cable_coil) && state == 0 && anchored)
 		var/obj/item/stack/cable_coil/C = W
-		if (C.get_amount() < 1)
+		if(C.get_amount() < 1)
 			user << "<span class='warning'>You need one length of coil to wire the airlock assembly.</span>"
 			return
 		user.visible_message("[user] wires the airlock assembly.", "You start to wire the airlock assembly.")
 		if(do_after(user, 40,src) && state == 0 && anchored)
-			if (C.use(1))
+			if(C.use(1))
 				src.state = 1
 				user << "<span class='notice'>You wire the airlock.</span>"
 
@@ -226,7 +226,7 @@
 
 	else if(istype(W, /obj/item/weapon/crowbar) && state == 2 )
 		//This should never happen, but just in case I guess
-		if (!electronics)
+		if(!electronics)
 			user << "<span class='notice'>There was nothing to remove.</span>"
 			src.state = 1
 			return
@@ -245,13 +245,13 @@
 	else if(istype(W, /obj/item/stack/material) && !glass)
 		var/obj/item/stack/S = W
 		var/material_name = S.get_material_name()
-		if (S)
-			if (S.get_amount() >= 1)
+		if(S)
+			if(S.get_amount() >= 1)
 				if(material_name == "rglass")
 					playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
 					user.visible_message("[user] adds [S.name] to the airlock assembly.", "You start to install [S.name] into the airlock assembly.")
 					if(do_after(user, 40,src) && !glass)
-						if (S.use(1))
+						if(S.use(1))
 							user << "<span class='notice'>You installed reinforced glass windows into the airlock assembly.</span>"
 							glass = 1
 				else if(material_name)
@@ -263,7 +263,7 @@
 						playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
 						user.visible_message("[user] adds [S.name] to the airlock assembly.", "You start to install [S.name] into the airlock assembly.")
 						if(do_after(user, 40,src) && !glass)
-							if (S.use(2))
+							if(S.use(2))
 								user << "<span class='notice'>You installed [material_display_name(material_name)] plating into the airlock assembly.</span>"
 								glass = material_name
 
@@ -277,7 +277,7 @@
 			var/path
 			if(istext(glass))
 				path = text2path("/obj/machinery/door/airlock/[glass]")
-			else if (glass == 1)
+			else if(glass == 1)
 				path = text2path("/obj/machinery/door/airlock[glass_type]")
 			else
 				path = text2path("/obj/machinery/door/airlock[airlock_type]")
@@ -293,7 +293,7 @@
 	name = ""
 	switch (state)
 		if(0)
-			if (anchored)
+			if(anchored)
 				name = "Secured "
 		if(1)
 			name = "Wired "

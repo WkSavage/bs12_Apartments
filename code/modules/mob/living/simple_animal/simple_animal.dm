@@ -217,7 +217,7 @@
 	switch(M.a_intent)
 
 		if(I_HELP)
-			if (health > 0)
+			if(health > 0)
 				M.visible_message("\blue [M] [response_help] \the [src]")
 
 		if(I_DISARM)
@@ -226,9 +226,9 @@
 			//TODO: Push the mob away or something
 
 		if(I_GRAB)
-			if (M == src)
+			if(M == src)
 				return
-			if (!(status_flags & CANPUSH))
+			if(!(status_flags & CANPUSH))
 				return
 
 			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src)
@@ -263,7 +263,7 @@
 					if(MED.amount <= 0)
 						qdel(MED)
 					for(var/mob/M in viewers(src, null))
-						if ((M.client && !( M.blinded )))
+						if((M.client && !( M.blinded )))
 							M.show_message("<span class='notice'>[user] applies the [MED] on [src].</span>")
 		else
 			user << "<span class='notice'>\The [src] is dead, medical items won't bring \him back to life.</span>"
@@ -286,7 +286,7 @@
 		return 2
 
 	var/damage = O.force
-	if (O.damtype == HALLOSS)
+	if(O.damtype == HALLOSS)
 		damage = 0
 	if(supernatural && istype(O,/obj/item/weapon/nullrod))
 		damage *= 2
@@ -324,12 +324,12 @@
 
 	var/damage
 	switch (severity)
-		if (1.0)
+		if(1.0)
 			damage = 500
 			if(!prob(getarmor(null, "bomb")))
 				gib()
 
-		if (2.0)
+		if(2.0)
 			damage = 120
 
 		if(3.0)
@@ -341,15 +341,15 @@
 	health = Clamp(health - damage, 0, maxHealth)
 
 /mob/living/simple_animal/proc/SA_attackable(target_mob)
-	if (isliving(target_mob))
+	if(isliving(target_mob))
 		var/mob/living/L = target_mob
 		if(!L.stat && L.health >= 0)
 			return (0)
-	if (istype(target_mob,/obj/mecha))
+	if(istype(target_mob,/obj/mecha))
 		var/obj/mecha/M = target_mob
-		if (M.occupant)
+		if(M.occupant)
 			return (0)
-	if (istype(target_mob,/obj/machinery/bot))
+	if(istype(target_mob,/obj/machinery/bot))
 		var/obj/machinery/bot/B = target_mob
 		if(B.health > 0)
 			return (0)

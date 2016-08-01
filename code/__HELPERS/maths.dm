@@ -38,9 +38,9 @@
 // Greatest Common Divisor: Euclid's algorithm.
 /proc/Gcd(a, b)
 	while (1)
-		if (!b) return a
+		if(!b) return a
 		a %= b
-		if (!a) return b
+		if(!a) return b
 		b %= a
 
 // Least Common Multiple. The formula is a consequence of: a*b = LCM*GCD.

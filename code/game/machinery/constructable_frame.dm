@@ -28,7 +28,7 @@
 			if(1)
 				if(istype(P, /obj/item/stack/cable_coil))
 					var/obj/item/stack/cable_coil/C = P
-					if (C.get_amount() < 5)
+					if(C.get_amount() < 5)
 						user << "<span class='warning'>You need five lengths of cable to add them to the frame.</span>"
 						return
 					playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)

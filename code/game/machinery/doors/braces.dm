@@ -79,7 +79,7 @@
 
 /obj/item/weapon/airlock_brace/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
-	if (istype(W, /obj/item/weapon/brace_keycard))
+	if(istype(W, /obj/item/weapon/brace_keycard))
 		var/obj/item/weapon/brace_keycard/C = W
 		if(!airlock)
 			C.brace = src
@@ -95,7 +95,7 @@
 				user << "You swipe \the [C] through \the [src], but it does not react."
 		return
 
-	if (istype(W, /obj/item/weapon/crowbar/brace_jack))
+	if(istype(W, /obj/item/weapon/crowbar/brace_jack))
 		if(!airlock)
 			return
 		var/obj/item/weapon/crowbar/brace_jack/C = W

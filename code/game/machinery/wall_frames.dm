@@ -10,7 +10,7 @@
 	var/reverse = 0 //if resulting object faces opposite its dir (like light fixtures)
 
 /obj/item/frame/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/weapon/wrench))
 		new refund_type( get_turf(src.loc), refund_amt)
 		qdel(src)
 		return
@@ -20,7 +20,7 @@
 	if(!build_machine_type)
 		return
 
-	if (get_dist(on_wall,usr)>1)
+	if(get_dist(on_wall,usr)>1)
 		return
 
 	var/ndir
@@ -29,15 +29,15 @@
 	else
 		ndir = get_dir(on_wall,usr)
 
-	if (!(ndir in cardinal))
+	if(!(ndir in cardinal))
 		return
 
 	var/turf/loc = get_turf(usr)
 	var/area/A = loc.loc
-	if (!istype(loc, /turf/simulated/floor))
+	if(!istype(loc, /turf/simulated/floor))
 		usr << "<span class='danger'>\The [src] Alarm cannot be placed on this spot.</span>"
 		return
-	if (A.requires_power == 0 || A.name == "Space")
+	if(A.requires_power == 0 || A.name == "Space")
 		usr << "<span class='danger'>\The [src] Alarm cannot be placed in this area.</span>"
 		return
 

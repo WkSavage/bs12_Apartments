@@ -25,33 +25,33 @@
 
 //Places the poster on a wall
 /obj/item/weapon/contraband/poster/afterattack(var/atom/A, var/mob/user, var/adjacent, var/clickparams)
-	if (!adjacent)
+	if(!adjacent)
 		return
 
 	//must place on a wall and user must not be inside a closet/mecha/whatever
 	var/turf/W = A
-	if (!iswall(W) || !isturf(user.loc))
+	if(!iswall(W) || !isturf(user.loc))
 		user << "<span class='warning'>You can't place this here!</span>"
 		return
 
 	var/placement_dir = get_dir(user, W)
-	if (!(placement_dir in cardinal))
+	if(!(placement_dir in cardinal))
 		user << "<span class='warning'>You must stand directly in front of the wall you wish to place that on.</span>"
 		return
 
 	//just check if there is a poster on or adjacent to the wall
 	var/stuff_on_wall = 0
-	if (locate(/obj/structure/sign/poster) in W)
+	if(locate(/obj/structure/sign/poster) in W)
 		stuff_on_wall = 1
 
 	//crude, but will cover most cases. We could do stuff like check pixel_x/y but it's not really worth it.
 	for(var/dir in cardinal)
 		var/turf/T = get_step(W, dir)
-		if (locate(/obj/structure/sign/poster) in T)
+		if(locate(/obj/structure/sign/poster) in T)
 			stuff_on_wall = 1
 			break
 
-	if (stuff_on_wall)
+	if(stuff_on_wall)
 		user << "<span class='notice'>There is already a poster there!</span>"
 		return
 
@@ -96,21 +96,21 @@
 	set_poster(design)
 
 	switch (placement_dir)
-		if (NORTH)
+		if(NORTH)
 			pixel_x = 0
 			pixel_y = 32
-		if (SOUTH)
+		if(SOUTH)
 			pixel_x = 0
 			pixel_y = -32
-		if (EAST)
+		if(EAST)
 			pixel_x = 32
 			pixel_y = 0
-		if (WEST)
+		if(WEST)
 			pixel_x = -32
 			pixel_y = 0
 
 /obj/structure/sign/poster/initialize()
-	if (poster_type)
+	if(poster_type)
 		var/path = ispath(poster_type) ? poster_type : text2path(poster_type)
 		var/datum/poster/design = new path
 		set_poster(design)

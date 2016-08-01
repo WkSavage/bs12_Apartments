@@ -201,7 +201,7 @@
 	icon_state = "backpack"
 	item_state = "backpack"
 	update_icon()
-	if (ismob(src.loc))
+	if(ismob(src.loc))
 		var/mob/M = src.loc
 		M.update_inv_back()
 
@@ -216,7 +216,7 @@
 	disguise(clothing_choices[picked], usr)
 
 	//so our overlays update.
-	if (ismob(src.loc))
+	if(ismob(src.loc))
 		var/mob/M = src.loc
 		M.update_inv_back()
 
@@ -374,7 +374,7 @@
 	desc = "It's a desert eagle."
 	icon_state = "deagle"
 	update_icon()
-	if (ismob(src.loc))
+	if(ismob(src.loc))
 		var/mob/M = src.loc
 		M.update_inv_r_hand()
 		M.update_inv_l_hand()
@@ -405,7 +405,7 @@
 	disguise(gun_choices[picked], usr)
 
 	//so our overlays update.
-	if (ismob(src.loc))
+	if(ismob(src.loc))
 		var/mob/M = src.loc
 		M.update_inv_r_hand()
 		M.update_inv_l_hand()

@@ -32,7 +32,7 @@ var/datum/antagonist/deathsquad/deathsquad
 	if(!..())
 		return
 
-	if (player.mind == leader)
+	if(player.mind == leader)
 		player.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(player), slot_w_uniform)
 	else
 		player.equip_to_slot_or_del(new /obj/item/clothing/under/color/green(player), slot_w_uniform)
@@ -40,7 +40,7 @@ var/datum/antagonist/deathsquad/deathsquad
 	player.equip_to_slot_or_del(new /obj/item/clothing/shoes/swat(player), slot_shoes)
 	player.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(player), slot_glasses)
 	player.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/swat(player), slot_wear_mask)
-	if (player.mind == leader)
+	if(player.mind == leader)
 		player.equip_to_slot_or_del(new /obj/item/weapon/pinpointer(player), slot_l_store)
 		player.equip_to_slot_or_del(new /obj/item/weapon/disk/nuclear(player), slot_r_store)
 	else

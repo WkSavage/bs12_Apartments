@@ -205,7 +205,7 @@
 				playsound(chassis, 'sound/effects/refill.ogg', 50, 1, -6)
 				return
 
-			if (src.reagents.total_volume < 1)
+			if(src.reagents.total_volume < 1)
 				occupant_message("<span class='warning'>\The [src] is empty.</span>")
 				return
 
@@ -269,7 +269,7 @@
 		//meh
 		switch(mode)
 			if(0)
-				if (istype(target, /turf/simulated/wall))
+				if(istype(target, /turf/simulated/wall))
 					occupant_message("Deconstructing [target]...")
 					set_ready_state(0)
 					if(do_after_cooldown(target))
@@ -278,7 +278,7 @@
 						target:ChangeTurf(/turf/simulated/floor/plating)
 						playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
 						chassis.use_power(energy_drain)
-				else if (istype(target, /turf/simulated/floor))
+				else if(istype(target, /turf/simulated/floor))
 					occupant_message("Deconstructing [target]...")
 					set_ready_state(0)
 					if(do_after_cooldown(target))
@@ -287,7 +287,7 @@
 						target:ChangeTurf(get_base_turf_by_area(target))
 						playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
 						chassis.use_power(energy_drain)
-				else if (istype(target, /obj/machinery/door/airlock))
+				else if(istype(target, /obj/machinery/door/airlock))
 					occupant_message("Deconstructing [target]...")
 					set_ready_state(0)
 					if(do_after_cooldown(target))
@@ -438,7 +438,7 @@
 		if(world.time >= last_fired + fire_delay)
 			last_fired = world.time
 		else
-			if (world.time % 3)
+			if(world.time % 3)
 				occupant_message("<span class='warning'>[src] is not ready to fire again!</span>")
 			return 0
 
@@ -1014,7 +1014,7 @@
 	return 0
 
 /obj/item/mecha_parts/mecha_equipment/tool/passenger/proc/move_inside(var/mob/user)
-	if (chassis)
+	if(chassis)
 		chassis.visible_message("<span class='notice'>[user] starts to climb into [chassis].</span>")
 
 	if(do_after(user, 40, src, needhand=0))
@@ -1057,7 +1057,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/tool/passenger/attach()
 	..()
-	if (chassis)
+	if(chassis)
 		chassis.verbs |= /obj/mecha/proc/move_inside_passenger
 
 /obj/item/mecha_parts/mecha_equipment/tool/passenger/detach()
@@ -1067,7 +1067,7 @@
 
 	var/obj/mecha/M = chassis
 	..()
-	if (M && !(locate(/obj/item/mecha_parts/mecha_equipment/tool/passenger) in M))
+	if(M && !(locate(/obj/item/mecha_parts/mecha_equipment/tool/passenger) in M))
 		M.verbs -= /obj/mecha/proc/move_inside_passenger
 
 /obj/item/mecha_parts/mecha_equipment/tool/passenger/get_equip_info()
@@ -1075,10 +1075,10 @@
 
 /obj/item/mecha_parts/mecha_equipment/tool/passenger/Topic(href,href_list)
 	..()
-	if (href_list["toggle_lock"])
+	if(href_list["toggle_lock"])
 		door_locked = !door_locked
 		occupant_message("Passenger compartment hatch [door_locked? "locked" : "unlocked"].")
-		if (chassis)
+		if(chassis)
 			chassis.visible_message("The hatch on \the [chassis] [door_locked? "locks" : "unlocks"].", "You hear something latching.")
 
 
@@ -1091,13 +1091,13 @@
 	set src in oview(1)
 
 	//check that usr can climb in
-	if (usr.stat || !ishuman(usr))
+	if(usr.stat || !ishuman(usr))
 		return
 
-	if (!usr.Adjacent(src))
+	if(!usr.Adjacent(src))
 		return
 
-	if (!isturf(usr.loc))
+	if(!isturf(usr.loc))
 		usr << "<span class='danger'>You can't reach the passenger compartment from here.</span>"
 		return
 
@@ -1115,10 +1115,10 @@
 	//search for a valid passenger compartment
 	var/feedback = 0 //for nicer user feedback
 	for(var/obj/item/mecha_parts/mecha_equipment/tool/passenger/P in src)
-		if (P.occupant)
+		if(P.occupant)
 			feedback |= OCCUPIED
 			continue
-		if (P.door_locked)
+		if(P.door_locked)
 			feedback |= LOCKED
 			continue
 
@@ -1128,13 +1128,13 @@
 
 	//didn't find anything
 	switch (feedback)
-		if (OCCUPIED)
+		if(OCCUPIED)
 			usr << "<span class='danger'>The passenger compartment is already occupied!</span>"
-		if (LOCKED)
+		if(LOCKED)
 			usr << "<span class='warning'>The passenger compartment hatch is locked!</span>"
-		if (OCCUPIED|LOCKED)
+		if(OCCUPIED|LOCKED)
 			usr << "<span class='danger'>All of the passenger compartments are already occupied or locked!</span>"
-		if (0)
+		if(0)
 			usr << "<span class='warning'>\The [src] doesn't have a passenger compartment.</span>"
 
 #undef LOCKED

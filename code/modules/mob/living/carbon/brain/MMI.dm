@@ -98,7 +98,7 @@
 	else
 		user << "<span class='notice'>You upend the MMI, spilling the brain onto the floor.</span>"
 		var/obj/item/organ/brain/brain
-		if (brainobj)	//Pull brain organ out of MMI.
+		if(brainobj)	//Pull brain organ out of MMI.
 			brainobj.loc = user.loc
 			brain = brainobj
 			brainobj = null

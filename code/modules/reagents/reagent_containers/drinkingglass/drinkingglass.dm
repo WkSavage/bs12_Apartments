@@ -81,7 +81,7 @@
 /obj/item/weapon/reagent_containers/food/drinks/glass2/update_icon()
 	underlays.Cut()
 
-	if (reagents.reagent_list.len > 0)
+	if(reagents.reagent_list.len > 0)
 		var/datum/reagent/R = reagents.get_master_reagent()
 		name = "[base_name] of [R.glass_name ? R.glass_name : "something"]"
 		desc = R.glass_desc ? R.glass_desc : initial(desc)

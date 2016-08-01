@@ -80,11 +80,11 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 				return
 		if(3.0)
-			if (prob(5))
+			if(prob(5))
 				qdel(src)
 				return
 
@@ -120,7 +120,7 @@
 		add_padding(padding_type)
 		return
 
-	else if (istype(W, /obj/item/weapon/wirecutters))
+	else if(istype(W, /obj/item/weapon/wirecutters))
 		if(!padding_material)
 			user << "\The [src] has no padding to remove."
 			return

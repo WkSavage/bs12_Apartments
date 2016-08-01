@@ -103,9 +103,9 @@
 
 /obj/machinery/camera/hitby(AM as mob|obj)
 	..()
-	if (istype(AM, /obj))
+	if(istype(AM, /obj))
 		var/obj/O = AM
-		if (O.throwforce >= src.toughness)
+		if(O.throwforce >= src.toughness)
 			visible_message("<span class='warning'><B>[src] was hit by [O].</B></span>")
 		take_damage(O.throwforce)
 
@@ -160,7 +160,7 @@
 			return
 
 	// OTHER
-	else if (can_use() && (istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/device/pda)) && isliving(user))
+	else if(can_use() && (istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/device/pda)) && isliving(user))
 		var/mob/living/U = user
 		var/obj/item/weapon/paper/X = null
 		var/obj/item/device/pda/P = null
@@ -182,17 +182,17 @@
 			else O << "<b><a href='byond://?src=\ref[O];track2=\ref[O];track=\ref[U];trackname=[U.name]'>[U]</a></b> holds \a [itemname] up to one of your cameras ..."
 			O << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", itemname, info), text("window=[]", itemname))
 		for(var/mob/O in player_list)
-			if (istype(O.machine, /obj/machinery/computer/security))
+			if(istype(O.machine, /obj/machinery/computer/security))
 				var/obj/machinery/computer/security/S = O.machine
-				if (S.current_camera == src)
+				if(S.current_camera == src)
 					O << "[U] holds \a [itemname] up to one of the cameras ..."
 					O << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", itemname, info), text("window=[]", itemname))
 
-	else if (istype(W, /obj/item/weapon/camera_bug))
-		if (!src.can_use())
+	else if(istype(W, /obj/item/weapon/camera_bug))
+		if(!src.can_use())
 			user << "<span class='warning'>Camera non-functional.</span>"
 			return
-		if (src.bugged)
+		if(src.bugged)
 			user << "<span class='notice'>Camera bug removed.</span>"
 			src.bugged = 0
 		else
@@ -201,12 +201,12 @@
 
 	else if(W.damtype == BRUTE || W.damtype == BURN) //bashing cameras
 		user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
-		if (W.force >= src.toughness)
+		if(W.force >= src.toughness)
 			user.do_attack_animation(src)
 			visible_message("<span class='warning'><b>[src] has been [pick(W.attack_verb)] with [W] by [user]!</b></span>")
-			if (istype(W, /obj/item)) //is it even possible to get into attackby() with non-items?
+			if(istype(W, /obj/item)) //is it even possible to get into attackby() with non-items?
 				var/obj/item/I = W
-				if (I.hitsound)
+				if(I.hitsound)
 					playsound(loc, I.hitsound, 50, 1, -1)
 		take_damage(W.force)
 
@@ -223,7 +223,7 @@
 		kick_viewers()
 	else
 		set_status(!src.status)
-		if (!(src.status))
+		if(!(src.status))
 			if(user)
 				visible_message("<span class='notice'> [user] has deactivated [src]!</span>")
 			else
@@ -242,7 +242,7 @@
 
 /obj/machinery/camera/proc/take_damage(var/force, var/message)
 	//prob(25) gives an average of 3-4 hits
-	if (force >= toughness && (force > toughness*4 || prob(25)))
+	if(force >= toughness && (force > toughness*4 || prob(25)))
 		destroy()
 
 //Used when someone breaks a camera
@@ -262,7 +262,7 @@
 	playsound(loc, "sparks", 50, 1)
 
 /obj/machinery/camera/proc/set_status(var/newstatus)
-	if (status != newstatus)
+	if(status != newstatus)
 		status = newstatus
 		update_coverage()
 		// now disconnect anyone using the camera
@@ -278,17 +278,17 @@
 //This might be redundant, because of check_eye()
 /obj/machinery/camera/proc/kick_viewers()
 	for(var/mob/O in player_list)
-		if (istype(O.machine, /obj/machinery/computer/security))
+		if(istype(O.machine, /obj/machinery/computer/security))
 			var/obj/machinery/computer/security/S = O.machine
-			if (S.current_camera == src)
+			if(S.current_camera == src)
 				O.unset_machine()
 				O.reset_view(null)
 				O << "The screen bursts into static."
 
 /obj/machinery/camera/update_icon()
-	if (!status || (stat & BROKEN))
+	if(!status || (stat & BROKEN))
 		icon_state = "[initial(icon_state)]1"
-	else if (stat & EMPED)
+	else if(stat & EMPED)
 		icon_state = "[initial(icon_state)]emp"
 	else
 		icon_state = initial(icon_state)
@@ -450,7 +450,7 @@
 /obj/machinery/camera/proc/reset_wires()
 	if(!wires)
 		return
-	if (stat & BROKEN) // Fix the camera
+	if(stat & BROKEN) // Fix the camera
 		stat &= ~BROKEN
 	wires.CutAll()
 	wires.MendAll()

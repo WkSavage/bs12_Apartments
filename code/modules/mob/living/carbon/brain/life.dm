@@ -2,8 +2,8 @@
 	return
 
 /mob/living/carbon/brain/handle_mutations_and_radiation()
-	if (radiation)
-		if (radiation > 100)
+	if(radiation)
+		if(radiation > 100)
 			radiation = 100
 			if(!container)//If it's not in an MMI
 				src << "\red You feel weak."
@@ -160,21 +160,21 @@
 	return 1
 
 /mob/living/carbon/brain/handle_regular_hud_updates()
-	if (stat == 2 || (XRAY in src.mutations))
+	if(stat == 2 || (XRAY in src.mutations))
 		sight |= SEE_TURFS
 		sight |= SEE_MOBS
 		sight |= SEE_OBJS
 		see_in_dark = 8
 		see_invisible = SEE_INVISIBLE_LEVEL_TWO
-	else if (stat != 2)
+	else if(stat != 2)
 		sight &= ~SEE_TURFS
 		sight &= ~SEE_MOBS
 		sight &= ~SEE_OBJS
 		see_in_dark = 2
 		see_invisible = SEE_INVISIBLE_LIVING
 
-	if (healths)
-		if (stat != 2)
+	if(healths)
+		if(stat != 2)
 			switch(health)
 				if(100 to INFINITY)
 					healths.icon_state = "health0"
@@ -193,19 +193,19 @@
 		else
 			healths.icon_state = "health7"
 
-		if (stat == 2 || (XRAY in src.mutations))
+		if(stat == 2 || (XRAY in src.mutations))
 			sight |= SEE_TURFS
 			sight |= SEE_MOBS
 			sight |= SEE_OBJS
 			see_in_dark = 8
 			see_invisible = SEE_INVISIBLE_LEVEL_TWO
-		else if (stat != 2)
+		else if(stat != 2)
 			sight &= ~SEE_TURFS
 			sight &= ~SEE_MOBS
 			sight &= ~SEE_OBJS
 			see_in_dark = 2
 			see_invisible = SEE_INVISIBLE_LIVING
-	if (client)
+	if(client)
 		client.screen.Remove(global_hud.blurry,global_hud.druggy,global_hud.vimpaired)
 
 
@@ -217,8 +217,8 @@
 			set_fullscreen(disabilities & NEARSIGHTED, "impaired", /obj/screen/fullscreen/impaired, 1)
 			set_fullscreen(eye_blurry, "blurry", /obj/screen/fullscreen/blurry)
 			set_fullscreen(druggy, "high", /obj/screen/fullscreen/high)
-		if (machine)
-			if (!( machine.check_eye(src) ))
+		if(machine)
+			if(!( machine.check_eye(src) ))
 				reset_view(null)
 		else
 			if(client && !client.adminobs)
@@ -226,9 +226,9 @@
 
 	return 1
 
-	if (stat != 2)
-		if (machine)
-			if (machine.check_eye(src) < 0)
+	if(stat != 2)
+		if(machine)
+			if(machine.check_eye(src) < 0)
 				reset_view(null)
 		else
 			if(client && !client.adminobs)

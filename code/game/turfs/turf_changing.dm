@@ -11,7 +11,7 @@
 
 //Creates a new turf
 /turf/proc/ChangeTurf(var/turf/N, var/tell_universe=1, var/force_lighting_update = 0)
-	if (!N)
+	if(!N)
 		return
 
 	// This makes sure that turfs are not changed to space when one side is part of a zone
@@ -52,7 +52,7 @@
 		if(old_fire)
 			fire = old_fire
 
-		if (istype(W,/turf/simulated/floor))
+		if(istype(W,/turf/simulated/floor))
 			W.RemoveLattice()
 
 		if(tell_universe)

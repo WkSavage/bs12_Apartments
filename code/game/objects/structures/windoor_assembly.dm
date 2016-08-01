@@ -70,7 +70,7 @@ obj/structure/windoor_assembly/Destroy()
 		if("01")
 			if(istype(W, /obj/item/weapon/weldingtool) && !anchored )
 				var/obj/item/weapon/weldingtool/WT = W
-				if (WT.remove_fuel(0,user))
+				if(WT.remove_fuel(0,user))
 					user.visible_message("[user] dissassembles the windoor assembly.", "You start to dissassemble the windoor assembly.")
 					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
 
@@ -122,7 +122,7 @@ obj/structure/windoor_assembly/Destroy()
 				user << "<span class='notice'>You start to reinforce the windoor with rods.</span>"
 
 				if(do_after(user,40,src) && !secure)
-					if (R.use(4))
+					if(R.use(4))
 						user << "<span class='notice'>You reinforce the windoor.</span>"
 						src.secure = "secure_"
 						if(src.anchored)
@@ -136,7 +136,7 @@ obj/structure/windoor_assembly/Destroy()
 
 				var/obj/item/stack/cable_coil/CC = W
 				if(do_after(user, 40,src))
-					if (CC.use(1))
+					if(CC.use(1))
 						user << "<span class='notice'>You wire the windoor!</span>"
 						src.state = "02"
 						if(src.secure)
@@ -266,7 +266,7 @@ obj/structure/windoor_assembly/Destroy()
 	set category = "Object"
 	set src in oview(1)
 
-	if (src.anchored)
+	if(src.anchored)
 		usr << "It is fastened to the floor; therefore, you can't rotate it!"
 		return 0
 	if(src.state != "01")

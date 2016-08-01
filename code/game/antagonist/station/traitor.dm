@@ -14,7 +14,7 @@ var/datum/antagonist/traitor/traitors
 	return "<a href='?src=\ref[player];common=crystals'>\[set crystals\]</a><a href='?src=\ref[src];spawn_uplink=\ref[player.current]'>\[spawn uplink\]</a>"
 
 /datum/antagonist/traitor/Topic(href, href_list)
-	if (..())
+	if(..())
 		return
 	if(href_list["spawn_uplink"]) spawn_uplink(locate(href_list["spawn_uplink"]))
 
@@ -60,13 +60,13 @@ var/datum/antagonist/traitor/traitors
 				traitor.objectives += steal_objective
 		switch(rand(1,100))
 			if(1 to 100)
-				if (!(locate(/datum/objective/escape) in traitor.objectives))
+				if(!(locate(/datum/objective/escape) in traitor.objectives))
 					var/datum/objective/escape/escape_objective = new
 					escape_objective.owner = traitor
 					traitor.objectives += escape_objective
 
 			else
-				if (!(locate(/datum/objective/hijack) in traitor.objectives))
+				if(!(locate(/datum/objective/hijack) in traitor.objectives))
 					var/datum/objective/hijack/hijack_objective = new
 					hijack_objective.owner = traitor
 					traitor.objectives += hijack_objective
@@ -110,7 +110,7 @@ var/datum/antagonist/traitor/traitors
 		if(!R)
 			R = locate(/obj/item/device/pda) in traitor_mob.contents
 			traitor_mob << "Could not locate a Radio, installing in PDA instead!"
-		if (!R)
+		if(!R)
 			traitor_mob << "Unfortunately, neither a radio or a PDA relay could be installed."
 	else if(traitor_mob.client.prefs.uplinklocation == "PDA")
 		R = locate(/obj/item/device/pda) in traitor_mob.contents
@@ -125,10 +125,10 @@ var/datum/antagonist/traitor/traitors
 	else
 		traitor_mob << "You have not selected a location for your relay in the antagonist options! Defaulting to PDA!"
 		R = locate(/obj/item/device/pda) in traitor_mob.contents
-		if (!R)
+		if(!R)
 			R = locate(/obj/item/device/radio) in traitor_mob.contents
 			traitor_mob << "Could not locate a PDA, installing into a Radio instead!"
-		if (!R)
+		if(!R)
 			traitor_mob << "Unfortunately, neither a radio or a PDA relay could be installed."
 
 	if(!R)
@@ -140,10 +140,10 @@ var/datum/antagonist/traitor/traitors
 		var/freq = PUBLIC_LOW_FREQ
 		var/list/freqlist = list()
 		while (freq <= PUBLIC_HIGH_FREQ)
-			if (freq < 1451 || freq > PUB_FREQ)
+			if(freq < 1451 || freq > PUB_FREQ)
 				freqlist += freq
 			freq += 2
-			if ((freq % 2) == 0)
+			if((freq % 2) == 0)
 				freq += 1
 		freq = freqlist[rand(1, freqlist.len)]
 		var/obj/item/device/uplink/T = new(R, traitor_mob.mind)
@@ -152,7 +152,7 @@ var/datum/antagonist/traitor/traitors
 		traitor_mob << "A portable object teleportation relay has been installed in your [R.name] [loc]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features."
 		traitor_mob.mind.store_memory("<B>Radio Freq:</B> [format_frequency(freq)] ([R.name] [loc]).")
 
-	else if (istype(R, /obj/item/device/pda))
+	else if(istype(R, /obj/item/device/pda))
 		// generate a passcode if the uplink is hidden in a PDA
 		var/pda_pass = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
 		var/obj/item/device/uplink/T = new(R, traitor_mob.mind)

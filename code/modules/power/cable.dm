@@ -148,7 +148,7 @@ var/list/possible_cable_coil_colours
 			user << "\red This cable is connected to nearby breaker box. Use breaker box to interact with it."
 			return
 
-		if (shock(user, 50))
+		if(shock(user, 50))
 			return
 
 		if(src.d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
@@ -174,7 +174,7 @@ var/list/possible_cable_coil_colours
 
 	else if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = W
-		if (coil.get_amount() < 1)
+		if(coil.get_amount() < 1)
 			user << "Not enough cable"
 			return
 		coil.cable_join(src, user)
@@ -190,7 +190,7 @@ var/list/possible_cable_coil_colours
 		shock(user, 5, 0.2)
 
 	else
-		if (W.flags & CONDUCT)
+		if(W.flags & CONDUCT)
 			shock(user, 50, 0.7)
 
 	src.add_fingerprint(user)
@@ -199,7 +199,7 @@ var/list/possible_cable_coil_colours
 /obj/structure/cable/proc/shock(mob/user, prb, var/siemens_coeff = 1.0)
 	if(!prob(prb))
 		return 0
-	if (electrocute_mob(user, powernet, src, siemens_coeff))
+	if(electrocute_mob(user, powernet, src, siemens_coeff))
 		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 		s.set_up(5, 1, src)
 		s.start()
@@ -213,12 +213,12 @@ var/list/possible_cable_coil_colours
 		if(1.0)
 			qdel(src)
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				new/obj/item/stack/cable_coil(src.loc, src.d1 ? 2 : 1, color)
 				qdel(src)
 
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				new/obj/item/stack/cable_coil(src.loc, src.d1 ? 2 : 1, color)
 				qdel(src)
 	return
@@ -492,7 +492,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 /obj/item/stack/cable_coil/New(loc, length = MAXCOIL, var/param_color = null)
 	..()
 	src.amount = length
-	if (param_color) // It should be red by default, so only recolor it if parameter was specified.
+	if(param_color) // It should be red by default, so only recolor it if parameter was specified.
 		color = param_color
 	update_icon()
 	update_wclass()
@@ -508,7 +508,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/S = H.organs_by_name[user.zone_sel.selecting]
 
-		if (!S) return
+		if(!S) return
 		if(S.robotic < ORGAN_ROBOT || user.a_intent != I_HELP)
 			return ..()
 
@@ -522,7 +522,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 
 /obj/item/stack/cable_coil/update_icon()
-	if (!color)
+	if(!color)
 		color = possible_cable_coil_colours[pick(possible_cable_coil_colours)]
 	if(amount == 1)
 		icon_state = "coil1"
@@ -712,8 +712,8 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 
 			use(1)
-			if (C.shock(user, 50))
-				if (prob(50)) //fail
+			if(C.shock(user, 50))
+				if(prob(50)) //fail
 					new/obj/item/stack/cable_coil(C.loc, 1, C.color)
 					qdel(C)
 
@@ -775,8 +775,8 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 			use(1)
 
-			if (NC.shock(user, 50))
-				if (prob(50)) //fail
+			if(NC.shock(user, 50))
+				if(prob(50)) //fail
 					new/obj/item/stack/cable_coil(NC.loc, 1, NC.color)
 					qdel(NC)
 
@@ -823,8 +823,8 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 		use(1)
 
-		if (C.shock(user, 50))
-			if (prob(50)) //fail
+		if(C.shock(user, 50))
+			if(prob(50)) //fail
 				new/obj/item/stack/cable_coil(C.loc, 2, C.color)
 				qdel(C)
 				return

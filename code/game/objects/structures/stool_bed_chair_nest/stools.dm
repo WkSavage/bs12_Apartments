@@ -72,7 +72,7 @@ var/global/list/stool_cache = list() //haha stool
 	update_icon()
 
 /obj/item/weapon/stool/apply_hit_effect(mob/living/target, mob/living/user, var/hit_zone)
-	if (prob(5))
+	if(prob(5))
 		user.visible_message("<span class='danger'>[user] breaks [src] over [target]'s back!</span>")
 		user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
 		user.do_attack_animation(target)
@@ -93,11 +93,11 @@ var/global/list/stool_cache = list() //haha stool
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 				return
 		if(3.0)
-			if (prob(5))
+			if(prob(5))
 				qdel(src)
 				return
 
@@ -139,7 +139,7 @@ var/global/list/stool_cache = list() //haha stool
 		user << "You add padding to \the [src]."
 		add_padding(padding_type)
 		return
-	else if (istype(W, /obj/item/weapon/wirecutters))
+	else if(istype(W, /obj/item/weapon/wirecutters))
 		if(!padding_material)
 			user << "\The [src] has no padding to remove."
 			return

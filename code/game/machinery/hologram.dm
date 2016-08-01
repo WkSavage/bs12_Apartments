@@ -61,7 +61,7 @@ var/const/HOLOPAD_MODE = RANGE_BASED
 			user << "<span class='notice'>A request for AI presence was already sent recently.</span>"
 
 /obj/machinery/hologram/holopad/attack_ai(mob/living/silicon/ai/user)
-	if (!istype(user))
+	if(!istype(user))
 		return
 	/*There are pretty much only three ways to interact here.
 	I don't need to check for client since they're clicking on an object.
@@ -76,7 +76,7 @@ var/const/HOLOPAD_MODE = RANGE_BASED
 
 /obj/machinery/hologram/holopad/proc/activate_holo(mob/living/silicon/ai/user)
 	if(!(stat & NOPOWER) && user.eyeobj.loc == src.loc)//If the projector has power and client eye is on it
-		if (user.holo)
+		if(user.holo)
 			user << "<span class='danger'>ERROR:</span> Image feed in progress."
 			return
 		create_holo(user)//Create one.
@@ -139,7 +139,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		user.holo = null
 	qdel(masters[user])//Get rid of user's hologram
 	masters -= user //Discard AI from the list of those who use holopad
-	if (!masters.len)//If no users left
+	if(!masters.len)//If no users left
 		set_light(0)			//pad lighting (hologram lighting will be handled automatically since its owner was deleted)
 		icon_state = "holopad0"
 	return 1
@@ -202,10 +202,10 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		if(1.0)
 			qdel(src)
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 		if(3.0)
-			if (prob(5))
+			if(prob(5))
 				qdel(src)
 	return
 

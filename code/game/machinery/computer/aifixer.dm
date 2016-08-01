@@ -68,7 +68,7 @@
 	user.set_machine(src)
 	var/dat = "<h3>AI System Integrity Restorer</h3><br><br>"
 
-	if (src.occupant)
+	if(src.occupant)
 		var/laws
 		dat += "Stored AI: [src.occupant.name]<br>System integrity: [src.occupant.hardware_integrity()]%<br>Backup Capacitor: [src.occupant.backup_capacitor()]%<br>"
 
@@ -77,11 +77,11 @@
 
 		dat += "Laws:<br>[laws]<br>"
 
-		if (src.occupant.stat == 2)
+		if(src.occupant.stat == 2)
 			dat += "<b>AI nonfunctional</b>"
 		else
 			dat += "<b>AI functional</b>"
-		if (!src.active)
+		if(!src.active)
 			dat += {"<br><br><A href='byond://?src=\ref[src];fix=1'>Begin Reconstruction</A>"}
 		else
 			dat += "<br><br>Reconstruction in process, please wait.<br>"
@@ -99,7 +99,7 @@
 /obj/machinery/computer/aifixer/Topic(href, href_list)
 	if(..())
 		return 1
-	if (href_list["fix"])
+	if(href_list["fix"])
 		src.active = 1
 		src.overlays += image('icons/obj/computer.dmi', "ai-fixer-on")
 		while (src.occupant.health < 100)
@@ -108,7 +108,7 @@
 			src.occupant.adjustToxLoss(-1)
 			src.occupant.adjustBruteLoss(-1)
 			src.occupant.updatehealth()
-			if (src.occupant.health >= 0 && src.occupant.stat == DEAD)
+			if(src.occupant.health >= 0 && src.occupant.stat == DEAD)
 				src.occupant.stat = CONSCIOUS
 				src.occupant.lying = 0
 				src.occupant.switch_from_dead_to_living_mob_list()

@@ -65,7 +65,7 @@
 				M.visible_message("\The [mover] falls from the deck above and slams into \the [below]!", "You land on \the [below].", "You hear a soft whoosh and a crunch")
 
 			// Handle people getting hurt, it's funny!
-			if (istype(mover, /mob/living/carbon/human))
+			if(istype(mover, /mob/living/carbon/human))
 				var/mob/living/carbon/human/H = mover
 				var/damage = 5
 				H.apply_damage(rand(0, damage), BRUTE, "head")
@@ -84,22 +84,22 @@
 
 // Straight copy from space.
 /turf/simulated/open/attackby(obj/item/C as obj, mob/user as mob)
-	if (istype(C, /obj/item/stack/rods))
+	if(istype(C, /obj/item/stack/rods))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
 			return
 		var/obj/item/stack/rods/R = C
-		if (R.use(1))
+		if(R.use(1))
 			user << "<span class='notice'>Constructing support lattice ...</span>"
 			playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 			ReplaceWithLattice()
 		return
 
-	if (istype(C, /obj/item/stack/tile/floor))
+	if(istype(C, /obj/item/stack/tile/floor))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
 			var/obj/item/stack/tile/floor/S = C
-			if (S.get_amount() < 1)
+			if(S.get_amount() < 1)
 				return
 			qdel(L)
 			playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)

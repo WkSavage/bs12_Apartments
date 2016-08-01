@@ -255,7 +255,7 @@
 	var/total_contents = count_by_type(contents, /obj/item/weapon/reagent_containers/glass/beaker/vial)
 	src.icon_state = "vialbox[Floor(total_contents/2)]"
 	src.overlays.Cut()
-	if (!broken)
+	if(!broken)
 		overlays += image(icon, src, "led[locked]")
 		if(locked)
 			overlays += image(icon, src, "cover")

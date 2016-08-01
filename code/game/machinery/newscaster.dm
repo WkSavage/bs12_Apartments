@@ -103,9 +103,9 @@
 
 	var/list/receiving_pdas = new
 	for(var/obj/item/device/pda/P in PDAs)
-		if (!P.owner)
+		if(!P.owner)
 			continue
-		if (P.toff)
+		if(P.toff)
 			continue
 		receiving_pdas += P
 
@@ -462,7 +462,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 /obj/machinery/newscaster/Topic(href, href_list)
 	if(..())
 		return
-	if ((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
+	if((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
 		usr.set_machine(src)
 		if(href_list["set_channel_name"])
 			src.channel_name = sanitizeSafe(input(usr, "Provide a Feed Channel Name", "Network Channel Handler", ""), MAX_LNAME_LEN)
@@ -684,7 +684,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 
 		else if(href_list["setScreen"]) //Brings us to the main menu and resets all fields~
 			src.screen = text2num(href_list["setScreen"])
-			if (src.screen == 0)
+			if(src.screen == 0)
 				src.scanned_user = "Unknown";
 				msg = "";
 				src.c_locked=0;
@@ -710,7 +710,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 
 
 /obj/machinery/newscaster/attackby(obj/item/I as obj, mob/user as mob)
-	if (stat & BROKEN)
+	if(stat & BROKEN)
 		playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 100, 1)
 		for(var/mob/O in hearers(5, src.loc))
 			O.show_message("<EM>[user.name]</EM> further abuses the shattered [src.name].")
@@ -764,7 +764,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	else if(istype(user,/mob/living/silicon))
 		var/mob/living/silicon/tempAI = user
 		var/obj/item/weapon/photo/selection = tempAI.GetPicture()
-		if (!selection)
+		if(!selection)
 			return
 
 		photo_data = new(selection, 1)
@@ -873,7 +873,7 @@ obj/item/weapon/newspaper/attack_self(mob/user as mob)
 obj/item/weapon/newspaper/Topic(href, href_list)
 	var/mob/living/U = usr
 	..()
-	if ((src in U.contents) || ( istype(loc, /turf) && in_range(src, U) ))
+	if((src in U.contents) || ( istype(loc, /turf) && in_range(src, U) ))
 		U.set_machine(src)
 		if(href_list["next_page"])
 			if(curr_page==src.pages+1)
@@ -898,7 +898,7 @@ obj/item/weapon/newspaper/Topic(href, href_list)
 			src.curr_page--
 			playsound(src.loc, "pageturn", 50, 1)
 
-		if (istype(src.loc, /mob))
+		if(istype(src.loc, /mob))
 			src.attack_self(src.loc)
 
 
@@ -909,9 +909,9 @@ obj/item/weapon/newspaper/attackby(obj/item/weapon/W as obj, mob/user as mob)
 		else
 			var/s = sanitize(input(user, "Write something", "Newspaper", ""))
 			s = sanitize(s)
-			if (!s)
+			if(!s)
 				return
-			if (!in_range(src, usr) && src.loc != usr)
+			if(!in_range(src, usr) && src.loc != usr)
 				return
 			src.scribble_page = src.curr_page
 			src.scribble = s

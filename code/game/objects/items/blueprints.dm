@@ -20,7 +20,7 @@
 	var/const/ROOM_ERR_TOOLARGE = -2
 
 /obj/item/blueprints/attack_self(mob/M as mob)
-	if (!istype(M,/mob/living/carbon/human))
+	if(!istype(M,/mob/living/carbon/human))
 		M << "This stack of blue paper means nothing to you." //monkeys cannot into projecting
 		return
 	interact()
@@ -28,22 +28,22 @@
 
 /obj/item/blueprints/Topic(href, href_list)
 	..()
-	if ((usr.restrained() || usr.stat || usr.get_active_hand() != src))
+	if((usr.restrained() || usr.stat || usr.get_active_hand() != src))
 		return
-	if (!href_list["action"])
+	if(!href_list["action"])
 		return
 	switch(href_list["action"])
-		if ("create_area")
-			if (get_area_type()!=AREA_SPACE)
+		if("create_area")
+			if(get_area_type()!=AREA_SPACE)
 				interact()
 				return
 			create_area()
-		if ("edit_area")
-			if (get_area_type()!=AREA_STATION)
+		if("edit_area")
+			if(get_area_type()!=AREA_STATION)
 				interact()
 				return
 			edit_area()
-		if ("delete_area")
+		if("delete_area")
 			//skip the sanity checking, delete_area() does it anyway
 			delete_area()
 
@@ -54,13 +54,13 @@
 <small>Property of [company_name]. For heads of staff only. Store in high-secure storage.</small><hr>
 "}
 	switch (get_area_type())
-		if (AREA_SPACE)
+		if(AREA_SPACE)
 			text += {"
 <p>According the blueprints, you are now in <b>outer space</b>.  Hold your breath.</p>
 <p><a href='?src=\ref[src];action=create_area'>Mark this place as new area.</a></p>
 "}
-		if (AREA_STATION)
-			if (A.apc)
+		if(AREA_STATION)
+			if(A.apc)
 				text += {"
 <p>According the blueprints, you are now in <b>\"[A.name]\"</b>.</p>
 <p>You may <a href='?src=\ref[src];action=edit_area'>
@@ -73,7 +73,7 @@ move an amendment</a> to the drawing.</p>
 <p>You may <a href='?src=\ref[src];action=edit_area'>
 move an amendment</a> to the drawing, or <a href='?src=\ref[src];action=delete_area'>erase part of it</a>.</p>
 "}
-		if (AREA_SPECIAL)
+		if(AREA_SPECIAL)
 			text += {"
 <p>This place isn't noted on the blueprint.</p>
 "}
@@ -109,7 +109,7 @@ move an amendment</a> to the drawing, or <a href='?src=\ref[src];action=delete_a
 		// /area/derelict //commented out, all hail derelict-rebuilders!
 	)
 	for(var/type in SPECIALS)
-		if ( istype(A,type) )
+		if( istype(A,type) )
 			return AREA_SPECIAL
 	if(A.z in using_map.admin_levels)
 		return AREA_SPECIAL
@@ -181,7 +181,7 @@ move an amendment</a> to the drawing, or <a href='?src=\ref[src];action=delete_a
 
 /obj/item/blueprints/proc/delete_area()
 	var/area/A = get_area()
-	if (get_area_type(A)!=AREA_STATION || A.apc) //let's just check this one last time, just in case
+	if(get_area_type(A)!=AREA_STATION || A.apc) //let's just check this one last time, just in case
 		interact()
 		return
 	usr << "<span class='notice'>You scrub [A.name] off the blueprint.</span>"
@@ -192,7 +192,7 @@ move an amendment</a> to the drawing, or <a href='?src=\ref[src];action=delete_a
 
 
 /obj/item/blueprints/proc/set_area_machinery_title(var/area/A,var/title,var/oldtitle)
-	if (!oldtitle) // or replacetext goes to infinite loop
+	if(!oldtitle) // or replacetext goes to infinite loop
 		return
 
 	for(var/obj/machinery/alarm/M in A)
@@ -208,26 +208,26 @@ move an amendment</a> to the drawing, or <a href='?src=\ref[src];action=delete_a
 	//TODO: much much more. Unnamed airlocks, cameras, etc.
 
 /obj/item/blueprints/proc/check_tile_is_border(var/turf/T2,var/dir)
-	if (istype(T2, /turf/space))
+	if(istype(T2, /turf/space))
 		return BORDER_SPACE //omg hull breach we all going to die here
-	if (istype(T2, /turf/simulated/shuttle))
+	if(istype(T2, /turf/simulated/shuttle))
 		return BORDER_SPACE
-	if (get_area_type(T2.loc)!=AREA_SPACE)
+	if(get_area_type(T2.loc)!=AREA_SPACE)
 		return BORDER_BETWEEN
-	if (istype(T2, /turf/simulated/wall))
+	if(istype(T2, /turf/simulated/wall))
 		return BORDER_2NDTILE
-	if (!istype(T2, /turf/simulated))
+	if(!istype(T2, /turf/simulated))
 		return BORDER_BETWEEN
 
 	for(var/obj/structure/window/W in T2)
 		if(turn(dir,180) == W.dir)
 			return BORDER_BETWEEN
-		if (W.dir in list(NORTHEAST,SOUTHEAST,NORTHWEST,SOUTHWEST))
+		if(W.dir in list(NORTHEAST,SOUTHEAST,NORTHWEST,SOUTHWEST))
 			return BORDER_2NDTILE
 	for(var/obj/machinery/door/window/D in T2)
 		if(turn(dir,180) == D.dir)
 			return BORDER_BETWEEN
-	if (locate(/obj/machinery/door) in T2)
+	if(locate(/obj/machinery/door) in T2)
 		return BORDER_2NDTILE
 
 	return BORDER_NONE
@@ -236,7 +236,7 @@ move an amendment</a> to the drawing, or <a href='?src=\ref[src];action=delete_a
 	var/list/turf/found = new
 	var/list/turf/pending = list(first)
 	while(pending.len)
-		if (found.len+pending.len > 300)
+		if(found.len+pending.len > 300)
 			return ROOM_ERR_TOOLARGE
 		var/turf/T = pending[1] //why byond havent list::pop()?
 		pending -= T
@@ -245,14 +245,14 @@ move an amendment</a> to the drawing, or <a href='?src=\ref[src];action=delete_a
 			for(var/obj/structure/window/W in T)
 				if(dir == W.dir || (W.dir in list(NORTHEAST,SOUTHEAST,NORTHWEST,SOUTHWEST)))
 					skip = 1; break
-			if (skip) continue
+			if(skip) continue
 			for(var/obj/machinery/door/window/D in T)
 				if(dir == D.dir)
 					skip = 1; break
-			if (skip) continue
+			if(skip) continue
 
 			var/turf/NT = get_step(T,dir)
-			if (!isturf(NT) || (NT in found) || (NT in pending))
+			if(!isturf(NT) || (NT in found) || (NT in pending))
 				continue
 
 			switch(check_tile_is_border(NT,dir))

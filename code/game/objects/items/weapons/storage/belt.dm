@@ -23,7 +23,7 @@
 	update_icon()
 
 /obj/item/weapon/storage/update_icon()
-	if (ismob(src.loc))
+	if(ismob(src.loc))
 		var/mob/M = src.loc
 		M.update_inv_belt()
 

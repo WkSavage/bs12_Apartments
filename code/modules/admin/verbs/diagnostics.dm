@@ -80,17 +80,17 @@
 	for(var/fq in radio_controller.frequencies)
 		output += "<b>Freq: [fq]</b><br>"
 		var/list/datum/radio_frequency/fqs = radio_controller.frequencies[fq]
-		if (!fqs)
+		if(!fqs)
 			output += "&nbsp;&nbsp;<b>ERROR</b><br>"
 			continue
 		for(var/filter in fqs.devices)
 			var/list/f = fqs.devices[filter]
-			if (!f)
+			if(!f)
 				output += "&nbsp;&nbsp;[filter]: ERROR<br>"
 				continue
 			output += "&nbsp;&nbsp;[filter]: [f.len]<br>"
 			for(var/device in f)
-				if (isobj(device))
+				if(isobj(device))
 					output += "&nbsp;&nbsp;&nbsp;&nbsp;[device] ([device:x],[device:y],[device:z] in area [get_area(device:loc)])<br>"
 				else
 					output += "&nbsp;&nbsp;&nbsp;&nbsp;[device]<br>"
@@ -132,7 +132,7 @@
 		return
 	var/datum/air_group/dead_groups = list()
 	for(var/datum/air_group/group in air_master.air_groups)
-		if (!group.group_processing)
+		if(!group.group_processing)
 			dead_groups += group
 	var/datum/air_group/dest_group = pick(dead_groups)
 	usr.loc = pick(dest_group.members)

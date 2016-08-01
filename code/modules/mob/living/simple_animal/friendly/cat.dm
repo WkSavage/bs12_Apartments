@@ -51,11 +51,11 @@
 
 
 	turns_since_scan++
-	if (turns_since_scan > 5)
+	if(turns_since_scan > 5)
 		walk_to(src,0)
 		turns_since_scan = 0
 
-		if (flee_target) //fleeing takes precendence
+		if(flee_target) //fleeing takes precendence
 			handle_flee_target()
 		else
 			handle_movement_target()
@@ -92,11 +92,11 @@
 
 /mob/living/simple_animal/cat/proc/handle_flee_target()
 	//see if we should stop fleeing
-	if (flee_target && !(flee_target.loc in view(src)))
+	if(flee_target && !(flee_target.loc in view(src)))
 		flee_target = null
 		stop_automated_movement = 0
 
-	if (flee_target)
+	if(flee_target)
 		if(prob(25)) say("HSSSSS")
 		stop_automated_movement = 1
 		walk_away(src, flee_target, 7, 2)
@@ -145,17 +145,17 @@
 	var/befriend_job = null
 
 /mob/living/simple_animal/cat/fluff/handle_movement_target()
-	if (friend)
+	if(friend)
 		var/follow_dist = 4
-		if (friend.stat >= DEAD || friend.health <= config.health_threshold_softcrit) //danger
+		if(friend.stat >= DEAD || friend.health <= config.health_threshold_softcrit) //danger
 			follow_dist = 1
-		else if (friend.stat || friend.health <= 50) //danger or just sleeping
+		else if(friend.stat || friend.health <= 50) //danger or just sleeping
 			follow_dist = 2
 		var/near_dist = max(follow_dist - 2, 1)
 		var/current_dist = get_dist(src, friend)
 
-		if (movement_target != friend)
-			if (current_dist > follow_dist && !istype(movement_target, /mob/living/simple_animal/mouse) && (friend in oview(src)))
+		if(movement_target != friend)
+			if(current_dist > follow_dist && !istype(movement_target, /mob/living/simple_animal/mouse) && (friend in oview(src)))
 				//stop existing movement
 				walk_to(src,0)
 				turns_since_scan = 0
@@ -166,33 +166,33 @@
 				walk_to(src, movement_target, near_dist, 4)
 
 		//already following and close enough, stop
-		else if (current_dist <= near_dist)
+		else if(current_dist <= near_dist)
 			walk_to(src,0)
 			movement_target = null
 			stop_automated_movement = 0
-			if (prob(10))
+			if(prob(10))
 				say("Meow!")
 
-	if (!friend || movement_target != friend)
+	if(!friend || movement_target != friend)
 		..()
 
 /mob/living/simple_animal/cat/fluff/Life()
 	..()
-	if (stat || !friend)
+	if(stat || !friend)
 		return
-	if (get_dist(src, friend) <= 1)
-		if (friend.stat >= DEAD || friend.health <= config.health_threshold_softcrit)
-			if (prob((friend.stat < DEAD)? 50 : 15))
+	if(get_dist(src, friend) <= 1)
+		if(friend.stat >= DEAD || friend.health <= config.health_threshold_softcrit)
+			if(prob((friend.stat < DEAD)? 50 : 15))
 				var/verb = pick("meows", "mews", "mrowls")
 				audible_emote(pick("[verb] in distress.", "[verb] anxiously."))
 		else
-			if (prob(5))
+			if(prob(5))
 				visible_emote(pick("nuzzles [friend].",
 								   "brushes against [friend].",
 								   "rubs against [friend].",
 								   "purrs."))
-	else if (friend.health <= 50)
-		if (prob(10))
+	else if(friend.health <= 50)
+		if(prob(10))
 			var/verb = pick("meows", "mews", "mrowls")
 			audible_emote("[verb] anxiously.")
 

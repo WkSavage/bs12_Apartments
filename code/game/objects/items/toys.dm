@@ -46,7 +46,7 @@
 
 /obj/item/toy/balloon/afterattack(atom/A as mob|obj, mob/user as mob, proximity)
 	if(!proximity) return
-	if (istype(A, /obj/structure/reagent_dispensers/watertank) && get_dist(src,A) <= 1)
+	if(istype(A, /obj/structure/reagent_dispensers/watertank) && get_dist(src,A) <= 1)
 		A.reagents.trans_to_obj(src, 10)
 		user << "<span class='notice'>You fill the balloon with the contents of [A].</span>"
 		src.desc = "A translucent balloon with some form of liquid sloshing around in it."
@@ -170,9 +170,9 @@
 		if(!isturf(target.loc) || target == user) return
 		if(flag) return
 
-		if (locate (/obj/structure/table, src.loc))
+		if(locate (/obj/structure/table, src.loc))
 			return
-		else if (bullets)
+		else if(bullets)
 			var/turf/trg = get_turf(target)
 			var/obj/effect/foam_dart_dummy/D = new/obj/effect/foam_dart_dummy(get_turf(src))
 			bullets--
@@ -181,7 +181,7 @@
 			playsound(user.loc, 'sound/items/syringeproj.ogg', 50, 1)
 
 			for(var/i=0, i<6, i++)
-				if (D)
+				if(D)
 					if(D.loc == trg) break
 					step_towards(D,trg)
 
@@ -208,7 +208,7 @@
 					qdel(D)
 
 			return
-		else if (bullets == 0)
+		else if(bullets == 0)
 			user.Weaken(5)
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message(text("<span class='warning'>\The [] realized they were out of ammo and starting scrounging for some!</span>", user), 1)
@@ -219,7 +219,7 @@
 
 // ******* Check
 
-		if (src.bullets > 0 && M.lying)
+		if(src.bullets > 0 && M.lying)
 
 			for(var/mob/O in viewers(M, null))
 				if(O.client)
@@ -229,9 +229,9 @@
 			playsound(user.loc, 'sound/items/syringeproj.ogg', 50, 1)
 			new /obj/item/toy/ammo/crossbow(M.loc)
 			src.bullets--
-		else if (M.lying && src.bullets == 0)
+		else if(M.lying && src.bullets == 0)
 			for(var/mob/O in viewers(M, null))
-				if (O.client)	O.show_message(text("<span class='danger'>\The [] casually lines up a shot with []'s head, pulls the trigger, then realizes they are out of ammo and drops to the floor in search of some!</span>", user, M), 1, "<span class='warning'>You hear someone fall</span>", 2)
+				if(O.client)	O.show_message(text("<span class='danger'>\The [] casually lines up a shot with []'s head, pulls the trigger, then realizes they are out of ammo and drops to the floor in search of some!</span>", user, M), 1, "<span class='warning'>You hear someone fall</span>", 2)
 			user.Weaken(5)
 		return
 
@@ -267,7 +267,7 @@
 
 	attack_self(mob/user as mob)
 		src.active = !( src.active )
-		if (src.active)
+		if(src.active)
 			user << "<span class='notice'>You extend the plastic blade with a quick flick of your wrist.</span>"
 			playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
 			src.icon_state = "swordblue"
@@ -355,18 +355,18 @@
 
 /obj/item/toy/waterflower/afterattack(atom/A as mob|obj, mob/user as mob)
 
-	if (istype(A, /obj/item/weapon/storage/backpack ))
+	if(istype(A, /obj/item/weapon/storage/backpack ))
 		return
 
-	else if (locate (/obj/structure/table, src.loc))
+	else if(locate (/obj/structure/table, src.loc))
 		return
 
-	else if (istype(A, /obj/structure/reagent_dispensers/watertank) && get_dist(src,A) <= 1)
+	else if(istype(A, /obj/structure/reagent_dispensers/watertank) && get_dist(src,A) <= 1)
 		A.reagents.trans_to(src, 10)
 		user << "<span class='notice'>You refill your flower!</span>"
 		return
 
-	else if (src.reagents.total_volume < 1)
+	else if(src.reagents.total_volume < 1)
 		src.empty = 1
 		user << "<span class='notice'>Your flower has run dry!</span>"
 		return
@@ -762,9 +762,9 @@
 /obj/structure/plushie/attack_hand(mob/user)
 	if(user.a_intent == I_HELP)
 		user.visible_message("<span class='notice'><b>\The [user]</b> hugs [src]!</span>","<span class='notice'>You hug [src]!</span>")
-	else if (user.a_intent == I_HURT)
+	else if(user.a_intent == I_HURT)
 		user.visible_message("<span class='warning'><b>\The [user]</b> punches [src]!</span>","<span class='warning'>You punch [src]!</span>")
-	else if (user.a_intent == I_GRAB)
+	else if(user.a_intent == I_GRAB)
 		user.visible_message("<span class='warning'><b>\The [user]</b> attempts to strangle [src]!</span>","<span class='warning'>You attempt to strangle [src]!</span>")
 	else
 		user.visible_message("<span class='notice'><b>\The [user]</b> pokes the [src].</span>","<span class='notice'>You poke the [src].</span>")
@@ -804,9 +804,9 @@
 /obj/item/toy/plushie/attack_self(mob/user as mob)
 	if(user.a_intent == I_HELP)
 		user.visible_message("<span class='notice'><b>\The [user]</b> hugs [src]!</span>","<span class='notice'>You hug [src]!</span>")
-	else if (user.a_intent == I_HURT)
+	else if(user.a_intent == I_HURT)
 		user.visible_message("<span class='warning'><b>\The [user]</b> punches [src]!</span>","<span class='warning'>You punch [src]!</span>")
-	else if (user.a_intent == I_GRAB)
+	else if(user.a_intent == I_GRAB)
 		user.visible_message("<span class='warning'><b>\The [user]</b> attempts to strangle [src]!</span>","<span class='warning'>You attempt to strangle [src]!</span>")
 	else
 		user.visible_message("<span class='notice'><b>\The [user]</b> pokes the [src].</span>","<span class='notice'>You poke the [src].</span>")

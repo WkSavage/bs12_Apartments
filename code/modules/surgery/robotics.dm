@@ -6,18 +6,18 @@
 /datum/surgery_step/robotics/
 	can_infect = 0
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		if (isslime(target))
+		if(isslime(target))
 			return 0
-		if (target_zone == "eyes")	//there are specific steps for eye surgery
+		if(target_zone == "eyes")	//there are specific steps for eye surgery
 			return 0
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return 0
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if (affected == null)
+		if(affected == null)
 			return 0
-		if (affected.status & ORGAN_DESTROYED)
+		if(affected.status & ORGAN_DESTROYED)
 			return 0
-		if (!(affected.robotic >= ORGAN_ROBOT))
+		if(!(affected.robotic >= ORGAN_ROBOT))
 			return 0
 		return 1
 
@@ -208,7 +208,7 @@
 
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(!affected) return
@@ -221,7 +221,7 @@
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -236,7 +236,7 @@
 
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -250,7 +250,7 @@
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 

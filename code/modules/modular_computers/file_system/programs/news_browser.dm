@@ -112,7 +112,7 @@
 		data["all_articles"] = all_articles
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "news_browser.tmpl", "NTNet/ExoNet News Browser", 575, 700, state = state)
 		ui.auto_update_layout = 1
 		ui.set_initial_data(data)

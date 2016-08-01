@@ -31,11 +31,11 @@
 
 /obj/item/seeds/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	..()
-	if (istype(O, /obj/item/weapon/seedbag))
+	if(istype(O, /obj/item/weapon/seedbag))
 		var/obj/item/weapon/seedbag/S = O
-		if (S.mode == 1)
+		if(S.mode == 1)
 			for(var/obj/item/seeds/G in locate(src.x,src.y,src.z))
-				if (S.contents.len < S.capacity)
+				if(S.contents.len < S.capacity)
 					S.contents += G;
 					if(S.item_quants[G.name])
 						S.item_quants[G.name]++
@@ -47,7 +47,7 @@
 					return
 			user << "<span class='notice'>You pick up all the seeds.</span>"
 		else
-			if (S.contents.len < S.capacity)
+			if(S.contents.len < S.capacity)
 				S.contents += src;
 				if(S.item_quants[name])
 					S.item_quants[name]++
@@ -62,7 +62,7 @@
 
 	var/dat = "<TT><b>Select an item:</b><br>"
 
-	if (contents.len == 0)
+	if(contents.len == 0)
 		dat += "<font color = 'red'>No seeds loaded!</font>"
 	else
 		for(var/O in item_quants)
@@ -84,7 +84,7 @@
 		return
 
 	usr.machine = src
-	if ( href_list["vend"] )
+	if( href_list["vend"] )
 		var/N = href_list["vend"]
 
 		if(item_quants[N] <= 0) // Sanity check, there are probably ways to press the button when it shouldn't be possible.
@@ -97,7 +97,7 @@
 				usr.put_in_hands(O)
 				break
 
-	else if ( href_list["unload"] )
+	else if( href_list["unload"] )
 		item_quants.Cut()
 		for(var/obj/O in contents )
 			O.loc = get_turf(src)
@@ -108,6 +108,6 @@
 /obj/item/weapon/seedbag/updateUsrDialog()
 	var/list/nearby = range(1, src)
 	for(var/mob/M in nearby)
-		if ((M.client && M.machine == src))
+		if((M.client && M.machine == src))
 			src.attack_self(M)
 */

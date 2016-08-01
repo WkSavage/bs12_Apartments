@@ -404,7 +404,7 @@ var/global/list/additional_antag_types = list()
 		var/special_role = man.mind.special_role
 		var/datum/antagonist/special_role_data = get_antag_data(special_role)
 
-		if (special_role in disregard_roles)
+		if(special_role in disregard_roles)
 			continue
 		else if(man.client.prefs.nanotrasen_relation == COMPANY_OPPOSED && prob(50) || \
 			man.client.prefs.nanotrasen_relation == COMPANY_SKEPTICAL && prob(20))
