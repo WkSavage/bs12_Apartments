@@ -31,29 +31,29 @@
 			ST.ChangeTurf(base_turf)
 
 		sleep(6)
-		grav(10, 4, 10, 0 )
+		grav(10, 4, 10, 0)
 		sleep(6)
-		grav( 8, 4, 10, 0 )
+		grav(8, 4, 10, 0)
 		sleep(6)
-		grav( 9, 4, 10, 0 )
+		grav(9, 4, 10, 0)
 		sleep(6)
-		grav( 7, 3, 40, 1 )
+		grav(7, 3, 40, 1)
 		sleep(6)
-		grav( 5, 3, 40, 1 )
+		grav(5, 3, 40, 1)
 		sleep(6)
-		grav( 6, 3, 40, 1 )
+		grav(6, 3, 40, 1)
 		sleep(6)
-		grav( 4, 2, 50, 6 )
+		grav(4, 2, 50, 6)
 		sleep(6)
-		grav( 3, 2, 50, 6 )
+		grav(3, 2, 50, 6)
 		sleep(6)
-		grav( 2, 2, 75,25 )
+		grav(2, 2, 75,25)
 		sleep(6)
 
 
 
 		//MOVEMENT
-		if( prob(50) )
+		if(prob(50))
 			src.anchored = 0
 			step(src,pick(alldirs))
 			src.anchored = 1

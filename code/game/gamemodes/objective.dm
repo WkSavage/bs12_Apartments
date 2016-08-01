@@ -1,44 +1,44 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 var/global/list/all_objectives = list()
 
-datum/objective
+/datum/objective
 	var/datum/mind/owner = null			//Who owns the objective.
 	var/explanation_text = "Nothing"	//What that person is supposed to do.
 	var/datum/mind/target = null		//If they are focused on a particular person.
 	var/target_amount = 0				//If they are focused on a particular number. Steal objectives have their own counter.
 	var/completed = 0					//currently only used for custom objectives.
 
-	New(var/text)
-		all_objectives |= src
-		if(text)
-			explanation_text = text
-		..()
+/datum/objective/New(var/text)
+	all_objectives |= src
+	if(text)
+		explanation_text = text
+	..()
 
-	Destroy()
-		all_objectives -= src
-		..()
+/datum/objective/Destroy()
+	all_objectives -= src
+	..()
 
-	proc/check_completion()
-		return completed
+/datum/objective/proc/check_completion()
+	return completed
 
-	proc/find_target()
-		var/list/possible_targets = list()
-		for(var/datum/mind/possible_target in ticker.minds)
-			if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != 2))
-				possible_targets += possible_target
-		if(possible_targets.len > 0)
-			target = pick(possible_targets)
-
-
-	proc/find_target_by_role(role, role_type=0)//Option sets either to check assigned role or special role. Default to assigned.
-		for(var/datum/mind/possible_target in ticker.minds)
-			if((possible_target != owner) && ishuman(possible_target.current) && ((role_type ? possible_target.special_role : possible_target.assigned_role) == role) )
-				target = possible_target
-				break
+/datum/objective/proc/find_target()
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target in ticker.minds)
+		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != 2))
+			possible_targets += possible_target
+	if(possible_targets.len > 0)
+		target = pick(possible_targets)
 
 
+/datum/objective/proc/find_target_by_role(role, role_type=0)//Option sets either to check assigned role or special role. Default to assigned.
+	for(var/datum/mind/possible_target in ticker.minds)
+		if((possible_target != owner) && ishuman(possible_target.current) && ((role_type ? possible_target.special_role : possible_target.assigned_role) == role) )
+			target = possible_target
+			break
 
-datum/objective/assassinate
+
+
+/datum/objective/assassinate
 	find_target()
 		..()
 		if(target && target.current)
@@ -65,7 +65,7 @@ datum/objective/assassinate
 		return 1
 
 
-datum/objective/anti_revolution/execute
+/datum/objective/anti_revolution/execute
 	find_target()
 		..()
 		if(target && target.current)
@@ -90,7 +90,7 @@ datum/objective/anti_revolution/execute
 			return 0
 		return 1
 
-datum/objective/anti_revolution/brig
+/datum/objective/anti_revolution/brig
 	var/already_completed = 0
 
 	find_target()
@@ -123,7 +123,7 @@ datum/objective/anti_revolution/brig
 			return 0
 		return 0
 
-datum/objective/anti_revolution/demote
+/datum/objective/anti_revolution/demote
 	find_target()
 		..()
 		if(target && target.current)
@@ -155,7 +155,7 @@ datum/objective/anti_revolution/demote
 				return 0
 		return 1
 
-datum/objective/debrain//I want braaaainssss
+/datum/objective/debrain//I want braaaainssss
 	find_target()
 		..()
 		if(target && target.current)
@@ -188,7 +188,7 @@ datum/objective/debrain//I want braaaainssss
 		return 0
 
 
-datum/objective/protect//The opposite of killing a dude.
+/datum/objective/protect//The opposite of killing a dude.
 	find_target()
 		..()
 		if(target && target.current)
@@ -216,7 +216,7 @@ datum/objective/protect//The opposite of killing a dude.
 		return 0
 
 
-datum/objective/hijack
+/datum/objective/hijack
 	explanation_text = "Hijack the emergency shuttle by escaping alone."
 
 	check_completion()
@@ -237,7 +237,7 @@ datum/objective/hijack
 		return 1
 
 
-datum/objective/block
+/datum/objective/block
 	explanation_text = "Do not allow any organic lifeforms to escape on the shuttle alive."
 
 
@@ -258,7 +258,7 @@ datum/objective/block
 						return 0
 		return 1
 
-datum/objective/silence
+/datum/objective/silence
 	explanation_text = "Do not allow anyone to escape the station.  Only allow the shuttle to be called when everyone is dead and your story is the only one left."
 
 	check_completion()
@@ -278,7 +278,7 @@ datum/objective/silence
 		return 1
 
 
-datum/objective/escape
+/datum/objective/escape
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
 
 
@@ -315,7 +315,7 @@ datum/objective/escape
 
 
 
-datum/objective/survive
+/datum/objective/survive
 	explanation_text = "Stay alive until the end."
 
 	check_completion()
@@ -326,7 +326,7 @@ datum/objective/survive
 		return 1
 
 // Similar to the anti-rev objective, but for traitors
-datum/objective/brig
+/datum/objective/brig
 	var/already_completed = 0
 
 	find_target()
@@ -361,7 +361,7 @@ datum/objective/brig
 		return 0
 
 // Harm a crew member, making an example of them
-datum/objective/harm
+/datum/objective/harm
 	var/already_completed = 0
 
 	find_target()
@@ -410,12 +410,12 @@ datum/objective/harm
 		return 0
 
 
-datum/objective/nuclear
+/datum/objective/nuclear
 	explanation_text = "Destroy the station with a nuclear device."
 
 
 
-datum/objective/steal
+/datum/objective/steal
 	var/obj/item/steal_target
 	var/target_name
 
@@ -540,7 +540,7 @@ datum/objective/steal
 
 
 
-datum/objective/download
+/datum/objective/download
 	proc/gen_amount_goal()
 		target_amount = rand(10,20)
 		explanation_text = "Download [target_amount] research levels."
@@ -572,7 +572,7 @@ datum/objective/download
 
 		return (current_amount<target_amount) ? 0 : 1
 
-datum/objective/capture
+/datum/objective/capture
 	proc/gen_amount_goal()
 		target_amount = rand(5,10)
 		explanation_text = "Accumulate [target_amount] capture points."
@@ -627,11 +627,11 @@ datum/objective/capture
 			return 0
 
 // Heist objectives.
-datum/objective/heist
+/datum/objective/heist
 	proc/choose_target()
 		return
 
-datum/objective/heist/kidnap
+/datum/objective/heist/kidnap
 	choose_target()
 		var/list/roles = list("Chief Engineer","Research Director","Roboticist","Chemist","Station Engineer")
 		var/list/possible_targets = list()
@@ -670,7 +670,7 @@ datum/objective/heist/kidnap
 		else
 			return 0
 
-datum/objective/heist/loot
+/datum/objective/heist/loot
 
 	choose_target()
 		var/loot = "an object"
@@ -728,7 +728,7 @@ datum/objective/heist/loot
 
 		return 0
 
-datum/objective/heist/salvage
+/datum/objective/heist/salvage
 
 	choose_target()
 		switch(rand(1,8))

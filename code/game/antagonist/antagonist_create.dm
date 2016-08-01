@@ -1,5 +1,4 @@
 /datum/antagonist/proc/create_antagonist(var/datum/mind/target, var/move, var/gag_announcement, var/preserve_appearance)
-
 	if(!target)
 		return
 
@@ -30,7 +29,6 @@
 	return M
 
 /datum/antagonist/proc/create_id(var/assignment, var/mob/living/carbon/human/player, var/equip = 1)
-
 	var/obj/item/weapon/card/id/W = new id_type(player)
 	if(!W) return
 	W.access |= default_access
@@ -52,7 +50,6 @@
 	return R
 
 /datum/antagonist/proc/create_nuke(var/atom/paper_spawn_loc, var/datum/mind/code_owner)
-
 	// Decide on a code.
 	var/obj/effect/landmark/nuke_spawn = locate(nuke_spawn_loc ? nuke_spawn_loc : "landmark*Nuclear-Bomb")
 

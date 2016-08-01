@@ -1,4 +1,4 @@
-#define TICK_LIMIT_PRE 75
+#define TICK_LIMIT_PRE
 #define TICK_LIMIT_RUNNING 85
 #define TICK_LIMIT_MC_INIT 90
 

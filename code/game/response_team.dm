@@ -38,7 +38,6 @@ var/can_call_ert
 	trigger_armed_response_team(1)
 
 client/verb/JoinResponseTeam()
-
 	set name = "Join Response Team"
 	set category = "IC"
 

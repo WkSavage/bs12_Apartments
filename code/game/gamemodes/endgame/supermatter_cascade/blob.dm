@@ -48,6 +48,7 @@
 			for(var/atom/movable/A in T)
 				Consume(A)
 			T.ChangeTurf(type)
+	CHECK_TICK
 
 /turf/unsimulated/wall/supermatter/attack_generic(mob/user as mob)
 	if(istype(user))

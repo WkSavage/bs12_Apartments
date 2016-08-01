@@ -63,13 +63,9 @@ var/global/universe_has_ended = 0
 	spawn(rand(30,60) SECONDS)
 		var/txt = {"
 There's been a galaxy-wide electromagnetic pulse.  All of our systems are heavily damaged and many personnel are dead or dying. We are seeing increasing indications of the universe itself beginning to unravel.
-
 [station_name()], you are the only facility nearby a bluespace rift, which is near your research outpost. You are hereby directed to enter the rift using all means necessary, quite possibly as the last of your species alive.
-
 You have five minutes before the universe collapses. Good l\[\[###!!!-
-
 AUTOMATED ALERT: Link to [command_name()] lost.
-
 The access requirements on the Asteroid Shuttles' consoles have now been revoked.
 "}
 		priority_announcement.Announce(txt,"SUPERMATTER CASCADE DETECTED")
@@ -97,23 +93,24 @@ The access requirements on the Asteroid Shuttles' consoles have now been revoked
 			C.update_lumcount(1,1,1)
 		else
 			C.update_lumcount(0.0, 0.4, 1)
-
 		for(var/turf/space/T in turfs)
 			OnTurfChange(T)
+	CHECK_TICK
 
 /datum/universal_state/supermatter_cascade/proc/MiscSet()
-	for (var/obj/machinery/firealarm/alm in machines)
-		if (!(alm.stat & BROKEN))
+	for(var/obj/machinery/firealarm/alm in machines)
+		if(!(alm.stat & BROKEN))
 			alm.ex_act(2)
 
 /datum/universal_state/supermatter_cascade/proc/APCSet()
-	for (var/obj/machinery/power/apc/APC in machines)
-		if (!(APC.stat & BROKEN) && !APC.is_critical)
+	for(var/obj/machinery/power/apc/APC in machines)
+		if(!(APC.stat & BROKEN) && !APC.is_critical)
 			APC.chargemode = 0
 			if(APC.cell)
 				APC.cell.charge = 0
 			APC.emagged = 1
 			APC.queue_icon_update()
+	CHECK_TICK
 
 /datum/universal_state/supermatter_cascade/proc/PlayerSet()
 	for(var/datum/mind/M in player_list)

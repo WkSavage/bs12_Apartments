@@ -58,7 +58,7 @@ var/list/page_sound = list('sound/effects/pageturn1.ogg', 'sound/effects/pagetur
 	var/turf/turf_source = get_turf(source)
 
  	// Looping through the player list has the added bonus of working for mobs inside containers
-	for (var/P in player_list)
+	for(var/P in player_list)
 		var/mob/M = P
 		if(!M || !M.client)
 			continue
@@ -81,7 +81,7 @@ var/const/FALLOFF_SOUNDS = 0.5
 	S.channel = 0 //Any channel
 	S.volume = vol
 	S.environment = -1
-	if (vary)
+	if(vary)
 		if(frequency)
 			S.frequency = frequency
 		else
