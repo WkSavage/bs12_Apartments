@@ -265,7 +265,7 @@
 	if (mineral && mineral.result_amount)
 
 		//if the turf has already been excavated, some of it's ore has been removed
-		for (var/i = 1 to mineral.result_amount - mined_ore)
+		for(var/i = 1 to mineral.result_amount - mined_ore)
 			DropMineral()
 
 	//destroyed artifacts have weird, unpleasant effects

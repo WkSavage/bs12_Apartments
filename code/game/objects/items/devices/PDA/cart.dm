@@ -301,7 +301,7 @@
 
 	if(mode == 45 || mode == 451)
 		var/secData[0]
-		for (var/datum/data/record/R in sortRecord(data_core.general))
+		for(var/datum/data/record/R in sortRecord(data_core.general))
 			secData[++secData.len] = list(Name = R.fields["name"], "ref" = "\ref[R]")
 		values["security_records"] = secData
 
@@ -516,7 +516,7 @@
 			loc:mode = 441
 			mode = 441
 			if (R in data_core.general)
-				for (var/datum/data/record/E in data_core.medical)
+				for(var/datum/data/record/E in data_core.medical)
 					if ((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 						M = E
 						break
@@ -529,7 +529,7 @@
 			loc:mode = 451
 			mode = 451
 			if (R in data_core.general)
-				for (var/datum/data/record/E in data_core.security)
+				for(var/datum/data/record/E in data_core.security)
 					if ((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 						S = E
 						break

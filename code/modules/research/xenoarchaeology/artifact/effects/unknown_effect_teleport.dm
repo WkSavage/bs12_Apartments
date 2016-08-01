@@ -23,7 +23,7 @@
 /datum/artifact_effect/teleport/DoEffectAura()
 	if(holder)
 		var/turf/T = get_turf(holder)
-		for (var/mob/living/M in range(src.effectrange,T))
+		for(var/mob/living/M in range(src.effectrange,T))
 			var/weakness = GetAnomalySusceptibility(M)
 			if(prob(100 * weakness))
 				M << "\red You are displaced by a strange force!"
@@ -42,7 +42,7 @@
 /datum/artifact_effect/teleport/DoEffectPulse()
 	if(holder)
 		var/turf/T = get_turf(holder)
-		for (var/mob/living/M in range(src.effectrange, T))
+		for(var/mob/living/M in range(src.effectrange, T))
 			var/weakness = GetAnomalySusceptibility(M)
 			if(prob(100 * weakness))
 				M << "\red You are displaced by a strange force!"

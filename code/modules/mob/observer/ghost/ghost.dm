@@ -545,7 +545,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/doodle_color = (choice.basecolor) ? choice.basecolor : "#A10808"
 
 	var/num_doodles = 0
-	for (var/obj/effect/decal/cleanable/blood/writing/W in T)
+	for(var/obj/effect/decal/cleanable/blood/writing/W in T)
 		num_doodles++
 	if (num_doodles > 4)
 		src << "<span class='warning'>There is no space to write on!</span>"

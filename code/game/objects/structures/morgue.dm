@@ -313,7 +313,7 @@
 		return //don't let you cremate something twice or w/e
 
 	if(contents.len <= 0)
-		for (var/mob/M in viewers(src))
+		for(var/mob/M in viewers(src))
 			M.show_message("<span class='warning'>You hear a hollow crackle.</span>", 1)
 			return
 
@@ -322,7 +322,7 @@
 			usr << "You get the feeling that you shouldn't cremate one of the items in the cremator."
 			return
 
-		for (var/mob/M in viewers(src))
+		for(var/mob/M in viewers(src))
 			M.show_message("<span class='warning'>You hear a roar as the crematorium activates.</span>", 1)
 
 		cremating = 1
@@ -420,7 +420,7 @@
 	if(..())
 		return
 	if(src.allowed(user))
-		for (var/obj/structure/crematorium/C in world)
+		for(var/obj/structure/crematorium/C in world)
 			if (C.id == id)
 				if (!C.cremating)
 					C.cremate(user)

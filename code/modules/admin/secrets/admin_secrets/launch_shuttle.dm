@@ -10,7 +10,7 @@
 	if(!.)
 		return
 	var/list/valid_shuttles = list()
-	for (var/shuttle_tag in shuttle_controller.shuttles)
+	for(var/shuttle_tag in shuttle_controller.shuttles)
 		if (istype(shuttle_controller.shuttles[shuttle_tag], /datum/shuttle/ferry))
 			valid_shuttles += shuttle_tag
 

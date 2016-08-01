@@ -5,14 +5,12 @@
 
 	for(var/buildable in machines)
 		var/obj/machinery/power/smes/buildable/S = buildable
-		CHECK_PRE_TICK
 		S.energy_fail(rand(15 * severity,30 * severity))
 		CHECK_TICK
 
 	for(var/apc in machines)
 		var/obj/machinery/power/apc/C = apc
 		if(!C.is_critical && (!affected_z_levels || (C.z in affected_z_levels)))
-			CHECK_PRE_TICK
 			C.energy_fail(rand(30 * severity,60 * severity))
 			CHECK_TICK
 

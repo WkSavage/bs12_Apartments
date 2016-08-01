@@ -74,7 +74,6 @@
     return ..()
 
 /obj/machinery/clonepod/attack_ai(mob/user as mob)
-
 	add_hiddenprint(user)
 	return attack_hand(user)
 

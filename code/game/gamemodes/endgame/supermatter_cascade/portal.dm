@@ -52,7 +52,7 @@
 		if (dist <= consume_range && T.density)
 			T.density = 0
 
-		for (var/atom/movable/AM in T.contents)
+		for(var/atom/movable/AM in T.contents)
 			if (AM == src) // This is the snowflake.
 				continue
 

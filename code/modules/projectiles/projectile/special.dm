@@ -88,7 +88,7 @@
 				if(prob(15))
 					H.apply_effect((rand(30,80)),IRRADIATE,blocked = H.getarmor(null, "rad"))
 					H.Weaken(5)
-					for (var/mob/V in viewers(src))
+					for(var/mob/V in viewers(src))
 						V.show_message("\red [M] writhes in pain as \his vacuoles boil.", 3, "\red You hear the crunching of leaves.", 2)
 				if(prob(35))
 					if(prob(80))

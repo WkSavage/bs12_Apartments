@@ -397,7 +397,7 @@
 	var/dat = ""
 
 	if(!inuse)
-		for (var/obj/item/O in holdingitems)
+		for(var/obj/item/O in holdingitems)
 			processing_chamber += "\A [O.name]<BR>"
 
 		if (!processing_chamber)
@@ -489,7 +489,7 @@
 		interact(usr)
 
 	// Process.
-	for (var/obj/item/O in holdingitems)
+	for(var/obj/item/O in holdingitems)
 
 		var/remaining_volume = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 		if(remaining_volume <= 0)

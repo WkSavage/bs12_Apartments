@@ -30,7 +30,7 @@ var/prison_shuttle_timeleft = 0
 			if(do_after(user, 20, src))
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 				var/obj/item/weapon/circuitboard/prison_shuttle/M = new /obj/item/weapon/circuitboard/prison_shuttle( A )
-				for (var/obj/C in src)
+				for(var/obj/C in src)
 					C.loc = src.loc
 				A.circuit = M
 				A.anchored = 1

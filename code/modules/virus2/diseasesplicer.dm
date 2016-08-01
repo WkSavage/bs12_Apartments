@@ -69,7 +69,7 @@
 
 			if (dish.growth >= 50)
 				var/list/effects[0]
-				for (var/datum/disease2/effectholder/e in dish.virus2.effects)
+				for(var/datum/disease2/effectholder/e in dish.virus2.effects)
 					effects.Add(list(list("name" = (dish.analysed ? e.effect.name : "Unknown"), "stage" = (e.stage), "reference" = "\ref[e]")))
 				data["effects"] = effects
 			else

@@ -34,7 +34,7 @@
 /obj/machinery/computer/shuttle_control/explore/proc/get_possible_destinations()
 	var/list/res = list()
 	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles[shuttle_tag]
-	for (var/obj/effect/map/S in orange(shuttle.range, home))
+	for(var/obj/effect/map/S in orange(shuttle.range, home))
 		if(S.shuttle_landing)
 			res += S
 	return res

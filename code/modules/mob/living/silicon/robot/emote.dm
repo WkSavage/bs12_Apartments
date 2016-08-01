@@ -28,7 +28,7 @@
 			if (!src.buckled)
 				var/M = null
 				if (param)
-					for (var/mob/A in view(null, null))
+					for(var/mob/A in view(null, null))
 						if (param == A.name)
 							M = A
 							break
@@ -44,7 +44,7 @@
 			if (!src.buckled)
 				var/M = null
 				if (param)
-					for (var/mob/A in view(null, null))
+					for(var/mob/A in view(null, null))
 						if (param == A.name)
 							M = A
 							break
@@ -90,7 +90,7 @@
 		if ("glare")
 			var/M = null
 			if (param)
-				for (var/mob/A in view(null, null))
+				for(var/mob/A in view(null, null))
 					if (param == A.name)
 						M = A
 						break
@@ -105,7 +105,7 @@
 		if ("stare")
 			var/M = null
 			if (param)
-				for (var/mob/A in view(null, null))
+				for(var/mob/A in view(null, null))
 					if (param == A.name)
 						M = A
 						break
@@ -120,7 +120,7 @@
 		if ("look")
 			var/M = null
 			if (param)
-				for (var/mob/A in view(null, null))
+				for(var/mob/A in view(null, null))
 					if (param == A.name)
 						M = A
 						break
@@ -137,7 +137,7 @@
 		if("beep")
 			var/M = null
 			if(param)
-				for (var/mob/A in view(null, null))
+				for(var/mob/A in view(null, null))
 					if (param == A.name)
 						M = A
 						break
@@ -154,7 +154,7 @@
 		if("ping")
 			var/M = null
 			if(param)
-				for (var/mob/A in view(null, null))
+				for(var/mob/A in view(null, null))
 					if (param == A.name)
 						M = A
 						break
@@ -171,7 +171,7 @@
 		if("buzz")
 			var/M = null
 			if(param)
-				for (var/mob/A in view(null, null))
+				for(var/mob/A in view(null, null))
 					if (param == A.name)
 						M = A
 						break
@@ -188,7 +188,7 @@
 		if("confirm")
 			var/M = null
 			if(param)
-				for (var/mob/A in view(null, null))
+				for(var/mob/A in view(null, null))
 					if (param == A.name)
 						M = A
 						break
@@ -205,7 +205,7 @@
 		if("deny")
 			var/M = null
 			if(param)
-				for (var/mob/A in view(null, null))
+				for(var/mob/A in view(null, null))
 					if (param == A.name)
 						M = A
 						break

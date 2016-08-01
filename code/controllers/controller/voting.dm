@@ -302,7 +302,7 @@ var/datum/controller/vote/vote = new()
 			if(ticker.current_state >= 2)
 				return 0
 			choices.Add(config.votable_modes)
-			for (var/F in choices)
+			for(var/F in choices)
 				var/datum/game_mode/M = gamemode_cache[F]
 				if(!M)
 					continue

@@ -39,9 +39,6 @@ var/global/datum/controller/gameticker/ticker
 
 /datum/controller/gameticker/proc/pregame()
 	login_music = pick(\
-	/*'sound/music/halloween/skeletons.ogg',\
-	'sound/music/halloween/halloween.ogg',\
-	'sound/music/halloween/ghosts.ogg'*/
 	'sound/music/space.ogg',\
 	'sound/music/traitor.ogg',\
 	'sound/music/title2.ogg',\
@@ -131,7 +128,7 @@ var/global/datum/controller/gameticker/ticker
 		world << "<B>The current game mode is - Secret!</B>"
 		if(runnable_modes.len)
 			var/list/tmpmodes = new
-			for (var/datum/game_mode/M in runnable_modes)
+			for(var/datum/game_mode/M in runnable_modes)
 				tmpmodes+=M.name
 			tmpmodes = sortList(tmpmodes)
 			if(tmpmodes.len)
@@ -419,7 +416,7 @@ var/global/datum/controller/gameticker/ticker
 					Player << "<font color='red'><b>You did not survive the events on [station_name()]...</b></font>"
 	world << "<br>"
 
-	for (var/mob/living/silicon/ai/aiPlayer in mob_list)
+	for(var/mob/living/silicon/ai/aiPlayer in mob_list)
 		if (aiPlayer.stat != 2)
 			world << "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws at the end of the round were:</b>"
 		else
@@ -434,7 +431,7 @@ var/global/datum/controller/gameticker/ticker
 
 	var/dronecount = 0
 
-	for (var/mob/living/silicon/robot/robo in mob_list)
+	for(var/mob/living/silicon/robot/robo in mob_list)
 
 		if(istype(robo,/mob/living/silicon/robot/drone))
 			dronecount++

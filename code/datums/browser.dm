@@ -62,12 +62,12 @@
 /datum/browser/proc/get_header()
 	var/key
 	var/filename
-	for (key in stylesheets)
+	for(key in stylesheets)
 		filename = "[ckey(key)].css"
 		user << browse_rsc(stylesheets[key], filename)
 		head_content += "<link rel='stylesheet' type='text/css' href='[filename]'>"
 
-	for (key in scripts)
+	for(key in scripts)
 		filename = "[ckey(key)].js"
 		user << browse_rsc(scripts[key], filename)
 		head_content += "<script type='text/javascript' src='[filename]'></script>"

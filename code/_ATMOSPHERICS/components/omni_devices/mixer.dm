@@ -75,7 +75,7 @@
 	if(output)
 		output.air.volume = ATMOS_DEFAULT_VOLUME_MIXER * 0.75 * inputs.len
 		output.concentration = 1
-	
+
 	rebuild_mixing_inputs()
 
 /obj/machinery/atmospherics/omni/mixer/proc/mapper_set()
@@ -89,7 +89,7 @@
 
 	//concentration must add to 1
 	var/total = 0
-	for (var/datum/omni_port/P in inputs)
+	for(var/datum/omni_port/P in inputs)
 		total += P.concentration
 
 	if (total != 1)
@@ -103,7 +103,7 @@
 
 	//Figure out the amount of moles to transfer
 	var/transfer_moles = 0
-	for (var/datum/omni_port/P in inputs)
+	for(var/datum/omni_port/P in inputs)
 		transfer_moles += (set_flow_rate*P.concentration/P.air.volume)*P.air.total_moles
 
 	var/power_draw = -1

@@ -63,7 +63,7 @@
 			src.add_side_effect(M.name)
 
 	// One full cycle(in terms of strength) every 10 minutes
-	for (var/datum/medical_effect/M in side_effects)
+	for(var/datum/medical_effect/M in side_effects)
 		if (!M) continue
 		var/strength_percent = sin((life_tick - M.start) / 2)
 

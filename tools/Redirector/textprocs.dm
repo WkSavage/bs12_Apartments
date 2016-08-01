@@ -110,7 +110,7 @@ proc
 
 		var/newText = "[the_list[1]]"										// Treats any object/number as text also.
 		var/count
-		for (count = 2, count <= total, count++)
+		for(count = 2, count <= total, count++)
 			if (separator) newText += separator
 			newText += "[the_list[count]]"
 		return newText
@@ -137,7 +137,7 @@ proc
 		// Divide delta in 2, add those spaces to both ends.
 		delta = delta / 2
 		var/spaces = ""
-		for (var/count = 1, count <= delta, count++)
+		for(var/count = 1, count <= delta, count++)
 			spaces += " "
 		return spaces + new_message + spaces
 

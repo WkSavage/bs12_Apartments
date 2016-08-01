@@ -237,7 +237,7 @@
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 				new /obj/item/weapon/material/shard( src.loc )
 				var/obj/item/weapon/circuitboard/turbine_control/M = new /obj/item/weapon/circuitboard/turbine_control( A )
-				for (var/obj/C in src)
+				for(var/obj/C in src)
 					C.loc = src.loc
 				M.id = src.id
 				A.circuit = M
@@ -249,7 +249,7 @@
 				user << "\blue You disconnect the monitor."
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 				var/obj/item/weapon/circuitboard/turbine_control/M = new /obj/item/weapon/circuitboard/turbine_control( A )
-				for (var/obj/C in src)
+				for(var/obj/C in src)
 					C.loc = src.loc
 				M.id = src.id
 				A.circuit = M

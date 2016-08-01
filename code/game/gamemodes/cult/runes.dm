@@ -250,13 +250,13 @@ var/list/sacrificed = list()
 				user.bhunger += drain
 				src = user
 				spawn()
-					for (,user.bhunger>0,user.bhunger--)
+					for(,user.bhunger>0,user.bhunger--)
 						sleep(50)
 						user.take_overall_damage(3, 0)
 				return
 			user.heal_organ_damage(drain%5, 0)
 			drain-=drain%5
-			for (,drain>0,drain-=5)
+			for(,drain>0,drain-=5)
 				sleep(2)
 				user.heal_organ_damage(5, 0)
 			return
@@ -376,13 +376,13 @@ var/list/sacrificed = list()
 			if(S)
 				if(istype(src,/obj/effect/rune))
 					usr.say("Kla[pick("'","`")]atu barada nikt'o!")
-					for (var/mob/V in viewers(src))
+					for(var/mob/V in viewers(src))
 						V.show_message("<span class='warning'>The rune turns into gray dust, veiling the surrounding runes.</span>", 3)
 					qdel(src)
 				else
 					usr.whisper("Kla[pick("'","`")]atu barada nikt'o!")
 					usr << "<span class='warning'>Your talisman turns into gray dust, veiling the surrounding runes.</span>"
-					for (var/mob/V in orange(1,src))
+					for(var/mob/V in orange(1,src))
 						if(V!=usr)
 							V.show_message("<span class='warning'>Dust emanates from [usr]'s hands for a moment.</span>", 3)
 
@@ -552,7 +552,7 @@ var/list/sacrificed = list()
 					imbued_from = R
 					break
 			if (imbued_from)
-				for (var/mob/V in viewers(src))
+				for(var/mob/V in viewers(src))
 					V.show_message("<span class='warning'>The runes turn into dust, which then forms into an arcane image on the paper.</span>", 3)
 				usr.say("H'drak v[pick("'","`")]loso, mir'kanas verbot!")
 				qdel(imbued_from)
@@ -754,14 +754,14 @@ var/list/sacrificed = list()
 					return
 				if(istype(W,/obj/effect/rune))
 					usr.say("Nikt[pick("'","`")]o barada kla'atu!")
-					for (var/mob/V in viewers(src))
+					for(var/mob/V in viewers(src))
 						V.show_message("<span class='warning'>The rune turns into red dust, reveaing the surrounding runes.</span>", 3)
 					qdel(src)
 					return
 				if(istype(W,/obj/item/weapon/paper/talisman))
 					usr.whisper("Nikt[pick("'","`")]o barada kla'atu!")
 					usr << "<span class='warning'>Your talisman turns into red dust, revealing the surrounding runes.</span>"
-					for (var/mob/V in orange(1,usr.loc))
+					for(var/mob/V in orange(1,usr.loc))
 						if(V!=usr)
 							V.show_message("<span class='warning'>Red dust emanates from [usr]'s hands for a moment.</span>", 3)
 					return
@@ -911,7 +911,7 @@ var/list/sacrificed = list()
 					usr.whisper("Sti[pick("'","`")] kaliedir!")
 					usr << "<span class='warning'>Your talisman turns into gray dust, deafening everyone around.</span>"
 					admin_attacker_log_many_victims(usr, affected, "Used a deafen rune.", "Was victim of a deafen rune.", "used a deafen rune on")
-					for (var/mob/V in orange(1,src))
+					for(var/mob/V in orange(1,src))
 						if(!(iscultist(V)))
 							V.show_message("<span class='warning'>Dust flows from [usr]'s hands for a moment, and the world suddenly becomes quiet..</span>", 3)
 			return

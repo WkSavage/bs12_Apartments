@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-
 /obj/var/list/req_access = list()
 /obj/var/list/req_one_access = list()
 
@@ -26,10 +24,14 @@
 	return check_access_list(I ? I.GetAccess() : list())
 
 /obj/proc/check_access_list(var/list/L)
-	if(!req_access)		req_access = list()
-	if(!req_one_access)	req_one_access = list()
-	if(!L)	return 0
-	if(!istype(L, /list))	return 0
+	if(!req_access)
+		req_access = list()
+	if(!req_one_access)
+		req_one_access = list()
+	if(!L)
+		return 0
+	if(!istype(L, /list))
+		return 0
 	return has_access(req_access, req_one_access, L)
 
 /proc/has_access(var/list/req_access, var/list/req_one_access, var/list/accesses)
@@ -131,7 +133,6 @@
 /proc/get_region_accesses(var/code)
 	if(code == ACCESS_REGION_ALL)
 		return get_all_station_access()
-
 	if(!priv_region_access)
 		priv_region_access = list()
 		for(var/datum/access/A in get_all_access_datums())
@@ -234,13 +235,13 @@ proc/get_all_job_icons() //For all existing HUD icons
 
 	if(I)
 		var/job_icons = get_all_job_icons()
-		if(I.assignment	in job_icons) //Check if the job has a hud icon
+		if(I.assignment in job_icons) //Check if the job has a hud icon
 			return I.assignment
 		if(I.rank in job_icons)
 			return I.rank
 
 		var/centcom = get_all_centcom_jobs()
-		if(I.assignment	in centcom) //Return with the NT logo if it is a Centcom job
+		if(I.assignment in centcom) //Return with the NT logo if it is a Centcom job
 			return "Centcom"
 		if(I.rank in centcom)
 			return "Centcom"

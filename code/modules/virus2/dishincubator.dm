@@ -79,7 +79,7 @@
 				B.data["virus2"] = list()
 
 			var/list/virus = B.data["virus2"]
-			for (var/ID in virus)
+			for(var/ID in virus)
 				data["blood_already_infected"] = virus[ID]
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)

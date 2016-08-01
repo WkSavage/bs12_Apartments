@@ -13,7 +13,7 @@
 		return
 
 	var/list/T = list()
-	for (var/obj/machinery/camera/C in cameranet.cameras)
+	for(var/obj/machinery/camera/C in cameranet.cameras)
 		var/list/tempnetwork = C.network&src.network
 		if (tempnetwork.len)
 			T[text("[][]", C.c_tag, (C.can_use() ? null : " (Deactivated)"))] = C
@@ -198,8 +198,8 @@
 	var/obj/machinery/camera/a
 	var/obj/machinery/camera/b
 
-	for (var/i = L.len, i > 0, i--)
-		for (var/j = 1 to i - 1)
+	for(var/i = L.len, i > 0, i--)
+		for(var/j = 1 to i - 1)
 			a = L[j]
 			b = L[j + 1]
 			if (a.c_tag_order != b.c_tag_order)

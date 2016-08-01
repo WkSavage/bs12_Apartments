@@ -409,7 +409,7 @@ var/list/solars_list = list()
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 				new /obj/item/weapon/material/shard( src.loc )
 				var/obj/item/weapon/circuitboard/solar_control/M = new /obj/item/weapon/circuitboard/solar_control( A )
-				for (var/obj/C in src)
+				for(var/obj/C in src)
 					C.loc = src.loc
 				A.circuit = M
 				A.state = 3
@@ -420,7 +420,7 @@ var/list/solars_list = list()
 				user << "\blue You disconnect the monitor."
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 				var/obj/item/weapon/circuitboard/solar_control/M = new /obj/item/weapon/circuitboard/solar_control( A )
-				for (var/obj/C in src)
+				for(var/obj/C in src)
 					C.loc = src.loc
 				A.circuit = M
 				A.state = 4

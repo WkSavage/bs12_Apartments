@@ -150,7 +150,7 @@
 		if (M.loc == loc)
 			wash(M)
 			process_heat(M)
-		for (var/atom/movable/G in src.loc)
+		for(var/atom/movable/G in src.loc)
 			G.clean_blood()
 
 /obj/machinery/shower/attackby(obj/item/I as obj, mob/user as mob)

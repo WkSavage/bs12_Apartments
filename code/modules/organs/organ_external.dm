@@ -446,7 +446,7 @@ This function completely restores a damaged organ to perfect condition.
 /obj/item/organ/external/proc/createwound(var/type = CUT, var/damage)
 	if(damage == 0) return
 
-	//moved these before the open_wound check so that having many small wounds for example doesn't somehow protect you from taking internal damage (because of the return) 
+	//moved these before the open_wound check so that having many small wounds for example doesn't somehow protect you from taking internal damage (because of the return)
 
 	//Brute damage can possibly trigger an internal wound, too.
 	var/local_damage = brute_dam + burn_dam + damage
@@ -465,7 +465,7 @@ This function completely restores a damaged organ to perfect condition.
 		if((type == CUT || type == BRUISE) && damage >= 5)
 			//we need to make sure that the wound we are going to worsen is compatible with the type of damage...
 			var/list/compatible_wounds = list()
-			for (var/datum/wound/W in wounds)
+			for(var/datum/wound/W in wounds)
 				if (W.can_worsen(type, damage))
 					compatible_wounds += W
 
@@ -608,7 +608,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		//spread the infection to internal organs
 		var/obj/item/organ/target_organ = null	//make internal organs become infected one at a time instead of all at once
-		for (var/obj/item/organ/I in internal_organs)
+		for(var/obj/item/organ/I in internal_organs)
 			if (I.germ_level > 0 && I.germ_level < min(germ_level, INFECTION_LEVEL_TWO))	//once the organ reaches whatever we can give it, or level two, switch to a different one
 				if (!target_organ || I.germ_level > target_organ.germ_level)	//choose the organ with the highest germ_level
 					target_organ = I
@@ -616,7 +616,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if (!target_organ)
 			//figure out which organs we can spread germs to and pick one at random
 			var/list/candidate_organs = list()
-			for (var/obj/item/organ/I in internal_organs)
+			for(var/obj/item/organ/I in internal_organs)
 				if (I.germ_level < germ_level)
 					candidate_organs |= I
 			if (candidate_organs.len)
@@ -627,7 +627,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 		//spread the infection to child and parent organs
 		if (children)
-			for (var/obj/item/organ/external/child in children)
+			for(var/obj/item/organ/external/child in children)
 				if (child.germ_level < germ_level && (child.robotic < ORGAN_ROBOT))
 					if (child.germ_level < INFECTION_LEVEL_ONE*2 || prob(30))
 						child.germ_level++
@@ -1022,7 +1022,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	remove_splint()
 	update_icon(1)
 	unmutate()
-	for (var/obj/item/organ/external/T in children)
+	for(var/obj/item/organ/external/T in children)
 		if(T)
 			T.robotize()
 

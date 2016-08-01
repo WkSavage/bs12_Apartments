@@ -21,7 +21,7 @@
 	update_icon()
 
 /obj/machinery/ai_slipper/update_icon()
-	if (stat & NOPOWER || stat & BROKEN)
+	if(stat & NOPOWER || stat & BROKEN)
 		icon_state = "motion0"
 	else
 		icon_state = disabled ? "motion0" : "motion3"
@@ -34,18 +34,18 @@
 /obj/machinery/ai_slipper/attackby(obj/item/weapon/W, mob/user)
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if (istype(user, /mob/living/silicon))
+	if(istype(user, /mob/living/silicon))
 		return src.attack_hand(user)
 	else // trying to unlock the interface
-		if (src.allowed(usr))
+		if(src.allowed(usr))
 			locked = !locked
 			user << "You [ locked ? "lock" : "unlock"] the device."
-			if (locked)
-				if (user.machine==src)
+			if(locked)
+				if(user.machine==src)
 					user.unset_machine()
 					user << browse(null, "window=ai_slipper")
 			else
-				if (user.machine==src)
+				if(user.machine==src)
 					src.attack_hand(usr)
 		else
 			user << "<span class='warning'>Access denied.</span>"
@@ -58,8 +58,8 @@
 /obj/machinery/ai_slipper/attack_hand(mob/user as mob)
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if ( (get_dist(src, user) > 1 ))
-		if (!istype(user, /mob/living/silicon))
+	if((get_dist(src, user) > 1 ))
+		if(!istype(user, /mob/living/silicon))
 			user << text("Too far away.")
 			user.unset_machine()
 			user << browse(null, "window=ai_slipper")
@@ -67,9 +67,9 @@
 
 	user.set_machine(src)
 	var/loc = src.loc
-	if (istype(loc, /turf))
+	if(istype(loc, /turf))
 		loc = loc:loc
-	if (!istype(loc, /area))
+	if(!istype(loc, /area))
 		user << text("Turret badly positioned - loc.loc is [].", loc)
 		return
 	var/area/area = loc
@@ -87,14 +87,14 @@
 
 /obj/machinery/ai_slipper/Topic(href, href_list)
 	..()
-	if (src.locked)
-		if (!istype(usr, /mob/living/silicon))
+	if(src.locked)
+		if(!istype(usr, /mob/living/silicon))
 			usr << "Control panel is locked!"
 			return
-	if (href_list["toggleOn"])
+	if(href_list["toggleOn"])
 		src.disabled = !src.disabled
 		update_icon()
-	if (href_list["toggleUse"])
+	if(href_list["toggleUse"])
 		if(cooldown_on || disabled)
 			return
 		else
@@ -111,16 +111,13 @@
 /obj/machinery/ai_slipper/proc/slip_process()
 	while(cooldown_time - world.timeofday > 0)
 		var/ticksleft = cooldown_time - world.timeofday
-
 		if(ticksleft > 1e5)
 			cooldown_time = world.timeofday + 10	// midnight rollover
-
-
 		cooldown_timeleft = (ticksleft / 10)
 		sleep(5)
-	if (uses <= 0)
+	if(uses <= 0)
 		return
-	if (uses >= 0)
+	if(uses >= 0)
 		cooldown_on = 0
 	src.power_change()
 	return

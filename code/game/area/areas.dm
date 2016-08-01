@@ -1,8 +1,3 @@
-// Areas.dm
-
-
-
-// ===
 /area
 	var/global/global_uid = 0
 	var/uid
@@ -37,30 +32,33 @@
 
 /area/proc/get_cameras()
 	var/list/cameras = list()
-	for (var/obj/machinery/camera/C in src)
+	for(var/camera in src)
+		var/obj/machinery/camera/C = camera
 		cameras += C
 	return cameras
 
 /area/proc/atmosalert(danger_level, var/alarm_source)
-	if (danger_level == 0)
+	if(danger_level == 0)
 		atmosphere_alarm.clearAlarm(src, alarm_source)
 	else
 		atmosphere_alarm.triggerAlarm(src, alarm_source, severity = danger_level)
 
 	//Check all the alarms before lowering atmosalm. Raising is perfectly fine.
-	for (var/obj/machinery/alarm/AA in src)
-		if (!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.report_danger_level)
+	for(var/alarm in src)
+		var/obj/machinery/alarm/AA = alarm
+		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.report_danger_level)
 			danger_level = max(danger_level, AA.danger_level)
 
 	if(danger_level != atmosalm)
-		if (danger_level < 1 && atmosalm >= 1)
+		if(danger_level < 1 && atmosalm >= 1)
 			//closing the doors on red and opening on green provides a bit of hysteresis that will hopefully prevent fire doors from opening and closing repeatedly due to noise
 			air_doors_open()
-		else if (danger_level >= 2 && atmosalm < 2)
+		else if(danger_level >= 2 && atmosalm < 2)
 			air_doors_close()
 
 		atmosalm = danger_level
-		for (var/obj/machinery/alarm/AA in src)
+		for(var/alarm in src)
+			var/obj/machinery/alarm/AA = alarm
 			AA.update_icon()
 
 		return 1
@@ -69,7 +67,8 @@
 /area/proc/air_doors_close()
 	if(!air_doors_activated)
 		air_doors_activated = 1
-		for(var/obj/machinery/door/firedoor/E in all_doors)
+		for(var/firedoor in all_doors)
+			var/obj/machinery/door/firedoor/E = firedoor
 			if(!E.blocked)
 				if(E.operating)
 					E.nextstate = FIREDOOR_CLOSED
@@ -80,7 +79,8 @@
 /area/proc/air_doors_open()
 	if(air_doors_activated)
 		air_doors_activated = 0
-		for(var/obj/machinery/door/firedoor/E in all_doors)
+		for(var/firedoor in all_doors)
+			var/obj/machinery/door/firedoor/E = firedoor
 			if(!E.blocked)
 				if(E.operating)
 					E.nextstate = FIREDOOR_OPEN
@@ -88,13 +88,13 @@
 					spawn(0)
 						E.open()
 
-
 /area/proc/fire_alert()
 	if(!fire)
 		fire = 1	//used for firedoor checks
 		updateicon()
 		mouse_opacity = 0
-		for(var/obj/machinery/door/firedoor/D in all_doors)
+		for(var/firedoor in all_doors)
+			var/obj/machinery/door/firedoor/D = firedoor
 			if(!D.blocked)
 				if(D.operating)
 					D.nextstate = FIREDOOR_CLOSED
@@ -103,11 +103,12 @@
 						D.close()
 
 /area/proc/fire_reset()
-	if (fire)
+	if(fire)
 		fire = 0	//used for firedoor checks
 		updateicon()
 		mouse_opacity = 0
-		for(var/obj/machinery/door/firedoor/D in all_doors)
+		for(var/firedoor in all_doors)
+			var/obj/machinery/door/firedoor/D = firedoor
 			if(!D.blocked)
 				if(D.operating)
 					D.nextstate = FIREDOOR_OPEN
@@ -128,14 +129,14 @@
 	return
 
 /area/proc/partyalert()
-	if (!( party ))
+	if(!( party ))
 		party = 1
 		updateicon()
 		mouse_opacity = 0
 	return
 
 /area/proc/partyreset()
-	if (party)
+	if(party)
 		party = 0
 		mouse_opacity = 0
 		updateicon()
@@ -149,11 +150,9 @@
 	return
 
 /area/proc/updateicon()
-	if ((fire || eject || party) && (!requires_power||power_environ))//If it doesn't require power, can still activate this proc.
+	if((fire || eject || party) && (!requires_power||power_environ))//If it doesn't require power, can still activate this proc.
 		if(fire && !eject && !party)
 			icon_state = "blue"
-		/*else if(atmosalm && !fire && !eject && !party)
-			icon_state = "bluenew"*/
 		else if(!fire && eject && !party)
 			icon_state = "red"
 		else if(party && !fire && !eject)
@@ -161,17 +160,9 @@
 		else
 			icon_state = "blue-red"
 	else
-	//	new lighting behaviour with obj lights
 		icon_state = null
 
-/*
-#define EQUIP 1
-#define LIGHT 2
-#define ENVIRON 3
-*/
-
 /area/proc/powered(var/chan)		// return true if the area has power to given channel
-
 	if(!requires_power)
 		return 1
 	if(always_unpowered)
@@ -188,8 +179,8 @@
 
 // called when power status changes
 /area/proc/power_change()
-	for(var/obj/machinery/M in src)	// for each machine in the area
-		M.power_change()			// reverify power status (to update icons etc.)
+	for(var/obj/machinery/M in src) // for each machine in the area
+		M.power_change()            // reverify power status (to update icons etc.)
 	if (fire || eject || party)
 		updateicon()
 
@@ -230,15 +221,13 @@
 	for(var/obj/machinery/light/M in src)
 		M.set_emergency_lighting(enable)
 
-
 var/list/mob/living/forced_ambiance_list = new
-
 /area/Entered(A)
-	if(!istype(A,/mob/living))	return
-
+	if(!istype(A,/mob/living))
+		return
 	var/mob/living/L = A
-	if(!L.ckey)	return
-
+	if(!L.ckey)
+		return
 	if(!L.lastarea)
 		L.lastarea = get_area(L.loc)
 	var/area/newarea = get_area(L.loc)
@@ -287,12 +276,10 @@ var/list/mob/living/forced_ambiance_list = new
 /area/proc/thunk(mob)
 	if(istype(get_turf(mob), /turf/space)) // Can't fall onto nothing.
 		return
-
 	if(istype(mob,/mob/living/carbon/human/))
 		var/mob/living/carbon/human/H = mob
 		if(istype(H.shoes, /obj/item/clothing/shoes/magboots) && (H.shoes.item_flags & NOSLIP))
 			return
-
 		if(H.m_intent == "run")
 			H.AdjustStunned(6)
 			H.AdjustWeakened(6)

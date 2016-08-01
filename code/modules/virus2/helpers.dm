@@ -132,7 +132,7 @@ proc/airborne_can_reach(turf/source, turf/target)
 
 //	log_debug("Spreading [vector] diseases from [src] to [victim]")
 	if (virus2.len > 0)
-		for (var/ID in virus2)
+		for(var/ID in virus2)
 //			log_debug("Attempting virus [ID]")
 			var/datum/disease2/disease/V = virus2[ID]
 			if(V.spreadtype != vector) continue
@@ -160,7 +160,7 @@ proc/airborne_can_reach(turf/source, turf/target)
 		if (ishuman(victim))
 			var/mob/living/carbon/human/H = victim
 
-			//Allow for small chance of touching other zones. 
+			//Allow for small chance of touching other zones.
 			//This is proc is also used for passive spreading so just because they are targeting
 			//that zone doesn't mean that's necessarily where they will touch.
 			var/touch_zone = ran_zone(src.zone_sel.selecting, 80)
@@ -178,7 +178,7 @@ proc/airborne_can_reach(turf/source, turf/target)
 						if(C.body_parts_covered & select_area.body_part)
 							nudity = 0
 		if (nudity)
-			for (var/ID in victim.virus2)
+			for(var/ID in victim.virus2)
 				var/datum/disease2/disease/V = victim.virus2[ID]
 				if(V && V.spreadtype != vector) continue
 				if(!infection_spreading_check(victim, V.spreadtype)) continue

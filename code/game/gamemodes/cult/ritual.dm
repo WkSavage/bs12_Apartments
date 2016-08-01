@@ -11,12 +11,12 @@ var/global/list/rnwords = list("ire","ego","nahlizet","certum","veri","jatkaa","
 	set desc = "Check the rune-word meaning"
 	if(!cultwords["travel"])
 		runerandom()
-	for (var/word in engwords)
+	for(var/word in engwords)
 		usr << "[cultwords[word]] is [word]"
 
 /proc/runerandom() //randomizes word meaning
 	var/list/runewords=rnwords
-	for (var/word in engwords)
+	for(var/word in engwords)
 		cultwords[word] = pick(runewords)
 		runewords-=cultwords[word]
 
@@ -168,7 +168,7 @@ var/global/list/rnwords = list("ire","ego","nahlizet","certum","veri","jatkaa","
 				usr.say(pick("Hakkrutju gopoenjim.", "Nherasai pivroiashan.", "Firjji prhiv mazenhor.", "Tanah eh wakantahe.", "Obliyae na oraie.", "Miyf hon vnor'c.", "Wakabai hij fen juswix."))
 			else
 				usr.whisper(pick("Hakkrutju gopoenjim.", "Nherasai pivroiashan.", "Firjji prhiv mazenhor.", "Tanah eh wakantahe.", "Obliyae na oraie.", "Miyf hon vnor'c.", "Wakabai hij fen juswix."))
-			for (var/mob/V in viewers(src))
+			for(var/mob/V in viewers(src))
 				V.show_message("<span class='warning'>The markings pulse with a small burst of light, then fall dark.</span>", 3, "<span class='warning'>You hear a faint fizzle.</span>", 2)
 			return
 
@@ -293,7 +293,7 @@ var/global/list/rnwords = list("ire","ego","nahlizet","certum","veri","jatkaa","
 					words[words[number]] = words[number]
 				if("change")
 					words[words[number]] = input("Enter the translation for [words[number]]", "Word notes") in engwords
-					for (var/w in words)
+					for(var/w in words)
 						if ((words[w] == words[words[number]]) && (w != words[number]))
 							words[w] = w
 			notedat = {"
@@ -426,11 +426,11 @@ var/global/list/rnwords = list("ire","ego","nahlizet","certum","veri","jatkaa","
 
 			var/list/scribewords = list("none")
 
-			for (var/entry in words)
+			for(var/entry in words)
 				if (words[entry] != entry)
 					english += list(words[entry] = entry)
 
-			for (var/entry in dictionary)
+			for(var/entry in dictionary)
 				var/list/required = dictionary[entry]
 				if (length(english&required) == required.len)
 					scribewords += entry
@@ -452,7 +452,7 @@ var/global/list/rnwords = list("ire","ego","nahlizet","certum","veri","jatkaa","
 			if(usr.get_active_hand() != src)
 				return
 
-			for (var/mob/V in viewers(src))
+			for(var/mob/V in viewers(src))
 				V.show_message("<span class='danger'>\The [user] slices open a finger and begins to chant and paint symbols on the floor.</span>", 3, "<span class='danger'>You hear chanting.</span>", 2)
 			user << "<span class='danger'>You slice open one of your fingers and begin drawing a rune on the floor whilst chanting the ritual that binds your life essence with the dark arcane energies flowing through the surrounding world.</span>"
 			user.take_overall_damage((rand(9)+1)/10) // 0.1 to 1.0 damage

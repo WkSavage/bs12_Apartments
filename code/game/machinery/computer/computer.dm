@@ -95,7 +95,7 @@
 			var/obj/item/weapon/circuitboard/M = new circuit( A )
 			A.circuit = M
 			A.anchored = 1
-			for (var/obj/C in src)
+			for(var/obj/C in src)
 				C.loc = src.loc
 			if (src.stat & BROKEN)
 				user << "<span class='notice'>The broken glass falls out.</span>"

@@ -144,7 +144,7 @@
 			if (!(E.status & ORGAN_DEAD))
 				E.status |= ORGAN_DEAD
 				H << "<span class='notice'>You can't feel your [E.name] anymore...</span>"
-				for (var/obj/item/organ/external/C in E.children)
+				for(var/obj/item/organ/external/C in E.children)
 					C.status |= ORGAN_DEAD
 			H.update_body(1)
 		mob.adjustToxLoss(15*multiplier)
@@ -152,9 +152,9 @@
 	deactivate(var/mob/living/carbon/mob,var/multiplier)
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
-			for (var/obj/item/organ/external/E in H.organs)
+			for(var/obj/item/organ/external/E in H.organs)
 				E.status &= ~ORGAN_DEAD
-				for (var/obj/item/organ/external/C in E.children)
+				for(var/obj/item/organ/external/C in E.children)
 					C.status &= ~ORGAN_DEAD
 			H.update_body(1)
 
@@ -165,7 +165,7 @@
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
-			for (var/obj/item/organ/external/E in H.organs)
+			for(var/obj/item/organ/external/E in H.organs)
 				if (E.status & ORGAN_BROKEN && prob(30))
 					E.status ^= ORGAN_BROKEN
 		var/heal_amt = -5*multiplier
@@ -186,13 +186,13 @@
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
-			for (var/obj/item/organ/external/E in H.organs)
+			for(var/obj/item/organ/external/E in H.organs)
 				E.min_broken_damage = max(5, E.min_broken_damage - 30)
 
 	deactivate(var/mob/living/carbon/mob,var/multiplier)
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
-			for (var/obj/item/organ/external/E in H.organs)
+			for(var/obj/item/organ/external/E in H.organs)
 				E.min_broken_damage = initial(E.min_broken_damage)
 
 ////////////////////////STAGE 3/////////////////////////////////

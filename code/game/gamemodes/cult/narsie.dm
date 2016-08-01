@@ -71,7 +71,7 @@ var/global/list/narsie_list = list()
 		mezzer()
 
 /obj/singularity/narsie/large/eat()
-	for (var/turf/A in orange(consume_range, src))
+	for(var/turf/A in orange(consume_range, src))
 		consume(A)
 
 /obj/singularity/narsie/mezzer()
@@ -185,7 +185,7 @@ var/global/list/narsie_list = list()
 	else if (isturf(A))
 		var/dist = get_dist(A, src)
 
-		for (var/atom/movable/AM in A.contents)
+		for(var/atom/movable/AM in A.contents)
 			if (dist <= consume_range)
 				consume(AM)
 				continue
@@ -216,7 +216,7 @@ var/global/list/narsie_list = list()
 	else if (isturf(A))
 		var/dist = get_dist(A, src)
 
-		for (var/atom/movable/AM2 in A.contents)
+		for(var/atom/movable/AM2 in A.contents)
 			if (AM2 == src) // This is the snowflake.
 				continue
 
@@ -248,7 +248,7 @@ var/global/list/narsie_list = list()
 	else if (isturf(A))
 		var/dist = get_dist(A, src)
 
-		for (var/atom/movable/AM2 in A.contents)
+		for(var/atom/movable/AM2 in A.contents)
 			if (AM2 == src) // This is the snowflake.
 				continue
 
@@ -355,7 +355,7 @@ var/global/list/narsie_list = list()
 	grav_pull = 0
 
 /obj/singularity/narsie/wizard/eat()
-	for (var/turf/T in trange(consume_range, src))
+	for(var/turf/T in trange(consume_range, src))
 		consume(T)
 
 /obj/singularity/narsie/proc/narsie_spawn_animation()

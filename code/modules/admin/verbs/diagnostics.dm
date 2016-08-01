@@ -77,19 +77,19 @@
 	set name = "Radio report"
 
 	var/output = "<b>Radio Report</b><hr>"
-	for (var/fq in radio_controller.frequencies)
+	for(var/fq in radio_controller.frequencies)
 		output += "<b>Freq: [fq]</b><br>"
 		var/list/datum/radio_frequency/fqs = radio_controller.frequencies[fq]
 		if (!fqs)
 			output += "&nbsp;&nbsp;<b>ERROR</b><br>"
 			continue
-		for (var/filter in fqs.devices)
+		for(var/filter in fqs.devices)
 			var/list/f = fqs.devices[filter]
 			if (!f)
 				output += "&nbsp;&nbsp;[filter]: ERROR<br>"
 				continue
 			output += "&nbsp;&nbsp;[filter]: [f.len]<br>"
-			for (var/device in f)
+			for(var/device in f)
 				if (isobj(device))
 					output += "&nbsp;&nbsp;&nbsp;&nbsp;[device] ([device:x],[device:y],[device:z] in area [get_area(device:loc)])<br>"
 				else

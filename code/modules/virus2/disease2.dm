@@ -43,7 +43,7 @@
 /proc/get_infectable_species()
 	var/list/meat = list()
 	var/list/res = list()
-	for (var/specie in all_species)
+	for(var/specie in all_species)
 		var/datum/species/S = all_species[specie]
 		if(!S.virus_immune)
 			meat += S
@@ -183,7 +183,7 @@
 
 /proc/virus_copylist(var/list/datum/disease2/disease/viruses)
 	var/list/res = list()
-	for (var/ID in viruses)
+	for(var/ID in viruses)
 		var/datum/disease2/disease/V = viruses[ID]
 		res["[V.uniqueID]"] = V.getcopy()
 	return res

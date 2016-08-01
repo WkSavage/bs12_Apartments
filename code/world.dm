@@ -91,7 +91,7 @@ var/world_topic_spam_protect_time = world.timeofday
 
 	if (T == "ping")
 		var/x = 1
-		for (var/client/C)
+		for(var/client/C)
 			x++
 		return x
 
@@ -486,7 +486,7 @@ var/world_topic_spam_protect_time = world.timeofday
 		features += "AI allowed"
 
 	var/n = 0
-	for (var/mob/M in player_list)
+	for(var/mob/M in player_list)
 		if (M.client)
 			n++
 

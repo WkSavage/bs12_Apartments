@@ -263,10 +263,10 @@ var/last_message_id = 0
 	message["title"] = message_title
 	message["contents"] = message_text
 
-	for (var/datum/comm_message_listener/l in comm_message_listeners)
+	for(var/datum/comm_message_listener/l in comm_message_listeners)
 		l.Add(message)
 
-	for (var/obj/machinery/modular_computer/console/preset/command/main/computer in global_modular_computers)
+	for(var/obj/machinery/modular_computer/console/preset/command/main/computer in global_modular_computers)
 		if(!(computer.stat & (BROKEN | NOPOWER)) && computer.cpu)
 			if(computer.cpu.hard_drive)
 				var/datum/computer_file/program/comm/C = locate(/datum/computer_file/program/comm) in computer.cpu.hard_drive.stored_files

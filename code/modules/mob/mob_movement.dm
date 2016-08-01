@@ -357,7 +357,7 @@
 							M.animate_movement = 2
 							return
 
-		else 
+		else
 			if(mob.confused)
 				switch(mob.m_intent)
 					if("run")
@@ -370,11 +370,11 @@
 							n = get_step(mob, direct)
 			. = mob.SelfMove(n, direct)
 
-		for (var/obj/item/weapon/grab/G in mob)
+		for(var/obj/item/weapon/grab/G in mob)
 			if (G.state == GRAB_NECK)
 				mob.set_dir(reverse_dir[direct])
 			G.adjust_position()
-		for (var/obj/item/weapon/grab/G in mob.grabbed_by)
+		for(var/obj/item/weapon/grab/G in mob.grabbed_by)
 			G.adjust_position()
 
 		moving = 0
@@ -407,7 +407,7 @@
 	return
 
 // Checks whether this mob is allowed to move in space
-// Return 1 for movement, 0 for none, 
+// Return 1 for movement, 0 for none,
 // -1 to allow movement but with a chance of slipping
 /mob/proc/Allow_Spacemove(var/check_drift = 0)
 	if(!Check_Dense_Object()) //Nothing to push off of so end here

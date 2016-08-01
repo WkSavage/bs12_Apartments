@@ -93,7 +93,7 @@
 		prone_chance = max(spread_step*(distance - 2), 0)
 
 	var/hits = 0
-	for (var/i in 1 to total_pellets)
+	for(var/i in 1 to total_pellets)
 		if(target_mob.lying && target_mob != original && prob(prone_chance))
 			continue
 

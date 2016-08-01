@@ -37,7 +37,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/manipulator(src)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
 	RefreshParts()
-	
+
 /obj/machinery/autolathe/Destroy()
 	qdel(wires)
 	wires = null
@@ -73,7 +73,8 @@
 		dat += "<h2>Printable Designs</h2><h3>Showing: <a href='?src=\ref[src];change_category=1'>[show_category]</a>.</h3></center><table width = '100%'>"
 
 		var/index = 0
-		for(var/datum/autolathe/recipe/R in machine_recipes)
+		for(var/recipe in machine_recipes)
+			var/datum/autolathe/recipe/R = recipe
 			index++
 			if(R.hidden && !hacked || (show_category != "All" && show_category != R.category))
 				continue
@@ -120,11 +121,9 @@
 	onclose(user, "autolathe")
 
 /obj/machinery/autolathe/attackby(var/obj/item/O as obj, var/mob/user as mob)
-
 	if(busy)
 		user << "<span class='notice'>\The [src] is busy. Please wait for completion of previous operation.</span>"
 		return
-
 	if(default_deconstruction_screwdriver(user, O))
 		updateUsrDialog()
 		return
@@ -132,19 +131,15 @@
 		return
 	if(default_part_replacement(user, O))
 		return
-
 	if(stat)
 		return
-
 	if(panel_open)
 		//Don't eat multitools or wirecutters used on an open lathe.
 		if(istype(O, /obj/item/device/multitool) || istype(O, /obj/item/weapon/wirecutters))
 			attack_hand(user)
 			return
-
 	if(O.loc != user && !(istype(O,/obj/item/stack)))
 		return 0
-
 	if(is_robot_module(O))
 		return 0
 
@@ -208,7 +203,6 @@
 	interact(user)
 
 /obj/machinery/autolathe/Topic(href, href_list)
-
 	if(..())
 		return
 
@@ -293,7 +287,6 @@
 	mat_efficiency = 1.1 - man_rating * 0.1// Normally, price is 1.25 the amount of material, so this shouldn't go higher than 0.8. Maximum rating of parts is 3
 
 /obj/machinery/autolathe/dismantle()
-
 	for(var/mat in stored_material)
 		var/material/M = get_material_by_name(mat)
 		if(!istype(M))

@@ -82,11 +82,11 @@ var/global/const/base_law_type = /datum/ai_laws/nanotrasen
 	if(full_sync || supplied_laws.len)
 		S.laws.clear_supplied_laws()
 
-	for (var/datum/ai_law/law in ion_laws)
+	for(var/datum/ai_law/law in ion_laws)
 		S.laws.add_ion_law(law.law)
-	for (var/datum/ai_law/law in inherent_laws)
+	for(var/datum/ai_law/law in inherent_laws)
 		S.laws.add_inherent_law(law.law)
-	for (var/datum/ai_law/law in supplied_laws)
+	for(var/datum/ai_law/law in supplied_laws)
 		if(law)
 			S.laws.add_supplied_law(law.index, law.law)
 

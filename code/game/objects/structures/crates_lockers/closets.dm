@@ -173,7 +173,7 @@
 			qdel(src)
 		if(2)
 			if(prob(50))
-				for (var/atom/movable/A as mob|obj in src)
+				for(var/atom/movable/A as mob|obj in src)
 					A.forceMove(src.loc)
 					A.ex_act(severity + 1)
 				qdel(src)

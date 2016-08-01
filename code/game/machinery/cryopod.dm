@@ -66,7 +66,6 @@
 	onclose(user, "cryopod_console")
 
 /obj/machinery/computer/cryopod/Topic(href, href_list)
-
 	if(..())
 		return
 
@@ -84,7 +83,8 @@
 		user << browse(dat, "window=cryolog")
 
 	if(href_list["view"])
-		if(!allow_items) return
+		if(!allow_items)
+			return
 
 		var/dat = "<b>Recently stored objects</b><br/><hr/><br/>"
 		for(var/obj/item/I in frozen_items)
@@ -94,7 +94,8 @@
 		user << browse(dat, "window=cryoitems")
 
 	else if(href_list["item"])
-		if(!allow_items) return
+		if(!allow_items)
+			return
 
 		if(frozen_items.len == 0)
 			user << "<span class='notice'>There is nothing to recover from storage.</span>"
@@ -114,7 +115,8 @@
 		frozen_items -= I
 
 	else if(href_list["allitems"])
-		if(!allow_items) return
+		if(!allow_items)
+			return
 
 		if(frozen_items.len == 0)
 			user << "<span class='notice'>There is nothing to recover from storage.</span>"
@@ -141,7 +143,6 @@
 
 //Decorative structures to go alongside cryopods.
 /obj/structure/cryofeed
-
 	name = "cryogenic feed"
 	desc = "A bewildering tangle of machinery and pipes."
 	icon = 'icons/obj/Cryogenic2.dmi'
@@ -382,7 +383,6 @@
 
 
 /obj/machinery/cryopod/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)
-
 	if(istype(G, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/grab = G
 		if(occupant)

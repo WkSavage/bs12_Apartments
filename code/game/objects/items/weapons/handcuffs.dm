@@ -39,7 +39,7 @@
 		if(istype(user, /mob/living/silicon/robot))
 			can_place = 1
 		else
-			for (var/obj/item/weapon/grab/G in C.grabbed_by)
+			for(var/obj/item/weapon/grab/G in C.grabbed_by)
 				if (G.loc == user && G.state >= GRAB_AGGRESSIVE)
 					can_place = 1
 					break

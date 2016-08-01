@@ -24,7 +24,7 @@
 	)
 
 	var/list/filenames = null
-	for (var/path in nano_asset_dirs)
+	for(var/path in nano_asset_dirs)
 		filenames = flist(path)
 		for(var/filename in filenames)
 			if(copytext(filename, length(filename)) != "/") // filenames which end in "/" are actually directories, which we want to ignore
@@ -79,7 +79,7 @@
 		//testing("nanomanager/get_open_ui mob [user.name] [src_object:name] [ui_key] - there are no uis open for this object")
 		return null
 
-	for (var/datum/nanoui/ui in open_uis[src_object_key][ui_key])
+	for(var/datum/nanoui/ui in open_uis[src_object_key][ui_key])
 		if (ui.user == user)
 			return ui
 
@@ -99,8 +99,8 @@
 		return 0
 
 	var/update_count = 0
-	for (var/ui_key in open_uis[src_object_key])
-		for (var/datum/nanoui/ui in open_uis[src_object_key][ui_key])
+	for(var/ui_key in open_uis[src_object_key])
+		for(var/datum/nanoui/ui in open_uis[src_object_key][ui_key])
 			if(ui && ui.src_object && ui.user && ui.src_object.nano_host())
 				ui.process(1)
 				update_count++
@@ -119,8 +119,8 @@
 		return 0
 
 	var/close_count = 0
-	for (var/ui_key in open_uis[src_object_key])
-		for (var/datum/nanoui/ui in open_uis[src_object_key][ui_key])
+	for(var/ui_key in open_uis[src_object_key])
+		for(var/datum/nanoui/ui in open_uis[src_object_key][ui_key])
 			if(ui && ui.src_object && ui.user && ui.src_object.nano_host())
 				ui.close()
 				close_count++
@@ -140,7 +140,7 @@
 		return 0 // has no open uis
 
 	var/update_count = 0
-	for (var/datum/nanoui/ui in user.open_uis)
+	for(var/datum/nanoui/ui in user.open_uis)
 		if ((isnull(src_object) || !isnull(src_object) && ui.src_object == src_object) && (isnull(ui_key) || !isnull(ui_key) && ui.ui_key == ui_key))
 			ui.process(1)
 			update_count++
@@ -162,7 +162,7 @@
 		return 0 // has no open uis
 
 	var/close_count = 0
-	for (var/datum/nanoui/ui in user.open_uis)
+	for(var/datum/nanoui/ui in user.open_uis)
 		if ((isnull(src_object) || !isnull(src_object) && ui.src_object == src_object) && (isnull(ui_key) || !isnull(ui_key) && ui.ui_key == ui_key))
 			ui.close()
 			close_count++
@@ -249,7 +249,7 @@
 	if (isnull(newMob.open_uis) || !istype(newMob.open_uis, /list))
 		newMob.open_uis = list()
 
-	for (var/datum/nanoui/ui in oldMob.open_uis)
+	for(var/datum/nanoui/ui in oldMob.open_uis)
 		ui.user = newMob
 		newMob.open_uis.Add(ui)
 

@@ -20,7 +20,7 @@
 
 	//returns how well tool is suited for this step
 	proc/tool_quality(obj/item/tool)
-		for (var/T in allowed_tools)
+		for(var/T in allowed_tools)
 			if (istype(tool,T))
 				return allowed_tools[T]
 		return 0

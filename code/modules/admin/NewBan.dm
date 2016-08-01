@@ -27,7 +27,7 @@ var/savefile/Banlist
 		.["reason"]	= "ckey/id"
 		return .
 	else
-		for (var/A in Banlist.dir)
+		for(var/A in Banlist.dir)
 			Banlist.cd = "/base/[A]"
 			var/matches
 			if( ckey == Banlist["key"] )
@@ -78,7 +78,7 @@ var/savefile/Banlist
 	UpdateTime()
 
 	Banlist.cd = "/base"
-	for (var/A in Banlist.dir)
+	for(var/A in Banlist.dir)
 		Banlist.cd = "/base/[A]"
 		if (!Banlist["key"] || !Banlist["id"])
 			RemoveBan(A)
@@ -137,7 +137,7 @@ var/savefile/Banlist
 		message_admins("[key_name_admin(usr)] unbanned: [key]")
 		feedback_inc("ban_unban",1)
 		usr.client.holder.DB_ban_unban( ckey(key), BANTYPE_ANY_FULLBAN)
-	for (var/A in Banlist.dir)
+	for(var/A in Banlist.dir)
 		Banlist.cd = "/base/[A]"
 		if (key == Banlist["key"] /*|| id == Banlist["id"]*/)
 			Banlist.cd = "/base"
@@ -166,7 +166,7 @@ var/savefile/Banlist
 	var/dat
 	//var/dat = "<HR><B>Unban Player:</B> \blue(U) = Unban , (E) = Edit Ban\green (Total<HR><table border=1 rules=all frame=void cellspacing=0 cellpadding=3 >"
 	Banlist.cd = "/base"
-	for (var/A in Banlist.dir)
+	for(var/A in Banlist.dir)
 		count++
 		Banlist.cd = "/base/[A]"
 		var/ref		= "\ref[src]"
@@ -220,6 +220,6 @@ var/savefile/Banlist
 
 /proc/ClearAllBans()
 	Banlist.cd = "/base"
-	for (var/A in Banlist.dir)
+	for(var/A in Banlist.dir)
 		RemoveBan(A)
 

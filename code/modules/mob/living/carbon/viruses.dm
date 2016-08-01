@@ -3,7 +3,7 @@
 	if(status_flags & GODMODE)	return 0	//godmode
 
 	if(bodytemperature > 406)
-		for (var/ID in virus2)
+		for(var/ID in virus2)
 			var/datum/disease2/disease/V = virus2[ID]
 			V.cure(src)
 
@@ -12,19 +12,19 @@
 			if(istype(O,/obj/effect/decal/cleanable/blood))
 				var/obj/effect/decal/cleanable/blood/B = O
 				if(B.virus2.len)
-					for (var/ID in B.virus2)
+					for(var/ID in B.virus2)
 						var/datum/disease2/disease/V = B.virus2[ID]
 						infect_virus2(src,V)
 
 			else if(istype(O,/obj/effect/decal/cleanable/mucus))
 				var/obj/effect/decal/cleanable/mucus/M = O
 				if(M.virus2.len)
-					for (var/ID in M.virus2)
+					for(var/ID in M.virus2)
 						var/datum/disease2/disease/V = M.virus2[ID]
 						infect_virus2(src,V)
 
 	if(virus2.len)
-		for (var/ID in virus2)
+		for(var/ID in virus2)
 			var/datum/disease2/disease/V = virus2[ID]
 			if(isnull(V)) // Trying to figure out a runtime error that keeps repeating
 				CRASH("virus2 nulled before calling activate()")

@@ -17,7 +17,7 @@
 	var/damage_this_tick = getToxLoss()
 	for(var/obj/item/organ/external/O in organs)
 		damage_this_tick += O.burn_dam + O.brute_dam
-	
+
 	if(damage_this_tick > last_dam)
 		. = TRUE
 	last_dam = damage_this_tick
@@ -137,7 +137,7 @@
 	if(!l_hand && !r_hand)
 		return
 
-	for (var/obj/item/organ/external/E in organs)
+	for(var/obj/item/organ/external/E in organs)
 		if(!E || !E.can_grasp)
 			continue
 

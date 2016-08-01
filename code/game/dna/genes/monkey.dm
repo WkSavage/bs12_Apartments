@@ -78,7 +78,7 @@
 	O.adjustOxyLoss(M.getOxyLoss())
 	O.stat = M.stat
 	O.a_intent = I_HURT
-	for (var/obj/item/weapon/implant/I in implants)
+	for(var/obj/item/weapon/implant/I in implants)
 		I.loc = O
 		I.implanted = O
 //		O.update_icon = 1	//queue a full icon update at next life() call
@@ -167,7 +167,7 @@
 	O.adjustToxLoss(M.getToxLoss())
 	O.adjustOxyLoss(M.getOxyLoss())
 	O.stat = M.stat
-	for (var/obj/item/weapon/implant/I in implants)
+	for(var/obj/item/weapon/implant/I in implants)
 		I.loc = O
 		I.implanted = O
 //		O.update_icon = 1	//queue a full icon update at next life() call

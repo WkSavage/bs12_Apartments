@@ -277,7 +277,7 @@
 	data["secure"] = is_secure
 
 	var/list/items[0]
-	for (var/i=1 to length(item_records))
+	for(var/i=1 to length(item_records))
 		var/datum/stored_items/I = item_records[i]
 		var/count = I.get_amount()
 		if(count > 0)

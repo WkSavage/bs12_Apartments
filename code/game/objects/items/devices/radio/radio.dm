@@ -71,7 +71,7 @@ var/global/list/default_medbay_channels = list(
 	wires = null
 	if(radio_controller)
 		radio_controller.remove_object(src, frequency)
-		for (var/ch_name in channels)
+		for(var/ch_name in channels)
 			radio_controller.remove_object(src, radiochannels[ch_name])
 	return ..()
 
@@ -82,7 +82,7 @@ var/global/list/default_medbay_channels = list(
 		frequency = sanitize_frequency(frequency, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
 	set_frequency(frequency)
 
-	for (var/ch_name in channels)
+	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = radio_controller.add_object(src, radiochannels[ch_name],  RADIO_CHAT)
 
 /obj/item/device/radio/attack_self(mob/user as mob)
@@ -515,7 +515,7 @@ var/global/list/default_medbay_channels = list(
 	else
 		var/accept = (freq==frequency && listening)
 		if (!accept)
-			for (var/ch_name in channels)
+			for(var/ch_name in channels)
 				var/datum/radio_frequency/RF = secure_radio_connections[ch_name]
 				if (RF.frequency==freq && (channels[ch_name]&FREQ_LISTENING))
 					accept = 1
@@ -560,7 +560,7 @@ var/global/list/default_medbay_channels = list(
 /obj/item/device/radio/emp_act(severity)
 	broadcasting = 0
 	listening = 0
-	for (var/ch_name in channels)
+	for(var/ch_name in channels)
 		channels[ch_name] = 0
 	..()
 
@@ -654,7 +654,7 @@ var/global/list/default_medbay_channels = list(
 		if(keyslot.syndie)
 			src.syndie = 1
 
-	for (var/ch_name in src.channels)
+	for(var/ch_name in src.channels)
 		if(!radio_controller)
 			sleep(30) // Waiting for the radio_controller to be created.
 		if(!radio_controller)
@@ -732,12 +732,12 @@ var/global/list/default_medbay_channels = list(
 
 /obj/item/device/radio/proc/config(op)
 	if(radio_controller)
-		for (var/ch_name in channels)
+		for(var/ch_name in channels)
 			radio_controller.remove_object(src, radiochannels[ch_name])
 	secure_radio_connections = new
 	channels = op
 	if(radio_controller)
-		for (var/ch_name in op)
+		for(var/ch_name in op)
 			secure_radio_connections[ch_name] = radio_controller.add_object(src, radiochannels[ch_name],  RADIO_CHAT)
 	return
 

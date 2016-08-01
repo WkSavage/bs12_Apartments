@@ -9,7 +9,7 @@
 
 /datum/event/pda_spam/proc/pick_message_server()
 	if(message_servers)
-		for (var/obj/machinery/message_server/MS in message_servers)
+		for(var/obj/machinery/message_server/MS in message_servers)
 			if(MS.active)
 				useMS = MS
 				break
@@ -106,7 +106,7 @@
 
 			if (!P.message_silent)
 				playsound(P.loc, 'sound/machines/twobeep.ogg', 50, 1)
-			for (var/mob/O in hearers(3, P.loc))
+			for(var/mob/O in hearers(3, P.loc))
 				if(!P.message_silent) O.show_message(text("\icon[P] *[P.ttone]*"))
 			//Search for holder of the PDA.
 			var/mob/living/L = null

@@ -1006,7 +1006,7 @@
 
 	if (BITTEST(hud_updateflag, STATUS_HUD))
 		var/foundVirus = 0
-		for (var/ID in virus2)
+		for(var/ID in virus2)
 			if (ID in virusDB)
 				foundVirus = 1
 				break
@@ -1067,7 +1067,7 @@
 
 		for(var/datum/data/record/E in data_core.general)
 			if(E.fields["name"] == perpname)
-				for (var/datum/data/record/R in data_core.security)
+				for(var/datum/data/record/R in data_core.security)
 					if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "*Arrest*"))
 						holder.icon_state = "hudwanted"
 						break

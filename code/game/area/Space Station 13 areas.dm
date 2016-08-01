@@ -12,8 +12,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 */
 
-
-
 /area
 	var/fire = null
 	var/atmos = 1
@@ -33,7 +31,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 	var/debug = 0
 	var/requires_power = 1
-	var/always_unpowered = 0	//this gets overriden to 1 for space in area/New()
+	var/always_unpowered = 0 // this gets overriden to 1 for space in area/New()
 
 	var/power_equip = 1
 	var/power_light = 1
@@ -45,16 +43,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/has_gravity = 1
 	var/obj/machinery/power/apc/apc = null
 	var/no_air = null
-//	var/list/lights				// list of all lights on this area
-	var/list/all_doors = list()		//Added by Strumpetplaya - Alarm Change - Contains a list of doors adjacent to this area
+	var/list/all_doors = list() // added by Strumpetplaya - Alarm Change - Contains a list of doors adjacent to this area
 	var/air_doors_activated = 0
 	var/list/ambience = list('sound/ambience/ambigen1.ogg','sound/ambience/ambigen3.ogg','sound/ambience/ambigen4.ogg','sound/ambience/ambigen5.ogg','sound/ambience/ambigen6.ogg','sound/ambience/ambigen7.ogg','sound/ambience/ambigen8.ogg','sound/ambience/ambigen9.ogg','sound/ambience/ambigen10.ogg','sound/ambience/ambigen11.ogg','sound/ambience/ambigen12.ogg','sound/ambience/ambigen14.ogg')
 	var/list/forced_ambience = null
 	var/sound_env = STANDARD_STATION
-	var/turf/base_turf //The base turf type of the area, which can be used to override the z-level's base turf
+	var/turf/base_turf // the base turf type of the area, which can be used to override the z-level's base turf
 
-/*Adding a wizard area teleport list because motherfucking lag -- Urist*/
-/*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
 var/list/teleportlocs = list()
 var/list/ghostteleportlocs = list()
 
@@ -366,20 +361,6 @@ area/space/atmosalert()
 	name = "\improper Moon - Artifact"
 	icon_state = "cave"
 	sound_env = SMALL_ENCLOSED
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /area/planet/clown
 	name = "\improper Clown Planet"
@@ -2632,9 +2613,6 @@ var/list/centcom_areas = list (
 			sound_delay = rand(0, 50)
 
 		for(var/mob/living/carbon/human/H in src)
-//			if(H.s_tone > -55)	//ugh...nice/novel idea but please no.
-//				H.s_tone--
-//				H.update_body()
 			if(H.client)
 				mysound.status = SOUND_UPDATE
 				H << mysound

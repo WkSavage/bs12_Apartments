@@ -311,7 +311,7 @@
 			src.syndie = 1
 
 
-	for (var/ch_name in channels)
+	for(var/ch_name in channels)
 		if(!radio_controller)
 			sleep(30) // Waiting for the radio_controller to be created.
 		if(!radio_controller)

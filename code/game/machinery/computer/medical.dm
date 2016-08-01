@@ -119,7 +119,7 @@
 							continue
 						dat += "<br><a href='?src=\ref[src];vir=[Dt]'>[Dis.name]</a>"
 					*/
-					for (var/ID in virusDB)
+					for(var/ID in virusDB)
 						var/datum/data/record/v = virusDB[ID]
 						dat += "<br><a href='?src=\ref[src];vir=\ref[v]'>[v.fields["name"]]</a>"
 

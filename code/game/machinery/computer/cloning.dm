@@ -154,7 +154,7 @@
 				dat += "Lock status: <a href='byond://?src=\ref[src];lock=1'>[src.scanner.locked ? "Locked" : "Unlocked"]</a><br>"
 
 			if (pods.len)
-				for (var/obj/machinery/clonepod/pod in pods)
+				for(var/obj/machinery/clonepod/pod in pods)
 					dat += "[pod] biomass: <i>[pod.biomass]</i><br>"
 
 			// Database

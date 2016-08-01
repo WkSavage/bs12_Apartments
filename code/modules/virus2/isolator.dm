@@ -66,7 +66,7 @@
 				var/list/pathogen_pool[0]
 				for(var/datum/reagent/blood/B in sample.reagents.reagent_list)
 					var/list/virus = B.data["virus2"]
-					for (var/ID in virus)
+					for(var/ID in virus)
 						var/datum/disease2/disease/V = virus[ID]
 						var/datum/data/record/R = null
 						if (ID in virusDB)
@@ -86,7 +86,7 @@
 
 		if (LIST)
 			var/list/db[0]
-			for (var/ID in virusDB)
+			for(var/ID in virusDB)
 				var/datum/data/record/r = virusDB[ID]
 				db.Add(list(list("name" = r.fields["name"], "record" = "\ref[r]")))
 
@@ -192,7 +192,7 @@
 				var/list/virus = B.data["virus2"]
 				P.info += "<u>Pathogens:</u> <br>"
 				if (virus.len > 0)
-					for (var/ID in virus)
+					for(var/ID in virus)
 						var/datum/disease2/disease/V = virus[ID]
 						P.info += "[V.name()]<br>"
 				else
@@ -210,7 +210,7 @@
 "}
 
 			var/i = 0
-			for (var/ID in virusDB)
+			for(var/ID in virusDB)
 				i++
 				var/datum/data/record/r = virusDB[ID]
 				P.info += "[i]. " + r.fields["name"]

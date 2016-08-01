@@ -91,7 +91,7 @@
 				max_multiplier = min(max_multiplier, round(R.max_res_amount/R.res_amount))
 				t1 += " |"
 				var/list/multipliers = list(5,10,25)
-				for (var/n in multipliers)
+				for(var/n in multipliers)
 					if (max_multiplier>=n)
 						t1 += " <A href='?src=\ref[src];make=[i];multiplier=[n]'>[n*R.res_amount]x</A>"
 				if (!(max_multiplier in multipliers))
@@ -141,7 +141,7 @@
 			S.add_to_stacks(user)
 
 		if (istype(O, /obj/item/weapon/storage)) //BubbleWrap - so newly formed boxes are empty
-			for (var/obj/item/I in O)
+			for(var/obj/item/I in O)
 				qdel(I)
 
 /obj/item/stack/Topic(href, href_list)
@@ -287,7 +287,7 @@
 	return max_amount
 
 /obj/item/stack/proc/add_to_stacks(mob/user as mob)
-	for (var/obj/item/stack/item in user.loc)
+	for(var/obj/item/stack/item in user.loc)
 		if (item==src)
 			continue
 		var/transfer = src.transfer_to(item)

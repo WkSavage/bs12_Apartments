@@ -93,7 +93,7 @@
 	data["manual_control"] = manual_control
 
 	var/list/locations[0]
-	for (var/datum/data/record/R in known_sectors)
+	for(var/datum/data/record/R in known_sectors)
 		var/list/rdata[0]
 		rdata["name"] = R.fields["name"]
 		rdata["x"] = R.fields["x"]

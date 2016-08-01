@@ -199,7 +199,7 @@ var/global/list/string_slot_flags = list(
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()
 
-	for (var/reaction in chemical_reactions_list)
+	for(var/reaction in chemical_reactions_list)
 		. += "chemical_reactions_list\[\"[reaction]\"\] = \"[chemical_reactions_list[reaction]]\"\n"
 		if(islist(chemical_reactions_list[reaction]))
 			var/list/L = chemical_reactions_list[reaction]

@@ -13,9 +13,7 @@
 	active_power_usage = 15000
 
 /obj/machinery/bluespacerelay/process()
-
 	update_power()
-
 	update_icon()
 
 
@@ -34,8 +32,8 @@
 	component_parts += new /obj/item/weapon/stock_parts/subspace/filter(src)
 	component_parts += new /obj/item/weapon/stock_parts/subspace/crystal(src)
 	component_parts += new /obj/item/stack/cable_coil(src, 30)
-/obj/machinery/bluespacerelay/proc/update_power()
 
+/obj/machinery/bluespacerelay/proc/update_power()
 	if(stat & (BROKEN|NOPOWER|EMPED))
 		on = 0
 	else

@@ -160,7 +160,7 @@ proc/initialize_unit_tests()
 
 	var/end_unit_tests = world.time + MAX_UNIT_TEST_RUN_TIME
 
-	for (var/test in test_datums)
+	for(var/test in test_datums)
 		var/datum/unit_test/d = new test()
 
 		if(d.disabled && skip_disabled_tests)

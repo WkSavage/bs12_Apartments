@@ -225,7 +225,7 @@ var/list/datum/power/changeling/powerinstances = list()
 
 						var maintable_data = document.getElementById('maintable_data');
 						var ltr = maintable_data.getElementsByTagName("tr");
-						for ( var i = 0; i < ltr.length; ++i )
+						for( var i = 0; i < ltr.length; ++i )
 						{
 							try{
 								var tr = ltr\[i\];
@@ -475,7 +475,7 @@ var/list/datum/power/changeling/powerinstances = list()
 	var/datum/power/changeling/Thepower = Pname
 
 
-	for (var/datum/power/changeling/P in powerinstances)
+	for(var/datum/power/changeling/P in powerinstances)
 		//world << "[P] - [Pname] = [P.name == Pname ? "True" : "False"]"
 		if(P.name == Pname)
 			Thepower = P

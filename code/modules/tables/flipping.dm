@@ -77,7 +77,7 @@
 	verbs +=/obj/structure/table/proc/do_put
 
 	var/list/targets = list(get_step(src,dir),get_step(src,turn(dir, 45)),get_step(src,turn(dir, -45)))
-	for (var/atom/movable/A in get_turf(src))
+	for(var/atom/movable/A in get_turf(src))
 		if (!A.anchored)
 			spawn(0)
 				A.throw_at(pick(targets),1,1)

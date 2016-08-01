@@ -164,7 +164,7 @@
 	if (amount > 0)
 		if (prob(mut_prob))
 			var/list/obj/item/organ/external/candidates = list()
-			for (var/obj/item/organ/external/O in organs)
+			for(var/obj/item/organ/external/O in organs)
 				if(!(O.status & ORGAN_MUTATED))
 					candidates |= O
 			if (candidates.len)
@@ -174,14 +174,14 @@
 				return
 	else
 		if (prob(heal_prob))
-			for (var/obj/item/organ/external/O in organs)
+			for(var/obj/item/organ/external/O in organs)
 				if (O.status & ORGAN_MUTATED)
 					O.unmutate()
 					src << "<span class = 'notice'>Your [O.name] is shaped normally again.</span>"
 					return
 
 	if (getCloneLoss() < 1)
-		for (var/obj/item/organ/external/O in organs)
+		for(var/obj/item/organ/external/O in organs)
 			if (O.status & ORGAN_MUTATED)
 				O.unmutate()
 				src << "<span class = 'notice'>Your [O.name] is shaped normally again.</span>"

@@ -34,7 +34,7 @@
 			return
 
 	var/list/names = list()
-	for (var/V in O.vars)
+	for(var/V in O.vars)
 		names += V
 
 	names = sortList(names)

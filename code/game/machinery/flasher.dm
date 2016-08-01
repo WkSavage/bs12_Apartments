@@ -74,7 +74,7 @@
 	src.last_flash = world.time
 	use_power(1500)
 
-	for (var/mob/O in viewers(src, null))
+	for(var/mob/O in viewers(src, null))
 		if (get_dist(src, O) > src.range)
 			continue
 

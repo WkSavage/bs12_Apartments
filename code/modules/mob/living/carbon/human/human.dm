@@ -383,9 +383,9 @@
 				perpname = name
 
 			if(perpname)
-				for (var/datum/data/record/E in data_core.general)
+				for(var/datum/data/record/E in data_core.general)
 					if (E.fields["name"] == perpname)
-						for (var/datum/data/record/R in data_core.security)
+						for(var/datum/data/record/R in data_core.security)
 							if (R.fields["id"] == E.fields["id"])
 
 								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Parolled", "Released", "Cancel")
@@ -420,9 +420,9 @@
 					perpname = tempPda.owner
 			else
 				perpname = src.name
-			for (var/datum/data/record/E in data_core.general)
+			for(var/datum/data/record/E in data_core.general)
 				if (E.fields["name"] == perpname)
-					for (var/datum/data/record/R in data_core.security)
+					for(var/datum/data/record/R in data_core.security)
 						if (R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"security"))
 								usr << "<b>Name:</b> [R.fields["name"]]	<b>Criminal Status:</b> [R.fields["criminal"]]"
@@ -450,9 +450,9 @@
 					perpname = tempPda.owner
 			else
 				perpname = src.name
-			for (var/datum/data/record/E in data_core.general)
+			for(var/datum/data/record/E in data_core.general)
 				if (E.fields["name"] == perpname)
-					for (var/datum/data/record/R in data_core.security)
+					for(var/datum/data/record/R in data_core.security)
 						if (R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"security"))
 								read = 1
@@ -478,9 +478,9 @@
 					perpname = tempPda.owner
 			else
 				perpname = src.name
-			for (var/datum/data/record/E in data_core.general)
+			for(var/datum/data/record/E in data_core.general)
 				if (E.fields["name"] == perpname)
-					for (var/datum/data/record/R in data_core.security)
+					for(var/datum/data/record/R in data_core.security)
 						if (R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"security"))
 								var/t1 = sanitize(input("Add Comment:", "Sec. records", null, null)  as message)
@@ -510,9 +510,9 @@
 			else
 				perpname = src.name
 
-			for (var/datum/data/record/E in data_core.general)
+			for(var/datum/data/record/E in data_core.general)
 				if (E.fields["name"] == perpname)
-					for (var/datum/data/record/R in data_core.general)
+					for(var/datum/data/record/R in data_core.general)
 						if (R.fields["id"] == E.fields["id"])
 
 							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel")
@@ -548,9 +548,9 @@
 					perpname = tempPda.owner
 			else
 				perpname = src.name
-			for (var/datum/data/record/E in data_core.general)
+			for(var/datum/data/record/E in data_core.general)
 				if (E.fields["name"] == perpname)
-					for (var/datum/data/record/R in data_core.medical)
+					for(var/datum/data/record/R in data_core.medical)
 						if (R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"medical"))
 								usr << "<b>Name:</b> [R.fields["name"]]	<b>Blood Type:</b> [R.fields["b_type"]]"
@@ -579,9 +579,9 @@
 					perpname = tempPda.owner
 			else
 				perpname = src.name
-			for (var/datum/data/record/E in data_core.general)
+			for(var/datum/data/record/E in data_core.general)
 				if (E.fields["name"] == perpname)
-					for (var/datum/data/record/R in data_core.medical)
+					for(var/datum/data/record/R in data_core.medical)
 						if (R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"medical"))
 								read = 1
@@ -607,9 +607,9 @@
 					perpname = tempPda.owner
 			else
 				perpname = src.name
-			for (var/datum/data/record/E in data_core.general)
+			for(var/datum/data/record/E in data_core.general)
 				if (E.fields["name"] == perpname)
-					for (var/datum/data/record/R in data_core.medical)
+					for(var/datum/data/record/R in data_core.medical)
 						if (R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"medical"))
 								var/t1 = sanitize(input("Add Comment:", "Med. records", null, null)  as message)
@@ -924,7 +924,7 @@
 	species.create_organs(src)
 
 	if(!client || !key) //Don't boot out anyone already in the mob.
-		for (var/obj/item/organ/brain/H in world)
+		for(var/obj/item/organ/brain/H in world)
 			if(H.brainmob)
 				if(H.brainmob.real_name == src.real_name)
 					if(H.brainmob.mind)
@@ -932,7 +932,7 @@
 						qdel(H)
 
 
-	for (var/ID in virus2)
+	for(var/ID in virus2)
 		var/datum/disease2/disease/V = virus2[ID]
 		V.cure(src)
 
@@ -1192,7 +1192,7 @@
 		return
 
 	var/num_doodles = 0
-	for (var/obj/effect/decal/cleanable/blood/writing/W in T)
+	for(var/obj/effect/decal/cleanable/blood/writing/W in T)
 		num_doodles++
 	if (num_doodles > 4)
 		src << "<span class='warning'>There is no space to write on!</span>"
@@ -1269,7 +1269,7 @@
 			feet_exposed = 0
 
 	flavor_text = ""
-	for (var/T in flavor_texts)
+	for(var/T in flavor_texts)
 		if(flavor_texts[T] && flavor_texts[T] != "")
 			if((T == "general") || (T == "head" && head_exposed) || (T == "face" && face_exposed) || (T == "eyes" && eyes_exposed) || (T == "torso" && torso_exposed) || (T == "arms" && arms_exposed) || (T == "hands" && hands_exposed) || (T == "legs" && legs_exposed) || (T == "feet" && feet_exposed))
 				flavor_text += flavor_texts[T]

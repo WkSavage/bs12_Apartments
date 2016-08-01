@@ -114,13 +114,13 @@ proc/listclearnulls(list/list)
 /proc/pickweight(list/L)
 	var/total = 0
 	var/item
-	for (item in L)
+	for(item in L)
 		if (!L[item])
 			L[item] = 1
 		total += L[item]
 
 	total = rand(1, total)
-	for (item in L)
+	for(item in L)
 		total -=L [item]
 		if (total <= 0)
 			return item
@@ -486,7 +486,7 @@ proc/dd_sortedObjectList(list/incoming)
 	var/list/list_bottom
 
 	var/current_sort_object
-	for (current_sort_object in incoming)
+	for(current_sort_object in incoming)
 		low_index = 1
 		high_index = sorted_list.len
 		while (low_index <= high_index)
@@ -542,7 +542,7 @@ proc/dd_sortedtextlist(list/incoming, case_sensitive = 0)
 	var/sort_result
 
 	var/current_sort_text
-	for (current_sort_text in incoming)
+	for(current_sort_text in incoming)
 		low_index = 1
 		high_index = sorted_text.len
 		while (low_index <= high_index)

@@ -893,7 +893,7 @@ About the new airlock wires panel:
 	stat |= BROKEN
 	if (secured_wires)
 		lock()
-	for (var/mob/O in viewers(src, null))
+	for(var/mob/O in viewers(src, null))
 		if ((O.client && !( O.blinded )))
 			O.show_message("[src.name]'s control panel bursts open, sparks spewing out!")
 
@@ -1039,7 +1039,7 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/initialize()
 	if(src.closeOtherId != null)
-		for (var/obj/machinery/door/airlock/A in world)
+		for(var/obj/machinery/door/airlock/A in world)
 			if(A.closeOtherId == src.closeOtherId && A != src)
 				src.closeOther = A
 				break

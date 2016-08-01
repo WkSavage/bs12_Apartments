@@ -96,7 +96,7 @@
 			occupant.buckled = src
 			if (occupant && (src.loc != occupant.loc))
 				if (propelled)
-					for (var/mob/O in src.loc)
+					for(var/mob/O in src.loc)
 						if (O != occupant)
 							Bump(O)
 				else

@@ -104,7 +104,7 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 
 /obj/machinery/message_server/proc/send_pda_message(var/recipient = "",var/sender = "",var/message = "")
 	var/result
-	for (var/token in spamfilter)
+	for(var/token in spamfilter)
 		if (findtextEx(message,token))
 			message = "<font color=\"red\">[message]</font>"	//Rejected messages will be indicated by red color.
 			result = token										//Token caused rejection (if there are multiple, last will be chosen>.
@@ -118,7 +118,7 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 		authmsg += "[id_auth]<br>"
 	if (stamp)
 		authmsg += "[stamp]<br>"
-	for (var/obj/machinery/requests_console/Console in allConsoles)
+	for(var/obj/machinery/requests_console/Console in allConsoles)
 		if (ckey(Console.department) == ckey(recipient))
 			if(Console.inoperable())
 				Console.message_log += "<B>Message lost due to console failure.</B><BR>Please contact [station_name()] system administrator or AI for technical assistance.<BR>"

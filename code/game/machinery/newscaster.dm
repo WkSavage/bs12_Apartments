@@ -102,7 +102,7 @@
 		NEWSCASTER.update_icon()
 
 	var/list/receiving_pdas = new
-	for (var/obj/item/device/pda/P in PDAs)
+	for(var/obj/item/device/pda/P in PDAs)
 		if (!P.owner)
 			continue
 		if (P.toff)
@@ -712,25 +712,25 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 /obj/machinery/newscaster/attackby(obj/item/I as obj, mob/user as mob)
 	if (stat & BROKEN)
 		playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 100, 1)
-		for (var/mob/O in hearers(5, src.loc))
+		for(var/mob/O in hearers(5, src.loc))
 			O.show_message("<EM>[user.name]</EM> further abuses the shattered [src.name].")
 	else
 		if(istype(I, /obj/item/weapon) )
 			user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
 			var/obj/item/weapon/W = I
 			if(W.force <15)
-				for (var/mob/O in hearers(5, src.loc))
+				for(var/mob/O in hearers(5, src.loc))
 					O.show_message("[user.name] hits the [src.name] with the [W.name] with no visible effect." )
 					playsound(src.loc, 'sound/effects/Glasshit.ogg', 100, 1)
 			else
 				src.hitstaken++
 				if(hitstaken==3)
-					for (var/mob/O in hearers(5, src.loc))
+					for(var/mob/O in hearers(5, src.loc))
 						O.show_message("[user.name] smashes the [src.name]!" )
 					stat |= BROKEN
 					playsound(src.loc, 'sound/effects/Glassbr3.ogg', 100, 1)
 				else
-					for (var/mob/O in hearers(5, src.loc))
+					for(var/mob/O in hearers(5, src.loc))
 						O.show_message("[user.name] forcefully slams the [src.name] with the [I.name]!" )
 					playsound(src.loc, 'sound/effects/Glasshit.ogg', 100, 1)
 		else

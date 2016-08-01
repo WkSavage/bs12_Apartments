@@ -343,10 +343,10 @@ nanoui is used to open and update nano browser uis
 
 	var/head_content = ""
 
-	for (var/filename in scripts)
+	for(var/filename in scripts)
 		head_content += "<script type='text/javascript' src='[filename]'></script> "
 
-	for (var/filename in stylesheets)
+	for(var/filename in stylesheets)
 		head_content += "<link rel='stylesheet' type='text/css' href='[filename]'> "
 
 	var/template_data_json = "{}" // An empty JSON object

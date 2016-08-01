@@ -255,7 +255,7 @@
 			mobs += AM
 			hearturfs += AM.locs[1]
 		else if(isobj(AM))
-			objs += AM 
+			objs += AM
 			hearturfs += AM.locs[1]
 
 
@@ -266,7 +266,7 @@
 		if(M.loc && M.locs[1] in hearturfs)
 			mobs |= M
 
-	
+
 
 	for(var/obj/O in listening_objects)
 		if(O && O.loc && O.locs[1] in hearturfs)
@@ -457,7 +457,7 @@ datum/projectile_data
 	var/list/greens = list()
 	var/list/weights = list()
 
-	for (var/i = 0, ++i <= colors.len)
+	for(var/i = 0, ++i <= colors.len)
 		reds.Add(GetRedPart(colors[i]))
 		blues.Add(GetBluePart(colors[i]))
 		greens.Add(GetGreenPart(colors[i]))

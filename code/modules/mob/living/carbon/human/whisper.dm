@@ -78,7 +78,7 @@
 	listening |= src
 
 	//ghosts
-	for (var/mob/M in dead_mob_list_)	//does this include players who joined as observers as well?
+	for(var/mob/M in dead_mob_list_)	//does this include players who joined as observers as well?
 		if (!(M.client))
 			continue
 		if(M.stat == DEAD && M.is_preference_enabled(/datum/client_preference/ghost_ears))
@@ -91,7 +91,7 @@
 				listening += C
 
 	//pass on the message to objects that can hear us.
-	for (var/obj/O in view(message_range, src))
+	for(var/obj/O in view(message_range, src))
 		spawn (0)
 			if (O)
 				O.hear_talk(src, message, verb, speaking)
@@ -122,5 +122,5 @@
 
 	if (watching.len)
 		var/rendered = "<span class='game say'><span class='name'>[src.name]</span> [not_heard].</span>"
-		for (var/mob/M in watching)
+		for(var/mob/M in watching)
 			M.show_message(rendered, 2)

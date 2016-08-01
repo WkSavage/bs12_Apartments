@@ -170,7 +170,7 @@
 	data["view"] = current_view
 
 	var/channels[0]
-	for (var/ch_name in owner.law_channels())
+	for(var/ch_name in owner.law_channels())
 		channels[++channels.len] = list("channel" = ch_name)
 	data["channel"] = owner.lawchannel
 	data["channels"] = channels

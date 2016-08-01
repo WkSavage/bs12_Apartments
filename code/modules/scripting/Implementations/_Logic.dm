@@ -274,7 +274,7 @@ proc/n_inrange(var/num, var/min=-1, var/max=1)
 		//var/nlen = lenh + ((lenb - lena) * count)
 		var/buf = copytext(haystack,1,dat[1]) // Prefill
 		var/lastReadPos = 0
-		for (i = 1, i <= count, i++)
+		for(i = 1, i <= count, i++)
 			var/precopy = dat[i] - lastReadPos-1
 			//internal static unsafe void CharCopy (String target, int targetIndex, String source, int sourceIndex, int count)
 			//fixed (char* dest = target, src = source)

@@ -246,14 +246,14 @@
 		return
 
 	var/turf/T
-	for (var/x_offset = -field_radius; x_offset <= field_radius; x_offset++)
+	for(var/x_offset = -field_radius; x_offset <= field_radius; x_offset++)
 		T = locate(gen_turf.x + x_offset, gen_turf.y - field_radius, gen_turf.z)
 		if (T) out += T
 
 		T = locate(gen_turf.x + x_offset, gen_turf.y + field_radius, gen_turf.z)
 		if (T) out += T
 
-	for (var/y_offset = -field_radius+1; y_offset < field_radius; y_offset++)
+	for(var/y_offset = -field_radius+1; y_offset < field_radius; y_offset++)
 		T = locate(gen_turf.x - field_radius, gen_turf.y + y_offset, gen_turf.z)
 		if (T) out += T
 

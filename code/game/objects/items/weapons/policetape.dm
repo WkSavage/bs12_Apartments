@@ -333,14 +333,14 @@ var/list/tape_roll_applications = list()
 		dirs += EAST
 
 	var/list/obj/item/tape/tapeline = list()
-	for (var/obj/item/tape/T in get_turf(src))
+	for(var/obj/item/tape/T in get_turf(src))
 		tapeline += T
 	for(var/dir in dirs)
 		var/turf/cur = get_step(src, dir)
 		var/not_found = 0
 		while (!not_found)
 			not_found = 1
-			for (var/obj/item/tape/T in cur)
+			for(var/obj/item/tape/T in cur)
 				tapeline += T
 				not_found = 0
 			cur = get_step(cur, dir)
@@ -355,7 +355,7 @@ var/list/tape_roll_applications = list()
 		return
 	user.show_viewers("<span class='notice'>\The [user] breaks \the [src]!</span>")
 
-	for (var/obj/item/tape/T in gettapeline())
+	for(var/obj/item/tape/T in gettapeline())
 		if(T == src)
 			continue
 		if(T.tape_dir & get_dir(T, src))

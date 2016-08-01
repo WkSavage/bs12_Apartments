@@ -335,7 +335,7 @@
 
 	else
 		var/mob/living/carbon/slime/frenemy
-		for (var/mob/living/carbon/slime/S in view(1, src))
+		for(var/mob/living/carbon/slime/S in view(1, src))
 			if (S != src)
 				frenemy = S
 		if (frenemy && prob(1))
@@ -452,7 +452,7 @@
 		var/slimes_near = -1 // Don't count myself
 		var/dead_slimes = 0
 		var/friends_near = list()
-		for (var/mob/living/carbon/M in view(7,src))
+		for(var/mob/living/carbon/M in view(7,src))
 			if (isslime(M))
 				++slimes_near
 				if (M.stat == DEAD)
@@ -505,7 +505,7 @@
 			if (dead_slimes) phrases += "What happened?"
 			if (!slimes_near)
 				phrases += "Lonely..."
-			for (var/M in friends_near)
+			for(var/M in friends_near)
 				phrases += "[M]... friend..."
 				if (nutrition < get_hunger_nutrition())
 					phrases += "[M]... feed me..."

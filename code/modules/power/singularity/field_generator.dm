@@ -203,7 +203,7 @@ field_generator power level display
 	for(var/obj/machinery/field_generator/FG in connected_gens)
 		if (!isnull(FG))
 			power_draw += gen_power_draw
-	for (var/obj/machinery/containment_field/F in fields)
+	for(var/obj/machinery/containment_field/F in fields)
 		if (!isnull(F))
 			power_draw += field_power_draw
 	power_draw /= 2	//because this will be mirrored for both generators
@@ -311,7 +311,7 @@ field_generator power level display
 
 /obj/machinery/field_generator/proc/cleanup()
 	clean_up = 1
-	for (var/obj/machinery/containment_field/F in fields)
+	for(var/obj/machinery/containment_field/F in fields)
 		if (isnull(F))
 			continue
 		qdel(F)

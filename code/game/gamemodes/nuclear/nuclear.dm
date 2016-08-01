@@ -21,7 +21,8 @@ var/list/nuke_disks = list()
 
 //checks if L has a nuke disk on their person
 /datum/game_mode/nuclear/proc/check_mob(mob/living/L)
-	for(var/obj/item/weapon/disk/nuclear/N in nuke_disks)
+	for(var/nuclear in nuke_disks)
+		var/obj/item/weapon/disk/nuclear/N = nuclear
 		if(N.storage_depth(L) >= 0)
 			return 1
 	return 0

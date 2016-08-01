@@ -17,7 +17,7 @@
 	var/amt_phoron = 0
 	var/amt_uranium = 0
 
-	for (var/obj/item/weapon/coin/C in contents)
+	for(var/obj/item/weapon/coin/C in contents)
 		if (istype(C,/obj/item/weapon/coin/diamond))
 			amt_diamond++;
 		if (istype(C,/obj/item/weapon/coin/phoron))
@@ -55,7 +55,7 @@
 		contents += C
 	if (istype(W, /obj/item/weapon/moneybag))
 		var/obj/item/weapon/moneybag/C = W
-		for (var/obj/O in C.contents)
+		for(var/obj/O in C.contents)
 			contents += O;
 		user << "\blue You empty the [C.name] into the bag."
 	return

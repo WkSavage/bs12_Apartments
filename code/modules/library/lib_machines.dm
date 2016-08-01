@@ -247,7 +247,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 		var/obj/item/weapon/barcodescanner/scanner = W
 		scanner.computer = src
 		user << "[scanner]'s associated machine has been set to [src]."
-		for (var/mob/V in hearers(src))
+		for(var/mob/V in hearers(src))
 			V.show_message("[src] lets out a low, short blip.", 2)
 	else
 		..()
@@ -287,7 +287,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 						bibledelay = 0
 
 				else
-					for (var/mob/V in hearers(src))
+					for(var/mob/V in hearers(src))
 						V.show_message("<b>[src]</b>'s monitor flashes, \"Bible printer currently unavailable, please wait a moment.\"")
 
 			if("7")
@@ -363,7 +363,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 		if(!dbcon_old.IsConnected())
 			alert("Connection to Archive has been severed. Aborting.")
 		if(bibledelay)
-			for (var/mob/V in hearers(src))
+			for(var/mob/V in hearers(src))
 				V.show_message("<b>[src]</b>'s monitor flashes, \"Printer unavailable. Please allow a short time before attempting to print.\"")
 		else
 			bibledelay = 1

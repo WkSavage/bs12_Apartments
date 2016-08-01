@@ -7,7 +7,7 @@ proc/create_random_zlevel()
 	var/list/Lines = file2list("maps/RandomZLevels/fileList.txt")
 	if(!Lines.len)
 		return
-	for (var/t in Lines)
+	for(var/t in Lines)
 		if (!t)
 			continue
 

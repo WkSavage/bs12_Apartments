@@ -430,7 +430,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		var/convopdas[0]
 		var/pdas[0]
 		var/count = 0
-		for (var/obj/item/device/pda/P in PDAs)
+		for(var/obj/item/device/pda/P in PDAs)
 			if (!P.owner||P.toff||P == src||P.hidden)       continue
 			if(conversations.Find("\ref[P]"))
 				convopdas.Add(list(list("Name" = "[P]", "Reference" = "\ref[P]", "Detonate" = "[P.detonate]", "inconvo" = "1")))
@@ -1013,7 +1013,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 /obj/item/device/pda/proc/new_info(var/beep_silent, var/message_tone, var/reception_message)
 	if (!beep_silent)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
-		for (var/mob/O in hearers(2, loc))
+		for(var/mob/O in hearers(2, loc))
 			O.show_message(text("\icon[src] *[message_tone]*"))
 	//Search for holder of the PDA.
 	var/mob/living/L = null
@@ -1211,7 +1211,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		switch(scanmode)
 			if(1)
 
-				for (var/mob/O in viewers(C, null))
+				for(var/mob/O in viewers(C, null))
 					O.show_message("<span class='warning'>\The [user] has analyzed [C]'s vitals!</span>", 1)
 
 				user.show_message("<span class='notice'>Analyzing Results for [C]:</span>")
@@ -1253,7 +1253,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 							user << "<span class='notice'>Blood type: [C:blood_DNA[blood]]\nDNA: [blood]</span>"
 
 			if(4)
-				for (var/mob/O in viewers(C, null))
+				for(var/mob/O in viewers(C, null))
 					O.show_message("<span class='warning'>\The [user] has analyzed [C]'s radiation levels!</span>", 1)
 
 				user.show_message("<span class='notice'>Analyzing Results for [C]:</span>")
@@ -1273,7 +1273,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				if(A.reagents.reagent_list.len > 0)
 					var/reagents_length = A.reagents.reagent_list.len
 					user << "<span class='notice'>[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.</span>"
-					for (var/re in A.reagents.reagent_list)
+					for(var/re in A.reagents.reagent_list)
 						user << "<span class='notice'>    [re]</span>"
 				else
 					user << "<span class='notice'>No active chemical agents found in [A].</span>"
@@ -1365,7 +1365,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		usr << "Turn on your receiver in order to send messages."
 		return
 
-	for (var/obj/item/device/pda/P in PDAs)
+	for(var/obj/item/device/pda/P in PDAs)
 		if (!P.owner)
 			continue
 		else if(P.hidden)

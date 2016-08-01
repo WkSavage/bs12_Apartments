@@ -143,7 +143,7 @@
 	src << "<font color=green><b>Communication circuit overload. Shutting down and reloading communication circuits - speech and messaging functionality will be unavailable until the reboot is complete.</b></font>"
 	if(prob(20))
 		var/turf/T = get_turf_or_move(src.loc)
-		for (var/mob/M in viewers(T))
+		for(var/mob/M in viewers(T))
 			M.show_message("\red A shower of sparks spray from [src]'s inner workings.", 3, "\red You hear and smell the ozone hiss of electrical sparks being expelled violently.", 2)
 		return src.death(0)
 
@@ -211,7 +211,7 @@
 		usr << "You can't change your camera network because you are dead!"
 		return
 
-	for (var/obj/machinery/camera/C in Cameras)
+	for(var/obj/machinery/camera/C in Cameras)
 		if(!C.status)
 			continue
 		else

@@ -375,7 +375,7 @@
 			if("unemagcyborgs")
 				if (istype(current, /mob/living/silicon/ai))
 					var/mob/living/silicon/ai/ai = current
-					for (var/mob/living/silicon/robot/R in ai.connected_robots)
+					for(var/mob/living/silicon/robot/R in ai.connected_robots)
 						R.emagged = 0
 						if (R.module)
 							if (R.activated(R.module.emag))
@@ -420,7 +420,7 @@
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
-	for (var/obj/item/I in L)
+	for(var/obj/item/I in L)
 		if (I.hidden_uplink)
 			return I.hidden_uplink
 	return null

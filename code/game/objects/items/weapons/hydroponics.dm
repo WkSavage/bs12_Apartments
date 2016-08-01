@@ -34,7 +34,7 @@
 	if (istype(O, /obj/item/weapon/seedbag))
 		var/obj/item/weapon/seedbag/S = O
 		if (S.mode == 1)
-			for (var/obj/item/seeds/G in locate(src.x,src.y,src.z))
+			for(var/obj/item/seeds/G in locate(src.x,src.y,src.z))
 				if (S.contents.len < S.capacity)
 					S.contents += G;
 					if(S.item_quants[G.name])
@@ -65,7 +65,7 @@
 	if (contents.len == 0)
 		dat += "<font color = 'red'>No seeds loaded!</font>"
 	else
-		for (var/O in item_quants)
+		for(var/O in item_quants)
 			if(item_quants[O] > 0)
 				var/N = item_quants[O]
 				dat += "<FONT color = 'blue'><B>[capitalize(O)]</B>:"

@@ -83,7 +83,7 @@ var/global/list/ashtray_cache = list()
 		health = max(0,health - 3)
 		if (contents.len)
 			src.visible_message("<span class='danger'>\The [src] slams into [hit_atom], spilling its contents!</span>")
-		for (var/obj/item/clothing/mask/smokable/cigarette/O in contents)
+		for(var/obj/item/clothing/mask/smokable/cigarette/O in contents)
 			O.loc = src.loc
 		if (health < 1)
 			shatter()

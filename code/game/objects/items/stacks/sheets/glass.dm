@@ -66,7 +66,7 @@
 
 			var/list/directions = new/list(cardinal)
 			var/i = 0
-			for (var/obj/structure/window/win in user.loc)
+			for(var/obj/structure/window/win in user.loc)
 				i++
 				if(i >= 4)
 					user << "<span class='warning'>There are too many windows in this location.</span>"

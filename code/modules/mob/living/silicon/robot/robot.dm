@@ -300,10 +300,10 @@
 
 	// if we've changed our name, we also need to update the display name for our PDA
 	setup_PDA()
-	
+
 	// Synths aren't in data_core, but are on manifest. Invalidate old one so the
 	// synth shows up.
-	data_core.ResetPDAManifest() 
+	data_core.ResetPDAManifest()
 
 	//We also need to update name of internal camera.
 	if (camera)
@@ -345,7 +345,7 @@
 		return null
 
 	var/dat = "<HEAD><TITLE>[src.name] Self-Diagnosis Report</TITLE></HEAD><BODY>\n"
-	for (var/V in components)
+	for(var/V in components)
 		var/datum/robot_component/C = components[V]
 		dat += "<b>[C.name]</b><br><table><tr><td>Brute Damage:</td><td>[C.brute_damage]</td></tr><tr><td>Electronics Damage:</td><td>[C.electronics_damage]</td></tr><tr><td>Powered:</td><td>[(!C.idle_usage || C.is_powered()) ? "Yes" : "No"]</td></tr><tr><td>Toggled:</td><td>[ C.toggled ? "Yes" : "No"]</td></table><br>"
 
@@ -767,7 +767,7 @@
 	<B>Installed Modules</B><BR><BR>"}
 
 
-	for (var/obj in module.modules)
+	for(var/obj in module.modules)
 		if (!obj)
 			dat += text("<B>Resource depleted</B><BR>")
 		else if(activated(obj))

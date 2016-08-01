@@ -17,6 +17,6 @@
 
 /datum/game_mode/heist/check_finished()
 	var/datum/shuttle/multi_shuttle/skipjack = shuttle_controller.shuttles["Skipjack"]
-	if (skipjack && skipjack.returned_home)
+	if(skipjack && skipjack.returned_home)
 		return 1
 	return ..()

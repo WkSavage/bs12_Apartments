@@ -675,7 +675,7 @@
 		src.check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 		playsound(src.loc, 'sound/effects/blobattack.ogg', 50, 1, -1)
 		user << "<span class='danger'>You smash at the armored suit!</span>"
-		for (var/mob/V in viewers(src))
+		for(var/mob/V in viewers(src))
 			if(V.client && !(V.blinded))
 				V.show_message("<span class='danger'>\The [user] smashes against [src.name]'s armor!</span>", 1)
 	else
@@ -683,7 +683,7 @@
 		playsound(src.loc, 'sound/effects/blobattack.ogg', 50, 1, -1)
 		user << "<span class='warning'>Your attack had no effect!</span>"
 		src.occupant_message("<span class='warning'>\The [user]'s attack is stopped by the armor.</span>")
-		for (var/mob/V in viewers(src))
+		for(var/mob/V in viewers(src))
 			if(V.client && !(V.blinded))
 				V.show_message("<span class='warning'>\The [user] rebounds off the [src.name] armor!</span>", 1)
 	return
@@ -1547,7 +1547,7 @@
 	if(href_list["remove_passenger"] && state >= 1)
 		var/mob/user = filter.getMob("user")
 		var/list/passengers = list()
-		for (var/obj/item/mecha_parts/mecha_equipment/tool/passenger/P in contents)
+		for(var/obj/item/mecha_parts/mecha_equipment/tool/passenger/P in contents)
 			if (P.occupant)
 				passengers["[P.occupant]"] = P
 

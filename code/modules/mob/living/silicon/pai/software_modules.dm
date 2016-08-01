@@ -65,7 +65,7 @@
 			var/answer = input(M, "[P] is requesting a DNA sample from you. Will you allow it to confirm your identity?", "[P] Check DNA", "No") in list("Yes", "No")
 			if(answer == "Yes")
 				var/turf/T = get_turf_or_move(P.loc)
-				for (var/mob/v in viewers(T))
+				for(var/mob/v in viewers(T))
 					v.show_message("<span class='notice'>[M] presses \his thumb against [P].</span>", 3, "<span class='notice'>[P] makes a sharp clicking sound as it extracts DNA material from [M].</span>", 2)
 				var/datum/dna/dna = M.dna
 				P << "<font color = red><h3>[M]'s UE string : [dna.unique_enzymes]</h3></font>"

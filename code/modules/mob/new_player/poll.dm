@@ -253,7 +253,7 @@
 
 						output += "<br>[optiontext]: <select name='o[optionid]'>"
 						output += "<option value='abstain'>abstain</option>"
-						for (var/j = minvalue; j <= maxvalue; j++)
+						for(var/j = minvalue; j <= maxvalue; j++)
 							if(j == minvalue && descmin)
 								output += "<option value='[j]'>[j] ([descmin])</option>"
 							else if (j == midvalue && descmid)
