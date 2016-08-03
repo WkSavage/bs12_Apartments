@@ -79,3 +79,9 @@ proc/isDay(var/month, var/day)
 	last_round_duration = "[hours]:[mins]"
 	next_duration_update = world.time + 1 MINUTES
 	return last_round_duration
+
+/proc/start_watch()
+	return TimeOfGame
+
+/proc/stop_watch(wh)
+	return round(0.1 * (TimeOfGame - wh), 0.1)
