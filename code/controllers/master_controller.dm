@@ -13,11 +13,11 @@ var/global/pipe_processing_killed = 0
 var/global/initialization_stage = 0
 
 datum/controller/game_controller
-	var/list/shuttle_list	                    // For debugging and VV
+	var/list/shuttle_list // for debugging and VV
 	var/init_immediately = FALSE
 
 datum/controller/game_controller/New()
-	//There can be only one master_controller. Out with the old and in with the new.
+	// there can be only one master_controller. Out with the old and in with the new.
 	if(master_controller != src)
 		log_debug("Rebuilding Master Controller")
 		if(istype(master_controller))
@@ -30,12 +30,15 @@ datum/controller/game_controller/New()
 		job_master.LoadJobs("config/jobs.txt")
 		admin_notice("<span class='danger'>Job setup complete</span>", R_DEBUG)
 
-	if(!syndicate_code_phrase)		syndicate_code_phrase	= generate_code_phrase()
-	if(!syndicate_code_response)	syndicate_code_response	= generate_code_phrase()
+	if(!syndicate_code_phrase)
+		syndicate_code_phrase	= generate_code_phrase()
+	if(!syndicate_code_response)
+		syndicate_code_response	= generate_code_phrase()
 
 datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
 
+	log_red("Initializating master controller...")
 	spawn(20)
 		createRandomZlevel()
 
@@ -48,18 +51,11 @@ datum/controller/game_controller/proc/setup()
 	admin_notice("<span class='danger'>Initializations complete.</span>", R_DEBUG)
 	initialization_stage |= INITIALIZATION_COMPLETE
 
-#ifdef UNIT_TEST
-#define CHECK_SLEEP_MASTER // For unit tests we don't care about a smooth lobby screen experience. We care about speed.
-#else
-#define CHECK_SLEEP_MASTER if(!(initialization_stage & INITIALIZATION_NOW) && ++initialized_objects > 500) { initialized_objects=0;sleep(world.tick_lag); }
-#endif
-
 datum/controller/game_controller/proc/setup_objects()
-#ifndef UNIT_TEST
-	var/initialized_objects = 0
-#endif
-
-	// Do these first since character setup will rely on them
+	var/watch = 0
+	var/count = 0
+	var/overwatch = 0
+	overwatch = start_watch()
 
 	// Set up antagonists.
 	populate_antag_type_list()
@@ -67,30 +63,44 @@ datum/controller/game_controller/proc/setup_objects()
 	//Set up spawn points.
 	populate_spawn_points()
 
-	admin_notice("<span class='danger'>Initializing objects</span>", R_DEBUG)
+	watch = start_watch()
+	log_black("Initializing objects...")
 	for(var/atom/movable/object in world)
 		if(!deleted(object))
 			object.initialize()
-			CHECK_SLEEP_MASTER
+			count++
+	log_green("	 Initialized [count] objects in [stop_watch(watch)]s.")
 
-	admin_notice("<span class='danger'>Initializing areas</span>", R_DEBUG)
+	watch = start_watch()
+	count = 0
+	log_black("Initializing areas...")
 	for(var/area/area in all_areas)
 		area.initialize()
-		CHECK_SLEEP_MASTER
+		count++
+	log_green("	 Initialized [count] areas in [stop_watch(watch)]s.")
 
-	admin_notice("<span class='danger'>Initializing pipe networks</span>", R_DEBUG)
+	watch = start_watch()
+	count = 0
+	log_black("Initializing atmospherics machinery...")
 	for(var/obj/machinery/atmospherics/machine in machines)
 		machine.build_network()
-		CHECK_SLEEP_MASTER
+		count++
+	log_green("	 Initialized [count] pipes in [stop_watch(watch)]s.")
 
+	watch = start_watch()
+	count = 0
 	admin_notice("<span class='danger'>Initializing atmos machinery.</span>", R_DEBUG)
 	for(var/obj/machinery/atmospherics/unary/U in machines)
 		if(istype(U, /obj/machinery/atmospherics/unary/vent_pump))
 			var/obj/machinery/atmospherics/unary/vent_pump/T = U
 			T.broadcast_status()
+			count++
 		else if(istype(U, /obj/machinery/atmospherics/unary/vent_scrubber))
 			var/obj/machinery/atmospherics/unary/vent_scrubber/T = U
 			T.broadcast_status()
-		CHECK_SLEEP_MASTER
+			count++
+	log_green("	 Initialized [count] atmospherics machines in [stop_watch(watch)]s.")
 
-#undef CHECK_SLEEP_MASTER
+	log_black(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
+	log_green("Initializated all objects in [stop_watch(overwatch)]s!")
+	log_black(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ")

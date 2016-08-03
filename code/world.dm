@@ -27,7 +27,7 @@
 	cache_lifespan = 0	//stops player uploaded stuff from being kept in the rsc past the current session
 
 
-#define RECOMMENDED_VERSION 509
+#define RECOMMENDED_VERSION 510
 /world/New()
 	//logs
 	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
@@ -50,23 +50,19 @@
 		runtime_log << "Game [game_id] starting up at [time2text(world.timeofday, "hh:mm.ss")]"
 		log = runtime_log
 
+	var/watch = 0
+	watch = start_watch()
+	log_black("Initializing world hooks...")
 	callHook("startup")
-	//Emergency Fix
+	log_black("	 Initialized world hooks in [stop_watch(watch)]s.")
+
 	load_mods()
-	//end-emergency fix
 
 	src.update_status()
 
 	. = ..()
 
-#ifndef UNIT_TEST
-
 	sleep_offline = 1
-
-#else
-	log_unit_test("Unit Tests Enabled.  This will destroy the world when testing is complete.")
-	load_unit_test_changes()
-#endif
 
 	// Set up roundstart seed list.
 	plant_controller = new()
@@ -74,20 +70,19 @@
 	// This is kinda important. Set up details of what the hell things are made of.
 	populate_material_list()
 
+	watch = 0
+	watch = start_watch()
+	log_black("Generating Asteroid...")
 	if(config.generate_asteroid)
-		// These values determine the specific area that the map is applied to.
-		// If you do not use the official Baycode moonbase map, you will need to change them.
-		//Create the mining Z-level.
-		new /datum/random_map/automata/cave_system(null,1,1,5,255,255)
-		//new /datum/random_map/noise/volcanism(null,1,1,5,255,255) // Not done yet! Pretty, though.
-		// Create the mining ore distribution map.
-		new /datum/random_map/noise/ore(null, 1, 1, 5, 64, 64)
-		// Update all turfs to ensure everything looks good post-generation. Yes,
-		// it's brute-forcey, but frankly the alternative is a mine turf rewrite.
-		for(var/turf/simulated/mineral/M in world) // Ugh.
+		new/datum/random_map/automata/cave_system(null,1,1,5,255,255)
+		new/datum/random_map/noise/ore(null, 1, 1, 5, 64, 64)
+		for(var/mineral in world) // Ugh.
+			var/turf/simulated/mineral/M = mineral
 			M.updateMineralOverlays()
-		for(var/turf/simulated/floor/asteroid/M in world) // Uuuuuugh.
+		for(var/asteroid in world) // Uuuuuugh.
+			var/turf/simulated/floor/asteroid/M = asteroid
 			M.updateMineralOverlays()
+	log_black("	 generated asteroid in [stop_watch(watch)]s.")
 
 	// Create autolathe recipes, as above.
 	populate_lathe_recipes()
@@ -205,14 +200,14 @@ var/world_topic_spam_protect_time = world.timeofday
 		L["gameid"] = game_id
 		L["dm_version"] = DM_VERSION // DreamMaker version compiled in
 		L["dd_version"] = world.byond_version // DreamDaemon version running on
-		
+
 		if(revdata.revision)
 			L["revision"] = revdata.revision
 			L["branch"] = revdata.branch
 			L["date"] = revdata.date
 		else
 			L["revision"] = "unknown"
-		
+
 		return list2params(L)
 
 	else if(copytext(T,1,5) == "info")
