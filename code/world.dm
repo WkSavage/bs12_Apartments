@@ -70,10 +70,10 @@
 	// This is kinda important. Set up details of what the hell things are made of.
 	populate_material_list()
 
-	watch = 0
-	watch = start_watch()
-	log_black("Generating Asteroid...")
 	if(config.generate_asteroid)
+		watch = 0
+		watch = start_watch()
+		log_black("Generating Asteroid...")
 		new/datum/random_map/automata/cave_system(null,1,1,5,255,255)
 		new/datum/random_map/noise/ore(null, 1, 1, 5, 64, 64)
 		for(var/mineral in world) // Ugh.
@@ -82,7 +82,7 @@
 		for(var/asteroid in world) // Uuuuuugh.
 			var/turf/simulated/floor/asteroid/M = asteroid
 			M.updateMineralOverlays()
-	log_black("	 generated asteroid in [stop_watch(watch)]s.")
+		log_black("	 generated asteroid in [stop_watch(watch)]s.")
 
 	// Create autolathe recipes, as above.
 	populate_lathe_recipes()

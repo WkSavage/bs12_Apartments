@@ -278,7 +278,7 @@ var/global/datum/controller/processScheduler/processScheduler
 	lastTwenty.len++
 	lastTwenty[lastTwenty.len] = time
 
-/**
+/* * * * *
  * averageRunTime
  * returns the average run time (over the last 20) of the process
  */
@@ -355,15 +355,9 @@ var/global/datum/controller/processScheduler/processScheduler
 /datum/controller/processScheduler/proc/updateTimeAllowance()
 	// Time allowance goes down linearly with world.cpu.
 	var/tmp/error = cpuAverage - 100
-	var/tmp/timeAllowanceDelta = sign(error) * -0.5 * world.tick_lag * max(0, 0.001 * abs(error))
+	var/tmp/timeAllowanceDelta = SIMPLE_SIGN(error) * -0.5 * world.tick_lag * max(0, 0.001 * abs(error))
 
-	//timeAllowance = world.tick_lag * min(1, 0.5 * ((200/max(1,cpuAverage)) - 1))
 	timeAllowance = min(timeAllowanceMax, max(0, timeAllowance + timeAllowanceDelta))
-
-/datum/controller/processScheduler/proc/sign(var/x)
-	if (x == 0)
-		return 1
-	return x / abs(x)
 
 /datum/controller/processScheduler/proc/statProcesses()
 	if(!isRunning)
@@ -373,3 +367,6 @@ var/global/datum/controller/processScheduler/processScheduler
 	stat(null, "[round(cpuAverage, 0.1)] CPU, [round(timeAllowance, 0.1)/10] TA")
 	for(var/datum/controller/process/p in processes)
 		p.statProcess()
+
+/datum/controller/processScheduler/proc/getProcess(var/process_name)
+	return nameToProcessMap[process_name]
