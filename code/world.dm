@@ -70,6 +70,7 @@
 	// This is kinda important. Set up details of what the hell things are made of.
 	populate_material_list()
 
+/*
 	if(config.generate_asteroid)
 		watch = 0
 		watch = start_watch()
@@ -83,6 +84,7 @@
 			var/turf/simulated/floor/asteroid/M = asteroid
 			M.updateMineralOverlays()
 		log_black("	 generated asteroid in [stop_watch(watch)]s.")
+*/
 
 	// Create autolathe recipes, as above.
 	populate_lathe_recipes()
